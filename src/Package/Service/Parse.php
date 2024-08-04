@@ -1502,7 +1502,7 @@ class Parse
         $counter = 0;
 
         $cache = $object->get(App::CACHE);
-        d($input);
+        d($input['string']);
         $input = Symbol::define($object, $input, $flags, $options);
 //        $input = Value::define($object, $input, $flags, $options);
         $input = Cast::define($object, $input, $flags, $options);
