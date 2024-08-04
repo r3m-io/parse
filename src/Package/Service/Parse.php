@@ -477,9 +477,7 @@ class Parse
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
-                                            if($modifier_name === 'default1'){
-                                                ddd($argument_list);
-                                            }
+
                                             $argument_list[] = Parse::value(
                                                 $object,
                                                 [
@@ -637,15 +635,22 @@ class Parse
                                 }
                             }
                             if($argument){
-                                $argument_list[] = Parse::value(
-                                    $object,
-                                    [
-                                        'string' => $argument,
-                                        'array' => $argument_array
-                                    ],
-                                    $flags,
-                                    $options
-                                );
+                                $argument_hash = hash('sha256', $argument);
+                                if($cache->has($argument_hash)){
+                                    $argument_value = $cache->get($argument_hash);
+                                } else {
+                                    $argument_value = Parse::value(
+                                        $object,
+                                        [
+                                            'string' => $argument,
+                                            'array' => $argument_array
+                                        ],
+                                        $flags,
+                                        $options
+                                    );
+                                    $cache->set($argument_hash, $argument_value);
+                                }
+                                $argument_list[] = $argument_value;
                                 $argument = '';
                                 $argument_array = [];
                             }
@@ -666,15 +671,21 @@ class Parse
                                     'modifier' => $modifier_list,
                                 ];
                             } else {
-                                $list = Parse::value(
-                                    $object,
-                                    [
-                                        'string' => $after,
-                                        'array' => $after_array
-                                    ],
-                                    $flags,
-                                    $options
-                                );
+                                $after_hash = hash('sha256', $after);
+                                if($cache->has($after_hash)){
+                                    $list = $cache->get($after_hash);
+                                } else {
+                                    $list = Parse::value(
+                                        $object,
+                                        [
+                                            'string' => $after,
+                                            'array' => $after_array
+                                        ],
+                                        $flags,
+                                        $options
+                                    );
+                                    $cache->set($after_hash, $list);
+                                }
                                 $variable = [
                                     'is_assign' => true,
                                     'operator' => $operator,
@@ -1489,6 +1500,9 @@ class Parse
         $list = [];
 
         $counter = 0;
+
+        $cache = $object->get(App::CACHE);
+        d($input);
         $input = Symbol::define($object, $input, $flags, $options);
 //        $input = Value::define($object, $input, $flags, $options);
         $input = Cast::define($object, $input, $flags, $options);
