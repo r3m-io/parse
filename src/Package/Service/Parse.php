@@ -1502,14 +1502,19 @@ class Parse
         $counter = 0;
 
         $cache = $object->get(App::CACHE);
-        d($input['string']);
-        $input = Symbol::define($object, $input, $flags, $options);
+        $hash = hash('sha256', $input['string']);
+        if($cache->has($hash)){
+            $input = $cache->get($hash);
+        } else {
+            $input = Symbol::define($object, $input, $flags, $options);
 //        $input = Value::define($object, $input, $flags, $options);
-        $input = Cast::define($object, $input, $flags, $options);
-        $input = Method::define($object, $input, $flags, $options);
-        $input = Variable::define($object, $input, $flags, $options);
+            $input = Cast::define($object, $input, $flags, $options);
+            $input = Method::define($object, $input, $flags, $options);
+            $input = Variable::define($object, $input, $flags, $options);
 //        d($input);
-        $input = Parse::remove_whitespace($object, $input, $flags, $options);
+            $input = Parse::remove_whitespace($object, $input, $flags, $options);
+            $cache->set($hash, $input);
+        }
         return $input;
         ddd($input);
 
