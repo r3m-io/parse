@@ -128,5 +128,10 @@ class Value
                     }
                 }
         }
+        return [
+            'type' => 'string',
+            'value' => $input,
+            'execute' => $input
+        ];
     }
 }
