@@ -13,7 +13,24 @@ class Value
     {
         d($input['string']);
         $value = '';
+        $is_double_quoted = false;
         foreach($input['array'] as $nr => $char){
+            $previous_nr = $nr - 1;
+            if($previous_nr < 0){
+                $previous = null;
+            } else {
+                $previous = $input['array'][$previous_nr];
+                if(is_array($previous)){
+                    if(array_key_exists('execute', $previous)){
+                        $previous = $previous['execute'];
+                    }
+                    elseif(array_key_exists('value', $previous)){
+                        $previous = $previous['value'];
+                    } else {
+                        $previous = null;
+                    }
+                }
+            }
             if(
                 in_array(
                     $char, [
@@ -22,8 +39,9 @@ class Value
                         "\t",
                         "\n",
                         "\r"
-                ],
-                    true)
+                    ],
+                    true
+                )
             ){
                 if($value){
                     $value = Value::basic($object, $value, $flags, $options);
@@ -31,11 +49,32 @@ class Value
                 }
                 $value = '';
             }
-            elseif(is_array($char)){
-                if($value){
-                    $value = Value::basic($object, $value, $flags, $options);
-                    ddd($value);
+            elseif(
+                is_array($char) &&
+                array_key_exists('value', $char)
+            ){
+                if(
+                    $char['value'] === '"' &&
+                    $previous !== '\\' &&
+                    $is_double_quoted === false
+                ){
+                    $is_double_quoted = true;
                 }
+                elseif(
+                    $char['value'] === '"' &&
+                    $previous !== '\\' &&
+                    $is_double_quoted === true
+                ){
+                    $is_double_quoted = false;
+                    if($value){
+                        $value = Value::basic($object, $value, $flags, $options);
+                    }
+                }
+                elseif($value){
+                    $value = Value::basic($object, $value, $flags, $options);
+
+                }
+                ddd($value);
                 $value = '';
             } else {
                 $value .= $char;
