@@ -193,9 +193,13 @@ class Variable
                                         }
                                         elseif(array_key_exists('value', $input['array'][$i])){
                                             if($input['array'][$i]['value'] === '('){
+                                                $argument .= $input['array'][$i]['value'];
+                                                $argument_array[] = $input['array'][$i];
                                                 $set_depth++;
                                             }
                                             elseif($input['array'][$i]['value'] === ')'){
+                                                $argument .= $input['array'][$i]['value'];
+                                                $argument_array[] = $input['array'][$i];
                                                 $set_depth--;
                                                 if($set_depth < 0){
                                                     break;
