@@ -310,6 +310,7 @@ class Variable
                                 $flags,
                                 $options
                             );
+                            d($argument_value);
                             $argument_value = Parse::value(
                                 $object,
                                 $argument_value,
