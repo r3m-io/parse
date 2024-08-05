@@ -14,11 +14,7 @@ class Variable
         $is_variable = false;
         $set_depth = 0;
         $previous = null;
-        d($input);
         foreach($input['array'] as $nr => $char){
-            if(!is_numeric($nr)){
-                ddd($input);
-            }
             if(
                 array_key_exists($nr - 1, $input['array']) &&
                 is_array($input['array'][$nr - 1])
@@ -193,13 +189,9 @@ class Variable
                                         }
                                         elseif(array_key_exists('value', $input['array'][$i])){
                                             if($input['array'][$i]['value'] === '('){
-//                                                $argument .= $input['array'][$i]['value'];
-//                                                $argument_array[] = $input['array'][$i];
                                                 $set_depth++;
                                             }
                                             elseif($input['array'][$i]['value'] === ')'){
-//                                                $argument .= $input['array'][$i]['value'];
-//                                                $argument_array[] = $input['array'][$i];
                                                 $set_depth--;
                                                 if($set_depth < 0){
                                                     break;
@@ -224,43 +216,6 @@ class Variable
                                 $input['array'][$i] = null;
                             }
                             elseif($has_modifier === true){
-                                /*
-                                if(
-                                    is_array($input['array'][$i]) &&
-                                    array_key_exists('value', $input['array'][$i])
-                                ){
-                                    d($input['array'][$i]);
-                                    if($input['array'][$i]['value'] === ':'){
-                                        if($has_name === true) {
-                                            $argument_list[] = Parse::value(
-                                                $object,
-                                                [
-                                                    'string' => $argument,
-                                                    'array' => $argument_array
-                                                ],
-                                                $flags,
-                                                $options
-                                            );
-                                            ddd($argument_list);
-                                            $argument_array = [];
-                                        } else {
-                                            $has_name = true;
-                                        }
-                                    }
-                                    if($has_name === false){
-                                        if(is_array($input['array'][$i])){
-                                            if(array_key_exists('execute', $input['array'][$i])){
-                                                $modifier_name .= $input['array'][$i]['execute'];
-                                            }
-                                            elseif(array_key_exists('value', $input['array'][$i])){
-                                                $modifier_name .= $input['array'][$i]['value'];
-                                            }
-                                        } else {
-                                            $modifier_name .= $input['array'][$i];
-                                        }
-                                    }
-                                }
-                                */
                                 if($has_name === false) {
                                     if(is_array($input['array'][$i])){
                                         if(array_key_exists('execute', $input['array'][$i])){
@@ -301,7 +256,6 @@ class Variable
                             }
                         }
                         if(array_key_exists(0, $argument_array)) {
-                            d($argument_array);
                             $argument_value = Cast::define(
                                 $object, [
                                 'string' => $argument,
@@ -310,7 +264,6 @@ class Variable
                                 $flags,
                                 $options
                             );
-                            d($argument_value);
                             $argument_value = Parse::value(
                                 $object,
                                 $argument_value,
