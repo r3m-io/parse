@@ -21,6 +21,22 @@ class Method
         $argument_array = [];
         $argument_list = [];
         foreach($input['array'] as $nr => $char){
+            $previous_nr = $nr - 1;
+            if($previous_nr < 0){
+                $previous = null;
+            } else {
+                $previous = $input['array'][$previous_nr];
+                if(is_array($previous)){
+                    if(array_key_exists('execute', $previous)){
+                        $previous = $previous['execute'];
+                    }
+                    elseif(array_key_exists('value', $previous)){
+                        $previous = $previous['value'];
+                    } else {
+                        $previous = null;
+                    }
+                }
+            }
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
@@ -84,6 +100,8 @@ class Method
                     $char['value'] === '('
                 ) {
                     $set_depth++;
+                    $argument_array[] = $char;
+                    $argument .= $char['value'];
                 }
                 elseif(
                     is_array($char) &&
@@ -91,6 +109,8 @@ class Method
                     $char['value'] === ')'
                 ){
                     $set_depth--;
+                    $argument_array[] = $char;
+                    $argument .= $char['value'];
                     if($set_depth === 0){
                         $input['array'][$is_method]['method'] = [
                             'name' => $name,
@@ -149,6 +169,7 @@ class Method
                         is_array($char) &&
                         array_key_exists('value', $char) &&
                         $char['value'] === '\'' &&
+                        $previous !== '\\' &&
                         $is_single_quote === false &&
                         $is_double_quote === false
                     ){
@@ -160,6 +181,7 @@ class Method
                         is_array($char) &&
                         array_key_exists('value', $char) &&
                         $char['value'] === '\'' &&
+                        $previous !== '\\' &&
                         $is_single_quote === true &&
                         $is_double_quote === false
                     ){
@@ -188,6 +210,7 @@ class Method
                         is_array($char) &&
                         array_key_exists('value', $char) &&
                         $char['value'] === '"' &&
+                        $previous !== '\\' &&
                         $is_single_quote === false &&
                         $is_double_quote === false
                     ){
@@ -199,6 +222,7 @@ class Method
                         is_array($char) &&
                         array_key_exists('value', $char) &&
                         $char['value'] === '"' &&
+                        $previous !== '\\' &&
                         $is_single_quote === false &&
                         $is_double_quote === true
                     ){
