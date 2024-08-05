@@ -193,13 +193,13 @@ class Variable
                                         }
                                         elseif(array_key_exists('value', $input['array'][$i])){
                                             if($input['array'][$i]['value'] === '('){
-                                                $argument .= $input['array'][$i]['value'];
-                                                $argument_array[] = $input['array'][$i];
+//                                                $argument .= $input['array'][$i]['value'];
+//                                                $argument_array[] = $input['array'][$i];
                                                 $set_depth++;
                                             }
                                             elseif($input['array'][$i]['value'] === ')'){
-                                                $argument .= $input['array'][$i]['value'];
-                                                $argument_array[] = $input['array'][$i];
+//                                                $argument .= $input['array'][$i]['value'];
+//                                                $argument_array[] = $input['array'][$i];
                                                 $set_depth--;
                                                 if($set_depth < 0){
                                                     break;
@@ -301,6 +301,7 @@ class Variable
                             }
                         }
                         if(array_key_exists(0, $argument_array)) {
+                            d($argument_array);
                             $argument_value = Cast::define(
                                 $object, [
                                 'string' => $argument,
