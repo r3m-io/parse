@@ -54,6 +54,10 @@ class Value
                         $input['array'][$i] = null;
                     }
                 }
+                $input['array'][$i] = [
+                    'type' => 'whitespace',
+                    'value' => $char
+                ];
                 $value = '';
                 $value_nr = false;
             }
