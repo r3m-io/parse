@@ -416,9 +416,22 @@ class Parse
                                 $char = $data[$i];
                                 if(array_key_exists($i - 1, $data)){
                                     $previous = $data[$i - 1];
+                                    if(array_key_exists('execute', $data[$i - 1])){
+                                        $previous = $data[$i - 1]['execute'];
+                                    }
+                                    elseif(array_key_exists('value', $data[$i - 1])){
+                                        $previous = $data[$i - 1]['value'];
+                                    }
+
                                 }
                                 if(array_key_exists($i + 1, $data)){
                                     $next = $data[$i + 1];
+                                    if(array_key_exists('execute', $data[$i + 1])){
+                                        $next = $data[$i - 1]['execute'];
+                                    }
+                                    elseif(array_key_exists('value', $data[$i + 1])){
+                                        $next = $data[$i - 1]['value'];
+                                    }
                                 }
                                 if($char === '\'' && $is_single_quoted === false){
                                     $is_single_quoted = true;
