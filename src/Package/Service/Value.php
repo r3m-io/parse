@@ -13,7 +13,9 @@ class Value
     {
         d($input['string']);
         foreach($input['array'] as $nr => $char){
-
+            if($input['string'] === ' true + 1 +2'){
+                d($char);
+            }
         }
         return $input;
     }
