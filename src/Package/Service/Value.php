@@ -14,6 +14,7 @@ class Value
         d($input['string']);
         $value = '';
         $is_double_quoted = false;
+        $value_nr = false;
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -45,9 +46,10 @@ class Value
             ){
                 if($value){
                     $value = Value::basic($object, $value, $flags, $options);
-                    $input['array'][$nr] = $value;
+                    $input['array'][$value_nr] = $value;
                 }
                 $value = '';
+                $value_nr = false;
             }
             elseif(
                 is_array($char) &&
@@ -68,14 +70,15 @@ class Value
                     $is_double_quoted = false;
                     if($value){
                         $value = Value::basic($object, $value, $flags, $options);
-                        $input['array'][$nr] = $value;
+                        $input['array'][$value_nr] = $value;
                     }
                 }
                 elseif($value){
                     $value = Value::basic($object, $value, $flags, $options);
-                    $input['array'][$nr] = $value;
+                    $input['array'][$value_nr] = $value;
                 }
                 $value = '';
+                $value_nr = false;
             }
             elseif(
                 is_array($char) &&
@@ -83,9 +86,10 @@ class Value
             ){
                 if($value){
                     $value = Value::basic($object, $value, $flags, $options);
-                    $input['array'][$nr] = $value;
+                    $input['array'][$value_nr] = $value;
                 }
                 $value = '';
+                $value_nr = false;
             }
             else {
                 if(is_array($char)){
@@ -100,6 +104,9 @@ class Value
                     }
                 }
                 $value .= $char;
+                if($value_nr === false){
+                    $value_nr = $nr;
+                }
             }
         }
         return $input;
