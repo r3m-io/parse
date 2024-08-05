@@ -184,7 +184,7 @@ class Value
             default:
                 d($input);
                 d(is_numeric($input));
-                if(is_numeric($input)){
+                if(is_numeric($input) || Core::is_hex($input)){
                     $length = strlen($input);
                     $data = mb_str_split($input, 1);
                     $is_float = false;
@@ -206,13 +206,24 @@ class Value
                                         '7',
                                         '8',
                                         '9',
-                                        ',',
-                                        '_'
                                     ]
                                 )
                             )
                         ){
                             $collect .= $data[$i];
+                        }
+                        elseif(
+                            (
+                            in_array(
+                                $data[$i],
+                                [
+                                    ',',
+                                    '_'
+                                ]
+                            )
+                            )
+                        ){
+                            //nothing
                         }
                         elseif(
                             in_array(
