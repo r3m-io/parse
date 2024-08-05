@@ -183,9 +183,10 @@ class Value
                     'execute' => (object) []
                 ];
             default:
-                d($input);
-                d(Core::is_hex($input));
-                if(is_numeric($input) || Core::is_hex($input)){
+                if(
+                    is_numeric($input) ||
+                    Core::is_hex($input)
+                ){
                     $length = strlen($input);
                     $data = mb_str_split($input, 1);
                     $is_float = false;
