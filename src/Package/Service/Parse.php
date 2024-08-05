@@ -1273,16 +1273,22 @@ class Parse
                 $is_parse = false;
             }
             elseif(
-                in_array(
-                    $char,
-                    [
-                        null,
-                        ' ',
-                        "\t",
-                        "\n",
-                        "\r"
-                    ], true
-                ) &&
+                (
+                    in_array(
+                        $char,
+                        [
+                            null,
+                            ' ',
+                            "\t",
+                            "\n",
+                            "\r"
+                        ], true
+                    ) ||
+                    is_array($char) &&
+                    array_key_exists('type', $char) &&
+                    $char['type'] === 'whitespace'
+                )
+                 &&
                 (
                     (
                         $is_single_quote === false &&
