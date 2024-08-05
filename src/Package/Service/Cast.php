@@ -13,6 +13,7 @@ class Cast
     {
         $is_collect = false;
         $define = '';
+        d($input['array']);
         foreach($input['array'] as $nr => $char){
             if(
                 is_array($char) &&
