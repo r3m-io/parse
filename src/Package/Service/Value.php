@@ -109,6 +109,9 @@ class Value
                 }
             }
         }
+        if($value_$nr !== false){
+            $input['array'][$value_nr] = Value::basic($object, $value, $flags, $options);
+        }
         return $input;
     }
 
