@@ -120,8 +120,8 @@ class Method
                             'name' => $name,
                             'argument' => $argument_list
                         ];
-                        $input['array'][$is_method]['is_method'] = true;
-                        unset($input['array'][$is_method]['is_symbol']);
+                        $input['array'][$is_method]['type'] = 'method';
+//                        unset($input['array'][$is_method]['is_symbol']);
                         unset($input['array'][$is_method]['value']);
                         $argument_list = [];
                         $argument_array = [];

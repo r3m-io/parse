@@ -102,7 +102,8 @@ class Value
             }
             elseif(
                 is_array($char) &&
-                array_key_exists('is_method', $char)
+                array_key_exists('type', $char) &&
+                $char['type'] === 'method'
             ){
                 if($value){
                     $length = strlen($value);
