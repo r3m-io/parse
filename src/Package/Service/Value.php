@@ -45,7 +45,7 @@ class Value
             ){
                 if($value){
                     $value = Value::basic($object, $value, $flags, $options);
-                    ddd($value);
+                    $input['array'][$nr] = $value;
                 }
                 $value = '';
             }
@@ -68,12 +68,12 @@ class Value
                     $is_double_quoted = false;
                     if($value){
                         $value = Value::basic($object, $value, $flags, $options);
-                        ddd($value);
+                        $input['array'][$nr] = $value;
                     }
                 }
                 elseif($value){
                     $value = Value::basic($object, $value, $flags, $options);
-                    ddd($value);
+                    $input['array'][$nr] = $value;
                 }
                 $value = '';
             } else {
