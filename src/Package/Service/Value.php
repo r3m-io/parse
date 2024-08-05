@@ -68,13 +68,13 @@ class Value
                     $is_double_quoted = false;
                     if($value){
                         $value = Value::basic($object, $value, $flags, $options);
+                        ddd($value);
                     }
                 }
                 elseif($value){
                     $value = Value::basic($object, $value, $flags, $options);
-
+                    ddd($value);
                 }
-                ddd($value);
                 $value = '';
             } else {
                 $value .= $char;
