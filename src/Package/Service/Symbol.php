@@ -117,6 +117,7 @@ class Symbol
                         case '!!!':
                         case '!!!!':
                             $input['array'][$previous_nr] = [
+                                'type' => 'symbol',
                                 'value' => $symbol,
                                 'is_symbol' => true
                             ];
@@ -124,12 +125,14 @@ class Symbol
                             break;
                         default:
                             $input['array'][$nr] = [
+                                'type' => 'symbol',
                                 'value' => $char,
                                 'is_symbol' => true
                             ];
                     }
                 } else {
                     $input['array'][$nr] = [
+                        'type' => 'symbol',
                         'value' => $char,
                         'is_symbol' => true
                     ];

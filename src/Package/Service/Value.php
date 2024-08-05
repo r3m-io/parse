@@ -249,7 +249,7 @@ class Value
                             return [
                                 'type' => 'string',
                                 'value' => $input,
-                                'execute' => $input
+                                'execute' => $input,
                             ];
                         }
                     }
@@ -258,7 +258,6 @@ class Value
                             'type' => 'integer',
                             'value' => $input,
                             'execute' => hexdec($collect),
-                            'is_hex' => true
                         ];
                     }
                     elseif($is_float){
@@ -266,14 +265,12 @@ class Value
                             'type' => 'float',
                             'value' => $input,
                             'execute' => $collect + 0,
-                            'is_float' => true
                         ];
                     } else {
                         return [
                             'type' => 'integer',
                             'value' => $input,
                             'execute' => $collect + 0,
-                            'is_integer' => true
                         ];
                     }
                 }
