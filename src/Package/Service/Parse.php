@@ -296,6 +296,7 @@ class Parse
                                     ]
                                 ]
                             ];
+                            $tag_list[$line - $count + 1][] = $record;
                         } else {
                             $length_start = strlen($explode[0]);
                             $record = [
@@ -328,8 +329,8 @@ class Parse
                                 $record['is_literal'] = true;
                                 $record['is_literal_end'] = true;
                             }
+                            $tag_list[$line][] = $record;
                         }
-                        $tag_list[$line][] = $record;
                         $tag = false;
                         $column[$line]--;
                     }
