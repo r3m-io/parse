@@ -79,6 +79,7 @@ class Value
                     $length = strlen($input);
                     $data = mb_str_split($input, 1);
                     $is_float = false;
+                    $collect = '';
                     for($i=0; $i<$length; $i++){
                         if(
                             in_array(
@@ -99,9 +100,10 @@ class Value
                                 ]
                             )
                         ){
-                            //nothing
+                            $collect .= $data[$i];
                         }
                         elseif($data[$i] === '.'){
+                            $collect .= $data[$i];
                             $is_float = true;
                         } else {
                             return [
@@ -115,13 +117,13 @@ class Value
                         return [
                             'type' => 'float',
                             'value' => $input,
-                            'execute' => $input + 0
+                            'execute' => $collect + 0
                         ];
                     } else {
                         return [
                             'type' => 'integer',
                             'value' => $input,
-                            'execute' => $input + 0
+                            'execute' => $collect + 0
                         ];
                     }
                 }
