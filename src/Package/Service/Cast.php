@@ -13,7 +13,6 @@ class Cast
     {
         $is_collect = false;
         $define = '';
-        d($input['array']);
         foreach($input['array'] as $nr => $char){
             if(
                 is_array($char) &&
@@ -21,14 +20,12 @@ class Cast
                 $char['value'] === '('
             ){
                 $is_collect = $nr;
-                d($is_collect);
             }
             elseif(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
                 $char['value'] === ')'
             ){
-                d($define);
                 if(strlen($define) > 0){
                     $is_define = false;
                     switch(strtolower($define)){
