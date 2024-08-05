@@ -76,7 +76,15 @@ class Value
                     $input['array'][$nr] = $value;
                 }
                 $value = '';
-            } else {
+            }
+            elseif(array_key_exists('method', $char)){
+                if($value){
+                    $value = Value::basic($object, $value, $flags, $options);
+                    $input['array'][$nr] = $value;
+                }
+                $value = '';
+            }
+            else {
                 if(is_array($char)){
                     d($char);
                     if(array_key_exists('execute', $char)){
