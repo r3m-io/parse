@@ -100,8 +100,10 @@ class Method
                     $char['value'] === '('
                 ) {
                     $set_depth++;
-                    $argument_array[] = $char;
-                    $argument .= $char['value'];
+                    if($set_depth !== 1){
+                        $argument_array[] = $char;
+                        $argument .= $char['value'];
+                    }
                 }
                 elseif(
                     is_array($char) &&
@@ -109,8 +111,10 @@ class Method
                     $char['value'] === ')'
                 ){
                     $set_depth--;
-                    $argument_array[] = $char;
-                    $argument .= $char['value'];
+                    if($set_depth !== 0){
+                        $argument_array[] = $char;
+                        $argument .= $char['value'];
+                    }
                     if($set_depth === 0){
                         $input['array'][$is_method]['method'] = [
                             'name' => $name,
