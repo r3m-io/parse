@@ -183,12 +183,11 @@ class Value
                     'execute' => (object) []
                 ];
             default:
-                if(in_array($input, [
-                    " ",
-                    "\t",
-                    "\n",
-                    "\r"
-                ])){
+                $trim_input = trim($input);
+                if(
+                    $trim_input === '' &&
+                    $trim_input !== $input
+                ){
                     return [
                         'type' => 'whitespace',
                         'value' => $input,
