@@ -1184,6 +1184,19 @@ class Parse
         $is_double_quote = false;
         $is_parse = false;
         foreach($input['array'] as $nr => $char){
+            $previous = $input['array'][$nr - 1] ?? null;
+            if(
+                is_array($previous) &&
+                array_key_exists('execute',  $previous)
+            ){
+                $previous = $previous['execute'];
+            }
+            elseif(
+                is_array($previous) &&
+                array_key_exists('value',  $previous)
+            ){
+                $previous = $previous['value'];
+            }
             if(
                 (
                     (
@@ -1194,7 +1207,8 @@ class Parse
                     $char == '\''
                 ) &&
                 $is_single_quote === false &&
-                $is_double_quote === false
+                $is_double_quote === false &&
+                $previous !== '\\'
             ){
                 $is_single_quote = true;
             }
@@ -1208,7 +1222,8 @@ class Parse
                     $char == '\''
                 ) &&
                 $is_single_quote === true &&
-                $is_double_quote === false
+                $is_double_quote === false &&
+                $previous !== '\\'
             ){
                 $is_single_quote = false;
             }
@@ -1222,7 +1237,8 @@ class Parse
                     $char == '"'
                 ) &&
                 $is_single_quote === false &&
-                $is_double_quote === false
+                $is_double_quote === false &&
+                $previous !== '\\'
             ){
                 $is_double_quote = true;
             }
@@ -1236,7 +1252,8 @@ class Parse
                     $char == '"'
                 ) &&
                 $is_single_quote === false &&
-                $is_double_quote === true
+                $is_double_quote === true &&
+                $previous !== '\\'
             ){
                 $is_double_quote = false;
             }
