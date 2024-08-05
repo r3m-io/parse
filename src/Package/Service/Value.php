@@ -77,7 +77,10 @@ class Value
                 }
                 $value = '';
             }
-            elseif(array_key_exists('is_method', $char)){
+            elseif(
+                is_array($char) &&
+                array_key_exists('is_method', $char)
+            ){
                 if($value){
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$nr] = $value;
