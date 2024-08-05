@@ -14,6 +14,7 @@ class Variable
         $is_variable = false;
         $set_depth = 0;
         $previous = null;
+        d($input);
         foreach($input['array'] as $nr => $char){
             if(!is_numeric($nr)){
                 ddd($input);
