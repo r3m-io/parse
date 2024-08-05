@@ -208,25 +208,24 @@ class Value
                                         '_'
                                     ]
                                 )
-                            ) ||
-                            (
-                                $is_hex === true &&
-                                in_array(
-                                    strtolower($data[$i]),
-                                    [
-                                        'a',
-                                        'b',
-                                        'c',
-                                        'd',
-                                        'e',
-                                        'f'
-                                    ]
-                                )
                             )
                         ){
                             $collect .= $data[$i];
                         }
-                        elseif(strtolower($data[$i]) === 'x'){
+                        elseif(
+                            in_array(
+                                strtolower($data[$i]),
+                                [
+                                    'x',
+                                    'a',
+                                    'b',
+                                    'c',
+                                    'd',
+                                    'e',
+                                    'f'
+                                ]
+                            )
+                        ){
                             $collect .= $data[$i];
                             $is_hex = true;
                         }
