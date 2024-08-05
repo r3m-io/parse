@@ -53,11 +53,12 @@ class Value
                         }
                         $input['array'][$i] = null;
                     }
+                    $input['array'][$nr] = [
+                        'type' => 'whitespace',
+                        'value' => $char
+                    ];
                 }
-                $input['array'][$nr] = [
-                    'type' => 'whitespace',
-                    'value' => $char
-                ];
+
                 $value = '';
                 $value_nr = false;
             }
