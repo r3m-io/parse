@@ -54,7 +54,7 @@ class Value
                         $input['array'][$i] = null;
                     }
                 }
-                $input['array'][$i] = [
+                $input['array'][$nr] = [
                     'type' => 'whitespace',
                     'value' => $char
                 ];
