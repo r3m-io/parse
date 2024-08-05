@@ -31,9 +31,13 @@ class Value
 
                 }
                 $value = '';
-                continue;
             }
             elseif(is_array($char)){
+                if($value){
+                    $value = Value::basic($object, $value, $flags, $options);
+                    $value = '';
+
+                }
                 $value = '';
             } else {
                 $value .= $char;
