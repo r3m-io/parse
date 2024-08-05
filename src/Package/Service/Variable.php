@@ -77,15 +77,9 @@ class Variable
                     }
                     if($name){
                         $is_reference = false;
-                        if(
-                            $previous !== null &&
-                            is_array($previous) &&
-                            array_key_exists('value', $previous)
-                        ){
-                            $is_reference = $previous['value'] === '&';
-                            if($is_reference){
-                                $input['array'][$nr - 1] = null;
-                            }
+                        if($previous === '&'){
+                            $is_reference = true;
+                            $input['array'][$nr - 1] = null;
                         }
                         $input['array'][$is_variable] = [
                             'type' => 'variable',
