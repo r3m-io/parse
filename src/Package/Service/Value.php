@@ -11,7 +11,6 @@ class Value
 {
     public static function define(App $object, $input, $flags, $options): array
     {
-        d($input['string']);
         $value = '';
         $is_double_quoted = false;
         $value_nr = false;
@@ -45,8 +44,15 @@ class Value
                 )
             ){
                 if($value){
+                    $length = strlen($value);
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$value_nr] = $value;
+                    for($i = $value_nr; $i < $value_nr + $length; $i++){
+                        if($i === $value_nr){
+                            continue;
+                        }
+                        $input['array'][$i] = null;
+                    }
                 }
                 $value = '';
                 $value_nr = false;
@@ -69,13 +75,27 @@ class Value
                 ){
                     $is_double_quoted = false;
                     if($value){
+                        $length = strlen($value);
                         $value = Value::basic($object, $value, $flags, $options);
                         $input['array'][$value_nr] = $value;
+                        for($i = $value_nr; $i < $value_nr + $length; $i++){
+                            if($i === $value_nr){
+                                continue;
+                            }
+                            $input['array'][$i] = null;
+                        }
                     }
                 }
                 elseif($value){
+                    $length = strlen($value);
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$value_nr] = $value;
+                    for($i = $value_nr; $i < $value_nr + $length; $i++){
+                        if($i === $value_nr){
+                            continue;
+                        }
+                        $input['array'][$i] = null;
+                    }
                 }
                 $value = '';
                 $value_nr = false;
@@ -85,8 +105,15 @@ class Value
                 array_key_exists('is_method', $char)
             ){
                 if($value){
+                    $length = strlen($value);
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$value_nr] = $value;
+                    for($i = $value_nr; $i < $value_nr + $length; $i++){
+                        if($i === $value_nr){
+                            continue;
+                        }
+                        $input['array'][$i] = null;
+                    }
                 }
                 $value = '';
                 $value_nr = false;
@@ -110,7 +137,14 @@ class Value
             }
         }
         if($value_nr !== false){
+            $length = strlen($value);
             $input['array'][$value_nr] = Value::basic($object, $value, $flags, $options);
+            for($i = $value_nr; $i < $value_nr + $length; $i++){
+                if($i === $value_nr){
+                    continue;
+                }
+                $input['array'][$i] = null;
+            }
         }
         return $input;
     }
