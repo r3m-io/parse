@@ -182,6 +182,8 @@ class Value
                     'execute' => (object) []
                 ];
             default:
+                d($input);
+                d(is_numeric($input));
                 if(is_numeric($input)){
                     $length = strlen($input);
                     $data = mb_str_split($input, 1);
