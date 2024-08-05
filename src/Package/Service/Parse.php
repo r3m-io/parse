@@ -1451,7 +1451,7 @@ class Parse
             case 'clone' :
                 return [
                     'value' => $string,
-                    'is_cast' => true
+                    'type' => 'cast'
                 ];
         }
         return $input;
@@ -1530,7 +1530,7 @@ class Parse
             $set = Parse::set_get($object, $input, $flags, $options);
             $set = Parse::operator_solve($object, $set, $flags, $options);
             d($set);
-            $set = Parse::cast_get($object, $set, $flags, $options);
+//            $set = Parse::cast_get($object, $set, $flags, $options);
             $input = Parse::set_replace(
                 $object,
                 [

@@ -33,7 +33,7 @@ class Cast
                         case 'integer':
                             $input['array'][$is_collect] = [
                                 'value' => $define,
-                                'is_cast' => true,
+                                'type' => 'cast',
                                 'cast' => 'integer'
                             ];
                             $is_define = true;
@@ -42,7 +42,7 @@ class Cast
                         case 'double':
                             $input['array'][$is_collect] = [
                                 'value' => $define,
-                                'is_cast' => true,
+                                'type' => 'cast',
                                 'cast' => 'float'
                             ];
                             $is_define = true;
@@ -51,7 +51,7 @@ class Cast
                         case 'bool':
                             $input['array'][$is_collect] = [
                                 'value' => $define,
-                                'is_cast' => true,
+                                'type' => 'cast',
                                 'cast' => 'boolean'
                             ];
                             $is_define = true;
@@ -59,7 +59,7 @@ class Cast
                         case 'array':
                             $input['array'][$is_collect] = [
                                 'value' => $define,
-                                'is_cast' => true,
+                                'type' => 'cast',
                                 'cast' => 'array'
                             ];
                             $is_define = true;
@@ -67,7 +67,7 @@ class Cast
                         case 'object':
                             $input['array'][$is_collect] = [
                                 'value' => $define,
-                                'is_cast' => true,
+                                'type' => 'cast',
                                 'cast' => 'object'
                             ];
                             $is_define = true;
@@ -75,7 +75,7 @@ class Cast
                         case 'clone':
                             $input['array'][$is_collect] = [
                                 'value' => $define,
-                                'is_cast' => true,
+                                'type' => 'cast',
                                 'cast' => 'clone'
                             ];
                             $is_define = true;
