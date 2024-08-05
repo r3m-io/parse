@@ -257,20 +257,23 @@ class Value
                         return [
                             'type' => 'integer',
                             'value' => $input,
-                            'execute' => hexdec($collect)
+                            'execute' => hexdec($collect),
+                            'is_hex' => true
                         ];
                     }
                     elseif($is_float){
                         return [
                             'type' => 'float',
                             'value' => $input,
-                            'execute' => $collect + 0
+                            'execute' => $collect + 0,
+                            'is_float' => true
                         ];
                     } else {
                         return [
                             'type' => 'integer',
                             'value' => $input,
-                            'execute' => $collect + 0
+                            'execute' => $collect + 0,
+                            'is_integer' => true
                         ];
                     }
                 }
