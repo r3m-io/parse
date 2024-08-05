@@ -166,12 +166,17 @@ class Method
                         $is_single_quote = false;
                         $argument_array[] = $char;
                         $argument .= $char['value'];
+                        $argument_value = Cast::define(
+                            $object, [
+                            'string' => $argument,
+                            'array' => $argument_array
+                        ],
+                            $flags,
+                            $options
+                        );
                         $argument_value = Parse::value(
                             $object,
-                            [
-                                'string' => $argument,
-                                'array' => $argument_array
-                            ],
+                            $argument_value,
                             $flags,
                             $options
                         );
@@ -200,12 +205,17 @@ class Method
                         $is_double_quote = false;
                         $argument_array[] = $char;
                         $argument .= $char['value'];
+                        $argument_value = Cast::define(
+                            $object, [
+                            'string' => $argument,
+                            'array' => $argument_array
+                        ],
+                            $flags,
+                            $options
+                        );
                         $argument_value = Parse::value(
                             $object,
-                            [
-                                'string' => $argument,
-                                'array' => $argument_array
-                            ],
+                            $argument_value,
                             $flags,
                             $options
                         );
@@ -221,12 +231,17 @@ class Method
                         $is_double_quote === false
                     ){
                         if(array_key_exists(0, $argument_array)){
-                            $argument_value = Parse::value(
-                                $object,
-                                [
+                            $argument_value = Cast::define(
+                                $object, [
                                     'string' => $argument,
                                     'array' => $argument_array
                                 ],
+                                $flags,
+                                $options
+                            );
+                            $argument_value = Parse::value(
+                                $object,
+                                $argument_value,
                                 $flags,
                                 $options
                             );

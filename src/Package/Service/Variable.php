@@ -293,15 +293,21 @@ class Variable
                             }
                         }
                         if(array_key_exists(0, $argument_array)) {
-                            $argument_list[] = Parse::value(
-                                $object,
-                                [
-                                    'string' => $argument,
-                                    'array' => $argument_array
-                                ],
+                            $argument_value = Cast::define(
+                                $object, [
+                                'string' => $argument,
+                                'array' => $argument_array
+                            ],
                                 $flags,
                                 $options
                             );
+                            $argument_value = Parse::value(
+                                $object,
+                                $argument_value,
+                                $flags,
+                                $options
+                            );
+                            $argument_list[] = $argument_value;
                         }
                         if($modifier_name){
                             $input['array'][$is_variable]['modifier'][] = [
