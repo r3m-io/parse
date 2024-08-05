@@ -27,16 +27,14 @@ class Value
             ){
                 if($value){
                     $value = Value::basic($object, $value, $flags, $options);
-                    $value = '';
-
+                    ddd($value);
                 }
                 $value = '';
             }
             elseif(is_array($char)){
                 if($value){
                     $value = Value::basic($object, $value, $flags, $options);
-                    $value = '';
-
+                    ddd($value);
                 }
                 $value = '';
             } else {
