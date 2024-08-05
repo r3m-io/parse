@@ -186,28 +186,49 @@ class Value
                     $length = strlen($input);
                     $data = mb_str_split($input, 1);
                     $is_float = false;
+                    $is_hex = false;
                     $collect = '';
                     for($i=0; $i<$length; $i++){
                         if(
-                            in_array(
-                                $data[$i],
-                                [
-                                    '0',
-                                    '1',
-                                    '2',
-                                    '3',
-                                    '4',
-                                    '5',
-                                    '6',
-                                    '7',
-                                    '8',
-                                    '9',
-                                    ',',
-                                    '_'
-                                ]
+                            (
+                                in_array(
+                                    $data[$i],
+                                    [
+                                        '0',
+                                        '1',
+                                        '2',
+                                        '3',
+                                        '4',
+                                        '5',
+                                        '6',
+                                        '7',
+                                        '8',
+                                        '9',
+                                        ',',
+                                        '_'
+                                    ]
+                                )
+                            ) ||
+                            (
+                                $is_hex === true &&
+                                in_array(
+                                    strtolower($data[$i]),
+                                    [
+                                        'a',
+                                        'b',
+                                        'c',
+                                        'd',
+                                        'e',
+                                        'f'
+                                    ]
+                                )
                             )
                         ){
                             $collect .= $data[$i];
+                        }
+                        elseif(strtolower($data[$i]) === 'x'){
+                            $collect .= $data[$i];
+                            $is_hex = true;
                         }
                         elseif($data[$i] === '.'){
                             $collect .= $data[$i];
@@ -220,7 +241,14 @@ class Value
                             ];
                         }
                     }
-                    if($is_float){
+                    if($is_hex){
+                        return [
+                            'type' => 'integer',
+                            'value' => $input,
+                            'execute' => hexdec($collect)
+                        ];
+                    }
+                    elseif($is_float){
                         return [
                             'type' => 'float',
                             'value' => $input,
