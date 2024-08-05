@@ -183,7 +183,18 @@ class Value
                     'execute' => (object) []
                 ];
             default:
-                if(
+                if(in_array($input, [
+                    " ",
+                    "\t",
+                    "\n",
+                    "\r"
+                ])){
+                    return [
+                        'type' => 'whitespace',
+                        'value' => $input,
+                    ];
+                }
+                elseif(
                     is_numeric($input) ||
                     Core::is_hex($input)
                 ){
