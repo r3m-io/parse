@@ -163,11 +163,13 @@ class Parse
         $is_curly_close = false;
         $next = false;
         $chunk = 64;
+        $previous = false;
         for($i = 0; $i < $length; $i+=$chunk){
             $char_list = [];
             for($j = 0; $j < $chunk; $j++){
                 $char_list[] = $split[$i + $j] ?? null;
             }
+
             foreach($char_list as $nr => $char){
                 if($char === null){
                     break;
@@ -266,9 +268,6 @@ class Parse
                     if($tag){
                         $tag .= $char;
                         $column[$line]++;
-                        if(empty($tag_list[$line])){
-                            $tag_list[$line] = [];
-                        }
                         $explode = explode("\n", $tag);
                         $count = count($explode);
                         if($count > 1){
@@ -296,6 +295,9 @@ class Parse
                                     ]
                                 ]
                             ];
+                            if(empty($tag_list[$line - $count + 1])){
+                                $tag_list[$line - $count + 1] = [];
+                            }
                             $tag_list[$line - $count + 1][] = $record;
                         } else {
                             $length_start = strlen($explode[0]);
@@ -328,6 +330,9 @@ class Parse
                                 $is_literal = false;
                                 $record['is_literal'] = true;
                                 $record['is_literal_end'] = true;
+                            }
+                            if(empty($tag_list[$line])){
+                                $tag_list[$line] = [];
                             }
                             $tag_list[$line][] = $record;
                         }
