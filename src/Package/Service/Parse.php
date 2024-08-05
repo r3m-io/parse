@@ -752,6 +752,7 @@ class Parse
                     $input['array'] = [[
                         'value' => $value,
                         'execute' => substr($value, 1, -1),
+                        'type' => 'string',
                         'is_single_quoted' => true
                     ]];
                     return $input;
