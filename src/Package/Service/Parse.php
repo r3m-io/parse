@@ -745,6 +745,13 @@ class Parse
                 return $input;
             break;
             default:
+                if(trim($value) === ''){
+                    $input['array'] = [[
+                        'type' => 'whitespace',
+                        'value' => $value,
+                    ]];
+                    return $input;
+                }
                 if(
                     substr($value, 0, 1) === '\'' &&
                     substr($value, -1) === '\''
