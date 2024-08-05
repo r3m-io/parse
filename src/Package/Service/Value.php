@@ -77,6 +77,17 @@ class Value
                 }
                 $value = '';
             } else {
+                if(is_array($char)){
+                    d($char);
+                    if(array_key_exists('execute', $char)){
+                        $char = $char['execute'];
+                    }
+                    elseif(array_key_exists('value', $char)){
+                        $char = $char['value'];
+                    } else {
+                        $char = null;
+                    }
+                }
                 $value .= $char;
             }
         }
