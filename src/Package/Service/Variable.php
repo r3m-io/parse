@@ -13,6 +13,7 @@ class Variable
         $count = count($input['array']);
         $is_variable = false;
         $set_depth = 0;
+        $previous = null;
         foreach($input['array'] as $nr => $char){
             if(!is_numeric($nr)){
                 ddd($input);
@@ -26,6 +27,8 @@ class Variable
                 }
                 elseif(array_key_exists('value', $input['array'][$nr - 1])){
                     $previous = $input['array'][$nr - 1]['value'] ?? null;
+                } else {
+                    $previous = null;
                 }
             } else {
                 $previous = $input['array'][$nr - 1] ?? null;
