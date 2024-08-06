@@ -47,12 +47,11 @@ class Value
                 $char['value'] === ']'
             ){
                 $array_depth--;
-                d($array_depth);
                 if($array_depth === 0){
                     ddd($array);
                 }
             }
-            if($array_depth > 0){
+            elseif($array_depth > 0){
                 $array[] = $char;
             }
             if(
