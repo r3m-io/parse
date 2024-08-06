@@ -106,6 +106,9 @@ class Value
                     if(array_key_exists('execute', $char)){
                         $char = $char['execute'];
                     }
+                    elseif(array_key_exists('tag', $char)){
+                        $char = $char['tag'];
+                    }
                     elseif(array_key_exists('value', $char)){
                         if($char['type'] === 'cast'){
                             $char = '(' . $char['value'] . ')';
