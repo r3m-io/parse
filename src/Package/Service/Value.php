@@ -39,6 +39,7 @@ class Value
                 $char['value'] = '['
             ){
                 $array_depth++;
+                d($array_depth);
             }
             elseif(
                 is_array($char) &&
@@ -46,6 +47,7 @@ class Value
                 $char['value'] = ']'
             ){
                 $array_depth--;
+                d($array_depth);
                 if($array_depth === 0){
                     ddd($array);
                 }
