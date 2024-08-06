@@ -931,7 +931,7 @@ class Parse
                 $options
             );
         }
-        return Parse::remove_whitespace($object, $input, $flags, $options);
+        return Parse::cleanup($object, $input, $flags, $options);
     }
 
     /**
@@ -1178,12 +1178,14 @@ class Parse
         ];
     }
 
-    public static function remove_whitespace(App $object, $input, $flags, $options): array
+    public static function cleanup(App $object, $input, $flags, $options): array
     {
+        d($input['string']);
         $is_single_quote = false;
         $is_double_quote = false;
         $is_parse = false;
         $whitespace_nr = false;
+        $curly_depth = 0;
         foreach($input['array'] as $nr => $char){
             $previous = $input['array'][$nr - 1] ?? null;
             if(
@@ -1264,6 +1266,7 @@ class Parse
                 $char['value'] === '{{'
             ){
                 $is_parse = true;
+                $curly_depth++;
             }
             elseif(
                 $is_parse === true &&
@@ -1271,6 +1274,7 @@ class Parse
                 array_key_exists('value', $char) &&
                 $char['value'] === '}}'
             ){
+                $curly_depth--;
                 $is_parse = false;
             }
             elseif(
@@ -1594,7 +1598,7 @@ class Parse
             $input = Variable::define($object, $input, $flags, $options);
             $input = Value::define($object, $input, $flags, $options);
 //        d($input['string']);;
-            $input = Parse::remove_whitespace($object, $input, $flags, $options);
+            $input = Parse::cleanup($object, $input, $flags, $options);
             $cache->set($hash, $input);
         }
         return $input;
