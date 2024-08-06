@@ -45,6 +45,7 @@ class Value
             ){
                 if($value){
                     $length = strlen($value);
+                    d($value);
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
