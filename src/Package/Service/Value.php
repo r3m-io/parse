@@ -15,6 +15,7 @@ class Value
         $is_double_quoted = false;
         $value_nr = false;
         $array_depth = 0;
+        $array_nr = false;
         $array = [];
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
@@ -36,9 +37,13 @@ class Value
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
-                $char['value'] === '['
+                $char['value'] === '[' &&
+                $array_nr === false
             ){
                 $array_depth++;
+                if($array_nr === false){
+                    $array_nr = $nr;
+                }
                 d($array_depth);
             }
             elseif(
@@ -48,7 +53,11 @@ class Value
             ){
                 $array_depth--;
                 if($array_depth === 0){
+                    d($input['array']);
+                    d($array_nr);
                     ddd($array);
+                    $array_nr = false;
+                    $array = [];
                 }
             }
             elseif($array_depth > 0){
