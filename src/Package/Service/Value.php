@@ -70,7 +70,6 @@ class Value
                             $flags,
                             $options
                         );
-                        ddd($array_value);
                         $array_value = Parse::value(
                             $object,
                             $array_value,
