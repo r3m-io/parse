@@ -18,6 +18,7 @@ class Value
         $array_nr = false;
         $array_string = '';
         $array = [];
+        d($input['array']);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -96,6 +97,7 @@ class Value
                 }
             }
             elseif($array_depth > 0){
+                d($char);
                 $array[] = $char;
                 if(is_array($char)){
                     if(array_key_exists('execute', $char)){
@@ -375,35 +377,5 @@ class Value
             'value' => $input,
             'execute' => $input
         ];
-    }
-
-    public static function array(App $object, $input, $flags, $options): array
-    {
-        $array_depth = 0;
-        $array = [];
-        d($input['array']);
-        foreach($input['array'] as $nr => $char){
-            if(
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] = '['
-            ){
-                $array_depth++;
-            }
-            elseif(
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] = ']'
-            ){
-                $array_depth--;
-                if($array_depth === 0){
-                    ddd($array);
-                }
-            }
-            if($array_depth > 0){
-                $array[] = $char;
-            }
-        }
-        return $input;
     }
 }
