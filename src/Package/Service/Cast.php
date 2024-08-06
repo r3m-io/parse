@@ -56,6 +56,14 @@ class Cast
                             ];
                             $is_define = true;
                         break;
+                        case 'string':
+                            $input['array'][$is_collect] = [
+                                'value' => $define,
+                                'type' => 'cast',
+                                'cast' => 'string'
+                            ];
+                            $is_define = true;
+                        break;
                         case 'array':
                             $input['array'][$is_collect] = [
                                 'value' => $define,
