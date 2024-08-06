@@ -13,6 +13,7 @@ class Variable
         $count = count($input['array']);
         $is_variable = false;
         $set_depth = 0;
+        $curly_depth = 0;
         $previous = null;
         foreach($input['array'] as $nr => $char){
             if(
@@ -258,6 +259,7 @@ class Variable
                                 $flags,
                                 $options
                             );
+                            d($argument_value);
                             $argument_value = Parse::value(
                                 $object,
                                 $argument_value,
