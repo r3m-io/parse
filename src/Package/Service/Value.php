@@ -77,6 +77,7 @@ class Value
                             $flags,
                             $options
                         );
+                        ddd($array_value);
                         $array_value = Parse::cleanup(
                             $object,
                             $array_value,
