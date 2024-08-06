@@ -44,6 +44,8 @@ class Value
                 $array_depth++;
                 if($array_nr === false){
                     $array_nr = $nr;
+                } else {
+                    $array[] = $char;
                 }
                 $array_string .= $char['value'];
             }
@@ -94,6 +96,8 @@ class Value
                     $array_nr = false;
                     $array_string = '';
                     $array = [];
+                } else{
+                    $array[] = $char;
                 }
             }
             elseif($array_depth > 0){
