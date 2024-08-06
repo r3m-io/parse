@@ -1183,6 +1183,7 @@ class Parse
         $is_single_quote = false;
         $is_double_quote = false;
         $is_parse = false;
+        $whitespace_nr = false;
         foreach($input['array'] as $nr => $char){
             $previous = $input['array'][$nr - 1] ?? null;
             if(
@@ -1309,6 +1310,20 @@ class Parse
                 $is_double_quote === true
             ){
                 unset($input['array'][$nr]);
+            }
+            if(
+                is_array($char) &&
+                array_key_exists('type', $char) &&
+                $char['type'] === 'whitespace'
+            ){
+                if($whitespace_nr === false){
+                    $whitespace_nr = $nr;
+                } else {
+                    $input['array'][$whitespace_nr]['value'] .= $char['value'];
+                    unset($input['array'][$nr]);
+                }
+            } else {
+                $whitespace_nr = false;
             }
         }
         //re-index from 0
