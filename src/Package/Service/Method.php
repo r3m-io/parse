@@ -54,7 +54,8 @@ class Method
                                     $input['array'][$i]['value'],
                                     [
                                         '.',
-                                        "_",
+                                        '_',
+                                        ':',
                                     ]
                                 )
                             ){
@@ -151,7 +152,8 @@ class Method
                                         $input['array'][$i]['value'],
                                         [
                                             '.',
-                                            "_",
+                                            '_',
+                                            ':',
                                         ]
                                     )
                                 ){
