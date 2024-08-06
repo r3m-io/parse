@@ -61,11 +61,24 @@ class Value
                         ];
                     } else {
                         //add array key => value
-                        $array_value = Parse::value(
-                            $object, [
+                        $array_value = Cast::define(
+                            $object,
+                            [
                                 'string' => $array_string,
                                 'array' => $array
                             ],
+                            $flags,
+                            $options
+                        );
+                        $array_value = Parse::value(
+                            $object,
+                            $array_value,
+                            $flags,
+                            $options
+                        );
+                        $array_value = Parse::cleanup(
+                            $object,
+                            $array_value,
                             $flags,
                             $options
                         );
