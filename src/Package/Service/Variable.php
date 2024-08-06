@@ -84,7 +84,7 @@ class Variable
                         }
                         $input['array'][$is_variable] = [
                             'type' => 'variable',
-                            'value' => $name,
+                            'tag' => $name,
                             'name' => substr($name, 1),
                             'is_reference' => $is_reference
                         ];
