@@ -38,8 +38,7 @@ class Value
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
-                $char['value'] === '[' &&
-                $array_nr === false
+                $char['value'] === '['
             ){
                 $array_depth++;
                 d($array_depth);
