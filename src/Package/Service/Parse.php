@@ -1349,6 +1349,20 @@ class Parse
             } else {
                 $whitespace_nr = false;
             }
+            if(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                in_array(
+                    $char['value'],
+                    [
+                        '{{',
+                        '}}'
+                    ],
+                    true
+                )
+            ){
+                unset($input['array'][$nr]);
+            }
         }
         //re-index from 0
         $input['array'] = array_values($input['array']);
