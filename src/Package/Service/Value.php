@@ -44,7 +44,6 @@ class Value
                 if($array_nr === false){
                     $array_nr = $nr;
                 }
-                d($array_depth);
             }
             elseif(
                 is_array($char) &&
@@ -64,6 +63,9 @@ class Value
                             'type' => 'array',
                             'array' => $array
                         ];
+                    }
+                    for($i = $array_nr + 1; $i <= $nr; $i++){
+                        $input['array'][$i] = null;
                     }
                     $array_nr = false;
                     $array = [];
