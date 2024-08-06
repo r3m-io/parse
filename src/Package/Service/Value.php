@@ -83,7 +83,6 @@ class Value
                             $flags,
                             $options
                         );
-                        ddd($array_value);
                         $input['array'][$array_nr] = [
                             'type' => 'array',
                             'array' => $array_value
