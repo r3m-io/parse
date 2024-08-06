@@ -197,6 +197,8 @@ class Variable
                                             }
                                             elseif($input['array'][$i]['value'] === '}}'){
                                                 $curly_depth--;
+                                                d($argument);
+                                                d($curly_depth);
                                                 if($curly_depth === 0){
                                                     break;
                                                 }
