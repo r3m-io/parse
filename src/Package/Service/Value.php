@@ -42,6 +42,7 @@ class Value
                 $array_nr === false
             ){
                 $array_depth++;
+                d($array_depth);
                 if($array_nr === false){
                     $array_nr = $nr;
                 }
@@ -54,6 +55,7 @@ class Value
             ){
                 $array_depth--;
                 $array_string .= $char['value'];
+                d($array_depth);
                 if($array_depth === 0){
                     if(!array_key_exists(0, $array)){
                         $input['array'][$array_nr] = [
