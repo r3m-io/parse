@@ -1615,6 +1615,7 @@ class Parse
             $input = Method::define($object, $input, $flags, $options);
             d($input['string']);
             $input = Variable::define($object, $input, $flags, $options);
+            d($input['string']);
             $input = Value::define($object, $input, $flags, $options);
 //        d($input['string']);;
             $input = Parse::cleanup($object, $input, $flags, $options);
