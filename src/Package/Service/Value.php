@@ -303,4 +303,33 @@ class Value
             'execute' => $input
         ];
     }
+
+    public static function array(App $object, $input, $flags, $options): array
+    {
+        $array_depth = 0;
+        $array = [];
+        foreach($input['array'] as $nr => $char){
+            if(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] = '['
+            ){
+                $array_depth++;
+            }
+            elseif(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] = ']'
+            ){
+                $array_depth--;
+                if($array_depth === 0){
+                    ddd($array);
+                }
+            }
+            if($array_depth > 0){
+                $array[] = $char;
+            }
+        }
+        return $input;
+    }
 }
