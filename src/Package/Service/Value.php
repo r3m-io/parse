@@ -62,7 +62,7 @@ class Value
                         ];
                     } else {
                         //add array key => value
-
+                        ddd($array_string);
                         $array_value = Parse::value(
                             $object, [
                                 'string' => $array_string,
