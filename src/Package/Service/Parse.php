@@ -1312,8 +1312,7 @@ class Parse
                     is_array($char) &&
                     array_key_exists('type', $char) &&
                     $char['type'] === 'whitespace'
-                )
-                 &&
+                ) &&
                 (
                     (
                         $is_single_quote === false &&
@@ -1326,6 +1325,7 @@ class Parse
                     )
                 )
             ){
+                d('yes');
                 unset($input['array'][$nr]);
             }
             elseif(
