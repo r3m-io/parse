@@ -377,7 +377,7 @@ class Parse
     public static function abstract_syntax_tree(App $object, $tags, $flags, $options): array
     {
         $cache = $object->get(App::CACHE);
-
+        d($tags);
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
                 if(
