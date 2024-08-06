@@ -1206,6 +1206,7 @@ class Parse
         $whitespace_nr = false;
         $curly_depth = 0;
         foreach($input['array'] as $nr => $char){
+            d($char);
             $previous = $input['array'][$nr - 1] ?? null;
             if(
                 is_array($previous) &&
