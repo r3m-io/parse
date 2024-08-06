@@ -308,7 +308,7 @@ class Value
     {
         $array_depth = 0;
         $array = [];
-        d($input['string']);
+        d($input['array']);
         foreach($input['array'] as $nr => $char){
             if(
                 is_array($char) &&
