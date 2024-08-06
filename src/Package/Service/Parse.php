@@ -1307,7 +1307,8 @@ class Parse
                             "\t",
                             "\n",
                             "\r"
-                        ], true
+                        ],
+                        true
                     ) ||
                     is_array($char) &&
                     array_key_exists('type', $char) &&
@@ -1328,11 +1329,7 @@ class Parse
                 d('yes');
                 unset($input['array'][$nr]);
             }
-            elseif(
-                $char === null &&
-                $is_single_quote === false &&
-                $is_double_quote === true
-            ){
+            elseif($char === null){
                 d('ytes');
                 unset($input['array'][$nr]);
             }
