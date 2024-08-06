@@ -59,7 +59,6 @@ class Value
                         'value' => $char
                     ];
                 }
-
                 $value = '';
                 $value_nr = false;
             }
