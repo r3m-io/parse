@@ -81,6 +81,7 @@ class Value
                     $is_double_quoted = false;
                     if($value){
                         $length = strlen($value);
+                        ddd($value);
                         $value = Value::basic($object, $value, $flags, $options);
                         $input['array'][$value_nr] = $value;
                         for($i = $value_nr; $i < $value_nr + $length; $i++){
