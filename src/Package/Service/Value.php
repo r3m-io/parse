@@ -18,7 +18,7 @@ class Value
         $array_nr = false;
         $array_string = '';
         $array = [];
-        d($input['array']);
+
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -97,14 +97,17 @@ class Value
                 }
             }
             elseif($array_depth > 0){
-                d($char);
                 $array[] = $char;
                 if(is_array($char)){
                     if(array_key_exists('execute', $char)){
                         $char = $char['execute'];
                     }
                     elseif(array_key_exists('value', $char)){
-                        $char = $char['value'];
+                        if($char['type'] === 'cast'){
+                            $char = '(' . $char['value'] . ')';
+                        } else {
+                            $char = $char['value'];
+                        }
                     } else {
                         $char = null;
                     }
