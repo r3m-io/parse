@@ -53,9 +53,18 @@ class Value
             ){
                 $array_depth--;
                 if($array_depth === 0){
-                    d($input['array']);
-                    d($array_nr);
-                    ddd($array);
+                    if(!array_key_exists(0, $array)){
+                        $input['array'][$array_nr] = [
+                            'type' => 'array',
+                            'execute' => $array
+                        ];
+                    } else {
+                        //add array key => value
+                        $input['array'][$array_nr] = [
+                            'type' => 'array',
+                            'array' => $array
+                        ];
+                    }
                     $array_nr = false;
                     $array = [];
                 }
