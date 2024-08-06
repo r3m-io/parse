@@ -16,6 +16,7 @@ class Value
         $value_nr = false;
         $array_depth = 0;
         $array_nr = false;
+        $array_string = '';
         $array = [];
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
@@ -44,6 +45,7 @@ class Value
                 if($array_nr === false){
                     $array_nr = $nr;
                 }
+                $array_string .= $char['value'];
             }
             elseif(
                 is_array($char) &&
@@ -51,6 +53,7 @@ class Value
                 $char['value'] === ']'
             ){
                 $array_depth--;
+                $array_string .= $char['value'];
                 if($array_depth === 0){
                     if(!array_key_exists(0, $array)){
                         $input['array'][$array_nr] = [
@@ -59,20 +62,41 @@ class Value
                         ];
                     } else {
                         //add array key => value
+
+                        $array_value = Parse::value(
+                            $object, [
+                                'string' => $array_string,
+                                'array' => $array
+                            ],
+                            $flags,
+                            $options
+                        );
                         $input['array'][$array_nr] = [
                             'type' => 'array',
-                            'array' => $array
+                            'array' => $array_value
                         ];
                     }
                     for($i = $array_nr + 1; $i <= $nr; $i++){
                         $input['array'][$i] = null;
                     }
                     $array_nr = false;
+                    $array_string = '';
                     $array = [];
                 }
             }
             elseif($array_depth > 0){
                 $array[] = $char;
+                if(is_array($char)){
+                    if(array_key_exists('execute', $char)){
+                        $char = $char['execute'];
+                    }
+                    elseif(array_key_exists('value', $char)){
+                        $char = $char['value'];
+                    } else {
+                        $char = null;
+                    }
+                }
+                $array_string .= $char;
             }
             if(
                 in_array(
@@ -88,7 +112,6 @@ class Value
             ){
                 if($value){
                     $length = strlen($value);
-                    d($value);
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -126,7 +149,6 @@ class Value
                     $is_double_quoted = false;
                     if($value){
                         $length = strlen($value);
-                        d($value);
                         $value = Value::basic($object, $value, $flags, $options);
                         $input['array'][$value_nr] = $value;
                         for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -139,7 +161,6 @@ class Value
                 }
                 elseif($value){
                     $length = strlen($value);
-                    d($value);
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -173,7 +194,6 @@ class Value
             }
             else {
                 if(is_array($char)){
-                    d($char);
                     if(array_key_exists('execute', $char)){
                         $char = $char['execute'];
                     }
@@ -191,7 +211,6 @@ class Value
         }
         if($value_nr !== false){
             $length = strlen($value);
-            d($value);
             $input['array'][$value_nr] = Value::basic($object, $value, $flags, $options);
             for($i = $value_nr; $i < $value_nr + $length; $i++){
                 if($i === $value_nr){
