@@ -1318,7 +1318,8 @@ class Parse
             ){
                 if($whitespace_nr === false){
                     $whitespace_nr = $nr;
-                } else {
+                }
+                elseif(array_key_exists($whitespace_nr, $input['array'])) {
                     $input['array'][$whitespace_nr]['value'] .= $char['value'];
                     unset($input['array'][$nr]);
                 }
