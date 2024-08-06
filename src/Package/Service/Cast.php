@@ -86,6 +86,7 @@ class Cast
                             $input['array'][$i] = null;
                         }
                     }
+                    $define = '';
                 }
                 $is_collect = false;
             }
