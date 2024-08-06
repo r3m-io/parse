@@ -1333,6 +1333,7 @@ class Parse
                 $is_single_quote === false &&
                 $is_double_quote === true
             ){
+                d('ytes');
                 unset($input['array'][$nr]);
             }
             if(
