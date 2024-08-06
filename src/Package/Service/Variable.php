@@ -192,8 +192,14 @@ class Variable
                                                     break;
                                                 }
                                             }
+                                            elseif($input['array'][$i]['value'] === '{{'){
+                                                $curly_depth++;
+                                            }
                                             elseif($input['array'][$i]['value'] === '}}'){
-                                                break;
+                                                $curly_depth--;
+                                                if($curly_depth === 0){
+                                                    break;
+                                                }
                                             }
                                             if($set_depth >= 0){
                                                 $argument .= $input['array'][$i]['value'];
