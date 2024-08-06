@@ -377,7 +377,6 @@ class Parse
     public static function abstract_syntax_tree(App $object, $tags, $flags, $options): array
     {
         $cache = $object->get(App::CACHE);
-        d($tags);
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
                 if(
@@ -443,16 +442,33 @@ class Parse
                                         $next = $data[$i - 1]['value'];
                                     }
                                 }
-                                if($char === '\'' && $is_single_quoted === false){
+                                if(
+                                    $char === '\'' &&
+                                    $is_single_quoted === false &&
+                                    $previous !== '\\'
+                                ){
                                     $is_single_quoted = true;
                                 }
-                                elseif($char === '\'' && $is_single_quoted === true){
+                                elseif(
+                                    $char === '\'' &&
+                                    $is_single_quoted === true &&
+                                    $previous !== '\\'
+
+                                ){
                                     $is_single_quoted = false;
                                 }
-                                elseif($char === '"' && $is_double_quoted === false){
+                                elseif(
+                                    $char === '"' &&
+                                    $is_double_quoted === false &&
+                                    $previous !== '\\'
+                                ){
                                     $is_double_quoted = true;
                                 }
-                                elseif($char === '"' && $is_double_quoted === true){
+                                elseif(
+                                    $char === '"' &&
+                                    $is_double_quoted === true &&
+                                    $previous !== '\\'
+                                ){
                                     $is_double_quoted = false;
                                 }
                                 if(
@@ -491,6 +507,7 @@ class Parse
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
+                                            d($argument);
                                             $argument_list[] = [
                                                 'string' => $argument,
                                                 'array' => $argument_array
@@ -506,7 +523,7 @@ class Parse
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
-
+                                            d($argument);
                                             $argument_list[] = Parse::value(
                                                 $object,
                                                 [
@@ -668,6 +685,7 @@ class Parse
                                 if($cache->has($argument_hash)){
                                     $argument_value = $cache->get($argument_hash);
                                 } else {
+                                    d($argument);
                                     $argument_value = Parse::value(
                                         $object,
                                         [
@@ -704,6 +722,7 @@ class Parse
                                 if($cache->has($after_hash)){
                                     $list = $cache->get($after_hash);
                                 } else {
+                                    d($after);
                                     $list = Parse::value(
                                         $object,
                                         [
