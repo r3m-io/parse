@@ -435,7 +435,8 @@ class Variable
         return $input;
     }
 
-    public static function string_modifier(App $object, $input, $flags, $options){
+    public static function string_modifier(App $object, $input, $flags, $options): string
+    {
         $string = '';
         foreach($input as $nr => $modifier){
             if(array_key_exists('name', $modifier)){
