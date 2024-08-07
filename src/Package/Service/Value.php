@@ -324,6 +324,7 @@ class Value
     public static function array(App $object, $input, $flags, $options): array
     {
         d($input['string']);
+        d($input['array']);
         $is_single_quote = false;
         $is_double_quote = false;
         $array_depth = 0;
