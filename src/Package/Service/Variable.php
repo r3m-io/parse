@@ -361,7 +361,6 @@ class Variable
                     $array_depth--;
                 }
             }
-
         }
         return $input;
     }
