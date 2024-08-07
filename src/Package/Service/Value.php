@@ -36,6 +36,7 @@ class Value
                     }
                 }
             }
+            d($char);
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&

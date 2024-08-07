@@ -10,7 +10,7 @@ use Exception;
 class Variable
 {
     public static function define(App $object, $input, $flags, $options){
-        $count = strlen($input['string']);
+        $count = count($input['array']);
         $is_variable = false;
         $set_depth = 0;
         $curly_depth = 0;
