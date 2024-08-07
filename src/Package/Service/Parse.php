@@ -1652,6 +1652,7 @@ class Parse
         if($cache->has($hash)){
             $input = $cache->get($hash);
         } else {
+            d($input);
             $input = Symbol::define($object, $input, $flags, $options);
 //            d($input);
             $input = Cast::define($object, $input, $flags, $options);

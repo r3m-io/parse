@@ -18,7 +18,7 @@ class Variable
         $previous = null;
         $is_single_quoted = false;
         $is_double_quoted = false;
-        trace();
+//        trace();
         d($input);
         foreach($input['array'] as $nr => $char){
             if(
