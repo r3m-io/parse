@@ -203,8 +203,6 @@ class Variable
                                     $set_depth++;
                                     if($set_depth >= 0){
                                         $modifier_string .= $input['array'][$i]['value'];
-//                                        $argument .= $input['array'][$i]['value'];
-//                                        $argument_array[] = $input['array'][$i];
                                         $input['array'][$i] = null;
                                     }
                                 }
@@ -216,11 +214,8 @@ class Variable
                                     $set_depth--;
                                     if($set_depth >= 0){
                                         $modifier_string .= $input['array'][$i]['value'];
-//                                        $argument .= $input['array'][$i]['value'];
-//                                        $argument_array[] = $input['array'][$i];
                                         $input['array'][$i] = null;
                                     }
-
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '{{' &&
