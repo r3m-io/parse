@@ -434,4 +434,23 @@ class Variable
         }
         return $input;
     }
+
+    public static function string_modifier(App $object, $input, $flags, $options){
+        $string = '';
+        foreach($input as $nr => $modifier){
+            if(array_key_exists('name', $modifier)){
+                $string .= $modifier['name'];
+                foreach($modifier['argument'] as $nr => $argument){
+                    if(is_array($argument)){
+                        foreach($argument as $argument_nr => $arg){
+                            if(array_key_exists('string', $arg)){
+                                $string .= $arg['string'];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $string;
+    }
 }

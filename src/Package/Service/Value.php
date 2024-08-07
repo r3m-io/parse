@@ -107,9 +107,11 @@ class Value
                         $char = $char['execute'];
                     }
                     elseif(array_key_exists('tag', $char)){
-                        d($char);
-                        $char = $char['tag'];
-
+                        if(array_key_exists('modifier', $char)){
+                            $char = $char['tag'] . Variable::string_modifier($object, $char['modifier'], $flags, $options);
+                        } else {
+                            $char = $char['tag'];
+                        }
                     }
                     elseif(array_key_exists('value', $char)){
                         if($char['type'] === 'cast'){
