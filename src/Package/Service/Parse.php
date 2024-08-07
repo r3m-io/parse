@@ -481,6 +481,9 @@ class Parse
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
+                                    d($char);
+                                    d($nr);
+                                    ddd($input['array']);
                                     $is_modifier = true;
                                     continue;
                                 }
