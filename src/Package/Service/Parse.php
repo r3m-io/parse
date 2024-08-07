@@ -525,6 +525,7 @@ class Parse
                                     $is_single_quoted === false &&
                                     $is_double_quoted === true
                                 ){
+//                                    d($curly_depth);
                                     d($set_depth);
                                     d($char);
 
