@@ -377,11 +377,13 @@ class Variable
                     $char['value'] === '('
                 ){
                     $set_depth++;
+                    d($set_depth);
                 }
                 elseif(
                     $input['array'][$nr] !== null && // null check needed
                     $char['value'] === ')'
                 ) {
+                    d('yes');
                     $set_depth--;
                 }
                 elseif(
