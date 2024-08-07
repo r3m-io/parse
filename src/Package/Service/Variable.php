@@ -309,22 +309,26 @@ class Variable
                     }
                 }
                 elseif(
-                    $input['array'][$nr]['value'] === '('
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === '('
                 ){
                     $set_depth++;
                 }
                 elseif(
-                    $input['array'][$nr]['value'] === ')'
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === ')'
                 ) {
                     $set_depth--;
                 }
                 elseif(
-                    $input['array'][$nr]['value'] === '['
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === '['
                 ){
                     $array_depth++;
                 }
                 elseif(
-                    $input['array'][$nr]['value'] === ']'
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === ']'
                 ) {
                     $array_depth--;
                 }
