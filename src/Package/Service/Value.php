@@ -19,6 +19,7 @@ class Value
         $array_string = '';
         $array = [];
 
+        d($input['array']);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
