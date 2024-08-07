@@ -64,7 +64,7 @@ class Value
                             'execute' => $array
                         ];
                     } else {
-                        if(str_contains($array_string, '))())')){
+                        if(str_contains($array_string, '())')){
                             trace();
                             ddd($array_string);
                         }
