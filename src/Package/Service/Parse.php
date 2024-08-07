@@ -483,7 +483,7 @@ class Parse
                                 ){
                                     d($char);
                                     d($nr);
-                                    ddd($input['array']);
+                                    ddd($after_array);
                                     $is_modifier = true;
                                     continue;
                                 }
