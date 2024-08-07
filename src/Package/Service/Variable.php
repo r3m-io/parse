@@ -446,6 +446,7 @@ class Variable
                     $input['array'][$nr] !== null && // null check needed
                     $char['value'] === '\'' &&
                     $is_single_quoted === false &&
+                    $is_double_quoted === false &&
                     $previous !== '\\'
                 ){
                     $is_single_quoted = true;
@@ -454,6 +455,7 @@ class Variable
                     $input['array'][$nr] !== null && // null check needed
                     $char['value'] === '\'' &&
                     $is_single_quoted === true &&
+                    $is_double_quoted === false &&
                     $previous !== '\\'
                 ){
                     $is_single_quoted = false;
@@ -461,6 +463,7 @@ class Variable
                 elseif(
                     $input['array'][$nr] !== null && // null check needed
                     $char['value'] === '"' &&
+                    $is_single_quoted === false &&
                     $is_double_quoted === false &&
                     $previous !== '\\'
                 ){
@@ -469,40 +472,74 @@ class Variable
                 elseif(
                     $input['array'][$nr] !== null && // null check needed
                     $char['value'] === '"' &&
+                    $is_single_quoted === false &&
                     $is_double_quoted === true &&
                     $previous !== '\\'
                 ){
                     $is_double_quoted = false;
                 }
                 elseif(
-                    $input['array'][$nr] !== null && // null check needed
-                    $char['value'] === '(' &&
-                    $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === '(' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === false
+                    ) ||
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === '(' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === true
+                    )
                 ){
                     $set_depth++;
                 }
                 elseif(
-                    $input['array'][$nr] !== null && // null check needed
-                    $char['value'] === ')' &&
-                    $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === ')' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === false
+                    ) ||
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === ')' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === true
+                    )
+
                 ) {
                     $set_depth--;
                 }
                 elseif(
-                    $input['array'][$nr] !== null && // null check needed
-                    $char['value'] === '[' &&
-                    $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === '[' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === false
+                    ) ||
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === '[' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === true
+                    )
                 ){
                     $array_depth++;
                 }
                 elseif(
-                    $input['array'][$nr] !== null && // null check needed
-                    $char['value'] === ']' &&
-                    $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === ']' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === false
+                    ) ||
+                    (
+                        $input['array'][$nr] !== null && // null check needed
+                        $char['value'] === ']' &&
+                        $is_single_quoted === false &&
+                        $is_double_quoted === true
+                    )
                 ) {
                     $array_depth--;
                 }
