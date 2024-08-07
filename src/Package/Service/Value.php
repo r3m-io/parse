@@ -321,14 +321,12 @@ class Value
 
     public static function array(App $object, $input, $flags, $options): array
     {
-        return $input;
         $is_single_quote = false;
         $is_double_quote = false;
         $array_depth = 0;
         $array = [];
         $array_nr = false;
         $array_string = '';
-        d('no');
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
