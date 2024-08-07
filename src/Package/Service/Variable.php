@@ -440,6 +440,7 @@ class Variable
                             }
                         }
                         if(array_key_exists(0, $argument_array)) {
+                            d($argument);
                             $argument_value = Cast::define(
                                 $object, [
                                 'string' => $argument,
