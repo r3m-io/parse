@@ -108,6 +108,7 @@ class Value
                     }
                     elseif(array_key_exists('tag', $char)){
                         $char = $char['tag'];
+                        ddd('found');
                     }
                     elseif(array_key_exists('value', $char)){
                         if($char['type'] === 'cast'){
