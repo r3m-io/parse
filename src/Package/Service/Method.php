@@ -100,6 +100,7 @@ class Method
                 }
                 if($name && $has_name === false){
                     $name = strrev($name);
+                    ddd($name);
                     $has_name = true;
                 }
             }
