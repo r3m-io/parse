@@ -37,6 +37,18 @@ class Method
                     }
                 }
             }
+            $next_nr = $nr + 1;
+            $next = $input['array'][$next_nr] ?? null;
+            if(is_array($next)){
+                if(array_key_exists('execute', $next)){
+                    $next = $next['execute'];
+                }
+                elseif(array_key_exists('value', $next)){
+                    $next = $next['value'];
+                } else {
+                    $next = null;
+                }
+            }
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
@@ -137,7 +149,7 @@ class Method
                                         ' ',
                                         "\n",
                                         "\r",
-                                        "\t"
+                                        "\t",
                                     ]
                                 ) &&
                                 $is_single_quote === false &&
@@ -159,11 +171,19 @@ class Method
                                 ){
                                     $input['array'][$i] = null;
                                 }
+                                elseif(
+                                    $input['array'][$i]['value'] === '|' &&
+                                    $previous !== '|' &&
+                                    $next !== '|' &&
+                                    $is_single_quote === false &&
+                                    $is_double_quote === false
+                                ){
+                                    break;
+                                }
                             } else {
                                 $input['array'][$i] = null;
                             }
                         }
-                        d($is_method);
                         for($i = $is_method + 1; $i <= $nr; $i++){
                             $input['array'][$i] = null;
                         }
