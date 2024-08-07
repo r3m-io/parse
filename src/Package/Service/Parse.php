@@ -732,11 +732,18 @@ class Parse
                                 $argument_list = [];
                             }
                             if(!$after){
-                                $variable = [
-                                    'is_define' => true,
-                                    'name' => substr($variable_name, 1),
-                                    'modifier' => $modifier_list,
-                                ];
+                                if(array_key_exists(0, $modifier_list)){
+                                    $variable = [
+                                        'is_define' => true,
+                                        'name' => substr($variable_name, 1),
+                                        'modifier' => $modifier_list,
+                                    ];
+                                } else {
+                                    $variable = [
+                                        'is_define' => true,
+                                        'name' => substr($variable_name, 1),
+                                    ];
+                                }
                             } else {
                                 $after_hash = hash('sha256', $after);
                                 if($cache->has($after_hash)){
@@ -754,13 +761,23 @@ class Parse
                                     );
                                     $cache->set($after_hash, $list);
                                 }
-                                $variable = [
-                                    'is_assign' => true,
-                                    'operator' => $operator,
-                                    'name' => substr($variable_name, 1),
-                                    'value' => $list,
-                                    'modifier' => $modifier_list,
-                                ];
+                                if(array_key_exists(0, $modifier_list)){
+                                    $variable = [
+                                        'is_assign' => true,
+                                        'operator' => $operator,
+                                        'name' => substr($variable_name, 1),
+                                        'value' => $list,
+                                        'modifier' => $modifier_list,
+                                    ];
+                                } else {
+                                    $variable = [
+                                        'is_assign' => true,
+                                        'operator' => $operator,
+                                        'name' => substr($variable_name, 1),
+                                        'value' => $list,
+                                    ];
+                                }
+
                             }
                             $cache->set($hash, $variable);
                         }
