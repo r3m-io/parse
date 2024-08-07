@@ -450,6 +450,7 @@ class Variable
                             ){
                                 $string .= $arg['string'];
                             } else {
+                                trace();
                                 ddd($argument);
                             }
                         }
