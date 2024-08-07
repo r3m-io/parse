@@ -201,6 +201,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $set_depth--;
+                                    d($input['array']);
                                     ddd($set_depth);
                                 }
                                 elseif(
