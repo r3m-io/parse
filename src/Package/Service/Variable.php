@@ -448,9 +448,6 @@ class Variable
                             array_key_exists('string', $argument)
                         ){
                             $string .= $argument['string'];
-                        } else {
-                            trace();
-                            ddd($argument);
                         }
                     }
                 }
