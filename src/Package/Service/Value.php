@@ -57,6 +57,7 @@ class Value
                 $array_depth--;
                 $array_string .= $char['value'];
                 if($array_depth === 0){
+                    ddd($array);
                     if(!array_key_exists(0, $array)){
                         $input['array'][$array_nr] = [
                             'type' => 'array',
