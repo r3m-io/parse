@@ -193,6 +193,9 @@ class Variable
                                     $input['array'][$i] = null;
                                 }
                                 elseif($has_modifier === false) {
+                                    if($input['array'][$i]['value'] === '=>'){
+                                        break;
+                                    }
                                     d($input['array'][$i]['value']);
                                     d($modifier_name);
                                     d($array_depth);
