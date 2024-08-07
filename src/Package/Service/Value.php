@@ -108,6 +108,7 @@ class Value
                     }
                     elseif(array_key_exists('tag', $char)){
                         if(array_key_exists('modifier', $char)){
+                            ddd($char);
                             $char = $char['tag'] . Variable::string_modifier($object, $char['modifier'], $flags, $options);
                         } else {
                             $char = $char['tag'];
