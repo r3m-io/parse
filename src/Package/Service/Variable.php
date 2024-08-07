@@ -443,16 +443,13 @@ class Variable
                 $string .= $modifier['name'];
                 foreach($modifier['argument'] as $nr => $argument){
                     if(is_array($argument)){
-                        foreach($argument as $argument_nr => $arg){
-                            if(
-                                is_array($arg) &&
-                                array_key_exists('string', $arg)
-                            ){
-                                $string .= $arg['string'];
-                            } else {
-                                trace();
-                                ddd($argument);
-                            }
+                        if(
+                            array_key_exists('string', $argument)
+                        ){
+                            $string .= $argument['string'];
+                        } else {
+                            trace();
+                            ddd($argument);
                         }
                     }
                 }
