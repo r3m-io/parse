@@ -387,6 +387,32 @@ class Value
             ){
                 $is_double_quote = false;
             }
+            elseif(
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '['
+            ){
+                $array_depth++;
+            }
+            elseif(
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === ']'
+            ) {
+                $array_depth--;
+                if($array_depth === 0){
+                    d($array_string);
+                    ddd($array);
+                }
+            }
+            if($array_depth > 0){
+                $array[] = $char;
+            }
+
             /*
             elseif(
                 $is_single_quote === false &&
