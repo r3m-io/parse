@@ -199,8 +199,10 @@ class Variable
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
-                                    $modifier_string .= $input['array'][$i]['value'];
                                     $set_depth++;
+                                    if($set_depth > 0){
+                                        $modifier_string .= $input['array'][$i]['value'];
+                                    }
                                     $input['array'][$i] = null;
                                 }
                                 elseif(
@@ -208,8 +210,10 @@ class Variable
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
-                                    $modifier_string .= $input['array'][$i]['value'];
                                     $set_depth--;
+                                    if($set_depth > 0){
+                                        $modifier_string .= $input['array'][$i]['value'];
+                                    }
                                     $input['array'][$i] = null;
                                 }
                                 elseif(
