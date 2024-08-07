@@ -205,6 +205,10 @@ class Variable
                                         $modifier_string .= $input['array'][$i]['value'];
                                         $input['array'][$i] = null;
                                     }
+                                    if(array_key_exists(0, $argument_array)){
+                                        $argument_array[] = $input['array'][$i];
+                                        $argument .= $input['array'][$i]['value'];
+                                    }
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === ')' &&
@@ -215,6 +219,10 @@ class Variable
                                     if($set_depth > 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                         $input['array'][$i] = null;
+                                    }
+                                    if(array_key_exists(0, $argument_array)){
+                                        $argument_array[] = $input['array'][$i];
+                                        $argument .= $input['array'][$i]['value'];
                                     }
                                 }
                                 elseif(
