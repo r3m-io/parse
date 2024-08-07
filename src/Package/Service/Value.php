@@ -323,8 +323,6 @@ class Value
 
     public static function array(App $object, $input, $flags, $options): array
     {
-        d($input['string']);
-        d($input['array']);
         $is_single_quote = false;
         $is_double_quote = false;
         $array_depth = 0;
@@ -421,6 +419,13 @@ class Value
                     }
                     elseif(array_key_exists('tag', $char)){
                         $array_string .= $char['tag'];
+                        if(array_key_exists('modifier', $char)){
+                            foreach($char['modifier'] as $modifier){
+                                if(array_key_exists('string', $modifier)){
+                                    $array_string .= $modifier['string'];
+                                }
+                            }
+                        }
                     }
                     elseif(array_key_exists('value', $char)){
                         $array_string .= $char['value'];
