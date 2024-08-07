@@ -16,6 +16,8 @@ class Variable
         $curly_depth = 0;
         $array_depth = 0;
         $previous = null;
+        $is_single_quoted = false;
+        $is_double_quoted = false;
         foreach($input['array'] as $nr => $char){
             if(
                 array_key_exists($nr - 1, $input['array']) &&
@@ -96,8 +98,6 @@ class Variable
                         $argument_array = [];
                         $argument_list = [];
                         $modifier_name = '';
-                        $is_single_quoted = false;
-                        $is_double_quoted = false;
                         for($i = $is_variable + 1; $i < $count; $i++){
                             if(
                                 array_key_exists($i - 1, $input['array']) &&
@@ -365,6 +365,34 @@ class Variable
                             ];
                         }
                     }
+                }
+                elseif(
+                    $input['array'][$i]['value'] === '\'' &&
+                    $is_single_quoted === false &&
+                    $previous !== '\\'
+                ){
+                    $is_single_quoted = true;
+                }
+                elseif(
+                    $input['array'][$i]['value'] === '\'' &&
+                    $is_single_quoted === true &&
+                    $previous !== '\\'
+                ){
+                    $is_single_quoted = false;
+                }
+                elseif(
+                    $input['array'][$i]['value'] === '"' &&
+                    $is_double_quoted === false &&
+                    $previous !== '\\'
+                ){
+                    $is_double_quoted = true;
+                }
+                elseif(
+                    $input['array'][$i]['value'] === '"' &&
+                    $is_double_quoted === true &&
+                    $previous !== '\\'
+                ){
+                    $is_double_quoted = false;
                 }
                 elseif(
                     $input['array'][$nr] !== null && // null check needed
