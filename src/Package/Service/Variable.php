@@ -10,7 +10,7 @@ use Exception;
 class Variable
 {
     public static function define(App $object, $input, $flags, $options){
-        $count = count($input['array']);
+        $count = strlen($input['string']);
         $is_variable = false;
         $set_depth = 0;
         $curly_depth = 0;
@@ -77,6 +77,7 @@ class Variable
 
                         }
                     }
+                    ddd($name);
                     if($name){
                         $is_reference = false;
                         if($previous === '&'){
