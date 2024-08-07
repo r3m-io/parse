@@ -189,11 +189,6 @@ class Variable
                                      * array-depth
                                      * curly-depth
                                      */
-                                    d($argument_array);
-                                    d($name);
-                                    d($array_depth);
-                                    d($curly_depth);
-                                    ddd($set_depth);
                                     $has_modifier = true;
                                     $input['array'][$i] = null;
                                 }
