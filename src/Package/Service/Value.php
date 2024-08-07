@@ -439,7 +439,7 @@ class Value
                 ){
                     $array_string .= $char['tag'];
                     if(
-                        array_key_exist('modifier', $char) &&
+                        array_key_exists('modifier', $char) &&
                         is_array($char['modifier'])
                     ){
                         foreach($char['modifier'] as $modifier){
