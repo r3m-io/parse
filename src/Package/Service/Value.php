@@ -324,6 +324,106 @@ class Value
     public static function array(App $object, $input, $flags, $options): array
     {
         d($input['string']);
+        $is_single_quote = false;
+        $is_double_quote = false;
+        $array_depth = 0;
+        $array = [];
+        $array_string = '';
+        foreach($input['array'] as $nr => $char){
+            $previous_nr = $nr - 1;
+            if($previous_nr < 0){
+                $previous = null;
+            } else {
+                $previous = $input['array'][$previous_nr];
+                if(is_array($previous)){
+                    if(array_key_exists('execute', $previous)){
+                        $previous = $previous['execute'];
+                    }
+                    elseif(array_key_exists('value', $previous)){
+                        $previous = $previous['value'];
+                    } else {
+                        $previous = null;
+                    }
+                }
+            }
+            if(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '\'' &&
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                $previous !== '\\'
+            ){
+                $is_single_quote = true;
+            }
+            elseif(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '\'' &&
+                $is_single_quote === true &&
+                $is_double_quote === false &&
+                $previous !== '\\'
+            ){
+                $is_single_quote = false;
+            }
+            elseif(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '"' &&
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                $previous !== '\\'
+            ){
+                $is_double_quote = true;
+            }
+            elseif(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '"' &&
+                $is_single_quote === false &&
+                $is_double_quote === true &&
+                $previous !== '\\'
+            ){
+                $is_double_quote = false;
+            }
+            elseif(
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '['
+            ){
+                $array_depth++;
+                $is_collect = true;
+            }
+            elseif(
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === ']'
+            ){
+                $array_depth--;
+                if($array_depth === 0){
+                    d($array_string);
+                    $is_collect = false;
+                }
+
+            }
+            if($is_collect){
+                $array[] = $char;
+                if(is_array($char)){
+                    if(array_key_exists('execute', $char)){
+                        $array_string .= $char['execute'];
+                    }
+                    elseif(array_key_exists('value', $char)){
+                        $array_string .= $char['value'];
+                    }
+                } else {
+                    $array_string .= $char;
+                }
+            }
+        }
         return $input;
     }
 }
