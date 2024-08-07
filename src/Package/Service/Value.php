@@ -64,8 +64,10 @@ class Value
                             'execute' => $array
                         ];
                     } else {
-                        d($array_string);
-                        ddd($array);
+                        if(str_contains($array_string, '))())')){
+                            trace();
+                            ddd($array_string);
+                        }
                         //add array key => value
                         $array_value = Cast::define(
                             $object,
