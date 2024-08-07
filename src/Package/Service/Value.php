@@ -58,6 +58,7 @@ class Value
                 $array_string .= $char['value'];
                 if($array_depth === 0){
                     if(!array_key_exists(0, $array)){
+                        ddd($array);
                         $input['array'][$array_nr] = [
                             'type' => 'array',
                             'execute' => $array
@@ -108,7 +109,6 @@ class Value
                     }
                     elseif(array_key_exists('tag', $char)){
                         if(array_key_exists('modifier', $char)){
-                            ddd($array);
                             $char = $char['tag'] . Variable::string_modifier($object, $char['modifier'], $flags, $options);
                         } else {
                             $char = $char['tag'];
