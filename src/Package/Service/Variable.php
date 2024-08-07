@@ -77,7 +77,6 @@ class Variable
 
                         }
                     }
-                    ddd($name);
                     if($name){
                         $is_reference = false;
                         if($previous === '&'){
@@ -212,11 +211,14 @@ class Variable
                                             $argument_array[] = $input['array'][$i];
                                         }
                                         elseif(array_key_exists('value', $input['array'][$i])){
+                                            /*
                                             if($input['array'][$i]['value'] === ')'){
                                                 if($set_depth < 0){
                                                     break;
                                                 }
                                             }
+                                            */
+                                            d($set_depth);
                                             if($set_depth >= 0){
                                                 $argument .= $input['array'][$i]['value'];
                                                 $argument_array[] = $input['array'][$i];
