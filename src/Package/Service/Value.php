@@ -407,6 +407,7 @@ class Value
                 $array_depth--;
                 if($array_depth === 0){
                     d($array_string);
+                    ddd($array);
                     $is_collect = false;
                 }
 
