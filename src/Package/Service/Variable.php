@@ -42,6 +42,7 @@ class Variable
                 ){
                     $is_variable = $nr;
                     $name = '$';
+                    ddd($input['array']);
                     for($i = $nr + 1; $i < $count; $i++){
                         if(
                             is_array($input['array'][$i]) &&
