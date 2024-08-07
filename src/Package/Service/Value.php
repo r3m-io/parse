@@ -396,6 +396,7 @@ class Value
             ){
                 $array_depth++;
                 $array[] = $char;
+                d($array_depth);
             }
             elseif(
                 $is_single_quote === false &&
@@ -405,6 +406,7 @@ class Value
                 $char['value'] === ']'
             ) {
                 $array_depth--;
+                d($array_depth);
                 $array[] = $char;
                 if($array_depth === 0){
                     d($array_string);
