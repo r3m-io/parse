@@ -340,6 +340,26 @@ class Variable
                         }
                     }
                 }
+                elseif(
+                    $input['array'][$nr]['value'] === '('
+                ){
+                    $set_depth++;
+                }
+                elseif(
+                    $input['array'][$nr]['value'] === ')'
+                ) {
+                    $set_depth--;
+                }
+                elseif(
+                    $input['array'][$nr]['value'] === '['
+                ){
+                    $array_depth++;
+                }
+                elseif(
+                    $input['array'][$nr]['value'] === ']'
+                ) {
+                    $array_depth--;
+                }
             }
 
         }
