@@ -395,7 +395,7 @@ class Value
             ){
                 $array_depth++;
                 $is_collect = true;
-                $array_string .= $char['value'];
+//                $array_string .= $char['value'];
                 continue;
             }
             elseif(
@@ -406,7 +406,7 @@ class Value
                 $char['value'] === ']'
             ){
                 $array_depth--;
-                $array_string .= $char['value'];
+//                $array_string .= $char['value'];
                 if($array_depth === 0){
                     d($array_string);
                     ddd($array);
