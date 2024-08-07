@@ -749,7 +749,6 @@ class Parse
                                 if($cache->has($after_hash)){
                                     $list = $cache->get($after_hash);
                                 } else {
-                                    d($after);
                                     $list = Parse::value(
                                         $object,
                                         [
