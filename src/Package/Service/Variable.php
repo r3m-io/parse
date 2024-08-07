@@ -14,6 +14,7 @@ class Variable
         $is_variable = false;
         $set_depth = 0;
         $curly_depth = 0;
+        $array_depth = 0;
         $previous = null;
         foreach($input['array'] as $nr => $char){
             if(
@@ -155,6 +156,24 @@ class Variable
                                 ){
                                     $input['array'][$i] = null;
                                 }
+                                elseif($input['array'][$i]['value'] === '('){
+                                    $set_depth++;
+                                }
+                                elseif($input['array'][$i]['value'] === ')'){
+                                    $set_depth--;
+                                }
+                                elseif($input['array'][$i]['value'] === '{{'){
+                                    $curly_depth++;
+                                }
+                                elseif($input['array'][$i]['value'] === '}}'){
+                                    $curly_depth--;
+                                }
+                                elseif($input['array'][$i]['value'] === '['){
+                                    $array_depth++;
+                                }
+                                elseif($input['array'][$i]['value'] === ']'){
+                                    $array_depth--;
+                                }
                                 elseif(
                                     $input['array'][$i]['value'] === '|' &&
                                     $previous !== '|' &&
@@ -191,20 +210,10 @@ class Variable
                                             $argument_array[] = $input['array'][$i];
                                         }
                                         elseif(array_key_exists('value', $input['array'][$i])){
-                                            if($input['array'][$i]['value'] === '('){
-                                                $set_depth++;
-                                            }
-                                            elseif($input['array'][$i]['value'] === ')'){
-                                                $set_depth--;
+                                            if($input['array'][$i]['value'] === ')'){
                                                 if($set_depth < 0){
                                                     break;
                                                 }
-                                            }
-                                            elseif($input['array'][$i]['value'] === '{{'){
-                                                $curly_depth++;
-                                            }
-                                            elseif($input['array'][$i]['value'] === '}}'){
-                                                $curly_depth--;
                                             }
                                             if($set_depth >= 0){
                                                 $argument .= $input['array'][$i]['value'];
