@@ -293,7 +293,6 @@ class Variable
                                             $modifier_string .= $input['array'][$i]['execute'];
                                         }
                                         elseif(array_key_exists('value', $input['array'][$i])){
-
                                             if($input['array'][$i]['value'] === ')'){
                                                 if($set_depth < 0){
                                                     break;
@@ -384,6 +383,7 @@ class Variable
                                 $flags,
                                 $options
                             );
+                            d($argument_value);
                             $argument_list[] = $argument_value;
                         }
                         if($modifier_name){
