@@ -18,6 +18,7 @@ class Variable
         $previous = null;
         $is_single_quoted = false;
         $is_double_quoted = false;
+        d($input);
         foreach($input['array'] as $nr => $char){
             if(
                 array_key_exists($nr - 1, $input['array']) &&
@@ -77,7 +78,6 @@ class Variable
                             ){
                                 $name .= $input['array'][$i];
                             }
-
                         }
                     }
                     if($name){
