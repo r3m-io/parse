@@ -201,10 +201,6 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $set_depth++;
-                                    if(array_key_exists(0, $argument_array)){
-                                        $argument_array[] = $input['array'][$i];
-                                        $argument .= $input['array'][$i]['value'];
-                                    }
                                     if($set_depth > 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                         $input['array'][$i] = null;
@@ -216,10 +212,6 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $set_depth--;
-                                    if(array_key_exists(0, $argument_array)){
-                                        $argument_array[] = $input['array'][$i];
-                                        $argument .= $input['array'][$i]['value'];
-                                    }
                                     if($set_depth > 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                         $input['array'][$i] = null;
