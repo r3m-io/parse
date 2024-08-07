@@ -195,9 +195,16 @@ class Variable
 
                                 }
                                 elseif(
-                                    $input['array'][$i]['value'] === '(' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    (
+                                        $input['array'][$i]['value'] === '(' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === false
+                                    ) ||
+                                    (
+                                        $input['array'][$i]['value'] === '(' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === true
+                                    )
                                 ){
                                     $set_depth++;
                                     if($set_depth >= 0){
@@ -206,9 +213,16 @@ class Variable
                                     }
                                 }
                                 elseif(
-                                    $input['array'][$i]['value'] === ')' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    (
+                                        $input['array'][$i]['value'] === ')' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === false
+                                    ) ||
+                                    (
+                                        $input['array'][$i]['value'] === ')' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === true
+                                    )
                                 ){
                                     $set_depth--;
                                     if($set_depth >= 0){
@@ -235,28 +249,53 @@ class Variable
                                     $input['array'][$i] = null;
                                 }
                                 elseif(
-                                    $input['array'][$i]['value'] === '[' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    (
+                                        $input['array'][$i]['value'] === '[' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === false
+                                    ) ||
+                                    (
+                                        $input['array'][$i]['value'] === '[' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === true
+                                    )
                                 ){
                                     $array_depth++;
                                     $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
-                                    $input['array'][$i]['value'] === ']' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    (
+                                        $input['array'][$i]['value'] === ']' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === false
+                                    ) ||
+                                    (
+                                        $input['array'][$i]['value'] === ']' &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === true
+                                    )
                                 ){
                                     $array_depth--;
                                     $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
-                                    $input['array'][$i]['value'] === '|' &&
-                                    $previous !== '|' &&
-                                    $next !== '|' &&
-                                    $has_modifier === false &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    (
+                                        $input['array'][$i]['value'] === '|' &&
+                                        $previous !== '|' &&
+                                        $next !== '|' &&
+                                        $has_modifier === false &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === false
+                                    ) ||
+                                    (
+                                        $input['array'][$i]['value'] === '|' &&
+                                        $previous !== '|' &&
+                                        $next !== '|' &&
+                                        $has_modifier === false &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === true
+                                    )
+
                                 ){
                                     /**
                                      * needs:
@@ -273,12 +312,22 @@ class Variable
                                     break;
                                 }
                                 elseif(
-                                    $input['array'][$i]['value'] === ':' &&
-                                    $previous !== ':' &&
-                                    $next !== ':' &&
-                                    $modifier_name && $has_name === false &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    (
+                                        $input['array'][$i]['value'] === ':' &&
+                                        $previous !== ':' &&
+                                        $next !== ':' &&
+                                        $modifier_name && $has_name === false &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === false
+                                    ) ||
+                                    (
+                                        $input['array'][$i]['value'] === ':' &&
+                                        $previous !== ':' &&
+                                        $next !== ':' &&
+                                        $modifier_name && $has_name === false &&
+                                        $is_single_quoted === false &&
+                                        $is_double_quoted === true
+                                    )
                                 ) {
                                     $has_name = true;
                                     $modifier_string .= $input['array'][$i]['value'];
