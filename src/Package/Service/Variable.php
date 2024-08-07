@@ -440,7 +440,7 @@ class Variable
         $string = '';
         foreach($input as $nr => $modifier){
             if(array_key_exists('name', $modifier)){
-                $string .= $modifier['name'];
+                $string .= '|' . $modifier['name'];
                 foreach($modifier['argument'] as $nr => $argument){
                     if(is_array($argument)){
                         if(
