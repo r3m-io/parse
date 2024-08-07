@@ -175,6 +175,9 @@ class Variable
                                 ){
                                     $is_double_quoted = false;
                                 }
+                                d($input['array'][$i]['value']);
+                                d($is_single_quoted);
+                                d($is_double_quoted);
                                 if(
                                     in_array(
                                         $input['array'][$i]['value'],
