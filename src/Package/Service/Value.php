@@ -108,8 +108,9 @@ class Value
                         $char = $char['execute'];
                     }
                     elseif(array_key_exists('tag', $char)){
+                        d($char);
                         $char = $char['tag'];
-                        ddd('found');
+
                     }
                     elseif(array_key_exists('value', $char)){
                         if($char['type'] === 'cast'){
