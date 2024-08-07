@@ -320,4 +320,10 @@ class Value
             'execute' => $input
         ];
     }
+
+    public static function array(App $object, $input, $flags, $options): array
+    {
+        d($input['string']);
+        return $input;
+    }
 }
