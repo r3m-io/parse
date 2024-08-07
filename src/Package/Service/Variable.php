@@ -186,6 +186,7 @@ class Variable
                                      * array-depth
                                      * curly-depth
                                      */
+                                    d($name);
                                     d($array_depth);
                                     d($curly_depth);
                                     ddd($set_depth);
