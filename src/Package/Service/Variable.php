@@ -96,6 +96,8 @@ class Variable
                         $argument_array = [];
                         $argument_list = [];
                         $modifier_name = '';
+                        $is_single_quoted = false;
+                        $is_double_quoted = false;
                         for($i = $is_variable + 1; $i < $count; $i++){
                             if(
                                 array_key_exists($i - 1, $input['array']) &&
@@ -146,6 +148,34 @@ class Variable
                                 array_key_exists('value', $input['array'][$i])
                             ){
                                 if(
+                                    $input['array'][$i]['value'] === '\'' &&
+                                    $is_single_quoted === false &&
+                                    $previous !== '\\'
+                                ){
+                                    $is_single_quoted = true;
+                                }
+                                elseif(
+                                    $input['array'][$i]['value'] === '\'' &&
+                                    $is_single_quoted === true &&
+                                    $previous !== '\\'
+                                ){
+                                    $is_single_quoted = false;
+                                }
+                                elseif(
+                                    $input['array'][$i]['value'] === '"' &&
+                                    $is_double_quoted === false &&
+                                    $previous !== '\\'
+                                ){
+                                    $is_double_quoted = true;
+                                }
+                                elseif(
+                                    $input['array'][$i]['value'] === '"' &&
+                                    $is_double_quoted === true &&
+                                    $previous !== '\\'
+                                ){
+                                    $is_double_quoted = false;
+                                }
+                                if(
                                     in_array(
                                         $input['array'][$i]['value'],
                                         [
@@ -157,31 +187,57 @@ class Variable
                                 ){
                                     $input['array'][$i] = null;
                                 }
-                                elseif($input['array'][$i]['value'] === '('){
+                                elseif(
+                                    $input['array'][$i]['value'] === '(' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
                                     $set_depth++;
                                     d($set_depth);
                                 }
-                                elseif($input['array'][$i]['value'] === ')'){
+                                elseif(
+                                    $input['array'][$i]['value'] === ')' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
                                     $set_depth--;
                                     d($set_depth);
                                 }
-                                elseif($input['array'][$i]['value'] === '{{'){
+                                elseif(
+                                    $input['array'][$i]['value'] === '{{' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
                                     $curly_depth++;
                                 }
-                                elseif($input['array'][$i]['value'] === '}}'){
+                                elseif(
+                                    $input['array'][$i]['value'] === '}}' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
                                     $curly_depth--;
                                 }
-                                elseif($input['array'][$i]['value'] === '['){
+                                elseif(
+                                    $input['array'][$i]['value'] === '[' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
                                     $array_depth++;
                                 }
-                                elseif($input['array'][$i]['value'] === ']'){
+                                elseif(
+                                    $input['array'][$i]['value'] === ']' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
                                     $array_depth--;
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '|' &&
                                     $previous !== '|' &&
                                     $next !== '|' &&
-                                    $has_modifier === false
+                                    $has_modifier === false &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
                                 ){
                                     /**
                                      * needs:
@@ -193,21 +249,15 @@ class Variable
                                     $input['array'][$i] = null;
                                 }
                                 elseif($has_modifier === false) {
-                                    if($input['array'][$i]['value'] === '=>'){
-                                        break;
-                                    }
-                                    d($input['array'][$i]['value']);
-                                    d($modifier_name);
-                                    d($array_depth);
-                                    d($curly_depth);
-                                    ddd($set_depth);
                                     break;
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === ':' &&
                                     $previous !== ':' &&
                                     $next !== ':' &&
-                                    $modifier_name && $has_name === false
+                                    $modifier_name && $has_name === false &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
                                 ) {
                                     $has_name = true;
                                     $input['array'][$i] = null;
@@ -226,7 +276,17 @@ class Variable
                                                 }
                                             }
                                             */
-                                            d($set_depth);
+                                            if($input['array'][$i]['value'] === '\''){
+
+                                            }
+
+                                            if(
+                                                $input['array'][$i]['value'] === ',' &&
+                                                $is_single_quoted === false &&
+                                                $is_double_quoted === false
+                                            ){
+                                                break;
+                                            }
                                             if($set_depth >= 0){
                                                 $argument .= $input['array'][$i]['value'];
                                                 $argument_array[] = $input['array'][$i];
