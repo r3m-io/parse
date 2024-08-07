@@ -434,8 +434,6 @@ class Variable
                             $argument_list[] = $argument_value;
                         }
                         if($modifier_name){
-                            d('yes');
-                            ddd($argument_list);
                             $input['array'][$is_variable]['modifier'][] = [
                                 'name' => $modifier_name,
                                 'string' => $modifier_string,
