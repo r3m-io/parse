@@ -327,6 +327,7 @@ class Value
         $is_double_quote = false;
         $array_depth = 0;
         $array = [];
+        $array_nr = false;
         $array_string = '';
         $is_collect = false;
         d($input);
@@ -397,6 +398,9 @@ class Value
                 $array_depth++;
                 $array[] = $char;
                 $array_string .= $char['value'];
+                if($array_nr === false){
+                    $array_nr = $nr;
+                }
                 d($array_depth);
             }
             elseif(
@@ -407,12 +411,17 @@ class Value
                 $char['value'] === ']'
             ) {
                 $array_depth--;
-                d($array_depth);
                 $array[] = $char;
                 $array_string .= $char['value'];
                 if($array_depth === 0){
-                    d($array_string);
-                    ddd($array);
+                    $input['array'][$array_nr] = [
+                        'type' => 'array',
+                        'string' => $array_string,
+                        'array' => $array
+                    ];
+                    for($i = $array_nr + 1; $i <= $nr; $i++){
+                        $input['array'][$i] = null;
+                    }
                 }
             }
             elseif($array_depth > 0){
