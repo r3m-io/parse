@@ -204,7 +204,7 @@ class Variable
                                     if($set_depth > 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                     }
-                                    $input['array'][$i] = null;
+//                                    $input['array'][$i] = null;
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === ')' &&
@@ -215,7 +215,7 @@ class Variable
                                     if($set_depth > 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                     }
-                                    $input['array'][$i] = null;
+//                                    $input['array'][$i] = null;
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '{{' &&
