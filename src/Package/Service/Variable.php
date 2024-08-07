@@ -188,7 +188,7 @@ class Variable
                                      * array-depth
                                      * curly-depth
                                      */
-                                    d($input['array']);
+                                    d($argument_array);
                                     d($name);
                                     d($array_depth);
                                     d($curly_depth);
