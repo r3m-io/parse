@@ -419,6 +419,7 @@ class Value
                         'string' => $array_string,
                         'array' => $array
                     ];
+                    $input['array'][$array_nr] = Parse::cleanup($object, $input['array'][$array_nr], $flags, $options);
                     for($i = $array_nr + 1; $i <= $nr; $i++){
                         $input['array'][$i] = null;
                     }
