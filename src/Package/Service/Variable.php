@@ -442,6 +442,7 @@ class Variable
             if(array_key_exists('name', $modifier)){
                 $string .= '|' . $modifier['name'];
                 foreach($modifier['argument'] as $nr => $argument){
+                    $string .= ':';
                     if(is_array($argument)){
                         if(
                             array_key_exists('string', $argument)
