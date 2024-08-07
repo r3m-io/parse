@@ -193,6 +193,7 @@ class Variable
                                     $input['array'][$i] = null;
                                 }
                                 elseif($has_modifier === false) {
+                                    d($input['array'][$i]['value']);
                                     d($modifier_name);
                                     d($array_depth);
                                     d($curly_depth);
