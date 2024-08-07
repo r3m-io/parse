@@ -280,8 +280,10 @@ class Variable
                                         if(array_key_exists('execute', $input['array'][$i])){
                                             $argument .= $input['array'][$i]['execute'];
                                             $argument_array[] = $input['array'][$i];
+                                            $modifier_string .= $input['array'][$i]['execute'];
                                         }
                                         elseif(array_key_exists('value', $input['array'][$i])){
+                                            $modifier_string .= $input['array'][$i]['value'];
                                             /*
                                             if($input['array'][$i]['value'] === ')'){
                                                 if($set_depth < 0){
@@ -289,10 +291,6 @@ class Variable
                                                 }
                                             }
                                             */
-                                            if($input['array'][$i]['value'] === '\''){
-
-                                            }
-
                                             if(
                                                 $input['array'][$i]['value'] === ',' &&
                                                 $is_single_quoted === false &&
@@ -308,6 +306,7 @@ class Variable
                                     } else {
                                         $argument .= $input['array'][$i];
                                         $argument_array[] = $input['array'][$i];
+                                        $modifier_string .= $input['array'][$i];
                                     }
                                     $input['array'][$i] = null;
                                 }
