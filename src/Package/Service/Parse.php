@@ -474,29 +474,25 @@ class Parse
                                 }
                                 elseif(
                                     $char === '(' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    $is_single_quoted === false
                                 ){
                                     $set_depth++;
                                 }
                                 elseif(
                                     $char === ')' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    $is_single_quoted === false
                                 ){
                                     $set_depth--;
                                 }
                                 elseif(
                                     $char === '[' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    $is_single_quoted === false
                                 ){
                                     $array_depth++;
                                 }
                                 elseif(
                                     $char === ']' &&
-                                    $is_single_quoted === false &&
-                                    $is_double_quoted === false
+                                    $is_single_quoted === false
                                 ){
                                     $array_depth--;
                                 }
@@ -510,6 +506,24 @@ class Parse
                                     $is_modifier === false &&
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
+                                ){
+                                    d($set_depth);
+                                    d($char);
+
+                                    ddd($after_array);
+                                    $is_modifier = true;
+                                    continue;
+                                }
+                                elseif(
+                                    $variable_name &&
+                                    $char === '|' &&
+                                    $next !== '|' &&
+                                    $previous !== '|' &&
+                                    $set_depth === 0 &&
+                                    $array_depth === 0 &&
+                                    $is_modifier === false &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === true
                                 ){
                                     d($set_depth);
                                     d($char);
