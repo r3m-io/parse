@@ -154,6 +154,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_single_quoted = true;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '\'' &&
@@ -161,6 +162,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_single_quoted = false;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '"' &&
@@ -168,6 +170,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_double_quoted = true;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '"' &&
@@ -175,6 +178,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_double_quoted = false;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 if(
                                     in_array(
@@ -187,6 +191,7 @@ class Variable
                                     $has_modifier === false
                                 ){
                                     $input['array'][$i] = null;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '(' &&
@@ -194,6 +199,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $set_depth++;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === ')' &&
@@ -201,6 +207,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $set_depth--;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '{{' &&
@@ -208,6 +215,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $curly_depth++;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '}}' &&
@@ -215,6 +223,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $curly_depth--;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '[' &&
@@ -222,6 +231,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $array_depth++;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === ']' &&
@@ -229,6 +239,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $array_depth--;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '|' &&
@@ -245,8 +256,9 @@ class Variable
                                      * curly-depth
                                      */
                                     $has_modifier = true;
-                                    $input['array'][$i] = null;
                                     $modifier_string .= $input['array'][$i]['value'];
+                                    $input['array'][$i] = null;
+
                                 }
                                 elseif($has_modifier === false) {
                                     break;
@@ -260,8 +272,8 @@ class Variable
                                     $is_double_quoted === false
                                 ) {
                                     $has_name = true;
-                                    $input['array'][$i] = null;
                                     $modifier_string .= $input['array'][$i]['value'];
+                                    $input['array'][$i] = null;
                                 }
                                 elseif($modifier_name){
                                     if(is_array($input['array'][$i])){
