@@ -158,9 +158,11 @@ class Variable
                                 }
                                 elseif($input['array'][$i]['value'] === '('){
                                     $set_depth++;
+                                    d($set_depth);
                                 }
                                 elseif($input['array'][$i]['value'] === ')'){
                                     $set_depth--;
+                                    d($set_depth);
                                 }
                                 elseif($input['array'][$i]['value'] === '{{'){
                                     $curly_depth++;
