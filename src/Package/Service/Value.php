@@ -418,6 +418,9 @@ class Value
                     if(array_key_exists('execute', $char)){
                         $array_string .= $char['execute'];
                     }
+                    elseif(array_key_exists('tag', $char)){
+                        $array_string .= $char['tag'];
+                    }
                     elseif(array_key_exists('value', $char)){
                         $array_string .= $char['value'];
                     }
