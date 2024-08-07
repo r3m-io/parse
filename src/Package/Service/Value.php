@@ -396,6 +396,7 @@ class Value
             ){
                 $array_depth++;
                 $array[] = $char;
+                $array_string .= $char['value'];
                 d($array_depth);
             }
             elseif(
@@ -408,6 +409,7 @@ class Value
                 $array_depth--;
                 d($array_depth);
                 $array[] = $char;
+                $array_string .= $char['value'];
                 if($array_depth === 0){
                     d($array_string);
                     ddd($array);
@@ -415,61 +417,25 @@ class Value
             }
             if($array_depth > 0){
                 $array[] = $char;
-            }
-
-            /*
-            elseif(
-                $is_single_quote === false &&
-                $is_double_quote === false &&
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '['
-            ){
-                $array_depth++;
-                $is_collect = true;
-//                $array_string .= $char['value'];
-                continue;
-            }
-            elseif(
-                $is_single_quote === false &&
-                $is_double_quote === false &&
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === ']'
-            ){
-                $array_depth--;
-//                $array_string .= $char['value'];
-                if($array_depth === 0){
-                    d($array_string);
-                    ddd($array);
-                    $is_collect = false;
+                if(
+                    is_array($char) &&
+                    array_key_exists('execute', $char)
+                ){
+                    $array_string .= $char['execute'];
                 }
-
-            }
-            if($is_collect){
-                $array[] = $char;
-                if(is_array($char)){
-                    if(array_key_exists('execute', $char)){
-                        $array_string .= $char['execute'];
-                    }
-                    elseif(array_key_exists('tag', $char)){
-                        $array_string .= $char['tag'];
-                        if(array_key_exists('modifier', $char)){
-                            foreach($char['modifier'] as $modifier){
-                                if(array_key_exists('string', $modifier)){
-                                    $array_string .= $modifier['string'];
-                                }
-                            }
-                        }
-                    }
-                    elseif(array_key_exists('value', $char)){
-                        $array_string .= $char['value'];
-                    }
-                } else {
-                    $array_string .= $char;
+                if(
+                    is_array($char) &&
+                    array_key_exists('tag', $char)
+                ){
+                    $array_string .= $char['tag'];
+                }
+                elseif(
+                    is_array($char) &&
+                    array_key_exists('value', $char)
+                ){
+                    $array_string .= $char['value'];
                 }
             }
-            */
         }
         return $input;
     }
