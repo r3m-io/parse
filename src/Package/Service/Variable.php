@@ -246,6 +246,7 @@ class Variable
                                      */
                                     $has_modifier = true;
                                     $input['array'][$i] = null;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif($has_modifier === false) {
                                     break;
@@ -260,6 +261,7 @@ class Variable
                                 ) {
                                     $has_name = true;
                                     $input['array'][$i] = null;
+                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif($modifier_name){
                                     if(is_array($input['array'][$i])){
