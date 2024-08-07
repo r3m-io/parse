@@ -58,12 +58,14 @@ class Value
                 $array_string .= $char['value'];
                 if($array_depth === 0){
                     if(!array_key_exists(0, $array)){
-                        ddd($array);
+
                         $input['array'][$array_nr] = [
                             'type' => 'array',
                             'execute' => $array
                         ];
                     } else {
+                        d($array_string);
+                        ddd($array);
                         //add array key => value
                         $array_value = Cast::define(
                             $object,
