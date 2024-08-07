@@ -103,7 +103,6 @@ class Method
                         //modifier with argument set
                         $name = '';
                         $is_method = false;
-
                     } else {
                         $name = strrev($name);
                         $has_name = true;
