@@ -387,6 +387,7 @@ class Value
             ){
                 $is_double_quote = false;
             }
+            /*
             elseif(
                 $is_single_quote === false &&
                 $is_double_quote === false &&
@@ -438,6 +439,7 @@ class Value
                     $array_string .= $char;
                 }
             }
+            */
         }
         return $input;
     }
