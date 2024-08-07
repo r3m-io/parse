@@ -415,7 +415,7 @@ class Value
                     ddd($array);
                 }
             }
-            if($array_depth > 0){
+            elseif($array_depth > 0){
                 $array[] = $char;
                 if(
                     is_array($char) &&
