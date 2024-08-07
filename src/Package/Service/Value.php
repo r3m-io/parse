@@ -329,7 +329,7 @@ class Value
         $array = [];
         $array_string = '';
         $is_collect = false;
-        ddd($input);
+        d($input);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
