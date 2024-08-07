@@ -329,6 +329,7 @@ class Value
         $array_depth = 0;
         $array = [];
         $array_string = '';
+        $is_collect = false;
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -395,6 +396,7 @@ class Value
             ){
                 $array_depth++;
                 $is_collect = true;
+                continue;
             }
             elseif(
                 $is_single_quote === false &&
