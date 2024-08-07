@@ -161,6 +161,14 @@ class Variable
                                     $next !== '|' &&
                                     $has_modifier === false
                                 ){
+                                    /**
+                                     * needs:
+                                     * set-depth
+                                     * array-depth
+                                     * curly-depth
+                                     */
+                                    ddd($curly_depth);
+                                    ddd($set_depth);
                                     $has_modifier = true;
                                     $input['array'][$i] = null;
                                 }
