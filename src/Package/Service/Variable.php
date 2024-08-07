@@ -42,7 +42,6 @@ class Variable
                 ){
                     $is_variable = $nr;
                     $name = '$';
-                    ddd($input['array']);
                     for($i = $nr + 1; $i < $count; $i++){
                         if(
                             is_array($input['array'][$i]) &&
@@ -58,32 +57,6 @@ class Variable
                                 )
                             ){
                                 $name .= $input['array'][$i]['value'];
-                            }
-                            elseif(
-                                $input['array'][$i]['value'] === '('
-                            ){
-                                $set_depth++;
-                            }
-                            elseif(
-                                $input['array'][$i]['value'] === ')'
-                            ) {
-                                $set_depth--;
-                                if ($set_depth < 0) {
-                                    break;
-                                }
-                            }
-                            elseif(
-                                $input['array'][$i]['value'] === '['
-                            ){
-                                $array_depth++;
-                            }
-                            elseif(
-                                $input['array'][$i]['value'] === ']'
-                            ) {
-                                $array_depth--;
-                                if ($array_depth < 0) {
-                                    break;
-                                }
                             }
                             else {
                                 break;
