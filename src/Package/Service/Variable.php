@@ -367,28 +367,32 @@ class Variable
                     }
                 }
                 elseif(
-                    $input['array'][$i]['value'] === '\'' &&
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === '\'' &&
                     $is_single_quoted === false &&
                     $previous !== '\\'
                 ){
                     $is_single_quoted = true;
                 }
                 elseif(
-                    $input['array'][$i]['value'] === '\'' &&
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === '\'' &&
                     $is_single_quoted === true &&
                     $previous !== '\\'
                 ){
                     $is_single_quoted = false;
                 }
                 elseif(
-                    $input['array'][$i]['value'] === '"' &&
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === '"' &&
                     $is_double_quoted === false &&
                     $previous !== '\\'
                 ){
                     $is_double_quoted = true;
                 }
                 elseif(
-                    $input['array'][$i]['value'] === '"' &&
+                    $input['array'][$nr] !== null && // null check needed
+                    $char['value'] === '"' &&
                     $is_double_quoted === true &&
                     $previous !== '\\'
                 ){
