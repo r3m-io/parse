@@ -182,7 +182,11 @@ class Value
                         }
                     }
                 }
-                elseif($value){
+                elseif(
+                    $value === 0 ||
+                    $value === '0' ||
+                    $value
+                ){
                     $length = strlen($value);
                     $value = Value::basic($object, $value, $flags, $options);
                     $input['array'][$value_nr] = $value;
