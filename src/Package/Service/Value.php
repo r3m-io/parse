@@ -329,8 +329,6 @@ class Value
         $array = [];
         $array_nr = false;
         $array_string = '';
-        $is_collect = false;
-        d($input);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -401,7 +399,6 @@ class Value
                 if($array_nr === false){
                     $array_nr = $nr;
                 }
-                d($array_depth);
             }
             elseif(
                 $is_single_quote === false &&
@@ -423,6 +420,9 @@ class Value
                     for($i = $array_nr + 1; $i <= $nr; $i++){
                         $input['array'][$i] = null;
                     }
+                    $array_nr = false;
+                    $array_string = '';
+                    $array = [];
                 }
             }
             elseif($array_depth > 0){
