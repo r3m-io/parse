@@ -154,7 +154,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_single_quoted = true;
-                                    $modifier_string .= $input['array'][$i]['value'];
+//                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '\'' &&
@@ -162,7 +162,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_single_quoted = false;
-                                    $modifier_string .= $input['array'][$i]['value'];
+//                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '"' &&
@@ -170,7 +170,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_double_quoted = true;
-                                    $modifier_string .= $input['array'][$i]['value'];
+//                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '"' &&
@@ -178,7 +178,7 @@ class Variable
                                     $previous !== '\\'
                                 ){
                                     $is_double_quoted = false;
-                                    $modifier_string .= $input['array'][$i]['value'];
+//                                    $modifier_string .= $input['array'][$i]['value'];
                                 }
                                 if(
                                     in_array(
