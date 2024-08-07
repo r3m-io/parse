@@ -411,6 +411,7 @@ class Parse
                             $previous = false;
                             $argument_nr = 0;
                             $set_depth = 0;
+                            $array_depth = 0;
                             for($i=0; $i < $length; $i++){
                                 $char = $data[$i];
                                 if(array_key_exists($i - 1, $data)){
@@ -471,19 +472,48 @@ class Parse
                                 ){
                                     $is_double_quoted = false;
                                 }
+                                elseif(
+                                    $char === '(' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
+                                    $set_depth++;
+                                }
+                                elseif(
+                                    $char === ')' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
+                                    $set_depth--;
+                                }
+                                elseif(
+                                    $char === '[' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
+                                    $array_depth++;
+                                }
+                                elseif(
+                                    $char === ']' &&
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ){
+                                    $array_depth--;
+                                }
                                 if(
                                     $variable_name &&
                                     $char === '|' &&
                                     $next !== '|' &&
                                     $previous !== '|' &&
                                     $set_depth === 0 &&
+                                    $array_depth === 0 &&
                                     $is_modifier === false &&
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
                                     d($set_depth);
                                     d($char);
-                                    d($nr);
+
                                     ddd($after_array);
                                     $is_modifier = true;
                                     continue;
@@ -548,20 +578,6 @@ class Parse
                                             $argument_list = [];
                                         } else {
                                             if(
-                                                $char === '(' &&
-                                                $is_single_quoted === false &&
-                                                $is_double_quoted === false
-                                            ){
-                                                $set_depth++;
-                                            }
-                                            elseif(
-                                                $char === ')' &&
-                                                $is_single_quoted === false &&
-                                                $is_double_quoted === false
-                                            ){
-                                                $set_depth--;
-                                            }
-                                            elseif(
                                                 $char === ',' &&
                                                 $is_single_quoted === false &&
                                                 $is_double_quoted === false
