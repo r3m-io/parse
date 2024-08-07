@@ -201,7 +201,7 @@ class Variable
                                     $is_double_quoted === false
                                 ){
                                     $set_depth--;
-                                    d($set_depth);
+                                    ddd($set_depth);
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '{{' &&
