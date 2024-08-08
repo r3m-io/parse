@@ -176,7 +176,6 @@ class Parse
                 if(array_key_exists($nr - 1, $char_list)){
                     $previous = $char_list[$nr - 1];
                 }
-                d($previous);
                 if($char === null){
                     break;
                 }
@@ -186,25 +185,29 @@ class Parse
                 }
                 if(
                     $char === '\'' &&
-                    $is_single_quoted === false
+                    $is_single_quoted === false &&
+                    $previous !== '\\'
                 ){
                     $is_single_quoted = true;
                 }
                 elseif(
                     $char === '\'' &&
-                    $is_single_quoted === true
+                    $is_single_quoted === true &&
+                    $previous !== '\\'
                 ){
                     $is_single_quoted = false;
                 }
                 elseif(
                     $char === '"' &&
-                    $is_double_quoted === false
+                    $is_double_quoted === false &&
+                    $previous !== '\\'
                 ){
                     $is_double_quoted = true;
                 }
                 elseif(
                     $char === '"' &&
-                    $is_double_quoted === true
+                    $is_double_quoted === true &&
+                    $previous !== '\\'
                 ){
                     $is_double_quoted = false;
                 }
