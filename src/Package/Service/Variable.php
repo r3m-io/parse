@@ -223,6 +223,7 @@ class Variable
                                 ){
                                     $modifier_string .= $input['array'][$i]['value'];
                                     $curly_depth++;
+                                    d($i);
                                     $input['array'][$i] = null;
                                 }
                                 elseif(
@@ -232,6 +233,7 @@ class Variable
                                 ){
                                     $modifier_string .= $input['array'][$i]['value'];
                                     $curly_depth--;
+                                    d($i);
                                     $input['array'][$i] = null;
                                 }
                                 elseif(
@@ -295,7 +297,7 @@ class Variable
                                     $modifier_string .= $input['array'][$i]['value'];
                                     $input['array'][$i] = null;
                                 }
-                                if($modifier_name){
+                                elseif($modifier_name){
                                     if(is_array($input['array'][$i])){
                                         if(array_key_exists('execute', $input['array'][$i])){
                                             $argument .= $input['array'][$i]['execute'];
