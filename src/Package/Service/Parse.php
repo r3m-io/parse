@@ -74,8 +74,9 @@ class Parse
             }
         }
         if($tags === false){
-            ddd($template);
+            d($template);
             $tags = Parse::tags($object, $template, $flags, $options);
+            ddd($tags);
             $tags = Parse::tags_remove($object, $tags, $flags, $options);
             $tags = Parse::abstract_syntax_tree($object, $tags, $flags, $options);
             $is_new = true;
