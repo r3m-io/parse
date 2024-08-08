@@ -223,6 +223,10 @@ class Variable
                                 ){
                                     $modifier_string .= $input['array'][$i]['value'];
                                     $curly_depth++;
+                                    if($argument){
+                                        $argument .= $input['array'][$i]['value'];
+                                        $argument_array[] = $input['array'][$i];
+                                    }
                                     $input['array'][$i] = null;
                                 }
                                 elseif(
@@ -232,6 +236,10 @@ class Variable
                                 ){
                                     $modifier_string .= $input['array'][$i]['value'];
                                     $curly_depth--;
+                                    if($argument){
+                                        $argument .= $input['array'][$i]['value'];
+                                        $argument_array[] = $input['array'][$i];
+                                    }
                                     $input['array'][$i] = null;
                                 }
                                 elseif(
