@@ -389,6 +389,32 @@ class Value
                 $is_double_quote === false &&
                 is_array($char) &&
                 array_key_exists('value', $char) &&
+                $char['value'] === '('
+            ){
+                $array[] = $char;
+                $array_string .= $char['value'];
+                if($array_nr === false){
+                    $array_nr = $nr;
+                }
+            }
+            elseif(
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === ')'
+            ){
+                $array[] = $char;
+                $array_string .= $char['value'];
+                if($array_nr === false){
+                    $array_nr = $nr;
+                }
+            }
+            elseif(
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                is_array($char) &&
+                array_key_exists('value', $char) &&
                 $char['value'] === '['
             ){
                 $array_depth++;
