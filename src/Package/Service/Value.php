@@ -327,6 +327,7 @@ class Value
         $array = [];
         $array_nr = false;
         $array_string = '';
+        d($input);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -383,32 +384,6 @@ class Value
                 $previous !== '\\'
             ){
                 $is_double_quote = false;
-            }
-            elseif(
-                $is_single_quote === false &&
-                $is_double_quote === false &&
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '('
-            ){
-                $array[] = $char;
-                $array_string .= $char['value'];
-                if($array_nr === false){
-                    $array_nr = $nr;
-                }
-            }
-            elseif(
-                $is_single_quote === false &&
-                $is_double_quote === false &&
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === ')'
-            ){
-                $array[] = $char;
-                $array_string .= $char['value'];
-                if($array_nr === false){
-                    $array_nr = $nr;
-                }
             }
             elseif(
                 $is_single_quote === false &&
