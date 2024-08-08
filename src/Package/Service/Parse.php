@@ -1662,12 +1662,12 @@ class Parse
             $input = $cache->get($hash);
         } else {
             $input = Symbol::define($object, $input, $flags, $options);
-            d($input);
             $input = Cast::define($object, $input, $flags, $options);
             $input = Method::define($object, $input, $flags, $options);
             $input = Variable::define($object, $input, $flags, $options);
             $input = Value::define($object, $input, $flags, $options);
             $input = Value::array($object, $input, $flags, $options);
+            d($input);
 //        d($input['string']);;
             $input = Parse::cleanup($object, $input, $flags, $options);
             $cache->set($hash, $input);
