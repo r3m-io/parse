@@ -123,7 +123,7 @@ class Cast
                 is_array($char)
             ){
                 d($define);
-                ddd($char);
+                d($char);
             }
         }
         return $input;
