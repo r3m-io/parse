@@ -223,8 +223,7 @@ class Variable
                                 ){
                                     $modifier_string .= $input['array'][$i]['value'];
                                     $curly_depth++;
-                                    d($i);
-                                    $input['array'][$i] = null;
+//                                    $input['array'][$i] = null;
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '}}' &&
@@ -233,8 +232,7 @@ class Variable
                                 ){
                                     $modifier_string .= $input['array'][$i]['value'];
                                     $curly_depth--;
-                                    d($i);
-                                    $input['array'][$i] = null;
+//                                    $input['array'][$i] = null;
                                 }
                                 elseif(
                                     $input['array'][$i]['value'] === '[' &&
