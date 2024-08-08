@@ -211,7 +211,9 @@ class Variable
                                     if($set_depth >= 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                         if($is_double_quoted === false){
-                                            $input['array'][$i] = null;
+                                            if(!$modifier_name){
+                                                $input['array'][$i] = null;
+                                            }
                                         }
                                         d($argument);
                                     }
@@ -232,7 +234,9 @@ class Variable
                                     if($set_depth >= 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                         if($is_double_quoted === false){
-                                            $input['array'][$i] = null;
+                                            if(!$modifier_name){
+                                                $input['array'][$i] = null;
+                                            }
                                         }
                                         d($argument);
                                     }
