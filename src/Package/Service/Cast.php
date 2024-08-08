@@ -122,6 +122,7 @@ class Cast
                 $is_collect !== false &&
                 is_array($char)
             ){
+                d($define);
                 ddd($char);
             }
         }
