@@ -199,21 +199,21 @@ class Variable
                                     (
                                         $input['array'][$i]['value'] === '(' &&
                                         $is_single_quoted === false &&
-                                        $is_double_quoted === false
+                                        $is_double_quoted === false &&
+                                        $modifier_name === ''
                                     ) ||
                                     (
                                         $input['array'][$i]['value'] === '(' &&
                                         $is_single_quoted === false &&
-                                        $is_double_quoted === true
+                                        $is_double_quoted === true &&
+                                        $modifier_name === ''
                                     )
                                 ){
                                     $set_depth++;
                                     if($set_depth >= 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                         if($is_double_quoted === false){
-                                            if(!$modifier_name){
-                                                $input['array'][$i] = null;
-                                            }
+                                            $input['array'][$i] = null;
                                         }
                                         d($argument);
                                     }
@@ -222,21 +222,21 @@ class Variable
                                     (
                                         $input['array'][$i]['value'] === ')' &&
                                         $is_single_quoted === false &&
-                                        $is_double_quoted === false
+                                        $is_double_quoted === false &&
+                                        $modifier_name === ''
                                     ) ||
                                     (
                                         $input['array'][$i]['value'] === ')' &&
                                         $is_single_quoted === false &&
-                                        $is_double_quoted === true
+                                        $is_double_quoted === true &&
+                                        $modifier_name === ''
                                     )
                                 ){
                                     $set_depth--;
                                     if($set_depth >= 0){
                                         $modifier_string .= $input['array'][$i]['value'];
                                         if($is_double_quoted === false){
-                                            if(!$modifier_name){
-                                                $input['array'][$i] = null;
-                                            }
+                                            $input['array'][$i] = null;
                                         }
                                         d($argument);
                                     }
