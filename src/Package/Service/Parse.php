@@ -1398,6 +1398,7 @@ class Parse
                     true
                 )
             ){
+                d($nr);
                 unset($input['array'][$nr]);
             }
         }
