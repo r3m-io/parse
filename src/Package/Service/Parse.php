@@ -173,6 +173,10 @@ class Parse
             }
 
             foreach($char_list as $nr => $char){
+                if(array_key_exists($nr - 1, $char_list)){
+                    $previous = $char_list[$nr - 1];
+                }
+                d($previous);
                 if($char === null){
                     break;
                 }
@@ -349,6 +353,7 @@ class Parse
                     $column[$line]++;
                 }
             }
+            $previous = $char_list[$chunk - 1] ?? null;
         }
         return $tag_list;
     }
