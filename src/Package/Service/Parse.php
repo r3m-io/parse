@@ -78,6 +78,7 @@ class Parse
             $tags = Parse::tags($object, $template, $flags, $options);
             $tags = Parse::tags_remove($object, $tags, $flags, $options);
             $tags = Parse::abstract_syntax_tree($object, $tags, $flags, $options);
+            d($tags);
             $is_new = true;
         }
         if(
@@ -1667,7 +1668,6 @@ class Parse
             $input = Variable::define($object, $input, $flags, $options);
             $input = Value::define($object, $input, $flags, $options);
             $input = Value::array($object, $input, $flags, $options);
-            d($input);
 //        d($input['string']);;
             $input = Parse::cleanup($object, $input, $flags, $options);
             $cache->set($hash, $input);
