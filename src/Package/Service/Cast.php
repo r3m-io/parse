@@ -118,6 +118,12 @@ class Cast
                 }
                 $define .= $char;
             }
+            elseif(
+                $is_collect !== false &&
+                is_array($char)
+            ){
+                ddd($char);
+            }
         }
         return $input;
     }
