@@ -1378,6 +1378,8 @@ class Parse
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
+                $is_single_quote === false &&
+                $is_double_quote === false &&
                 in_array(
                     $char['value'],
                     [
