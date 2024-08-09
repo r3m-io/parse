@@ -479,6 +479,7 @@ class Value
             ){
                 $tag_index--;
                 if($tag_index === 0){
+                    $options->debug = true;
                     $tag_value = Parse::value(
                         $object,
                         [
