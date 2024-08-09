@@ -334,6 +334,7 @@ class Variable
                             }
                             elseif($modifier_name){
                                 if(is_array($input['array'][$i])){
+                                    d($input['array'][$i]);
                                     if(array_key_exists('execute', $input['array'][$i])){
                                         $argument .= $input['array'][$i]['execute'];
                                         $argument_array[] = $input['array'][$i];
