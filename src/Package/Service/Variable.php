@@ -107,7 +107,7 @@ class Variable
                     array_key_exists('type', $char) &&
                     $char['type'] === 'variable'
                 ) {
-                    ddd($nr);
+                    $is_variable = $nr;
                 }
                 if(
                     $is_variable !== false
@@ -163,6 +163,12 @@ class Variable
                             $next = $char;
                         } else {
                             $next = null;
+                        }
+                        if(
+                            property_exists('is_debug', $options) &&
+                            $options->is_debug === true
+                        ){
+                            ddd($input['array'][$i]);
                         }
                         if(
                             is_array($input['array'][$i]) &&
