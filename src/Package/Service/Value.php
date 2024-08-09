@@ -491,7 +491,7 @@ class Value
                 $previous !== '\\' &&
                 $is_collect = true
             ){
-                d($collect);
+                ddd($collect);
                 $is_collect = false;
             }
             if($is_collect){
