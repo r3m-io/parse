@@ -508,6 +508,7 @@ class Value
                     ){
                         $tag_index--;
                         if($tag_index === 0){
+                            $tag[] = $collect_char;
                             ddd($tag);
                         }
                     }
