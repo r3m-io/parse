@@ -383,6 +383,8 @@ class Variable
                                     }
                                 }
                             } else {
+                                d($is_single_quoted);
+                                d($is_double_quoted);
                                 ddd($input['array'][$i]);
                             }
                         }
