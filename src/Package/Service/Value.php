@@ -461,7 +461,8 @@ class Value
     public static function double_quoted_string_collect(App $object, $input, $flags, $options): array
     {
         $tag_index = 0;
-        $tag = [];
+        $tag_array = [];
+        $tag = '';
         foreach($input['array'] as $nr => $char){
             if(
                 is_array($char) &&
@@ -478,12 +479,26 @@ class Value
             ){
                 $tag_index--;
                 if($tag_index === 0){
-//                    $tag[] = $char;
-                    ddd($tag);
+                    d($tag);
+//                    $tag_array[] = $char;
+                    ddd($tag_array);
                 }
             }
             if($tag_index > 0){
-                $tag[] = $char;
+                $tag_array[] = $char;
+                if(is_array($char)){
+                    if(array_key_exists('execute', $char)){
+                        $tag .= $char['execute'];
+                    }
+                    elseif(array_key_exists('tag', $char)){
+                        $tag .= $char['tag'];
+                    }
+                    elseif(array_key_exists('value', $char)){
+                        $tag .= $char['value'];
+                    }
+                } else {
+                    $tag .= $char;
+                }
             }
         }
         return $input;
