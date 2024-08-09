@@ -460,7 +460,43 @@ class Value
 
     public static function double_quoted_string(App $object, $input, $flags, $options): array
     {
-        ddd($input);
+        $is_collect = false;
+        $collect = [];
+        foreach($input['array'] as $nr => $char){
+            $previous = $input['array'][$nr - 1] ?? null;
+            if(is_array($previous)){
+                if(array_key_exists('execute', $previous)){
+                    $previous = $previous['execute'];
+                }
+                elseif(array_key_exists('value', $previous)){
+                    $previous = $previous['value'];
+                } else {
+                    $previous = null;
+                }
+            }
+            if(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '"' &&
+                $previous !== '\\' &&
+                $is_collect = false
+            ){
+                $is_collect = true;
+            }
+            elseif(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '"' &&
+                $previous !== '\\' &&
+                $is_collect = true
+            ){
+                d($collect);
+                $is_collect = false;
+            }
+            if($is_collect){
+                $collect[] = $char;
+            }
+        }
         return $input;
     }
 }
