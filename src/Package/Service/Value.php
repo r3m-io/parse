@@ -462,7 +462,6 @@ class Value
     {
         $is_collect = false;
         $collect = [];
-        d($input);
         foreach($input['array'] as $nr => $char){
             $previous = $input['array'][$nr - 1] ?? null;
             if(is_array($previous)){
@@ -475,6 +474,7 @@ class Value
                     $previous = null;
                 }
             }
+            d($char);
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
