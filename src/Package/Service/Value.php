@@ -479,9 +479,16 @@ class Value
             ){
                 $tag_index--;
                 if($tag_index === 0){
-                    d($tag);
-//                    $tag_array[] = $char;
-                    ddd($tag_array);
+                    $tag_value = Parse::value(
+                        $object,
+                        [
+                            'string' => $tag,
+                            'array' => $tag_array
+                        ],
+                        $flags,
+                        $options
+                    );
+                    ddd($tag_value);
                 }
             }
             if($tag_index > 0){
