@@ -305,7 +305,9 @@ class Variable
                                 $has_modifier = true;
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
-
+                            }
+                            elseif(is_array($input['array'][$i])){
+                                d($input['array'][$i]);
                             }
                             elseif($has_modifier === false) {
                                 break;
@@ -334,7 +336,7 @@ class Variable
                             }
                             elseif($modifier_name){
                                 if(is_array($input['array'][$i])){
-                                    d($input['array'][$i]);
+//                                    d($input['array'][$i]);
                                     if(array_key_exists('execute', $input['array'][$i])){
                                         $argument .= $input['array'][$i]['execute'];
                                         $argument_array[] = $input['array'][$i];
@@ -385,7 +387,7 @@ class Variable
                             } else {
                                 d($is_single_quoted);
                                 d($is_double_quoted);
-                                ddd($input['array'][$i]);
+                                d($input['array'][$i]);
                             }
                         }
                         elseif($has_modifier === false) {
