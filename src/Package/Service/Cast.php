@@ -122,8 +122,8 @@ class Cast
                 $is_collect !== false &&
                 is_array($char)
             ){
-                d($define);
-                d($char);
+                $is_collect = false;
+                $define = '';
             }
         }
         return $input;
