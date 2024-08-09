@@ -105,7 +105,8 @@ class Variable
                 }
                 elseif(
                     array_key_exists('type', $char) &&
-                    $char['type'] === 'variable'
+                    $char['type'] === 'variable' &&
+                    $is_variable === false
                 ) {
                     $is_variable = $nr;
                 }
@@ -305,9 +306,6 @@ class Variable
                                 $has_modifier = true;
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
-                            }
-                            elseif(is_array($input['array'][$i])){
-                                d($input['array'][$i]);
                             }
                             elseif($has_modifier === false) {
                                 break;
