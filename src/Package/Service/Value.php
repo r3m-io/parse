@@ -458,11 +458,43 @@ class Value
         return $input;
     }
 
+    public static function double_quoted_string_collect(App $object, $input, $flags, $options): array
+    {
+        $tag_index = 0;
+        $tag = [];
+        foreach($input['array'] as $nr => $char){
+            if(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '{{'
+            ){
+                $tag_index++;
+                continue;
+            }
+            elseif(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $char['value'] === '}}'
+            ){
+                $tag_index--;
+                if($tag_index === 0){
+//                    $tag[] = $char;
+                    ddd($tag);
+                }
+            }
+            if($tag_index > 0){
+                $tag[] = $char;
+            }
+        }
+        return $input;
+    }
+
     public static function double_quoted_string(App $object, $input, $flags, $options): array
     {
         $collect_nr = false;
         $is_collect = false;
-        $collect = [];
+        $collect_array = [];
+        $collect = '';
         foreach($input['array'] as $nr => $char){
             $previous = $input['array'][$nr - 1] ?? null;
             if(is_array($previous)){
@@ -491,35 +523,32 @@ class Value
                 $previous !== '\\' &&
                 $is_collect === true
             ){
-                $tag_index = 0;
-                $tag = [];
-                foreach($collect as $collect_nr => $collect_char){
-                    if(
-                        is_array($collect_char) &&
-                        array_key_exists('value', $collect_char) &&
-                        $collect_char['value'] === '{{'
-                    ){
-                        $tag_index++;
-                    }
-                    elseif(
-                        is_array($collect_char) &&
-                        array_key_exists('value', $collect_char) &&
-                        $collect_char['value'] === '}}'
-                    ){
-                        $tag_index--;
-                        if($tag_index === 0){
-                            $tag[] = $collect_char;
-                            ddd($tag);
-                        }
-                    }
-                    if($tag_index > 0){
-                        $tag[] = $collect_char;
-                    }
-                }
+                $tag = Value::double_quoted_string_collect(
+                    $object,
+                    [
+                        'string' => $collect,
+                        'array' => $collect_array
+                    ],
+                    $flags,
+                    $options
+                );
                 $is_collect = false;
             }
             if($is_collect){
-                $collect[$nr] = $char;
+                $collect_array[$nr] = $char;
+                if(is_array($char)){
+                    if(array_key_exists('execute', $char)){
+                        $collect .= $char['execute'];
+                    }
+                    elseif(array_key_exists('tag', $char)){
+                        $collect .= $char['tag'];
+                    }
+                    elseif(array_key_exists('value', $char)){
+                        $collect .= $char['value'];
+                    }
+                } else {
+                    $collect .= $char;
+                }
             }
         }
         return $input;
