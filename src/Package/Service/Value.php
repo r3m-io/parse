@@ -327,7 +327,6 @@ class Value
         $array = [];
         $array_nr = false;
         $array_string = '';
-        d($input);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -456,6 +455,12 @@ class Value
                 }
             }
         }
+        return $input;
+    }
+
+    public static function double_quoted_string(App $object, $input, $flags, $options): array
+    {
+        ddd($input);
         return $input;
     }
 }
