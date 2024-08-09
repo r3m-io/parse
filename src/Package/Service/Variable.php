@@ -307,14 +307,6 @@ class Variable
                                 $input['array'][$i] = null;
 
                             }
-                            elseif(
-                                array_key_exists('type', $input['array'][$i]) &&
-                                $input['array'][$i]['type'] === 'string'
-                            ){
-                                d($has_name);
-                                d($has_modifier);
-                                ddd($input['array'][$i]);
-                            }
                             elseif($has_modifier === false) {
                                 break;
                             }
@@ -372,6 +364,23 @@ class Variable
                                     $modifier_string .= $input['array'][$i];
                                 }
                                 $input['array'][$i] = null;
+                            }
+                            elseif(
+                                array_key_exists('type', $input['array'][$i]) &&
+                                $input['array'][$i]['type'] === 'string'
+                            ){
+                                if($has_modifier === true){
+                                    if($has_name === false){
+                                        if(array_key_exists('execute', $input['array'][$i])){
+                                            $modifier_name .= $input['array'][$i]['execute'];
+                                            $modifier_string .= $input['array'][$i]['execute'];
+                                        }
+                                        elseif(array_key_exists('value', $input['array'][$i])){
+                                            $modifier_name .= $input['array'][$i]['value'];
+                                            $modifier_string .= $input['array'][$i]['value'];
+                                        }
+                                    }
+                                }
                             }
                         }
                         elseif($has_modifier === false) {
