@@ -333,6 +333,7 @@ class Variable
                                 $input['array'][$i] = null;
                             }
                             elseif($modifier_name){
+
                                 if(is_array($input['array'][$i])){
 //                                    d($input['array'][$i]);
                                     if(array_key_exists('execute', $input['array'][$i])){
@@ -426,6 +427,10 @@ class Variable
                                     if(array_key_exists('execute', $input['array'][$i])){
                                         $argument .= $input['array'][$i]['execute'];
                                         $modifier_string .= $input['array'][$i]['execute'];
+                                    }
+                                    elseif(array_key_exists('tag', $input['array'][$i])){
+                                        $argument .= $input['array'][$i]['tag'];
+                                        $modifier_string .= $input['array'][$i]['tag'];
                                     }
                                     elseif(array_key_exists('value', $input['array'][$i])){
                                         $argument .= $input['array'][$i]['value'];
