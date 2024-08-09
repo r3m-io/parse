@@ -165,9 +165,10 @@ class Variable
                             $next = null;
                         }
                         if(
-                            property_exists($options, 'is_debug') &&
-                            $options->is_debug === true
+                            property_exists($options, 'debug') &&
+                            $options->debug === true
                         ){
+                            d($input['array']);
                             ddd($input['array'][$i]);
                         }
                         if(
