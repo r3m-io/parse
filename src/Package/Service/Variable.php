@@ -165,13 +165,6 @@ class Variable
                             $next = null;
                         }
                         if(
-                            property_exists($options, 'debug') &&
-                            $options->debug === true
-                        ){
-                            d($input['array']);
-                            ddd($input['array'][$i]);
-                        }
-                        if(
                             is_array($input['array'][$i]) &&
                             array_key_exists('value', $input['array'][$i])
                         ){
@@ -219,7 +212,6 @@ class Variable
                             ){
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
-
                             }
                             elseif(
                                 $input['array'][$i]['value'] === '(' &&
@@ -314,6 +306,14 @@ class Variable
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
 
+                            }
+                            if(
+                                property_exists($options, 'debug') &&
+                                $options->debug === true
+                            ){
+                                d($has_modifier);
+                                d($input['array']);
+                                ddd($input['array'][$i]);
                             }
                             elseif($has_modifier === false) {
                                 break;
