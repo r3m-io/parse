@@ -460,6 +460,7 @@ class Value
 
     public static function double_quoted_string(App $object, $input, $flags, $options): array
     {
+        $collect_nr = false;
         $is_collect = false;
         $collect = [];
         foreach($input['array'] as $nr => $char){
@@ -474,7 +475,6 @@ class Value
                     $previous = null;
                 }
             }
-            d($char);
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
@@ -483,7 +483,6 @@ class Value
                 $is_collect === false
             ){
                 $is_collect = true;
-                d($nr);
             }
             elseif(
                 is_array($char) &&
@@ -492,11 +491,34 @@ class Value
                 $previous !== '\\' &&
                 $is_collect === true
             ){
-                ddd($collect);
+                $tag_index = 0;
+                $tag = [];
+                foreach($collect as $collect_nr => $collect_char){
+                    if(
+                        is_array($collect_char) &&
+                        array_key_exists('value', $collect_char) &&
+                        $collect_char['value'] === '{{'
+                    ){
+                        $tag_index++;
+                    }
+                    elseif(
+                        is_array($collect_char) &&
+                        array_key_exists('value', $collect_char) &&
+                        $collect_char['value'] === '}}'
+                    ){
+                        $tag_index--;
+                        if($tag_index === 0){
+                            ddd($tag);
+                        }
+                    }
+                    if($tag_index > 0){
+                        $tag[] = $collect_char;
+                    }
+                }
                 $is_collect = false;
             }
             if($is_collect){
-                $collect[] = $char;
+                $collect[$nr] = $char;
             }
         }
         return $input;
