@@ -483,6 +483,7 @@ class Value
                 $is_collect = false
             ){
                 $is_collect = true;
+                d($nr);
             }
             elseif(
                 is_array($char) &&
