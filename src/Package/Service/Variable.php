@@ -412,6 +412,12 @@ class Variable
                                 $flags,
                                 $options
                             );
+                            $argument_value = Value::double_quoted_string(
+                                $object,
+                                $argument_value,
+                                $flags,
+                                $options
+                            );
                             $argument_list[] = $argument_value;
                         }
                         if($modifier_name){
@@ -494,16 +500,5 @@ class Variable
             }
         }
         return $input;
-    }
-
-    public static function string_modifier(App $object, $input, $flags, $options): string
-    {
-        $string = '';
-        foreach($input as $nr => $modifier){
-            if(array_key_exists('string', $modifier)){
-                $string .= $modifier['string'];
-            }
-        }
-        return $string;
     }
 }
