@@ -382,6 +382,8 @@ class Variable
                                         }
                                     }
                                 }
+                            } else {
+                                ddd($input['array'][$i]);
                             }
                         }
                         elseif($has_modifier === false) {
