@@ -480,7 +480,7 @@ class Value
                 array_key_exists('value', $char) &&
                 $char['value'] === '"' &&
                 $previous !== '\\' &&
-                $is_collect = false
+                $is_collect === false
             ){
                 $is_collect = true;
                 d($nr);
@@ -490,7 +490,7 @@ class Value
                 array_key_exists('value', $char) &&
                 $char['value'] === '"' &&
                 $previous !== '\\' &&
-                $is_collect = true
+                $is_collect === true
             ){
                 ddd($collect);
                 $is_collect = false;
