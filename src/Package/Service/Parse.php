@@ -78,7 +78,6 @@ class Parse
             $tags = Parse::tags($object, $template, $flags, $options);
             $tags = Parse::tags_remove($object, $tags, $flags, $options);
             $tags = Parse::abstract_syntax_tree($object, $tags, $flags, $options);
-            d($tags);
             $is_new = true;
         }
         if(
