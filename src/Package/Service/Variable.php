@@ -49,6 +49,7 @@ class Variable
                 )
             ){
                 if(
+                    array_key_exists('value', $char) &&
                     $char['value'] === '$' &&
                     $input['array'][$nr] !== null // null check needed
                 ) {
