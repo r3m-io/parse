@@ -307,12 +307,12 @@ class Variable
                                 $input['array'][$i] = null;
 
                             }
-                            if(
-                                property_exists($options, 'debug') &&
-                                $options->debug === true
+                            elseif(
+                                array_key_exists('type', $input['array'][$i]) &&
+                                $input['array'][$i]['type'] === 'string'
                             ){
+                                d($has_name);
                                 d($has_modifier);
-                                d($input['array']);
                                 ddd($input['array'][$i]);
                             }
                             elseif($has_modifier === false) {
