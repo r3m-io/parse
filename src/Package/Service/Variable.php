@@ -165,7 +165,7 @@ class Variable
                             $next = null;
                         }
                         if(
-                            property_exists('is_debug', $options) &&
+                            property_exists($options, 'is_debug') &&
                             $options->is_debug === true
                         ){
                             ddd($input['array'][$i]);
