@@ -340,6 +340,9 @@ class Variable
                                         $argument_array[] = $input['array'][$i];
                                         $modifier_string .= $input['array'][$i]['execute'];
                                     }
+                                    elseif(array_key_exists('tag', $input['array'][$i])){
+                                        ddd('found');
+                                    }
                                     elseif(array_key_exists('value', $input['array'][$i])){
                                         if($input['array'][$i]['value'] === ')'){
                                             if($set_depth < 0){
