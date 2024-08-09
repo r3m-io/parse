@@ -43,6 +43,7 @@ class Variable
                 )
                  ||
                 (
+                    is_array($char) &&
                     array_key_exists('type', $char) &&
                     $char['type'] === 'variable'
                 )
