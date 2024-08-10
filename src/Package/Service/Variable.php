@@ -277,12 +277,13 @@ class Variable
                                 )
                             ){
                                 $curly_depth--;
-                                d($curly_depth);
-                                $modifier_string .= $input['array'][$i]['value'];
+                                if($curly_depth > 0){
+                                    $modifier_string .= $input['array'][$i]['value'];
 
-                                if($argument){
-                                    $argument .= $input['array'][$i]['value'];
-                                    $argument_array[] = $input['array'][$i];
+                                    if($argument){
+                                        $argument .= $input['array'][$i]['value'];
+                                        $argument_array[] = $input['array'][$i];
+                                    }
                                 }
                                 $input['array'][$i] = null;
                             }
