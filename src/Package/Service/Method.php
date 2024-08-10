@@ -304,6 +304,7 @@ class Method
                         is_array($char) &&
                         array_key_exists('value', $char) &&
                         $char['value'] === ',' &&
+                        $set_depth === 1 &&
                         $is_single_quote === false &&
                         $is_double_quote === false
                     ){
