@@ -165,9 +165,6 @@ class Variable
                         } else {
                             $next = null;
                         }
-                        if($input['array'][$i] !== null){
-                            d($input['array'][$i]);
-                        }
                         if(
                             is_array($input['array'][$i]) &&
                             array_key_exists('value', $input['array'][$i])
@@ -266,7 +263,7 @@ class Variable
                                     $argument .= $input['array'][$i]['value'];
                                     $argument_array[] = $input['array'][$i];
                                 }
-                                $input['array'][$i] = null;
+//                                $input['array'][$i] = null;
                             }
                             elseif(
                                 $input['array'][$i]['value'] === '}}' &&
@@ -285,7 +282,7 @@ class Variable
                                     $argument .= $input['array'][$i]['value'];
                                     $argument_array[] = $input['array'][$i];
                                 }
-                                $input['array'][$i] = null;
+//                                $input['array'][$i] = null;
                             }
                             elseif(
                                 $input['array'][$i]['value'] === '[' &&
