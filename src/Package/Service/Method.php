@@ -288,6 +288,7 @@ class Method
                         $is_single_quote === false &&
                         $is_double_quote === false
                     ){
+                        d('yes');
                         if(array_key_exists(0, $argument_array)){
                             $argument_value = Cast::define(
                                 $object, [
