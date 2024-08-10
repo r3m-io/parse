@@ -165,7 +165,9 @@ class Variable
                         } else {
                             $next = null;
                         }
-                        d($input['array'][$i]);
+                        if($input['array'][$i] !== null){
+                            d($input['array'][$i]);
+                        }
                         if(
                             is_array($input['array'][$i]) &&
                             array_key_exists('value', $input['array'][$i])
