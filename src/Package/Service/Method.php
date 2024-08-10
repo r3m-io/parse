@@ -216,6 +216,7 @@ class Method
                     }
                 }
                 elseif($set_depth > 0){
+                    d($char);
                     if(
                         is_array($char) &&
                         array_key_exists('value', $char) &&
