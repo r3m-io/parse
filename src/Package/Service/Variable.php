@@ -276,8 +276,10 @@ class Variable
                                     $is_double_quoted === true
                                 )
                             ){
-                                $modifier_string .= $input['array'][$i]['value'];
                                 $curly_depth--;
+                                d($curly_depth);
+                                $modifier_string .= $input['array'][$i]['value'];
+
                                 if($argument){
                                     $argument .= $input['array'][$i]['value'];
                                     $argument_array[] = $input['array'][$i];
