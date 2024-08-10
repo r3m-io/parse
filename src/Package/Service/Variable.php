@@ -284,6 +284,8 @@ class Variable
                                         $argument .= $input['array'][$i]['value'];
                                         $argument_array[] = $input['array'][$i];
                                     }
+                                } else {
+                                    break;
                                 }
                                 $input['array'][$i] = null;
                             }
