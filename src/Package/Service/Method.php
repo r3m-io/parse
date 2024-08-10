@@ -136,8 +136,6 @@ class Method
                         $argument_array[] = $char;
                         $argument .= $char['value'];
                     } else{
-                        $argument_array[] = $char;
-                        $argument .= $char['value'];
                         if(array_key_exists(0, $argument_array)){
                             $argument_value = Cast::define(
                                 $object, [
@@ -311,7 +309,8 @@ class Method
                         $is_single_quote === false &&
                         $is_double_quote === false
                     ){
-                        d('yes');
+                        d($argument);
+                        d($argument_array);
                         if(array_key_exists(0, $argument_array)){
                             $argument_value = Cast::define(
                                 $object, [
