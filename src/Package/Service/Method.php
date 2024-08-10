@@ -72,7 +72,9 @@ class Method
                                     ]
                                 )
                             ){
-                                $name .= $input['array'][$i]['value'];
+                                if($input['array'][$i]['value'] !== '|'){
+                                    $name .= $input['array'][$i]['value'];
+                                }
                             } else {
                                 break;
                             }
