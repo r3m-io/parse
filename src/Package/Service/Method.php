@@ -20,6 +20,7 @@ class Method
         $argument = '';
         $argument_array = [];
         $argument_list = [];
+        d($input['array']);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
