@@ -67,14 +67,11 @@ class Method
                                     [
                                         '.',
                                         '_',
-                                        ':',
-                                        '|'
+                                        ':'
                                     ]
                                 )
                             ){
-                                if($input['array'][$i]['value'] !== '|'){
-                                    $name .= $input['array'][$i]['value'];
-                                }
+                                $name .= $input['array'][$i]['value'];
                             } else {
                                 break;
                             }
@@ -107,7 +104,6 @@ class Method
                         $is_method = false;
                     } else {
                         $name = strrev($name);
-                        ddd($name);
                         $has_name = true;
                     }
                 }
