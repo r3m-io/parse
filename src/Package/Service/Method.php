@@ -135,8 +135,7 @@ class Method
                     if($set_depth !== 0){
                         $argument_array[] = $char;
                         $argument .= $char['value'];
-                    }
-                    elseif($set_depth === 0){
+                    } else{
                         if(array_key_exists(0, $argument_array)){
                             $argument_value = Cast::define(
                                 $object, [
@@ -205,6 +204,7 @@ class Method
                                     $is_single_quote === false &&
                                     $is_double_quote === false
                                 ){
+                                    d('yes2');
                                     break;
                                 }
                             } else {
