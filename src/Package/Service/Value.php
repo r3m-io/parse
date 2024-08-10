@@ -431,7 +431,7 @@ class Value
                 ){
                     $array_string .= $char['execute'];
                 }
-                if(
+                elseif(
                     is_array($char) &&
                     array_key_exists('tag', $char)
                 ){
