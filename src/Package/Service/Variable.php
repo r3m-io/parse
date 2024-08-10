@@ -248,8 +248,14 @@ class Variable
                             }
                             elseif(
                                 $input['array'][$i]['value'] === '{{' &&
-                                $is_single_quoted === false &&
-                                $is_double_quoted === false
+                                (
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ) ||
+                                (
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === true
+                                )
                             ){
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $curly_depth++;
@@ -261,8 +267,14 @@ class Variable
                             }
                             elseif(
                                 $input['array'][$i]['value'] === '}}' &&
-                                $is_single_quoted === false &&
-                                $is_double_quoted === false
+                                (
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === false
+                                ) ||
+                                (
+                                    $is_single_quoted === false &&
+                                    $is_double_quoted === true
+                                )
                             ){
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $curly_depth--;
