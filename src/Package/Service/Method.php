@@ -136,6 +136,25 @@ class Method
                         $argument .= $char['value'];
                     }
                     if($set_depth === 0){
+                        if(array_key_exists(0, $argument_array)){
+                            $argument_value = Cast::define(
+                                $object, [
+                                'string' => $argument,
+                                'array' => $argument_array
+                            ],
+                                $flags,
+                                $options
+                            );
+                            $argument_value = Parse::value(
+                                $object,
+                                $argument_value,
+                                $flags,
+                                $options
+                            );
+                            $argument_list[] = $argument_value;
+                            $argument_array = [];
+                            $argument = '';
+                        }
                         $input['array'][$is_method]['method'] = [
                             'name' => $name,
                             'argument' => $argument_list
