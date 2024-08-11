@@ -210,6 +210,7 @@ class Variable
                             ){
                                 $is_single_quote = false;
                             }
+                            d($current);
                             if(
                                 $is_single_quote === false &&
                                 $is_double_quote === false &&
