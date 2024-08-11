@@ -152,6 +152,7 @@ class Variable
 
     public static function modifier(App $object, $input, $flags, $options): array
     {
+        $count = count($input['array']);
         foreach($input['array'] as $nr => $char) {
             if (
                 array_key_exists($nr - 1, $input['array']) &&
@@ -205,6 +206,164 @@ class Variable
                 $current = $input['array'][$nr] ?? null;
             }
             if(is_array($char) && $char['type'] === 'variable'){
+                for($i = $nr + 1; $i < $count; $i++){
+                    if (
+                        array_key_exists($i - 1, $input['array']) &&
+                        is_array($input['array'][$i - 1])
+                    ) {
+                        if (array_key_exists('execute', $input['array'][$i - 1])) {
+                            $previous = $input['array'][$i - 1]['execute'] ?? null;
+                        }
+                        if (array_key_exists('tag', $input['array'][$i - 1])) {
+                            $previous = $input['array'][$i - 1]['tag'] ?? null;
+                        } elseif (array_key_exists('value', $input['array'][$i - 1])) {
+                            $previous = $input['array'][$i - 1]['value'] ?? null;
+                        } else {
+                            $previous = null;
+                        }
+                    } else {
+                        $previous = $input['array'][$i - 1] ?? null;
+                    }
+                    if (
+                        array_key_exists($i + 1, $input['array']) &&
+                        is_array($input['array'][$i + 1])
+                    ) {
+                        if (array_key_exists('execute', $input['array'][$i + 1])) {
+                            $next = $input['array'][$i + 1]['execute'] ?? null;
+                        }
+                        if (array_key_exists('tag', $input['array'][$i + 1])) {
+                            $next = $input['array'][$i + 1]['tag'] ?? null;
+                        } elseif (array_key_exists('value', $input['array'][$i + 1])) {
+                            $next = $input['array'][$i + 1]['value'] ?? null;
+                        } else {
+                            $next = null;
+                        }
+                    } else {
+                        $next = $input['array'][$i + 1] ?? null;
+                    }
+                    if(
+                        array_key_exists($i, $input['array']) &&
+                        is_array($input['array'][$i])
+                    ){
+                        if(array_key_exists('execute', $input['array'][$i])){
+                            $current = $input['array'][$i]['execute'] ?? null;
+                        }
+                        if(array_key_exists('tag', $input['array'][$i])){
+                            $current = $input['array'][$i]['tag'] ?? null;
+                        }
+                        elseif(array_key_exists('value', $input['array'][$i])){
+                            $current = $input['array'][$i]['value'] ?? null;
+                        } else {
+                            $current = null;
+                        }
+                    } else {
+                        $current = $input['array'][$i] ?? null;
+                    }
+                    if(
+                        $current === '|' &&
+                        $previous !== '|' &&
+                        $next !== '|'
+                    ){
+                        $is_modifier = $i;
+                        $modifier_name = '';
+                        for($i = $is_modifier + 1; $i < $count; $i++){
+                            if (
+                                array_key_exists($i - 1, $input['array']) &&
+                                is_array($input['array'][$i - 1])
+                            ) {
+                                if (array_key_exists('execute', $input['array'][$i - 1])) {
+                                    $previous = $input['array'][$i - 1]['execute'] ?? null;
+                                }
+                                if (array_key_exists('tag', $input['array'][$i - 1])) {
+                                    $previous = $input['array'][$i - 1]['tag'] ?? null;
+                                } elseif (array_key_exists('value', $input['array'][$i - 1])) {
+                                    $previous = $input['array'][$i - 1]['value'] ?? null;
+                                } else {
+                                    $previous = null;
+                                }
+                            } else {
+                                $previous = $input['array'][$i - 1] ?? null;
+                            }
+                            if (
+                                array_key_exists($i + 1, $input['array']) &&
+                                is_array($input['array'][$i + 1])
+                            ) {
+                                if (array_key_exists('execute', $input['array'][$i + 1])) {
+                                    $next = $input['array'][$i + 1]['execute'] ?? null;
+                                }
+                                if (array_key_exists('tag', $input['array'][$i + 1])) {
+                                    $next = $input['array'][$i + 1]['tag'] ?? null;
+                                } elseif (array_key_exists('value', $input['array'][$i + 1])) {
+                                    $next = $input['array'][$i + 1]['value'] ?? null;
+                                } else {
+                                    $next = null;
+                                }
+                            } else {
+                                $next = $input['array'][$i + 1] ?? null;
+                            }
+                            if(
+                                array_key_exists($i, $input['array']) &&
+                                is_array($input['array'][$i])
+                            ){
+                                if(array_key_exists('execute', $input['array'][$i])){
+                                    $current = $input['array'][$i]['execute'] ?? null;
+                                }
+                                if(array_key_exists('tag', $input['array'][$i])){
+                                    $current = $input['array'][$i]['tag'] ?? null;
+                                }
+                                elseif(array_key_exists('value', $input['array'][$i])){
+                                    $current = $input['array'][$i]['value'] ?? null;
+                                } else {
+                                    $current = null;
+                                }
+                            } else {
+                                $current = $input['array'][$i] ?? null;
+                            }
+                            if(
+                                in_array(
+                                    $current,
+                                    [
+                                        ' ',
+                                        "\t",
+                                        "\n",
+                                        "\r",
+                                        "}}"
+                                    ],
+                                    true
+                                ) ||
+                                (
+                                    $current === '|' &&
+                                    $previous !== '|' &&
+                                    $next !== '|'
+                                ) ||
+                                (
+                                    $current === ':' &&
+                                    $previous !== ':' &&
+                                    $next !== ':'
+                                )
+                            ){
+                                ddd($modifier_name);
+                            } else {
+                                $modifier_name .= $current;
+                            }
+                        }
+
+
+
+
+                        /*
+                        $input['array'][$nr] = [
+                            'type' => 'variable',
+                            'tag' => $char['tag'],
+                            'name' => $char['name'],
+                            'is_reference' => $char['is_reference'],
+                            'modifier' => 'function'
+                        ];
+                        break;
+                        */
+                    }
+                }
+
                 d($input['array']);
                 ddd($char);
             }
