@@ -315,7 +315,6 @@ class Variable
                                     $is_double_quote === false &&
                                     $set_depth <= 0
                                 ){
-                                    d($set_depth);
                                     break;
                                 }
                                 else {
