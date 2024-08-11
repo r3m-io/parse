@@ -20,7 +20,6 @@ class Variable
         $is_single_quoted = false;
         $is_double_quoted = false;
 //        trace();
-        ddd($input['array']);
         foreach($input['array'] as $nr => $char){
             if(
                 array_key_exists($nr - 1, $input['array']) &&
