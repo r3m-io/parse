@@ -239,6 +239,7 @@ class Method
                         $is_double_quote === false
                     ){
                         $is_single_quote = false;
+                        d($argument);
                         $argument_array[] = $char;
                         $argument .= $char['value'];
                         $argument_value = Cast::define(
