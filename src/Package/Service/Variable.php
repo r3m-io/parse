@@ -138,6 +138,7 @@ class Variable
                                 $input['array'][$j] = null;
                             }
                             $is_variable = false;
+                            break;
                         }
                     }
                     elseif($has_name === false){
