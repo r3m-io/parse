@@ -147,7 +147,6 @@ class Variable
                 }
             }
         }
-        ddd($input);
         return $input;
     }
 }
