@@ -20,8 +20,6 @@ class Method
         $argument = '';
         $argument_array = [];
         $argument_list = [];
-        trace();
-        d($input['string']);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -241,25 +239,6 @@ class Method
                         $is_single_quote = false;
                         $argument_array[] = $char;
                         $argument .= $char['value'];
-                        /*
-                        $argument_value = Cast::define(
-                            $object, [
-                            'string' => $argument,
-                            'array' => $argument_array
-                        ],
-                            $flags,
-                            $options
-                        );
-                        $argument_value = Parse::value(
-                            $object,
-                            $argument_value,
-                            $flags,
-                            $options
-                        );
-                        $argument_list[] = $argument_value;
-                        $argument_array = [];
-                        $argument = '';
-                        */
                     }
                     elseif(
                         is_array($char) &&
@@ -284,25 +263,6 @@ class Method
                         $is_double_quote = false;
                         $argument_array[] = $char;
                         $argument .= $char['value'];
-                        /*
-                        $argument_value = Cast::define(
-                            $object, [
-                            'string' => $argument,
-                            'array' => $argument_array
-                        ],
-                            $flags,
-                            $options
-                        );
-                        $argument_value = Parse::value(
-                            $object,
-                            $argument_value,
-                            $flags,
-                            $options
-                        );
-                        $argument_list[] = $argument_value;
-                        $argument_array = [];
-                        $argument = '';
-                        */
                     }
                     elseif(
                         is_array($char) &&
@@ -312,8 +272,6 @@ class Method
                         $is_single_quote === false &&
                         $is_double_quote === false
                     ){
-                        d($argument);
-                        d($argument_array);
                         if(array_key_exists(0, $argument_array)){
                             $argument_value = Cast::define(
                                 $object, [
