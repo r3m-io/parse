@@ -278,6 +278,9 @@ class Variable
                             $is_double_quote = false;
                             $is_single_quote = false;
                             $current = Parse::item($input, $i);
+                            if($current !== ':'){
+                                break;
+                            }
                             d($current);
                             for($j = $i + 1; $j < $count; $j++){
                                 $previous = Parse::item($input, $j - 1);
