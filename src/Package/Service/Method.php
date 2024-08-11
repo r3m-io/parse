@@ -114,6 +114,7 @@ class Method
                 $name &&
                 $has_name === true
             ){
+                d($char);
                 if(
                     is_array($char) &&
                     array_key_exists('value', $char) &&
