@@ -214,6 +214,20 @@ class Variable
                             ){
                                 $is_single_quote = false;
                             }
+                            if(
+                                $current === '(' &&
+                                $is_single_quote === false &&
+                                $is_double_quote === false
+                            ){
+                                $set_depth++;
+                            }
+                            elseif(
+                                $current === ')' &&
+                                $is_single_quote === false &&
+                                $is_double_quote === false
+                            ){
+                                $set_depth--;
+                            }
                             d($current);
                             if(
                                 $is_single_quote === false &&
