@@ -111,6 +111,7 @@ class Variable
                             true
                         ) ||
                         (
+                            is_array($input['array'][$i]) &&
                             array_key_exists('type', $input['array'][$i]) &&
                             $input['array'][$i]['type'] === 'symbol' &&
                             !in_array(
