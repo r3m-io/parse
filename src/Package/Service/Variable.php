@@ -238,6 +238,7 @@ class Variable
                                     )
                                 )
                             ){
+                                d($current);
                                 d($modifier_name);
                                 break;
                             } else {
