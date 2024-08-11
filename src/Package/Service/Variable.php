@@ -330,7 +330,7 @@ class Variable
                                  * array-depth
                                  * curly-depth
                                  */
-                                d($has_modifier);
+                                d($modifier_string);
                                 $has_modifier = true;
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
