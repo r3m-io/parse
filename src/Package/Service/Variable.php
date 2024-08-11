@@ -228,12 +228,14 @@ class Variable
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
                             }
+                            /*
                             elseif(array_key_exists('tag', $input['array'][$i])){
                                 $modifier_string .= $input['array'][$i]['tag'];
                                 $argument .= $input['array'][$i]['value'];
                                 $argument_array[] = $input['array'][$i];
                                 $input['array'][$i] = null;
                             }
+                            */
                             elseif(
                                 $input['array'][$i]['value'] === '(' &&
                                 $is_single_quoted === false &&
@@ -347,9 +349,11 @@ class Variable
                                 $has_modifier = true;
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
+                                d($i);
                             }
                             elseif($has_modifier === false) {
                                 if($curly_depth > 0){
+                                    d($i);
                                     d($modifier_string);
                                     d($input['array']);
                                     ddd('found');
