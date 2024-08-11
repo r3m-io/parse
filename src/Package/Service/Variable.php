@@ -164,7 +164,11 @@ class Variable
             elseif($current === ')'){
                 $set_depth--;
             }
-            elseif(is_array($char) && $char['type'] === 'variable'){
+            elseif(
+                $current !== null &&
+                is_array($char) &&
+                $char['type'] === 'variable'
+            ){
                 for($i = $nr + 1; $i < $count; $i++){
                     $previous = Parse::item($input, $i - 1);
                     $next = Parse::item($input, $i + 1);
@@ -342,24 +346,9 @@ class Variable
                                 'name' => $modifier_name,
                                 'arguments' => $argument_list
                             ];
-                            ddd($input['array']);
+                            $modifier_name = '';
+                            $is_modifier = false;
                         }
-
-                        d($i);
-                        ddd($modifier_name);
-
-
-
-                        /*
-                        $input['array'][$nr] = [
-                            'type' => 'variable',
-                            'tag' => $char['tag'],
-                            'name' => $char['name'],
-                            'is_reference' => $char['is_reference'],
-                            'modifier' => 'function'
-                        ];
-                        break;
-                        */
                     }
                 }
 
