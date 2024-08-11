@@ -261,7 +261,6 @@ class Variable
                                 $is_double_quote === false
                             ){
                                 $modifier_name = '';
-                                break;
                             }
                             elseif($set_depth <= 0){
                                 break;
