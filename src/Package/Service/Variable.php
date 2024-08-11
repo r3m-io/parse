@@ -131,6 +131,13 @@ class Variable
                         elseif(
                             array_key_exists($i - 1, $input['array']) &&
                             is_array($input['array'][$i - 1]) &&
+                            array_key_exists('tag', $input['array'][$i - 1])
+                        ){
+                            $previous = $input['array'][$i - 1]['tag'];
+                        }
+                        elseif(
+                            array_key_exists($i - 1, $input['array']) &&
+                            is_array($input['array'][$i - 1]) &&
                             array_key_exists('value', $input['array'][$i - 1])
                         ){
                             $previous = $input['array'][$i - 1]['value'];
@@ -149,6 +156,13 @@ class Variable
                             array_key_exists('execute', $input['array'][$i + 1])
                         ){
                             $next = $input['array'][$i + 1]['execute'];
+                        }
+                        elseif(
+                            array_key_exists($i + 1, $input['array']) &&
+                            is_array($input['array'][$i + 1]) &&
+                            array_key_exists('tag', $input['array'][$i + 1])
+                        ){
+                            $next = $input['array'][$i + 1]['tag'];
                         }
                         elseif(
                             array_key_exists($i + 1, $input['array']) &&
@@ -212,6 +226,12 @@ class Variable
                                 $has_modifier === false
                             ){
                                 $modifier_string .= $input['array'][$i]['value'];
+                                $input['array'][$i] = null;
+                            }
+                            elseif(array_key_exists('tag', $input['array'][$i])){
+                                $modifier_string .= $input['array'][$i]['tag'];
+                                $argument .= $input['array'][$i]['value'];
+                                $argument_array[] = $input['array'][$i];
                                 $input['array'][$i] = null;
                             }
                             elseif(
