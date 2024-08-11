@@ -2143,4 +2143,25 @@ class Parse
         return $input;
     }
 
+    public static function item($input, $index=null){
+        if (
+            array_key_exists($index, $input['array']) &&
+            is_array($input['array'][$index])
+        ) {
+            if (array_key_exists('execute', $input['array'][$index])) {
+                $item = $input['array'][$index]['execute'] ?? null;
+            }
+            if (array_key_exists('tag', $input['array'][$index])) {
+                $item = $input['array'][$index]['tag'] ?? null;
+            } elseif (array_key_exists('value', $input['array'][$index])) {
+                $item = $input['array'][$index]['value'] ?? null;
+            } else {
+                $item = null;
+            }
+        } else {
+            $item = $input['array'][$index] ?? null;
+        }
+        return $item;
+    }
+
 }
