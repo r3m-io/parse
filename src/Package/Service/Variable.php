@@ -284,13 +284,24 @@ class Variable
                                     $is_single_quote = false;
                                 }
                                 if(
+                                    $current === '(' &&
+                                    $is_single_quote === false &&
+                                    $is_double_quote === false
+                                ){
+                                    $set_depth++;
+                                }
+                                elseif(
+                                    $current === ')' &&
+                                    $is_single_quote === false &&
+                                    $is_double_quote === false
+                                ){
+                                    $set_depth--;
+                                }
+                                if(
                                     $current === ':' &&
                                     $is_double_quote === false &&
                                     $is_single_quote === false
                                 ){
-                                    d($i);
-                                    d($j);
-                                    d('yes1');
                                     $argument_list[$argument_nr] = $argument_array;
                                     $argument_array = [];
                                     $argument_nr++;
@@ -299,8 +310,9 @@ class Variable
                                     $current === ')' &&
                                     $is_single_quote === false &&
                                     $is_double_quote === false &&
-                                    $set_depth === 0
+                                    $set_depth <= 0
                                 ){
+                                    d($set_depth);
                                     break;
                                 }
                                 else {
