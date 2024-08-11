@@ -19,6 +19,8 @@ class Variable
         $previous = null;
         $is_single_quoted = false;
         $is_double_quoted = false;
+        $has_name = false;
+        $name = '';
 //        trace();
         d($input['array']);
         foreach($input['array'] as $nr => $char){
@@ -78,7 +80,58 @@ class Variable
             }
             if($current === '$'){
                 $is_variable = $nr;
-                ddd($is_variable);
+                for($i = $is_variable + 1; $i < $count; $i++){
+                    if(
+                        array_key_exists($i, $input['array']) &&
+                        is_array($input['array'][$i])
+                    ){
+                        if(array_key_exists('execute', $input['array'][$i])){
+                            $current = $input['array'][$i]['execute'] ?? null;
+                        }
+                        if(array_key_exists('tag', $input['array'][$i])){
+                            $current = $input['array'][$i]['tag'] ?? null;
+                        }
+                        elseif(array_key_exists('value', $input['array'][$i])){
+                            $current = $input['array'][$i]['value'] ?? null;
+                        } else {
+                            $current = null;
+                        }
+                    } else {
+                        $current = $input['array'][$i] ?? null;
+                    }
+                    if(
+                        in_array(
+                            $current,
+                            [
+                                ' ',
+                                "\t",
+                                "\n",
+                                "\r"
+                            ],
+                            true
+                        ) ||
+                        (
+                            array_key_exists('type', $input['array'][$i]) &&
+                            $input['array'][$i]['type'] === 'symbol' &&
+                            !in_array(
+                                $current,
+                                [
+                                    '.',
+                                    ':',
+                                    '_',
+                                ],
+                                true
+                            )
+                        )
+                    ){
+                        $has_name = true;
+                        d($i);
+                        ddd($name);
+                    }
+                    elseif($has_name === false){
+                        $name .= $current;
+                    }
+                }
             }
         }
         return $input;
