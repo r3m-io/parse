@@ -350,6 +350,9 @@ class Variable
                             $argument = '';
                             $argument_list = [];
                             $argument_array = [];
+                            for($k = $nr + 1; $k < $j; $k++){
+                                $input['array'][$k] = null;
+                            }
                             $is_modifier = false;
                         }
                     }
