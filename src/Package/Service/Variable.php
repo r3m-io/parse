@@ -238,9 +238,7 @@ class Variable
                                     )
                                 )
                             ){
-                                d($is_single_quote);
-                                d($is_double_quote);
-                                d('yes');
+                                d($modifier_name);
                                 break;
                             } else {
                                 $modifier_name .= $current;
