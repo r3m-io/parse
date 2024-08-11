@@ -80,6 +80,7 @@ class Variable
             }
             if($current === '$'){
                 $is_variable = $nr;
+                $name = '$';
                 for($i = $is_variable + 1; $i < $count; $i++){
                     if(
                         array_key_exists($i, $input['array']) &&
@@ -125,9 +126,22 @@ class Variable
                             )
                         )
                     ){
-                        $has_name = true;
-                        d($i);
-                        ddd($name);
+                        if($name !== ''){
+                            $has_name = true;
+                            $is_reference = false;
+                            if ($previous === '&') {
+                                $is_reference = true;
+                                $input['array'][$is_variable - 1] = null;
+                            }
+                            $input['array'][$is_variable] = [
+                                'type' => 'variable',
+                                'tag' => $name,
+                                'name' => substr($name, 1),
+                                'is_reference' => $is_reference
+                            ];
+
+
+                        }
                     }
                     elseif($has_name === false){
                         $name .= $current;
