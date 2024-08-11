@@ -139,8 +139,8 @@ class Variable
                                 'name' => substr($name, 1),
                                 'is_reference' => $is_reference
                             ];
-
-
+                            $name = '';
+                            $has_name = false;
                         }
                     }
                     elseif($has_name === false){
@@ -149,6 +149,7 @@ class Variable
                 }
             }
         }
+        d($input);
         return $input;
     }
 }
