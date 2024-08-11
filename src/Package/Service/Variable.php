@@ -324,6 +324,22 @@ class Variable
                                 $is_double_quoted === false
 
                             ){
+                                d($i);
+                                d($modifier_string);
+                                ddd($input['array'][$i]);
+                                $has_modifier = true;
+                                $modifier_string .= $input['array'][$i]['value'];
+                                $input['array'][$i] = null;
+                            }
+                            elseif(
+                                $input['array'][$i]['value'] === '|' &&
+                                $previous !== '|' &&
+                                $next !== '|' &&
+                                $has_modifier === false &&
+                                $is_single_quoted === false &&
+                                $is_double_quoted === true
+
+                            ){
                                 /**
                                  * needs:
                                  * set-depth
