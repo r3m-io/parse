@@ -322,8 +322,14 @@ class Variable
                             if(array_key_exists(0, $argument_array)){
                                 $argument_list[$argument_nr] = $argument_array;
                             }
-                            d($modifier_name);
-                            ddd($argument_list);
+                            if(!array_key_exists('modifier', $input['array'][$nr])){
+                                $input['array'][$nr]['modifier'] = [];
+                            }
+                            $input['array'][$nr]['modifier'][] = [
+                                'name' => $modifier_name,
+                                'arguments' => $argument_list
+                            ];
+                            ddd($input['array']);
                         }
 
                         d($i);
