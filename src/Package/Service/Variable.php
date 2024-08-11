@@ -369,34 +369,30 @@ class Variable
                                     'name' => $modifier_name,
                                     'arguments' => $argument_list
                                 ];
-                                for($k = $nr + 1; $k < $j; $k++){
-                                    $input['array'][$k] = null;
-                                }
-                                $is_modifier = false;
                                 $modifier_name = '';
                                 $argument = '';
                                 $argument_list = [];
                                 $argument_array = [];
+                                for($k = $nr + 1; $k < $j; $k++){
+                                    $input['array'][$k] = null;
+                                }
+                                $is_modifier = false;
                             } else {
                                 $input['array'][$nr]['modifier'][] = [
                                     'name' => $modifier_name,
                                     'arguments' => []
                                 ];
-                                for($k = $nr + 1; $k < $i; $k++){
-                                    $input['array'][$k] = null;
-                                }
-                                $is_modifier = false;
-                                $modifier_name = '';
-                                $argument = '';
-                                $argument_list = [];
-                                $argument_array = [];
                             }
                         }
                     }
                 }
+
+                d($input['array']);
+                ddd($char);
             }
         }
-        d($input['array']);
+
+
         return $input;
     }
 
