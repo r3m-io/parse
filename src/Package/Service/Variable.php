@@ -278,108 +278,114 @@ class Variable
                             $is_double_quote = false;
                             $is_single_quote = false;
                             $current = Parse::item($input, $i);
-                            if($current !== ':'){
-                                break;
-                            }
-                            d($current);
-                            for($j = $i + 1; $j < $count; $j++){
-                                $previous = Parse::item($input, $j - 1);
-                                $next = Parse::item($input, $j + 1);
-                                $current = Parse::item($input, $j);
-                                if(
-                                    $current === '"' &&
-                                    $previous !== '\\' &&
-                                    $is_double_quote === false
-                                ){
-                                    $is_double_quote = true;
+                            if($current === ':'){
+                                for($j = $i + 1; $j < $count; $j++){
+                                    $previous = Parse::item($input, $j - 1);
+                                    $next = Parse::item($input, $j + 1);
+                                    $current = Parse::item($input, $j);
+                                    if(
+                                        $current === '"' &&
+                                        $previous !== '\\' &&
+                                        $is_double_quote === false
+                                    ){
+                                        $is_double_quote = true;
+                                    }
+                                    elseif(
+                                        $current === '"' &&
+                                        $previous !== '\\' &&
+                                        $is_double_quote === true
+                                    ){
+                                        $is_double_quote = false;
+                                    }
+                                    elseif(
+                                        $current === '\'' &&
+                                        $previous !== '\\' &&
+                                        $is_single_quote === false
+                                    ){
+                                        $is_single_quote = true;
+                                    }
+                                    elseif(
+                                        $current === '\'' &&
+                                        $previous !== '\\' &&
+                                        $is_single_quote === true
+                                    ){
+                                        $is_single_quote = false;
+                                    }
+                                    if(
+                                        $current === '(' &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote === false
+                                    ){
+                                        $set_depth++;
+                                    }
+                                    elseif(
+                                        $current === ')' &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote === false
+                                    ){
+                                        $set_depth--;
+                                    }
+                                    if(
+                                        $current === ':' &&
+                                        $is_double_quote === false &&
+                                        $is_single_quote === false
+                                    ){
+                                        $argument_list[$argument_nr]['string'] = $argument;
+                                        $argument_list[$argument_nr]['array'] = $argument_array;
+                                        $argument_array = [];
+                                        $argument = '';
+                                        $argument_nr++;
+                                    }
+                                    elseif(
+                                        $current === '|' &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote === false &&
+                                        $previous !== '|' &&
+                                        $next !== '|'
+                                    ){
+                                        break;
+                                    }
+                                    elseif(
+                                        $current === ')' &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote === false &&
+                                        $set_depth <= 0
+                                    ){
+                                        break;
+                                    }
+                                    else {
+                                        $argument .= $current;
+                                        $argument_array[] = $input['array'][$j];
+                                    }
                                 }
-                                elseif(
-                                    $current === '"' &&
-                                    $previous !== '\\' &&
-                                    $is_double_quote === true
-                                ){
-                                    $is_double_quote = false;
-                                }
-                                elseif(
-                                    $current === '\'' &&
-                                    $previous !== '\\' &&
-                                    $is_single_quote === false
-                                ){
-                                    $is_single_quote = true;
-                                }
-                                elseif(
-                                    $current === '\'' &&
-                                    $previous !== '\\' &&
-                                    $is_single_quote === true
-                                ){
-                                    $is_single_quote = false;
-                                }
-                                if(
-                                    $current === '(' &&
-                                    $is_single_quote === false &&
-                                    $is_double_quote === false
-                                ){
-                                    $set_depth++;
-                                }
-                                elseif(
-                                    $current === ')' &&
-                                    $is_single_quote === false &&
-                                    $is_double_quote === false
-                                ){
-                                    $set_depth--;
-                                }
-                                if(
-                                    $current === ':' &&
-                                    $is_double_quote === false &&
-                                    $is_single_quote === false
-                                ){
+                                if(array_key_exists(0, $argument_array)){
                                     $argument_list[$argument_nr]['string'] = $argument;
                                     $argument_list[$argument_nr]['array'] = $argument_array;
-                                    $argument_array = [];
-                                    $argument = '';
-                                    $argument_nr++;
                                 }
-                                elseif(
-                                    $current === '|' &&
-                                    $is_single_quote === false &&
-                                    $is_double_quote === false &&
-                                    $previous !== '|' &&
-                                    $next !== '|'
-                                ){
-                                    break;
+                                if(!array_key_exists('modifier', $input['array'][$nr])){
+                                    $input['array'][$nr]['modifier'] = [];
                                 }
-                                elseif(
-                                    $current === ')' &&
-                                    $is_single_quote === false &&
-                                    $is_double_quote === false &&
-                                    $set_depth <= 0
-                                ){
-                                    break;
+                                $input['array'][$nr]['modifier'][] = [
+                                    'name' => $modifier_name,
+                                    'arguments' => $argument_list
+                                ];
+                                $modifier_name = '';
+                                $argument = '';
+                                $argument_list = [];
+                                $argument_array = [];
+                                for($k = $nr + 1; $k < $j; $k++){
+                                    $input['array'][$k] = null;
                                 }
-                                else {
-                                    $argument .= $current;
-                                    $argument_array[] = $input['array'][$j];
+                                $is_modifier = false;
+                            } else {
+                                $input['array'][$nr]['modifier'][] = [
+                                    'name' => $modifier_name,
+                                    'arguments' => []
+                                ];
+                                for($k = $nr + 1; $k < $i; $k++){
+                                    $input['array'][$k] = null;
                                 }
                             }
-                            if(array_key_exists(0, $argument_array)){
-                                $argument_list[$argument_nr]['string'] = $argument;
-                                $argument_list[$argument_nr]['array'] = $argument_array;
-                            }
-                            if(!array_key_exists('modifier', $input['array'][$nr])){
-                                $input['array'][$nr]['modifier'] = [];
-                            }
-                            $input['array'][$nr]['modifier'][] = [
-                                'name' => $modifier_name,
-                                'arguments' => $argument_list
-                            ];
-                            $modifier_name = '';
-                            $argument = '';
-                            $argument_list = [];
-                            $argument_array = [];
-                            for($k = $nr + 1; $k < $j; $k++){
-                                $input['array'][$k] = null;
-                            }
-                            $is_modifier = false;
                         }
                     }
                 }
