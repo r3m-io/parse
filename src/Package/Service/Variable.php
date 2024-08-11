@@ -135,6 +135,9 @@ class Variable
                             $name = '';
                             $has_name = false;
                             $is_variable = false;
+                            for($j = $is_variable + 1; $j < $i; $j++){
+                                $input['array'][$j] = null;
+                            }
                         }
                     }
                     elseif($has_name === false){
