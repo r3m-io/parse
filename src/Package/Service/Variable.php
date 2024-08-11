@@ -238,6 +238,8 @@ class Variable
                                     )
                                 )
                             ){
+                                d($is_single_quote);
+                                d($is_double_quote);
                                 d('yes');
                                 break;
                             } else {
