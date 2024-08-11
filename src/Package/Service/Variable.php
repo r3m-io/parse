@@ -332,6 +332,7 @@ class Variable
                                  */
                                 d($i);
                                 d($modifier_string);
+                                ddd($input['array'][$i]);
                                 $has_modifier = true;
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
