@@ -222,10 +222,14 @@ class Variable
                                 $set_depth++;
                                 if($set_depth >= 0){
                                     $modifier_string .= $input['array'][$i]['value'];
+                                    /*
                                     if($argument){
                                         $argument .= $input['array'][$i]['value'];
                                         $argument_array[] = $input['array'][$i];
                                     }
+                                    */
+                                    $argument .= $input['array'][$i]['value'];
+                                    $argument_array[] = $input['array'][$i];
                                     $input['array'][$i] = null;
                                 }
                             }
@@ -260,10 +264,14 @@ class Variable
                             ){
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $curly_depth++;
+                                $argument .= $input['array'][$i]['value'];
+                                $argument_array[] = $input['array'][$i];
+                                /*
                                 if($argument){
                                     $argument .= $input['array'][$i]['value'];
                                     $argument_array[] = $input['array'][$i];
                                 }
+                                */
                                 $input['array'][$i] = null;
                             }
                             elseif(
