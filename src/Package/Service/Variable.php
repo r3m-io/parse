@@ -176,6 +176,8 @@ class Variable
                     ){
                         $is_modifier = $i;
                         $modifier_name = '';
+                        $is_double_quote = false;
+                        $is_single_quote = false;
                         for($i = $is_modifier + 1; $i < $count; $i++){
                             $previous = Parse::item($input, $i - 1);
                             $next = Parse::item($input, $i + 1);
