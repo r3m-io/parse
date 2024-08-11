@@ -310,6 +310,15 @@ class Variable
                                     $argument_nr++;
                                 }
                                 elseif(
+                                    $current === '|' &&
+                                    $is_single_quote === false &&
+                                    $is_double_quote === false &&
+                                    $previous !== '|' &&
+                                    $next !== '|'
+                                ){
+                                    break;
+                                }
+                                elseif(
                                     $current === ')' &&
                                     $is_single_quote === false &&
                                     $is_double_quote === false &&
