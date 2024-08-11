@@ -12,13 +12,6 @@ class Variable
     public static function define(App $object, $input, $flags, $options){
         $count = count($input['array']);
         $is_variable = false;
-        $outer_set_depth = 0;
-        $set_depth = 0;
-        $curly_depth = 0;
-        $array_depth = 0;
-        $previous = null;
-        $is_single_quoted = false;
-        $is_double_quoted = false;
         $has_name = false;
         $name = '';
 //        trace();
@@ -141,6 +134,7 @@ class Variable
                             ];
                             $name = '';
                             $has_name = false;
+                            $is_variable = false;
                         }
                     }
                     elseif($has_name === false){
