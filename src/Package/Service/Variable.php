@@ -245,11 +245,6 @@ class Variable
                                         true
                                     ) ||
                                     (
-                                        $current === '|' &&
-                                        $previous !== '|' &&
-                                        $next !== '|'
-                                    ) ||
-                                    (
                                         $current === ':' &&
                                         $previous !== ':' &&
                                         $next !== ':'
@@ -257,6 +252,15 @@ class Variable
                                 )
                             ){
                                 break;
+                            }
+                            elseif(
+                                $current === '|' &&
+                                $previous !== '|' &&
+                                $next !== '|' &&
+                                $is_single_quote === false &&
+                                $is_double_quote === false
+                            ){
+                                break 2;
                             }
                             elseif($set_depth <= 0){
                                 break;
