@@ -239,9 +239,9 @@ class Method
                         $is_double_quote === false
                     ){
                         $is_single_quote = false;
-                        d($argument);
                         $argument_array[] = $char;
                         $argument .= $char['value'];
+                        /*
                         $argument_value = Cast::define(
                             $object, [
                             'string' => $argument,
@@ -259,6 +259,7 @@ class Method
                         $argument_list[] = $argument_value;
                         $argument_array = [];
                         $argument = '';
+                        */
                     }
                     elseif(
                         is_array($char) &&
@@ -283,6 +284,7 @@ class Method
                         $is_double_quote = false;
                         $argument_array[] = $char;
                         $argument .= $char['value'];
+                        /*
                         $argument_value = Cast::define(
                             $object, [
                             'string' => $argument,
@@ -300,6 +302,7 @@ class Method
                         $argument_list[] = $argument_value;
                         $argument_array = [];
                         $argument = '';
+                        */
                     }
                     elseif(
                         is_array($char) &&
