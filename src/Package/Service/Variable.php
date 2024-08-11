@@ -256,12 +256,9 @@ class Variable
                                     )
                                 )
                             ){
-                                d($current);
-                                d($modifier_name);
                                 break;
                             }
                             elseif($set_depth <= 0){
-                                d('found !!!');
                                 break;
                             }
 
@@ -370,7 +367,7 @@ class Variable
                             $argument = '';
                             $argument_list = [];
                             $argument_array = [];
-                            for($k = $nr + 1; $k < $j; $k++){
+                            for($k = $nr + 1; $k < $j - 1; $k++){
                                 $input['array'][$k] = null;
                             }
                             $is_modifier = false;
