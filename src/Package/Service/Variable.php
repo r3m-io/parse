@@ -319,8 +319,11 @@ class Variable
                                     $argument_array[] = $input['array'][$j];
                                 }
                             }
-                            d($argument_list);
-                            ddd($argument_array);
+                            if(array_key_exists(0, $argument_array)){
+                                $argument_list[$argument_nr] = $argument_array;
+                            }
+                            d($modifier_name);
+                            ddd($argument_list);
                         }
 
                         d($i);
