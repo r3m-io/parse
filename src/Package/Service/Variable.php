@@ -243,11 +243,6 @@ class Variable
                                     }
                                     $input['array'][$i] = null;
                                 } else {
-                                    $modifier_string .= $input['array'][$i]['value'];
-                                    if($argument){
-                                        $argument .= $input['array'][$i]['value'];
-                                        $argument_array[] = $input['array'][$i];
-                                    }
 //                                    d('here' . $nr);
                                     break;
                                 }
