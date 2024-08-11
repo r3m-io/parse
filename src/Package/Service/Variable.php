@@ -149,7 +149,7 @@ class Variable
                 }
             }
         }
-        d($input);
+        ddd($input);
         return $input;
     }
 }
