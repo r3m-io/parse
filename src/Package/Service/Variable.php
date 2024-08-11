@@ -153,11 +153,18 @@ class Variable
     public static function modifier(App $object, $input, $flags, $options): array
     {
         $count = count($input['array']);
+        $set_depth = 0;
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
             $current = Parse::item($input, $nr);
-            if(is_array($char) && $char['type'] === 'variable'){
+            if($current === '('){
+                $set_depth++;
+            }
+            elseif($current === ')'){
+                $set_depth--;
+            }
+            elseif(is_array($char) && $char['type'] === 'variable'){
                 for($i = $nr + 1; $i < $count; $i++){
                     $previous = Parse::item($input, $i - 1);
                     $next = Parse::item($input, $i + 1);
@@ -202,13 +209,67 @@ class Variable
                             }
                         }
                         if($modifier_name){
+                            $argument_list = [];
+                            $argument_array = [];
+                            $argument_nr = 0;
+                            $is_double_quote = false;
+                            $is_single_quote = false;
                             for($j = $i + 1; $j < $count; $j++){
                                 $previous = Parse::item($input, $j - 1);
                                 $next = Parse::item($input, $j + 1);
                                 $current = Parse::item($input, $j);
-                                d($current);
+                                if(
+                                    $current === '"' &&
+                                    $previous !== '\\' &&
+                                    $is_double_quote = false
+                                ){
+                                    $is_double_quote = true;
+                                }
+                                elseif(
+                                    $current === '"' &&
+                                    $previous !== '\\' &&
+                                    $is_double_quote = true
+                                ){
+                                    $is_double_quote = false;
+                                }
+                                elseif(
+                                    $current === '\'' &&
+                                    $previous !== '\\' &&
+                                    $is_single_quote = false
+                                ){
+                                    $is_single_quote = true;
+                                }
+                                elseif(
+                                    $current === '\'' &&
+                                    $previous !== '\\' &&
+                                    $is_single_quote = true
+                                ){
+                                    $is_single_quote = false;
+                                }
+                                if(
+                                    $current === ':' &&
+                                    $is_double_quote === false &&
+                                    $is_single_quote === false
+                                ){
+                                    $argument_list[$argument_nr] = $argument_array;
+                                    $argument_array = [];
+                                    $argument_nr++;
+                                }
+                                elseif(
+                                    $current === ')' &&
+                                    $is_single_quote === false &&
+                                    $is_double_quote === false &&
+                                    $set_depth === 0
+                                ){
+                                    break;
+                                }
+                                else {
+                                    $argument_array[] = $current;
+                                }
                             }
                         }
+                        d($argument_list);
+                        d($argument_array);
                         d($i);
                         ddd($modifier_name);
 
