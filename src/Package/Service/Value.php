@@ -463,6 +463,7 @@ class Value
         $tag_index = 0;
         $tag_array = [];
         $tag = '';
+        return $input;
         foreach($input['array'] as $nr => $char){
             if(
                 is_array($char) &&
