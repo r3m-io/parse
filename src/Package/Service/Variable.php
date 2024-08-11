@@ -258,28 +258,28 @@ class Variable
                                 if(
                                     $current === '"' &&
                                     $previous !== '\\' &&
-                                    $is_double_quote = false
+                                    $is_double_quote === false
                                 ){
                                     $is_double_quote = true;
                                 }
                                 elseif(
                                     $current === '"' &&
                                     $previous !== '\\' &&
-                                    $is_double_quote = true
+                                    $is_double_quote === true
                                 ){
                                     $is_double_quote = false;
                                 }
                                 elseif(
                                     $current === '\'' &&
                                     $previous !== '\\' &&
-                                    $is_single_quote = false
+                                    $is_single_quote === false
                                 ){
                                     $is_single_quote = true;
                                 }
                                 elseif(
                                     $current === '\'' &&
                                     $previous !== '\\' &&
-                                    $is_single_quote = true
+                                    $is_single_quote === true
                                 ){
                                     $is_single_quote = false;
                                 }
