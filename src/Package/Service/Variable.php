@@ -382,6 +382,8 @@ class Variable
                                     'name' => $modifier_name,
                                     'arguments' => []
                                 ];
+                                $modifier_name = '';
+                                $i--;
                             }
                         }
                     }
