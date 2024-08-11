@@ -330,6 +330,7 @@ class Variable
                             }
                             elseif($has_modifier === false) {
                                 if($curly_depth > 0){
+                                    d($modifier_string);
                                     d($input['array']);
                                     ddd('found');
                                 }
