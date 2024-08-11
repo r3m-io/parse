@@ -353,6 +353,7 @@ class Variable
                             }
                             elseif($has_modifier === false) {
                                 if($curly_depth > 0){
+                                    d($is_double_quoted);
                                     d($i);
                                     d($modifier_string);
                                     d($input['array']);
