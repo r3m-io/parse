@@ -261,6 +261,7 @@ class Variable
                                 $is_double_quote === false
                             ){
                                 $i--;
+                                ddd($modifier_name);
                                 $modifier_name = '';
                                 break;
                             }
