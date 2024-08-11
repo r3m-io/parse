@@ -237,6 +237,7 @@ class Variable
                                     )
                                 )
                             ){
+                                d('yes');
                                 break;
                             } else {
                                 $modifier_name .= $current;
