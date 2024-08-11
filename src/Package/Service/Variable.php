@@ -273,6 +273,8 @@ class Variable
                             $argument_nr = 0;
                             $is_double_quote = false;
                             $is_single_quote = false;
+                            $current = Parse::item($input, $i);
+                            d($current);
                             for($j = $i + 1; $j < $count; $j++){
                                 $previous = Parse::item($input, $j - 1);
                                 $next = Parse::item($input, $j + 1);
