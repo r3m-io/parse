@@ -260,8 +260,9 @@ class Variable
                                 $is_single_quote === false &&
                                 $is_double_quote === false
                             ){
-                                ddd($modifier_name);
+                                $i--;
                                 $modifier_name = '';
+                                break;
                             }
                             elseif($set_depth <= 0){
                                 break;
