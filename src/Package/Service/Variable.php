@@ -264,7 +264,7 @@ class Variable
                                     break;
                                 }
                                 else {
-                                    $argument_array[] = $current;
+                                    $argument_array[] = $input['array'][$j];
                                 }
                             }
                             d($argument_list);
