@@ -288,6 +288,7 @@ class Variable
                                     $is_double_quote === false &&
                                     $is_single_quote === false
                                 ){
+                                    d('yes1');
                                     $argument_list[$argument_nr] = $argument_array;
                                     $argument_array = [];
                                     $argument_nr++;
