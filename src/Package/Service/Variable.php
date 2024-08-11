@@ -181,26 +181,58 @@ class Variable
                             $next = Parse::item($input, $i + 1);
                             $current = Parse::item($input, $i);
                             if(
-                                in_array(
-                                    $current,
-                                    [
-                                        ' ',
-                                        "\t",
-                                        "\n",
-                                        "\r",
-                                        "}}"
-                                    ],
-                                    true
-                                ) ||
+                                $current === '"' &&
+                                $previous !== '\\' &&
+                                $is_double_quote = false
+                            ){
+                                $is_double_quote = true;
+                            }
+                            elseif(
+                                $current === '"' &&
+                                $previous !== '\\' &&
+                                $is_double_quote = true
+                            ){
+                                $is_double_quote = false;
+                            }
+                            elseif(
+                                $current === '\'' &&
+                                $previous !== '\\' &&
+                                $is_single_quote = false
+                            ){
+                                $is_single_quote = true;
+                            }
+                            elseif(
+                                $current === '\'' &&
+                                $previous !== '\\' &&
+                                $is_single_quote = true
+                            ){
+                                $is_single_quote = false;
+                            }
+                            if(
+                                $is_single_quote === false &&
+                                $is_double_quote === false &&
                                 (
-                                    $current === '|' &&
-                                    $previous !== '|' &&
-                                    $next !== '|'
-                                ) ||
-                                (
-                                    $current === ':' &&
-                                    $previous !== ':' &&
-                                    $next !== ':'
+                                    in_array(
+                                        $current,
+                                        [
+                                            ' ',
+                                            "\t",
+                                            "\n",
+                                            "\r",
+                                            "}}"
+                                        ],
+                                        true
+                                    ) ||
+                                    (
+                                        $current === '|' &&
+                                        $previous !== '|' &&
+                                        $next !== '|'
+                                    ) ||
+                                    (
+                                        $current === ':' &&
+                                        $previous !== ':' &&
+                                        $next !== ':'
+                                    )
                                 )
                             ){
                                 break;
