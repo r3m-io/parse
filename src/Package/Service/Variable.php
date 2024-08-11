@@ -267,9 +267,10 @@ class Variable
                                     $argument_array[] = $current;
                                 }
                             }
+                            d($argument_list);
+                            ddd($argument_array);
                         }
-                        d($argument_list);
-                        d($argument_array);
+
                         d($i);
                         ddd($modifier_name);
 
