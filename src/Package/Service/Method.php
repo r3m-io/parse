@@ -20,6 +20,7 @@ class Method
         $argument = '';
         $argument_array = [];
         $argument_list = [];
+        d($input['string']);
         foreach($input['array'] as $nr => $char){
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
@@ -216,7 +217,6 @@ class Method
                     }
                 }
                 elseif($set_depth > 0){
-                    d($char);
                     if(
                         is_array($char) &&
                         array_key_exists('value', $char) &&
