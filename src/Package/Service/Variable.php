@@ -294,6 +294,7 @@ class Variable
                                         $argument_array[] = $input['array'][$i];
                                     }
                                 } else {
+                                    d($argument);
                                     break;
                                 }
                                 $input['array'][$i] = null;
@@ -329,6 +330,7 @@ class Variable
                                  * array-depth
                                  * curly-depth
                                  */
+                                d($has_modifier);
                                 $has_modifier = true;
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
