@@ -347,6 +347,9 @@ class Variable
                                 'arguments' => $argument_list
                             ];
                             $modifier_name = '';
+                            $argument = '';
+                            $argument_list = [];
+                            $argument_array = [];
                             $is_modifier = false;
                         }
                     }
