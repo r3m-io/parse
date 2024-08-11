@@ -328,29 +328,10 @@ class Variable
                                 $modifier_string .= $input['array'][$i]['value'];
                                 $input['array'][$i] = null;
                             }
-                            elseif(
-                                $input['array'][$i]['value'] === '|' &&
-                                $previous !== '|' &&
-                                $next !== '|' &&
-                                $has_modifier === false &&
-                                $is_single_quoted === false &&
-                                $is_double_quoted === true
-
-                            ){
-                                /**
-                                 * needs:
-                                 * set-depth
-                                 * array-depth
-                                 * curly-depth
-                                 */
-                                d($i);
-                                d($modifier_string);
-                                ddd($input['array']);
-                                $has_modifier = true;
-                                $modifier_string .= $input['array'][$i]['value'];
-                                $input['array'][$i] = null;
-                            }
                             elseif($has_modifier === false) {
+                                if($curly_depth > 0){
+                                    ddd('found');
+                                }
                                 break;
                             }
                             elseif(
