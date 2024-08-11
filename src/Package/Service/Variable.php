@@ -245,7 +245,13 @@ class Variable
                                 d($current);
                                 d($modifier_name);
                                 break;
-                            } else {
+                            }
+                            elseif($set_depth <= 0){
+                                d('found !!!');
+                                break;
+                            }
+
+                            else {
                                 $modifier_name .= $current;
                             }
                         }
