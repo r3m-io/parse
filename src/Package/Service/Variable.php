@@ -248,7 +248,7 @@ class Variable
                                         $argument .= $input['array'][$i]['value'];
                                         $argument_array[] = $input['array'][$i];
                                     }
-                                    d('here' . $nr);
+//                                    d('here' . $nr);
                                     break;
                                 }
                             }
