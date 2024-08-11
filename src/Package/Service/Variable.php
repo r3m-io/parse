@@ -342,12 +342,13 @@ class Variable
                                     $next !== ':'
                                 )
                             ){
-                                ddd($modifier_name);
+                                break;
                             } else {
                                 $modifier_name .= $current;
                             }
                         }
-
+                        d($i);
+                        ddd($modifier_name);
 
 
 
