@@ -233,7 +233,7 @@ class Variable
                             $is_double_quote_backslash = false;
                             $is_single_quote = false;
                             while(true){
-                                $current = Parse::item($input, $i);
+                                $current = Parse::item($input, $index);
                                 $modifier_string .= $current;
                                 if(
                                     in_array(
@@ -247,13 +247,13 @@ class Variable
                                         true
                                     )
                                 ){
-                                    $i++;
+                                    $index++;
                                 } else {
                                     break;
                                 }
                             }
                             if($current === ':'){
-                                for($j = $i + 1; $j < $count; $j++){
+                                for($j = $index + 1; $j < $count; $j++){
                                     $previous = Parse::item($input, $j - 1);
                                     $next = Parse::item($input, $j + 1);
                                     $current = Parse::item($input, $j);
