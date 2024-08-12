@@ -254,7 +254,6 @@ class Variable
                                     $previous = Parse::item($input, $j - 1);
                                     $next = Parse::item($input, $j + 1);
                                     $current = Parse::item($input, $j);
-                                    $modifier_string .= $current;
                                     if(
                                         $current === '"' &&
                                         $previous !== '\\' &&
@@ -314,10 +313,10 @@ class Variable
                                         }
                                         elseif($outer_curly_depth > 0){
                                             $outer_curly_depth--;
-                                            ddd('yes');
                                             break;
                                         }
                                     }
+                                    $modifier_string .= $current;
                                     if(
                                         $current === ':' &&
                                         $is_double_quote === false &&
