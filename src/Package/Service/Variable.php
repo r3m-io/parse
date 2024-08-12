@@ -330,8 +330,29 @@ class Variable
                                         $is_double_quote === false &&
                                         $is_single_quote === false
                                     ){
-                                        $argument_list[$argument_nr]['string'] = $argument;
-                                        $argument_list[$argument_nr]['array'] = $argument_array;
+                                        $argument_value = Cast::define(
+                                            $object, [
+                                            'string' => $argument,
+                                            'array' => $argument_array
+                                        ],
+                                            $flags,
+                                            $options
+                                        );
+                                        $argument_value = Parse::value(
+                                            $object,
+                                            $argument_value,
+                                            $flags,
+                                            $options
+                                        );
+                                        /*
+                                        $argument_value = Value::double_quoted_string(
+                                            $object,
+                                            $argument_value,
+                                            $flags,
+                                            $options
+                                        );
+                                        */
+                                        $argument_list[$argument_nr] = $argument_value;
                                         $argument_array = [];
                                         $argument = '';
                                         $argument_nr++;
@@ -359,8 +380,29 @@ class Variable
                                     }
                                 }
                                 if(array_key_exists(0, $argument_array)){
-                                    $argument_list[$argument_nr]['string'] = $argument;
-                                    $argument_list[$argument_nr]['array'] = $argument_array;
+                                    $argument_value = Cast::define(
+                                        $object, [
+                                        'string' => $argument,
+                                        'array' => $argument_array
+                                    ],
+                                        $flags,
+                                        $options
+                                    );
+                                    $argument_value = Parse::value(
+                                        $object,
+                                        $argument_value,
+                                        $flags,
+                                        $options
+                                    );
+                                    /*
+                                    $argument_value = Value::double_quoted_string(
+                                        $object,
+                                        $argument_value,
+                                        $flags,
+                                        $options
+                                    );
+                                    */
+                                    $argument_list[$argument_nr] = $argument_value;
                                 }
                                 if(!array_key_exists('modifier', $input['array'][$nr])){
                                     $input['array'][$nr]['modifier'] = [];
