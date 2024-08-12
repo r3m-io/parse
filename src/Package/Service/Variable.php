@@ -86,6 +86,7 @@ class Variable
         $set_depth = 0;
         $curly_depth = 0;
         $outer_curly_depth = 0;
+        $modifier_string = '';
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -111,7 +112,7 @@ class Variable
                     $previous = Parse::item($input, $i - 1);
                     $next = Parse::item($input, $i + 1);
                     $current = Parse::item($input, $i);
-                    d($current);
+                    $modifier_string .= $current;
                     if(
                         $current === '|' &&
                         $previous !== '|' &&
@@ -120,6 +121,7 @@ class Variable
                         $is_modifier = $i;
                         d($is_modifier);
                         $modifier_name = '';
+
                         $is_double_quote = false;
                         $is_single_quote = false;
                         for($i = $is_modifier + 1; $i < $count; $i++){
@@ -221,7 +223,6 @@ class Variable
                             }
                         }
                         if($modifier_name){
-                            $modifier_string = '';
                             $argument_list = [];
                             $argument_array = [];
                             $argument = '';
