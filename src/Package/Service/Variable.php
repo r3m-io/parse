@@ -224,6 +224,7 @@ class Variable
                             $modifier_string .= $current;
                         }
                         if($modifier_name){
+                            d($modifier_name);
                             $argument_list = [];
                             $argument_array = [];
                             $argument = '';
