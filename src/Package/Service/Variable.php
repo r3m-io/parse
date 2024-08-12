@@ -355,6 +355,7 @@ class Variable
                                         $previous !== '|' &&
                                         $next !== '|'
                                     ){
+                                        d($argument);
                                         d('two');
                                         break;
                                     }
