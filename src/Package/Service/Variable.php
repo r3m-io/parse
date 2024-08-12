@@ -229,6 +229,7 @@ class Variable
                 ){
                     $modifier_name .= $current;
                 } else {
+                    d($current);
                     ddd('found');
                 }
             }
