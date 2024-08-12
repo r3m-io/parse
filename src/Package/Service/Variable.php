@@ -148,6 +148,8 @@ class Variable
             ){
                 if($is_argument !== false){
                     d($modifier_name);
+                    $argument_list = [];
+
                     ddd($argument_array);
                 }
                 elseif($is_modifier !== false){
@@ -166,8 +168,8 @@ class Variable
             ){
                 if($is_modifier !== false){
                     $is_argument = true;
-                    $argument_nr++;
                 }
+                $argument_nr++;
             }
             elseif(
                 $current !== null &&
@@ -197,11 +199,21 @@ class Variable
             ){
                 $modifier_name .= $current;
             }
-            elseif($is_argument){
-                if(!array_key_exists($argument_nr, $argument_array)){
-                    $argument_array[$argument_nr] = [];
+            elseif(
+                $is_argument
+            ){
+                if(
+                    $current === ':' &&
+                    $previous !== ':' &&
+                    $next !== ':'
+                ){
+
+                } else {
+                    if(!array_key_exists($argument_nr, $argument_array)){
+                        $argument_array[$argument_nr] = [];
+                    }
+                    $argument_array[$argument_nr][] = $char;
                 }
-                $argument_array[$argument_nr][] = $char;
             }
         }
 //        d($input['array']);
