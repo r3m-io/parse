@@ -399,9 +399,6 @@ class Variable
                                 }
                                 if(array_key_exists(0, $argument_array)){
                                     d($argument);
-                                    if(str_contains($argument, '\"{{$test3 | default: \'yes\'}}\"')){
-                                        ddd($argument_array);
-                                    }
                                     $argument_value = Cast::define(
                                         $object, [
                                         'string' => $argument,
@@ -410,6 +407,9 @@ class Variable
                                         $flags,
                                         $options
                                     );
+                                    if(str_contains($argument, '\"{{$test3 | default: \'yes\'}}\"')){
+                                        ddd($argument_value);
+                                    }
                                     $argument_value = Parse::value(
                                         $object,
                                         $argument_value,
