@@ -221,6 +221,7 @@ class Variable
                             }
                         }
                         if($modifier_name){
+                            $modifier_string = '';
                             $argument_list = [];
                             $argument_array = [];
                             $argument = '';
@@ -228,6 +229,7 @@ class Variable
                             $is_single_quote = false;
                             while(true){
                                 $current = Parse::item($input, $i);
+                                $modifier_string .= $current;
                                 if(
                                     in_array(
                                         $current,
@@ -245,12 +247,12 @@ class Variable
                                     break;
                                 }
                             }
-                            d($current);
                             if($current === ':'){
                                 for($j = $i + 1; $j < $count; $j++){
                                     $previous = Parse::item($input, $j - 1);
                                     $next = Parse::item($input, $j + 1);
                                     $current = Parse::item($input, $j);
+                                    $modifier_string .= $current;
                                     if(
                                         $current === '"' &&
                                         $previous !== '\\' &&
@@ -396,6 +398,7 @@ class Variable
                                 }
                                 $input['array'][$nr]['modifier'][] = [
                                     'name' => $modifier_name,
+                                    'string' => $modifier_string,
                                     'arguments' => $argument_list
                                 ];
                                 $modifier_name = '';
