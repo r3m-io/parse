@@ -93,6 +93,8 @@ class Variable
         $is_argument = false;
         $is_single_quote = false;
         $is_double_quote = false;
+        $argument_nr = 0;
+        $argument_array = [];
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -144,7 +146,11 @@ class Variable
                 $is_single_quote === false &&
                 $is_double_quote === false
             ){
-                if($is_modifier !== false){
+                if($is_argument !== false){
+                    d($modifier_name);
+                    ddd($argument_array);
+                }
+                elseif($is_modifier !== false){
                     ddd($modifier_name);
                 }
                 elseif($is_variable !== false){
@@ -160,6 +166,7 @@ class Variable
             ){
                 if($is_modifier !== false){
                     $is_argument = true;
+                    $argument_nr++;
                 }
             }
             elseif(
@@ -191,6 +198,10 @@ class Variable
                 $modifier_name .= $current;
             }
             elseif($is_argument){
+                if(!array_key_exists($argument_nr, $argument_array)){
+                    $argument_array[$argument_nr] = [];
+                }
+                $argument_array[$argument_nr][] = $char;
                 ddd($modifier_name);
             }
         }
