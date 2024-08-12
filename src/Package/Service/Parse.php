@@ -1822,17 +1822,17 @@ class Parse
             $input = Cast::define($object, $input, $flags, $options);
             $input = Method::define($object, $input, $flags, $options);
             $input = Variable::define($object, $input, $flags, $options);
-            d($input);
+//            d($input);
             $input = Variable::modifier($object, $input, $flags, $options);
-            d($input);
+//            d($input);
 //            $input = Value::define($object, $input, $flags, $options);
             $input = Value::double_quoted_string($object, $input, $flags, $options);
-            d($input);
+//            d($input);
             $input = Value::array($object, $input, $flags, $options);
-            d($input);
+//            d($input);
 //        d($input['string']);;
             $input = Parse::cleanup($object, $input, $flags, $options);
-            d($input);
+//            d($input);
             $cache->set($hash, $input);
         }
         return $input;
