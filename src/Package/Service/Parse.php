@@ -1237,7 +1237,7 @@ class Parse
         ];
     }
 
-    public static function cleanup(App $object, $input, $flags, $options): array
+    public static function  cleanup(App $object, $input, $flags, $options): array
     {
         $is_single_quote = false;
         $is_double_quote = false;
@@ -1344,7 +1344,6 @@ class Parse
                     ) ||
                     (
                         $is_single_quote === false &&
-                        $is_double_quote === false &&
                         $is_double_quote_slash === true &&
                         $is_parse === true
                     )
@@ -1659,7 +1658,7 @@ class Parse
             $input = Value::array($object, $input, $flags, $options);
 //            d($input);
 //        d($input['string']);;
-//            $input = Parse::cleanup($object, $input, $flags, $options);
+            $input = Parse::cleanup($object, $input, $flags, $options);
 //            d($input);
             $cache->set($hash, $input);
         }
