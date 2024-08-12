@@ -15,82 +15,14 @@ class Variable
         $has_name = false;
         $name = '';
         foreach($input['array'] as $nr => $char){
-            if(
-                array_key_exists($nr - 1, $input['array']) &&
-                is_array($input['array'][$nr - 1])
-            ){
-                if(array_key_exists('execute', $input['array'][$nr - 1])){
-                    $previous = $input['array'][$nr - 1]['execute'] ?? null;
-                }
-                if(array_key_exists('tag', $input['array'][$nr - 1])){
-                    $previous = $input['array'][$nr - 1]['tag'] ?? null;
-                }
-                elseif(array_key_exists('value', $input['array'][$nr - 1])){
-                    $previous = $input['array'][$nr - 1]['value'] ?? null;
-                } else {
-                    $previous = null;
-                }
-            } else {
-                $previous = $input['array'][$nr - 1] ?? null;
-            }
-            if(
-                array_key_exists($nr + 1, $input['array']) &&
-                is_array($input['array'][$nr + 1])
-            ){
-                if(array_key_exists('execute', $input['array'][$nr + 1])){
-                    $next = $input['array'][$nr + 1]['execute'] ?? null;
-                }
-                if(array_key_exists('tag', $input['array'][$nr + 1])){
-                    $next = $input['array'][$nr + 1]['tag'] ?? null;
-                }
-                elseif(array_key_exists('value', $input['array'][$nr + 1])){
-                    $next = $input['array'][$nr + 1]['value'] ?? null;
-                } else {
-                    $next = null;
-                }
-            } else {
-                $next = $input['array'][$nr + 1] ?? null;
-            }
-            if(
-                array_key_exists($nr, $input['array']) &&
-                is_array($input['array'][$nr])
-            ){
-                if(array_key_exists('execute', $input['array'][$nr])){
-                    $current = $input['array'][$nr]['execute'] ?? null;
-                }
-                if(array_key_exists('tag', $input['array'][$nr])){
-                    $current = $input['array'][$nr]['tag'] ?? null;
-                }
-                elseif(array_key_exists('value', $input['array'][$nr])){
-                    $current = $input['array'][$nr]['value'] ?? null;
-                } else {
-                    $current = null;
-                }
-            } else {
-                $current = $input['array'][$nr] ?? null;
-            }
+            $previous = Parse::item($input, $nr - 1);
+            $next = Parse::item($input, $nr + 1);
+            $current = Parse::item($input, $nr);
             if($current === '$'){
                 $is_variable = $nr;
                 $name = '$';
                 for($i = $is_variable + 1; $i < $count; $i++){
-                    if(
-                        array_key_exists($i, $input['array']) &&
-                        is_array($input['array'][$i])
-                    ){
-                        if(array_key_exists('execute', $input['array'][$i])){
-                            $current = $input['array'][$i]['execute'] ?? null;
-                        }
-                        if(array_key_exists('tag', $input['array'][$i])){
-                            $current = $input['array'][$i]['tag'] ?? null;
-                        }
-                        elseif(array_key_exists('value', $input['array'][$i])){
-                            $current = $input['array'][$i]['value'] ?? null;
-                        } else {
-                            $current = null;
-                        }
-                    } else {
-                        $current = $input['array'][$i] ?? null;
-                    }
+                    $current = Parse::item($input, $i);
                     if(
                         in_array(
                             $current,
