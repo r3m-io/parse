@@ -314,6 +314,7 @@ class Variable
                                         }
                                         elseif($outer_curly_depth > 0){
                                             $outer_curly_depth--;
+                                            ddd('yes');
                                             break;
                                         }
                                     }
