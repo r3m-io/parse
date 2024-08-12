@@ -218,7 +218,25 @@ class Variable
                             $argument = '';
                             $is_double_quote = false;
                             $is_single_quote = false;
-                            $current = Parse::item($input, $i);
+                            while(true){
+                                $current = Parse::item($input, $i);
+                                if(
+                                    in_array(
+                                        $current,
+                                        [
+                                            ' ',
+                                            "\t",
+                                            "\n",
+                                            "\r",
+                                        ],
+                                    true
+                                    )
+                                ){
+                                    $i++;
+                                } else {
+                                    break;
+                                }
+                            }
                             d($current);
                             if($current === ':'){
                                 for($j = $i + 1; $j < $count; $j++){
