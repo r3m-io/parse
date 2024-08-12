@@ -311,7 +311,6 @@ class Variable
                                     ){
                                         if($curly_depth > 0){
                                             $curly_depth--;
-                                            d($curly_depth);
                                         }
                                         elseif($outer_curly_depth > 0){
                                             $outer_curly_depth--;
