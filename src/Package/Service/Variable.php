@@ -299,17 +299,19 @@ class Variable
                                         $is_double_quote === false
                                     ){
                                         $curly_depth++;
-                                        d($outer_curly_depth);
-                                        d($curly_depth);
                                     }
                                     elseif(
                                         $current === '}}' &&
                                         $is_single_quote === false &&
                                         $is_double_quote === false
                                     ){
-                                        $curly_depth--;
-                                        d($outer_curly_depth);
-                                        d($curly_depth);
+                                        if($curly_depth > 0){
+                                            $curly_depth--;
+                                        }
+                                        elseif($outer_curly_depth > 0){
+                                            $outer_curly_depth--;
+                                            break;
+                                        }
                                     }
                                     if(
                                         $current === ':' &&
