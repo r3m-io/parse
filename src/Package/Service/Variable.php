@@ -373,7 +373,7 @@ class Variable
                                 true
                                 )
                             ){
-                                //nothing
+                                $i++;
                             } else {
                                 $input['array'][$nr]['modifier'][] = [
                                     'name' => $modifier_name,
