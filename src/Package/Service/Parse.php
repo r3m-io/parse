@@ -1671,8 +1671,10 @@ class Parse
             $input = Value::double_quoted_string($object, $input, $flags, $options);
             d($input);
             $input = Value::array($object, $input, $flags, $options);
+            d($input);
 //        d($input['string']);;
             $input = Parse::cleanup($object, $input, $flags, $options);
+            d($input);
             $cache->set($hash, $input);
         }
         return $input;
