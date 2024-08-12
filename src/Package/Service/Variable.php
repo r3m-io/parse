@@ -229,6 +229,7 @@ class Variable
                             $argument_array = [];
                             $argument = '';
                             $is_double_quote = false;
+                            $is_double_quote_backslash = false;
                             $is_single_quote = false;
                             while(true){
                                 $current = Parse::item($input, $i);
@@ -258,56 +259,86 @@ class Variable
                                     if(
                                         $current === '"' &&
                                         $previous !== '\\' &&
-                                        $is_double_quote === false
+                                        $is_double_quote === false &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $is_double_quote = true;
                                     }
                                     elseif(
                                         $current === '"' &&
                                         $previous !== '\\' &&
-                                        $is_double_quote === true
+                                        $is_double_quote === true &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $is_double_quote = false;
                                     }
                                     elseif(
+                                        $current === '"' &&
+                                        $previous === '\\' &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === false
+                                    ){
+                                        $is_double_quote_backslash = true;
+                                    }
+                                    elseif(
+                                        $current === '"' &&
+                                        $previous === '\\' &&
+                                        $is_single_quote === false &&
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === true
+                                    ){
+                                        $is_double_quote_backslash = false;
+                                    }
+                                    elseif(
                                         $current === '\'' &&
                                         $previous !== '\\' &&
-                                        $is_single_quote === false
+                                        $is_single_quote === false &&
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $is_single_quote = true;
                                     }
                                     elseif(
                                         $current === '\'' &&
                                         $previous !== '\\' &&
-                                        $is_single_quote === true
+                                        $is_single_quote === true &&
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $is_single_quote = false;
                                     }
                                     if(
                                         $current === '(' &&
                                         $is_single_quote === false &&
-                                        $is_double_quote === false
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $set_depth++;
                                     }
                                     elseif(
                                         $current === ')' &&
                                         $is_single_quote === false &&
-                                        $is_double_quote === false
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $set_depth--;
                                     }
                                     if(
                                         $current === '{{' &&
                                         $is_single_quote === false &&
-                                        $is_double_quote === false
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $curly_depth++;
                                     }
                                     elseif(
                                         $current === '}}' &&
                                         $is_single_quote === false &&
-                                        $is_double_quote === false
+                                        $is_double_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         if($curly_depth > 0){
                                             $curly_depth--;
@@ -320,7 +351,8 @@ class Variable
                                     if(
                                         $current === ':' &&
                                         $is_double_quote === false &&
-                                        $is_single_quote === false
+                                        $is_single_quote === false &&
+                                        $is_double_quote_backslash === false
                                     ){
                                         $argument_value = Cast::define(
                                             $object, [
@@ -352,6 +384,7 @@ class Variable
                                         $current === '|' &&
                                         $is_single_quote === false &&
                                         $is_double_quote === false &&
+                                        $is_double_quote_backslash === false &&
                                         $previous !== '|' &&
                                         $next !== '|'
                                     ){
@@ -363,6 +396,7 @@ class Variable
                                         $current === ')' &&
                                         $is_single_quote === false &&
                                         $is_double_quote === false &&
+                                        $is_double_quote_backslash === false &&
                                         $set_depth <= 0
                                     ){
                                         break;
