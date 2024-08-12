@@ -435,8 +435,8 @@ class Variable
                                     $input['array'][$k] = null;
                                 }
                                 $is_modifier = false;
-                            }
-                            elseif(
+                                $i = $j;
+                            } elseif(
                                 !in_array(
                                     $current,
                                     [
@@ -450,6 +450,7 @@ class Variable
                             ){
                                 $i++;
                             } else {
+                                d('yes1');
                                 $input['array'][$nr]['modifier'][] = [
                                     'name' => $modifier_name,
                                     'arguments' => []
