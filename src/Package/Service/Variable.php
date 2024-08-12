@@ -93,7 +93,7 @@ class Variable
         $is_argument = false;
         $is_single_quote = false;
         $is_double_quote = false;
-        $argument_nr = 0;
+        $argument_nr = -1;
         $argument_array = [];
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
