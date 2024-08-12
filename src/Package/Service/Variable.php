@@ -147,11 +147,15 @@ class Variable
                 $is_double_quote === false
             ){
                 if($is_argument !== false){
+                    $input['array'][$is_variable]['modifier'][] = [
+                        'name' => $modifier_name,
+                        'argument' => $argument_array
+                    ];
                     d($is_variable);
                     d($modifier_name);
                     $argument_list = [];
 
-                    ddd($argument_array);
+                    ddd($input);
                 }
                 elseif($is_modifier !== false){
                     ddd($modifier_name);
