@@ -228,7 +228,6 @@ class Variable
                             ){
                                 $set_depth--;
                             }
-                            d($current);
                             if(
                                 $is_single_quote === false &&
                                 $is_double_quote === false &&
