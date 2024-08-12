@@ -520,6 +520,7 @@ class Value
         $tag = '';
         $tag_array = [];
         $curly_depth = 0;
+        d($input);
         foreach($input['array'] as $nr => $char){
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
