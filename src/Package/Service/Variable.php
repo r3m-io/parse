@@ -195,7 +195,9 @@ class Variable
             ){
                 $is_variable = $nr;
             }
-            $modifier_string .= $current;
+            if($is_modifier){
+                $modifier_string .= $current;
+            }
             if(
                 $is_modifier === true &&
                 $is_argument === false &&
