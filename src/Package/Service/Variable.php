@@ -151,11 +151,13 @@ class Variable
                         'name' => $modifier_name,
                         'argument' => $argument_array
                     ];
-                    d($is_variable);
-                    d($modifier_name);
-                    $argument_list = [];
-
-                    ddd($input);
+                    for($index = $is_modifier; $index < $nr; $index++){
+                        $input['array'][$index] = null;
+                    }
+                    $modifier_name = '';
+                    $is_modifier = false;
+                    $is_argument = false;
+                    $argument_array = [];
                 }
                 elseif($is_modifier !== false){
                     ddd($modifier_name);
