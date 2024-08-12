@@ -202,6 +202,7 @@ class Variable
                                 $is_single_quote === false &&
                                 $is_double_quote === false
                             ){
+                                d('one');
                                 break;
                             }
                             elseif($set_depth < 0) {
@@ -354,6 +355,7 @@ class Variable
                                         $previous !== '|' &&
                                         $next !== '|'
                                     ){
+                                        d('two');
                                         break;
                                     }
                                     elseif(
