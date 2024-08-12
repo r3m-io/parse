@@ -201,6 +201,7 @@ class Variable
                                 $modifier_name .= $current;
                             }
                         }
+                        d($modifier_name);
                         if($modifier_name){
                             $argument_list = [];
                             $argument_array = [];
