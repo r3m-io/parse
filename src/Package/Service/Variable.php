@@ -244,18 +244,6 @@ class Variable
                     $argument_array[$argument_nr][] = $char;
                 }
             } else {
-                if(
-                    $current === '|' &&
-                    $previous !== '|' &&
-                    $next !== '|'
-                ){
-                    if($is_modifier)
-                    $is_modifier = false;
-                    $modifier_string = '';
-                    $modifier_name = '';
-                }
-                d($modifier_name);
-                d($current);
             }
         }
 //        d($input['array']);
