@@ -216,7 +216,7 @@ class Variable
                                         "\n",
                                         "\r",
                                     ],
-                                true
+                                    true
                                 )
                             ) {
                                 $modifier_name .= $current;
@@ -242,7 +242,7 @@ class Variable
                                             "\n",
                                             "\r",
                                         ],
-                                    true
+                                        true
                                     )
                                 ){
                                     $i++;
@@ -432,7 +432,6 @@ class Variable
                                     $input['array'][$k] = null;
                                 }
                                 $is_modifier = false;
-                                $i = $j;
                             }
                             elseif(
                                 !in_array(
@@ -443,7 +442,7 @@ class Variable
                                         "\n",
                                         "\r",
                                     ],
-                                true
+                                    true
                                 )
                             ){
                                 $i++;

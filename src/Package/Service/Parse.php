@@ -133,9 +133,9 @@ class Parse
 
         // Step 2: Define the placeholder values
         $placeholders = [
-                'name' => 'John Doe',
-                'age' => '30',
-                // Add more placeholders and their replacements as needed
+            'name' => 'John Doe',
+            'age' => '30',
+            // Add more placeholders and their replacements as needed
         ];
         // Step 3: Replace placeholders with actual values
         foreach ($placeholders as $key => $value) {
@@ -564,7 +564,7 @@ class Parse
                                             $is_double_quoted === false
                                         ){
                                             d($argument);
-                                            $argument_value = Parse::value(
+                                            $argument_list[] = Parse::value(
                                                 $object,
                                                 [
                                                     'string' => $argument,
@@ -573,8 +573,6 @@ class Parse
                                                 $flags,
                                                 $options
                                             );
-                                            $argument_value = Value::double_quoted_string($object, $argument_value, $flags, $options);
-                                            $argument_list[] = $argument_value;
                                             $argument = '';
                                             $argument_array = [];
 
@@ -723,9 +721,6 @@ class Parse
                                         $flags,
                                         $options
                                     );
-                                    $argument_value = Value::double_quoted_string($object, $argument_value, $flags, $options);
-
-
                                     $cache->set($argument_hash, $argument_value);
                                 }
                                 $argument_list[] = $argument_value;
@@ -822,7 +817,7 @@ class Parse
                     'is_boolean' => true
                 ]];
                 return $input;
-            break;
+                break;
             case 'null':
                 $input['array'] = [[
                     'value' => $value,
@@ -830,7 +825,7 @@ class Parse
                     'is_null' => true
                 ]];
                 return $input;
-            break;
+                break;
             default:
                 $trim_value = trim($value);
                 if(
@@ -1075,76 +1070,76 @@ class Parse
         switch($input['operator']['value']){
             case '??' :
                 $code = $code_left . ' ?? ' . $code_right;
-            break;
+                break;
             case '&&' :
                 $code = $code_left . ' && ' . $code_right;
-            break;
+                break;
             case '||' :
                 $code = $code_left . ' || ' . $code_right;
-            break;
+                break;
             case '*' :
                 $code = '$this->value_multiply(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '/' :
                 $code = '$this->value_divide(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '%' :
                 $code = '$this->value_modulo(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '+' :
                 $code = '$this->value_plus(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '-' :
                 $code = '$this->value_minus(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '<' :
                 $code = '$this->value_smaller(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '<=' :
                 $code = '$this->value_smaller_equal(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '<<' :
                 $code = '$this->value_smaller_smaller(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '>' :
                 $code = '$this->value_greater(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '>=' :
                 $code = '$this->value_greater_equal(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '>>' :
                 $code = '$this->value_greater_greater(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '!=' :
                 $code = '$this->value_not_equal(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '!==' :
                 $code = '$this->value_not_identical(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '==' :
                 $code = '$this->value_equal(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '===' :
                 $code = '$this->value_identical(' . $code_left . ', ' . $code_right . ')';
-            break;
+                break;
             case '=>' :
                 $code = $code_left . ' => ' . $code_right;
-            break;
+                break;
             case '->' :
                 $code = $code_left . ' -> ' . $code_right;
-            break;
+                break;
             case '::' :
                 $code = $code_left . ' :: ' . $code_right;
-            break;
+                break;
             case '=' :
                 $code = $code_left . ' = ' . $code_right;
-            break;
+                break;
             case '^' :
                 $code = $code_left . ' ^ ' . $code_right;
                 break;
             case '...' :
                 $code = $code_left . ' ... ' . $code_right;
-            break;
+                break;
             case '.' :
                 $has_parenthese = false;
                 if(substr($code_left, -2) === '\')' ){
@@ -1242,7 +1237,7 @@ class Parse
         ];
     }
 
-    public static function  cleanup(App $object, $input, $flags, $options): array
+    public static function cleanup(App $object, $input, $flags, $options): array
     {
         $is_single_quote = false;
         $is_double_quote = false;
@@ -1349,6 +1344,7 @@ class Parse
                     ) ||
                     (
                         $is_single_quote === false &&
+                        $is_double_quote === false &&
                         $is_double_quote_slash === true &&
                         $is_parse === true
                     )
@@ -1497,7 +1493,7 @@ class Parse
                 case '_':
                     $operator[] = $char;
                     $count++;
-                break;
+                    break;
                 default:
                     if(array_key_exists(0, $operator)){
                         if($count > 4){
@@ -1655,20 +1651,17 @@ class Parse
             $input = Cast::define($object, $input, $flags, $options);
             $input = Method::define($object, $input, $flags, $options);
             $input = Variable::define($object, $input, $flags, $options);
+            d($input);
             $input = Variable::modifier($object, $input, $flags, $options);
             d($input);
 //            $input = Value::define($object, $input, $flags, $options);
-//            $input = Value::double_quoted_string($object, $input, $flags, $options);
-            if($input['string'] === '}}'){
-                trace();
-                die;
-            }
+            $input = Value::double_quoted_string($object, $input, $flags, $options);
             d($input);
             $input = Value::array($object, $input, $flags, $options);
-//            d($input);
+            d($input);
 //        d($input['string']);;
             $input = Parse::cleanup($object, $input, $flags, $options);
-//            d($input);
+            d($input);
             $cache->set($hash, $input);
         }
         return $input;
@@ -1841,8 +1834,8 @@ class Parse
                         'key' => Parse::value(
                             $object,
                             [
-                            'string' => implode('', $key),
-                            'array' => $key
+                                'string' => implode('', $key),
+                                'array' => $key
                             ],
                             $flags,
                             $options
