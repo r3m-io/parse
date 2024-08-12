@@ -402,6 +402,7 @@ class Variable
                                     'arguments' => $argument_list
                                 ];
                                 $modifier_name = '';
+                                $modifier_string = '';
                                 $argument = '';
                                 $argument_list = [];
                                 $argument_array = [];
@@ -429,6 +430,7 @@ class Variable
                                     'arguments' => []
                                 ];
                                 $modifier_name = '';
+                                $modifier_string = '';
                                 $i--;
                             }
                         }
