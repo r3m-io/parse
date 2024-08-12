@@ -524,6 +524,7 @@ class Value
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
             $current = Parse::item($input, $nr);
+            d($current);
             if(
                 $current === '"' &&
                 $previous !== '\\' &&
