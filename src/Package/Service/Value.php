@@ -517,6 +517,9 @@ class Value
     {
         $is_single_quote = false;
         $is_double_quote = false;
+        $tag = '';
+        $tag_array = [];
+        $curly_depth = 0;
         foreach($input['array'] as $nr => $char){
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -549,8 +552,23 @@ class Value
             ){
                 $is_single_quote = false;
             }
-            if($is_double_quote === true){
-                d($current);
+            elseif($is_double_quote === true){
+                if($current === '{{'){
+                    $curly_depth++;
+                }
+                elseif($current === '}}'){
+                    $curly_depth--;
+                    if($curly_depth <= 0){
+                        $tag .= $current;
+                        $tag_array[] = $char;
+                        d($tag);
+                        ddd($tag_array);
+                    }
+                }
+                if($curly_depth > 0){
+                    $tag .= $current;
+                    $tag_array[] = $char;
+                }
             }
         }
         return $input;
