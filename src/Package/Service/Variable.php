@@ -149,6 +149,7 @@ class Variable
             ){
                 if($is_argument !== false){
                     $input['array'][$is_variable]['modifier'][] = [
+                        'string' => $modifier_string,
                         'name' => $modifier_name,
                         'argument' => [
                             'string' => $argument,
@@ -194,6 +195,7 @@ class Variable
             ){
                 $is_variable = $nr;
             }
+            $modifier_string .= $current;
             if(
                 $is_modifier === true &&
                 $is_argument === false &&
