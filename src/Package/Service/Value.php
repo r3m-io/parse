@@ -515,67 +515,42 @@ class Value
 
     public static function double_quoted_string(App $object, $input, $flags, $options): array
     {
-        $collect_nr = false;
-        $is_collect = false;
-        $collect_array = [];
-        $collect = '';
-
-        d($input['string']);
-
+        $is_single_quote = false;
+        $is_double_quote = false;
         foreach($input['array'] as $nr => $char){
-            $previous = $input['array'][$nr - 1] ?? null;
-            if(is_array($previous)){
-                if(array_key_exists('execute', $previous)){
-                    $previous = $previous['execute'];
-                }
-                elseif(array_key_exists('value', $previous)){
-                    $previous = $previous['value'];
-                } else {
-                    $previous = null;
-                }
-            }
+            $previous = Parse::item($input, $nr - 1);
+            $next = Parse::item($input, $nr + 1);
+            $current = Parse::item($input, $nr);
             if(
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '"' &&
+                $current === '"' &&
                 $previous !== '\\' &&
-                $is_collect === false
+                $is_double_quote === false
             ){
-                $is_collect = true;
+                $is_double_quote = true;
             }
             elseif(
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '"' &&
+                $current === '"' &&
                 $previous !== '\\' &&
-                $is_collect === true
+                $is_double_quote === true
             ){
-                $tag = Value::double_quoted_string_collect(
-                    $object,
-                    [
-                        'string' => $collect,
-                        'array' => $collect_array
-                    ],
-                    $flags,
-                    $options
-                );
-                $is_collect = false;
+                $is_double_quote = false;
             }
-            if($is_collect){
-                $collect_array[$nr] = $char;
-                if(is_array($char)){
-                    if(array_key_exists('execute', $char)){
-                        $collect .= $char['execute'];
-                    }
-                    elseif(array_key_exists('tag', $char)){
-                        $collect .= $char['tag'];
-                    }
-                    elseif(array_key_exists('value', $char)){
-                        $collect .= $char['value'];
-                    }
-                } else {
-                    $collect .= $char;
-                }
+            elseif(
+                $current === '\'' &&
+                $previous !== '\\' &&
+                $is_single_quote === false
+            ){
+                $is_single_quote = true;
+            }
+            elseif(
+                $current === '\'' &&
+                $previous !== '\\' &&
+                $is_single_quote === true
+            ){
+                $is_single_quote = false;
+            }
+            if($is_double_quote === true){
+                d($current);
             }
         }
         return $input;
