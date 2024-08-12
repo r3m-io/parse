@@ -414,7 +414,7 @@ class Variable
                                         $options
                                     );
                                     if(str_contains($argument, '\"{{$test3 | default: \'yes\'}}\"')){
-                                        ddd($argument_value);
+                                        d($argument_value);
                                     }
                                     $argument_list[] = $argument_value;
                                 }
