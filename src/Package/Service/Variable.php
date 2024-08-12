@@ -171,6 +171,9 @@ class Variable
                         'name' => $modifier_name,
                         'argument' => []
                     ];
+                    for($index = $is_modifier; $index < $nr; $index++){
+                        $input['array'][$index] = null;
+                    }
                     $modifier_name = '';
                     $is_argument = false;
                     $argument_array = [];
