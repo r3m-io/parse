@@ -540,16 +540,17 @@ class Value
             }
             elseif($is_double_quote === true){
                 if($current === '{{'){
+                    $curly_depth++;
                     if($tag_nr === false){
                         $tag_nr = $nr;
+                        continue;
                     }
-                    $curly_depth++;
                 }
                 elseif($current === '}}'){
                     $curly_depth--;
                     if($curly_depth <= 0){
-                        $tag .= $current;
-                        $tag_array[] = $char;
+//                        $tag .= $current;
+//                        $tag_array[] = $char;
 
                         $tag_value = Cast::define(
                             $object, [
