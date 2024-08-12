@@ -464,6 +464,7 @@ class Variable
                 }
             }
         }
+        d($input['array']);
         return $input;
     }
 
