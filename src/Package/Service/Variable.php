@@ -274,7 +274,6 @@ class Variable
                             $argument_list = [];
                             $argument_array = [];
                             $argument = '';
-                            $argument_nr = 0;
                             $is_double_quote = false;
                             $is_single_quote = false;
                             $current = Parse::item($input, $i);
@@ -352,10 +351,9 @@ class Variable
                                             $options
                                         );
                                         */
-                                        $argument_list[$argument_nr] = $argument_value;
+                                        $argument_list[] = $argument_value;
                                         $argument_array = [];
                                         $argument = '';
-                                        $argument_nr++;
                                     }
                                     elseif(
                                         $current === '|' &&
@@ -402,7 +400,7 @@ class Variable
                                         $options
                                     );
                                     */
-                                    $argument_list[$argument_nr] = $argument_value;
+                                    $argument_list[] = $argument_value;
                                 }
                                 if(!array_key_exists('modifier', $input['array'][$nr])){
                                     $input['array'][$nr]['modifier'] = [];
