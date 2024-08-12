@@ -93,6 +93,7 @@ class Variable
         $is_argument = false;
         $is_single_quote = false;
         $is_double_quote = false;
+        $is_double_quote_backslash = false;
         $argument_nr = -1;
         $argument = '';
         $argument_array = [];
@@ -116,6 +117,7 @@ class Variable
             }
             elseif(
                 $current === '\'' &&
+                $previous !== '\\' &&
                 $is_single_quote === false &&
                 $is_double_quote === false
             ){
@@ -123,6 +125,7 @@ class Variable
             }
             elseif(
                 $current === '\'' &&
+                $previous !== '\\' &&
                 $is_single_quote === true &&
                 $is_double_quote === false
             ){
@@ -130,6 +133,7 @@ class Variable
             }
             elseif(
                 $current === '"' &&
+                $previous !== '\\' &&
                 $is_single_quote === false &&
                 $is_double_quote === false
             ){
@@ -137,17 +141,35 @@ class Variable
             }
             elseif(
                 $current === '"' &&
+                $previous !== '\\' &&
                 $is_single_quote === false &&
                 $is_double_quote === true
             ){
                 $is_double_quote = false;
             }
             elseif(
+                $current === '"' &&
+                $previous === '\\' &&
+                $is_single_quote === false &&
+                $is_double_quote_backslash === false
+            ){
+                $is_double_quote_backslash = true;
+            }
+            elseif(
+                $current === '"' &&
+                $previous === '\\' &&
+                $is_single_quote === false &&
+                $is_double_quote_backslash === true
+            ){
+                $is_double_quote_backslash = false;
+            }
+            elseif(
                 $current === '|' &&
                 $previous !== '|' &&
                 $next !== '|' &&
                 $is_single_quote === false &&
-                $is_double_quote === false
+                $is_double_quote === false &&
+                $is_double_quote_backslash === false
             ){
                 if($is_argument !== false){
                     $input['array'][$is_variable]['modifier'][] = [
@@ -193,7 +215,8 @@ class Variable
                 $previous !== ':' &&
                 $next !== ':' &&
                 $is_single_quote === false &&
-                $is_double_quote === false
+                $is_double_quote === false &&
+                $is_double_quote_backslash === false
             ){
                 if($is_modifier !== false){
                     $is_argument = true;
@@ -203,7 +226,8 @@ class Variable
             elseif(
                 $current === ',' &&
                 $is_single_quote === false &&
-                $is_double_quote === false
+                $is_double_quote === false &&
+                $is_double_quote_backslash === false
             ){
                 d($argument);
                 d($argument_nr);
@@ -251,7 +275,10 @@ class Variable
                 if(
                     $current === ':' &&
                     $previous !== ':' &&
-                    $next !== ':'
+                    $next !== ':' &&
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $is_double_quote_backslash === false
                 ){
 
                 } else {
