@@ -564,7 +564,7 @@ class Parse
                                             $is_double_quoted === false
                                         ){
                                             d($argument);
-                                            $argument_list[] = Parse::value(
+                                            $argument_value = Parse::value(
                                                 $object,
                                                 [
                                                     'string' => $argument,
@@ -573,6 +573,8 @@ class Parse
                                                 $flags,
                                                 $options
                                             );
+                                            $argument_value = Value::double_quoted_string($object, $argument_value, $flags, $options);
+                                            $argument_list[] = $argument_value;
                                             $argument = '';
                                             $argument_array = [];
 
@@ -721,6 +723,9 @@ class Parse
                                         $flags,
                                         $options
                                     );
+                                    $argument_value = Value::double_quoted_string($object, $argument_value, $flags, $options);
+
+
                                     $cache->set($argument_hash, $argument_value);
                                 }
                                 $argument_list[] = $argument_value;
@@ -1653,7 +1658,7 @@ class Parse
             $input = Variable::modifier($object, $input, $flags, $options);
             d($input);
 //            $input = Value::define($object, $input, $flags, $options);
-            $input = Value::double_quoted_string($object, $input, $flags, $options);
+//            $input = Value::double_quoted_string($object, $input, $flags, $options);
             if($input['string'] === '}}'){
                 trace();
                 die;
