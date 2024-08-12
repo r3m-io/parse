@@ -2161,9 +2161,8 @@ class Parse
                         $item .= $modifier['string'];
                     }
                 }
-                d($input['array'][$index]);
-
-            } elseif (array_key_exists('value', $input['array'][$index])) {
+            }
+            elseif (array_key_exists('value', $input['array'][$index])) {
                 $item = $input['array'][$index]['value'] ?? null;
             } else {
                 $item = null;
