@@ -290,7 +290,7 @@ class Variable
                 ){
                     $modifier_name .= $current;
                     if($set_depth_modifier === false){
-                        $set_depth_modifier = $set_depth;
+                        $set_depth_modifier = $set_depth - 1;
                     }
                 }
             }
