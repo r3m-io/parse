@@ -195,6 +195,7 @@ class Variable
                                 break;
                             }
                             elseif($set_depth <= 0) {
+                                ddd('yes');
                                 break;
                             } else {
                                 $modifier_name .= $current;
