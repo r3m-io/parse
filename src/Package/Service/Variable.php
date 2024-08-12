@@ -224,7 +224,6 @@ class Variable
                             $modifier_string .= $current;
                         }
                         if($modifier_name){
-                            d($modifier_name);
                             $argument_list = [];
                             $argument_array = [];
                             $argument = '';
@@ -414,6 +413,9 @@ class Variable
                                         $flags,
                                         $options
                                     );
+                                    if(str_contains($argument, '\"{{$test3 | default: \'yes\'}}\"')){
+                                        ddd($argument_value);
+                                    }
                                     $argument_list[] = $argument_value;
                                 }
                                 if(!array_key_exists('modifier', $input['array'][$nr])){
@@ -433,7 +435,6 @@ class Variable
                                     $input['array'][$k] = null;
                                 }
                                 $is_modifier = false;
-                                $i = $j;
                             }
                             elseif(
                                 !in_array(
@@ -455,7 +456,6 @@ class Variable
                                 ];
                                 $modifier_name = '';
                                 $modifier_string = '';
-                                $is_modifier = false;
                                 $i--;
                             }
                         }
