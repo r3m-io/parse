@@ -550,6 +550,22 @@ class Value
                     if($curly_depth <= 0){
                         $tag .= $current;
                         $tag_array[] = $char;
+
+                        $tag_value = Cast::define(
+                            $object, [
+                            'string' => $tag,
+                            'array' => $tag_array
+                        ],
+                            $flags,
+                            $options
+                        );
+                        $tag_value = Parse::value(
+                            $object,
+                            $tag_value,
+                            $flags,
+                            $options
+                        );
+                        ddd($tag_value);
                         d($tag);
                         ddd($tag_array);
                         $tag_nr = false;
