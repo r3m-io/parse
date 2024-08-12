@@ -277,7 +277,7 @@ class Variable
                                         $current === '"' &&
                                         $previous === '\\' &&
                                         $is_single_quote === false &&
-                                        $is_double_quote === false &&
+//                                        $is_double_quote === false &&
                                         $is_double_quote_backslash === false
                                     ){
                                         $is_double_quote_backslash = true;
@@ -286,7 +286,7 @@ class Variable
                                         $current === '"' &&
                                         $previous === '\\' &&
                                         $is_single_quote === false &&
-                                        $is_double_quote === false &&
+//                                        $is_double_quote === false &&
                                         $is_double_quote_backslash === true
                                     ){
                                         $is_double_quote_backslash = false;
