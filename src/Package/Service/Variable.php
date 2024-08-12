@@ -196,7 +196,19 @@ class Variable
                             }
                             elseif($set_depth < 0) {
                                 break;
-                            } else {
+                            }
+                            elseif(
+                                !in_array(
+                                    $current,
+                                    [
+                                        ' ',
+                                        "\t",
+                                        "\n",
+                                        "\r",
+                                    ],
+                                true
+                                )
+                            ) {
                                 $modifier_name .= $current;
                             }
                         }
