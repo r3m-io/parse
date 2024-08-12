@@ -223,6 +223,7 @@ class Variable
                             }
                             $modifier_string .= $current;
                         }
+                        d($modifier_name);
                         d($modifier_string);
                         if($modifier_name){
                             $argument_list = [];
