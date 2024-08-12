@@ -1246,8 +1246,8 @@ class Parse
         $whitespace_nr = false;
         $curly_depth = 0;
         foreach($input['array'] as $nr => $char){
-            $previous = Parse::item($object, $input, $nr - 1);
-            $current = Parse::item($object, $input, $nr);
+            $previous = Parse::item($input, $nr - 1);
+            $current = Parse::item($input, $nr);
             if(
                 $current === '\'' &&
                 $is_single_quote === false &&
