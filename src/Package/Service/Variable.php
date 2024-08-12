@@ -162,6 +162,7 @@ class Variable
                         $input['array'][$index] = null;
                     }
                     $modifier_name = '';
+                    $modifier_string = '';
                     $is_argument = false;
                     $argument_array = [];
                     $argument = '';
@@ -177,6 +178,7 @@ class Variable
                         $input['array'][$index] = null;
                     }
                     $modifier_name = '';
+                    $modifier_string = '';
                     $is_argument = false;
                     $argument_array = [];
                     $argument = '';
