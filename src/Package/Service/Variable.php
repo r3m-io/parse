@@ -232,6 +232,8 @@ class Variable
                     $argument .= $current;
                     $argument_array[$argument_nr][] = $char;
                 }
+            } else {
+                d($current);
             }
         }
 //        d($input['array']);
