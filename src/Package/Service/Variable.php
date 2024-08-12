@@ -231,7 +231,7 @@ class Variable
                 } else {
                     d($modifier_name);
                     d($current);
-                    ddd('found');
+                    d('found');
                 }
             }
             elseif(
