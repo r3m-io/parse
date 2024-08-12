@@ -110,6 +110,7 @@ class Variable
                         $next !== '|'
                     ){
                         $is_modifier = $i;
+                        d($is_modifier);
                         $modifier_name = '';
                         $is_double_quote = false;
                         $is_single_quote = false;
