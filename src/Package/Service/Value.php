@@ -540,20 +540,6 @@ class Value
             ){
                 $is_double_quote = false;
             }
-            elseif(
-                $current === '\'' &&
-                $previous !== '\\' &&
-                $is_single_quote === false
-            ){
-                $is_single_quote = true;
-            }
-            elseif(
-                $current === '\'' &&
-                $previous !== '\\' &&
-                $is_single_quote === true
-            ){
-                $is_single_quote = false;
-            }
             elseif($is_double_quote === true){
                 if($current === '{{'){
                     $curly_depth++;
