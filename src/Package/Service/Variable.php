@@ -244,7 +244,6 @@ class Variable
                     $argument_array[$argument_nr][] = $char;
                 }
             } else {
-                /*
                 if(
                     $current === '|' &&
                     $previous !== '|' &&
@@ -254,12 +253,7 @@ class Variable
                     $is_modifier = false;
                     $modifier_string = '';
                     $modifier_name = '';
-                } else {
-                    $modifier_string .= $current;
-                    $modifier_name .= $current;
                 }
-                */
-
                 d($modifier_name);
                 d($current);
             }
