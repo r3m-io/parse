@@ -432,6 +432,7 @@ class Variable
                                     $input['array'][$k] = null;
                                 }
                                 $is_modifier = false;
+                                $i = $j;
                             }
                             elseif(
                                 !in_array(
