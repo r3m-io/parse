@@ -211,21 +211,26 @@ class Variable
             }
             if(
                 $is_modifier === true &&
-                $is_argument === false &&
-                !in_array(
-                    $current,
-                    [
-                        ' ',
-                        "\t",
-                        "\n",
-                        "\r",
-                        ':',
-                        '|',
-                    ],
-                    true
-                )
+                $is_argument === false
             ){
-                $modifier_name .= $current;
+                if(
+                    !in_array(
+                        $current,
+                        [
+                            ' ',
+                            "\t",
+                            "\n",
+                            "\r",
+                            ':',
+                            '|',
+                        ],
+                        true
+                    )
+                ){
+                    $modifier_name .= $current;
+                } else {
+                    ddd('found');
+                }
             }
             elseif(
                 $is_argument
