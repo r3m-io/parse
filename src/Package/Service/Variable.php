@@ -233,6 +233,7 @@ class Variable
                     $argument_array[$argument_nr][] = $char;
                 }
             } else {
+                d($modifier_name);
                 d($current);
             }
         }
