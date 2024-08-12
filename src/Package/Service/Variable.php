@@ -85,6 +85,7 @@ class Variable
         $count = count($input['array']);
         $set_depth = 0;
         $curly_depth = 0;
+        $outer_curly_depth = 0;
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -96,10 +97,10 @@ class Variable
                 $set_depth--;
             }
             elseif($current === '{{'){
-                $curly_depth++;
+                $outer_curly_depth++;
             }
             elseif($current === '}}'){
-                $curly_depth--;
+                $outer_curly_depth--;
             }
             elseif(
                 $current !== null &&
@@ -298,6 +299,7 @@ class Variable
                                         $is_double_quote === false
                                     ){
                                         $curly_depth++;
+                                        d($outer_curly_depth);
                                         d($curly_depth);
                                     }
                                     elseif(
@@ -306,6 +308,7 @@ class Variable
                                         $is_double_quote === false
                                     ){
                                         $curly_depth--;
+                                        d($outer_curly_depth);
                                         d($curly_depth);
                                     }
                                     if(
