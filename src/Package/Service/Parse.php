@@ -1666,7 +1666,7 @@ class Parse
 //            d($input['array']);
             $input = Variable::define($object, $input, $flags, $options);
             $input = Variable::modifier($object, $input, $flags, $options);
-            $input = Value::define($object, $input, $flags, $options);
+//            $input = Value::define($object, $input, $flags, $options);
             $input = Value::double_quoted_string($object, $input, $flags, $options);
             $input = Value::array($object, $input, $flags, $options);
 //        d($input['string']);;
