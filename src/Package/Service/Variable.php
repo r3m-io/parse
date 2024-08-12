@@ -182,7 +182,9 @@ class Variable
                                     )
                                 )
                             ){
-                                break;
+                                if($modifier_name){
+                                    break;
+                                }
                             }
                             elseif(
                                 $current === '|' &&
