@@ -174,7 +174,19 @@ class Variable
             }
             if(
                 $is_modifier === true &&
-                $is_argument === false
+                $is_argument === false &&
+                !in_array(
+                    $current,
+                    [
+                        ' ',
+                        "\t",
+                        "\n",
+                        "\r",
+                        ':',
+                        '|',
+                    ],
+                    true
+                )
             ){
                 $modifier_name .= $current;
             }
