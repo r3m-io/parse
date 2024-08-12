@@ -88,6 +88,8 @@ class Variable
         $outer_curly_depth = 0;
         $modifier_string = '';
         $is_variable = false;
+        $is_single_quote = false;
+        $is_double_quote = false;
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -105,9 +107,39 @@ class Variable
                 $outer_curly_depth--;
             }
             elseif(
+                $current === '\'' &&
+                $is_single_quote === false &&
+                $is_double_quote === false
+            ){
+                $is_single_quote = true;
+            }
+            elseif(
+                $current === '\'' &&
+                $is_single_quote === true &&
+                $is_double_quote === false
+            ){
+                $is_single_quote = false;
+            }
+            elseif(
+                $current === '"' &&
+                $is_single_quote === false &&
+                $is_double_quote === false
+            ){
+                $is_double_quote = true;
+            }
+            elseif(
+                $current === '"' &&
+                $is_single_quote === false &&
+                $is_double_quote === true
+            ){
+                $is_double_quote = false;
+            }
+            elseif(
                 $current === '|' &&
                 $previous !== '|' &&
-                $next !== '|'
+                $next !== '|' &&
+                $is_single_quote === false &&
+                $is_double_quote === false
             ){
                 if($is_variable !== false){
                     ddd('found');
@@ -116,7 +148,9 @@ class Variable
             elseif(
                 $current !== null &&
                 is_array($char) &&
-                $char['type'] === 'variable'
+                $char['type'] === 'variable' &&
+                $is_single_quote === false &&
+                $is_double_quote === false
             ){
                 $is_variable = $nr;
             }
