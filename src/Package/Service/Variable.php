@@ -111,6 +111,7 @@ class Variable
                 if($is_modifier && $set_depth === $set_depth_modifier){
                     d($set_depth_modifier);
                     d($modifier_name);
+                    d($argument_array);
                     ddd($is_modifier);
                 }
                 d($set_depth);
