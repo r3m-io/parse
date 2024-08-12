@@ -524,7 +524,6 @@ class Value
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
             $current = Parse::item($input, $nr);
-            d($current);
             if(
                 $current === '"' &&
                 $previous !== '\\' &&
@@ -565,9 +564,8 @@ class Value
                             $flags,
                             $options
                         );
-                        ddd($tag_value);
                         d($tag);
-                        ddd($tag_array);
+                        ddd($tag_value);
                         $tag_nr = false;
                         $tag = '';
                         $tag_array = [];
