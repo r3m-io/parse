@@ -2320,7 +2320,14 @@ class Parse
                     is_array($input['array'][$index]['modifier'])
                 ){
                     foreach($input['array'][$index]['modifier'] as $modifier){
-                        $item .= $modifier['string'];
+                        if(array_key_exists('string', $modifier)){
+                            $item .= $modifier['string'];
+                        } else {
+                            d($input['array'][$index]);
+                            trace();
+                            die;
+                        }
+
                     }
                 }
             }
