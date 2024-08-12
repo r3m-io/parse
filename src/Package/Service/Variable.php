@@ -166,7 +166,16 @@ class Variable
                     $argument_nr = -1;
                 }
                 elseif($is_modifier !== false){
-                    ddd($modifier_name);
+                    $input['array'][$is_variable]['modifier'][] = [
+                        'string' => $modifier_string,
+                        'name' => $modifier_name,
+                        'argument' => []
+                    ];
+                    $modifier_name = '';
+                    $is_argument = false;
+                    $argument_array = [];
+                    $argument = '';
+                    $argument_nr = -1;
                 }
                 elseif($is_variable !== false){
                     $is_modifier = true;
