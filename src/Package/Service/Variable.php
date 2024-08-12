@@ -123,10 +123,10 @@ class Variable
 
                         $is_double_quote = false;
                         $is_single_quote = false;
-                        for($i = $is_modifier + 1; $i < $count; $i++){
-                            $previous = Parse::item($input, $i - 1);
-                            $next = Parse::item($input, $i + 1);
-                            $current = Parse::item($input, $i);
+                        for($index = $is_modifier + 1; $index < $count; $index++){
+                            $previous = Parse::item($input, $index - 1);
+                            $next = Parse::item($input, $index + 1);
+                            $current = Parse::item($input, $index);
                             if(
                                 $current === '"' &&
                                 $previous !== '\\' &&
