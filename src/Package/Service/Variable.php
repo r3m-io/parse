@@ -316,7 +316,6 @@ class Variable
                                             break;
                                         }
                                     }
-                                    $modifier_string .= $current;
                                     if(
                                         $current === ':' &&
                                         $is_double_quote === false &&
@@ -369,6 +368,7 @@ class Variable
                                         $argument .= $current;
                                         $argument_array[] = $input['array'][$j];
                                     }
+                                    $modifier_string .= $current;
                                 }
                                 if(array_key_exists(0, $argument_array)){
                                     $argument_value = Cast::define(
