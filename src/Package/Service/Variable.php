@@ -102,9 +102,11 @@ class Variable
             $current = Parse::item($input, $nr);
             if($current === '('){
                 $set_depth++;
+                d($set_depth);
             }
             elseif($current === ')'){
                 $set_depth--;
+                d($set_depth);
             }
             elseif($current === '{{'){
                 $outer_curly_depth++;
