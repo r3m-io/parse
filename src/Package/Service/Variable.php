@@ -123,6 +123,8 @@ class Variable
                     $modifier_name = '';
                     $modifier_string = '';
                     $is_argument = false;
+                    $is_variable = false;
+                    $is_modifier = false;
                     $argument_array = [];
                     $argument = '';
                     $argument_nr = -1;
