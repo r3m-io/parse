@@ -427,13 +427,8 @@ class Variable
                         }
                     }
                 }
-
-                d($input['array']);
-                ddd($char);
             }
         }
-
-
         return $input;
     }
 
