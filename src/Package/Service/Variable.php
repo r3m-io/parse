@@ -103,6 +103,7 @@ class Variable
                     $previous = Parse::item($input, $i - 1);
                     $next = Parse::item($input, $i + 1);
                     $current = Parse::item($input, $i);
+                    d($current);
                     if(
                         $current === '|' &&
                         $previous !== '|' &&
