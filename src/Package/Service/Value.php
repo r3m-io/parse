@@ -564,8 +564,10 @@ class Value
                             $flags,
                             $options
                         );
-                        array_unshift($tag_value['array'], $input['array'][$tag_nr]);
-                        $tag_value['array'][] = $char;
+                        d($tag_value);
+                        for($i = $tag_nr + 1; $i < $nr; $i++){
+                            $input['array'][$i] = null;
+                        }
                         $tag_nr = false;
                         $tag = '';
                         $tag_array = [];
