@@ -566,7 +566,7 @@ class Value
                         );
                         d($tag_value);
                         for($i = $tag_nr + 1; $i < $nr; $i++){
-                            $input['array'][$i] = null;
+                            $input['array'][$i] = array_pop($tag_value['array']);
                         }
                         $tag_nr = false;
                         $tag = '';
