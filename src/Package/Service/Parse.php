@@ -1659,7 +1659,7 @@ class Parse
             $input = Value::array($object, $input, $flags, $options);
             d($input);
 //        d($input['string']);;
-            $input = Parse::cleanup($object, $input, $flags, $options);
+//            $input = Parse::cleanup($object, $input, $flags, $options);
             d($input);
             $cache->set($hash, $input);
         }
