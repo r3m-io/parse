@@ -88,6 +88,8 @@ class Variable
         $outer_curly_depth = 0;
         $modifier_string = '';
         $is_variable = false;
+        $is_modifier = false;
+        $is_argument = false;
         $is_single_quote = false;
         $is_double_quote = false;
         foreach($input['array'] as $nr => $char) {
@@ -141,8 +143,22 @@ class Variable
                 $is_single_quote === false &&
                 $is_double_quote === false
             ){
-                if($is_variable !== false){
-                    ddd('found');
+                if($is_modifier !== false){
+                    ddd($modifier_name);
+                }
+                elseif($is_variable !== false){
+                    $is_modifier = true;
+                }
+            }
+            elseif(
+                $current === ':' &&
+                $previous !== ':' &&
+                $next !== ':' &&
+                $is_single_quote === false &&
+                $is_double_quote === false
+            ){
+                if($is_modifier !== false){
+                    $is_argument = true;
                 }
             }
             elseif(
@@ -154,7 +170,15 @@ class Variable
             ){
                 $is_variable = $nr;
             }
-
+            if(
+                $is_modifier === true &&
+                $is_argument === false
+            ){
+                $modifier_name .= $current;
+            }
+            elseif($is_argument){
+                ddd($modifier_name);
+            }
         }
 //        d($input['array']);
         return $input;
