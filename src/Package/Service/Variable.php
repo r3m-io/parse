@@ -160,7 +160,6 @@ class Variable
                         $input['array'][$index] = null;
                     }
                     $modifier_name = '';
-                    $is_modifier = false;
                     $is_argument = false;
                     $argument_array = [];
                     $argument = '';
@@ -233,6 +232,22 @@ class Variable
                     $argument_array[$argument_nr][] = $char;
                 }
             } else {
+                /*
+                if(
+                    $current === '|' &&
+                    $previous !== '|' &&
+                    $next !== '|'
+                ){
+                    if($is_modifier)
+                    $is_modifier = false;
+                    $modifier_string = '';
+                    $modifier_name = '';
+                } else {
+                    $modifier_string .= $current;
+                    $modifier_name .= $current;
+                }
+                */
+
                 d($modifier_name);
                 d($current);
             }
