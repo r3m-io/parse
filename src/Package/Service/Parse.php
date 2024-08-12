@@ -1237,6 +1237,7 @@ class Parse
         ];
     }
 
+    /*
     public static function cleanup(App $object, $input, $flags, $options): array
     {
         $is_single_quote = false;
@@ -1392,6 +1393,154 @@ class Parse
         $input['array'] = array_values($input['array']);
         return $input;
     }
+    */
+
+    public static function cleanup(App $object, $input, $flags, $options): array
+    {
+        $is_single_quote = false;
+        $is_double_quote = false;
+        $is_double_quote_slash = false;
+        $is_parse = false;
+        $whitespace_nr = false;
+        $curly_depth = 0;
+        foreach($input['array'] as $nr => $char){
+            $previous = Parse::item($input, $nr - 1);
+            $current = Parse::item($input, $nr);
+            if(
+                $current == '\'' &&
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                $is_double_quote_slash === false &&
+                $previous !== '\\'
+            ){
+                $is_single_quote = true;
+            }
+            elseif(
+                $current == '\'' &&
+                $is_single_quote === true &&
+                $is_double_quote === false &&
+                $is_double_quote_slash === false &&
+                $previous !== '\\'
+            ){
+                $is_single_quote = false;
+            }
+            elseif(
+                $current == '"' &&
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                $is_double_quote_slash === false &&
+                $previous !== '\\'
+            ){
+                $is_double_quote = true;
+            }
+            elseif(
+                $current == '"' &&
+                $is_single_quote === false &&
+                $is_double_quote === true &&
+                $is_double_quote_slash === false &&
+                $previous !== '\\'
+            ){
+                $is_double_quote = false;
+            }
+            elseif(
+                $current == '"' &&
+                $is_single_quote === false &&
+                $is_double_quote_slash === false &&
+                $previous === '\\'
+            ){
+                $is_double_quote_slash = true;
+            }
+            elseif(
+                $current == '"' &&
+                $is_single_quote === false &&
+                $is_double_quote_slash === true &&
+                $previous === '\\'
+            ){
+                $is_double_quote = false;
+            }
+            elseif($current === '{{'){
+                $is_parse = true;
+                $curly_depth++;
+            }
+            elseif(
+                $is_parse === true &&
+                $current === '}}'
+            ){
+                $curly_depth--;
+                $is_parse = false;
+            }
+            elseif(
+                (
+                    in_array(
+                        $current,
+                        [
+                            null,
+                            ' ',
+                            "\t",
+                            "\n",
+                            "\r"
+                        ],
+                        true
+                    ) ||
+                    is_array($char) &&
+                    array_key_exists('type', $char) &&
+                    $char['type'] === 'whitespace'
+                ) &&
+                (
+                    (
+                        $is_single_quote === false &&
+                        $is_double_quote === false
+                    ) ||
+                    (
+                        $is_single_quote === false &&
+                        $is_double_quote === true &&
+                        $is_parse === true
+                    )
+                )
+            ){
+                unset($input['array'][$nr]);
+            }
+            elseif($char === null){
+                unset($input['array'][$nr]);
+            }
+            if(
+                is_array($char) &&
+                array_key_exists('type', $char) &&
+                $char['type'] === 'whitespace'
+            ){
+                if($whitespace_nr === false){
+                    $whitespace_nr = $nr;
+                }
+                elseif(array_key_exists($whitespace_nr, $input['array'])) {
+                    $input['array'][$whitespace_nr]['value'] .= $char['value'];
+                    unset($input['array'][$nr]);
+                }
+            } else {
+                $whitespace_nr = false;
+            }
+            if(
+                is_array($char) &&
+                array_key_exists('value', $char) &&
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                $is_double_quote_slash === false  &&
+                in_array(
+                    $char['value'],
+                    [
+                        '{{',
+                        '}}'
+                    ],
+                    true
+                )
+            ){
+                unset($input['array'][$nr]);
+            }
+        }
+        //re-index from 0
+        $input['array'] = array_values($input['array']);
+        return $input;
+    }
+
 
     public static function operator_symbol(App $object, $input, $flags, $options): bool | string
     {
