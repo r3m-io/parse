@@ -197,6 +197,17 @@ class Variable
                 $argument_nr++;
             }
             elseif(
+                $current === ',' &&
+                $is_single_quote === false &&
+                $is_double_quote === false
+            ){
+                d($argument);
+                d($argument_nr);
+                d($is_variable);
+                d($is_modifier);
+                ddd($argument_array);
+            }
+            elseif(
                 $current !== null &&
                 is_array($char) &&
                 $char['type'] === 'variable' &&
@@ -228,10 +239,6 @@ class Variable
                     )
                 ){
                     $modifier_name .= $current;
-                } else {
-                    d($modifier_name);
-                    d($current);
-                    d('found');
                 }
             }
             elseif(
