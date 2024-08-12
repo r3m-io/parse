@@ -2153,6 +2153,11 @@ class Parse
             }
             if (array_key_exists('tag', $input['array'][$index])) {
                 $item = $input['array'][$index]['tag'] ?? null;
+                if(is_array($input['array'][$index]['modifier'])){
+                    foreach($input['array'][$index]['modifier'] as $modifier){
+                        $item .= $modifier['string'];
+                    }
+                }
                 d($input['array'][$index]);
 
             } elseif (array_key_exists('value', $input['array'][$index])) {
