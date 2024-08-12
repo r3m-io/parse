@@ -107,6 +107,10 @@ class Variable
             }
             elseif($current === ')'){
                 $set_depth--;
+                if($is_modifier){
+                    d($modifier_name);
+                    ddd($is_modifier);
+                }
                 d($set_depth);
             }
             elseif($current === '{{'){
