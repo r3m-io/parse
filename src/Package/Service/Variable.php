@@ -109,10 +109,23 @@ class Variable
             elseif($current === ')'){
                 $set_depth--;
                 if($is_modifier && $set_depth === $set_depth_modifier){
-                    d($set_depth_modifier);
-                    d($modifier_name);
-                    d($argument_array);
-                    ddd($is_modifier);
+                    $input['array'][$is_variable]['modifier'][] = [
+                        'string' => $modifier_string,
+                        'name' => $modifier_name,
+                        'argument' => [
+                            'string' => $argument,
+                            'array' => $argument_array
+                        ]
+                    ];
+                    for($index = $is_variable + 1; $index < $nr; $index++){
+                        $input['array'][$index] = null;
+                    }
+                    $modifier_name = '';
+                    $modifier_string = '';
+                    $is_argument = false;
+                    $argument_array = [];
+                    $argument = '';
+                    $argument_nr = -1;
                 }
                 d($set_depth);
             }
