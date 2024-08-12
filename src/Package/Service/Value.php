@@ -515,13 +515,11 @@ class Value
 
     public static function double_quoted_string(App $object, $input, $flags, $options): array
     {
-        $is_single_quote = false;
         $is_double_quote = false;
         $tag = '';
         $tag_array = [];
+        $tag_nr = false;
         $curly_depth = 0;
-        trace();
-        d($input);
         foreach($input['array'] as $nr => $char){
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -542,6 +540,9 @@ class Value
             }
             elseif($is_double_quote === true){
                 if($current === '{{'){
+                    if($tag_nr === false){
+                        $tag_nr = $nr;
+                    }
                     $curly_depth++;
                 }
                 elseif($current === '}}'){
@@ -551,6 +552,9 @@ class Value
                         $tag_array[] = $char;
                         d($tag);
                         ddd($tag_array);
+                        $tag_nr = false;
+                        $tag = '';
+                        $tag_array = [];
                     }
                 }
                 if($curly_depth > 0){
