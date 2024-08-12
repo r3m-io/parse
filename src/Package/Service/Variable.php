@@ -354,6 +354,7 @@ class Variable
                                         $is_single_quote === false &&
                                         $is_double_quote_backslash === false
                                     ){
+                                        d($argument);
                                         $argument_value = Cast::define(
                                             $object, [
                                             'string' => $argument,
@@ -368,14 +369,6 @@ class Variable
                                             $flags,
                                             $options
                                         );
-                                        /*
-                                        $argument_value = Value::double_quoted_string(
-                                            $object,
-                                            $argument_value,
-                                            $flags,
-                                            $options
-                                        );
-                                        */
                                         $argument_list[] = $argument_value;
                                         $argument_array = [];
                                         $argument = '';
@@ -388,8 +381,6 @@ class Variable
                                         $previous !== '|' &&
                                         $next !== '|'
                                     ){
-                                        d($argument);
-                                        d('two');
                                         break;
                                     }
                                     elseif(
@@ -408,6 +399,7 @@ class Variable
                                     $modifier_string .= $current;
                                 }
                                 if(array_key_exists(0, $argument_array)){
+                                    d($argument);
                                     $argument_value = Cast::define(
                                         $object, [
                                         'string' => $argument,
@@ -422,14 +414,6 @@ class Variable
                                         $flags,
                                         $options
                                     );
-                                    /*
-                                    $argument_value = Value::double_quoted_string(
-                                        $object,
-                                        $argument_value,
-                                        $flags,
-                                        $options
-                                    );
-                                    */
                                     $argument_list[] = $argument_value;
                                 }
                                 if(!array_key_exists('modifier', $input['array'][$nr])){
