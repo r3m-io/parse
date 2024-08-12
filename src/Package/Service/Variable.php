@@ -14,8 +14,6 @@ class Variable
         $is_variable = false;
         $has_name = false;
         $name = '';
-//        trace();
-        d($input['array']);
         foreach($input['array'] as $nr => $char){
             if(
                 array_key_exists($nr - 1, $input['array']) &&
