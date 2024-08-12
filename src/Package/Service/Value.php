@@ -564,7 +564,10 @@ class Value
                             $flags,
                             $options
                         );
-                        d($tag_value);
+                        d($input['array']);
+                        d($tag_nr);
+                        d($nr);
+                        ddd($tag_value);
                         for($i = $tag_nr + 1; $i < $nr; $i++){
                             $input['array'][$i] = array_pop($tag_value['array']);
                         }
