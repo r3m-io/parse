@@ -163,6 +163,7 @@ class Variable
                             if(
                                 $is_single_quote === false &&
                                 $is_double_quote === false &&
+                                $modifier_name !== '' &&
                                 (
                                     in_array(
                                         $current,
@@ -182,9 +183,7 @@ class Variable
                                     )
                                 )
                             ){
-                                if($modifier_name){
-                                    break;
-                                }
+                                break;
                             }
                             elseif(
                                 $current === '|' &&
@@ -195,11 +194,9 @@ class Variable
                             ){
                                 break;
                             }
-                            elseif($set_depth <= 0){
+                            elseif($set_depth <= 0) {
                                 break;
-                            }
-
-                            else {
+                            } else {
                                 $modifier_name .= $current;
                             }
                         }
