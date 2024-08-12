@@ -414,7 +414,7 @@ class Variable
                                         $options
                                     );
                                     if(str_contains($argument, '\"{{$test3 | default: \'yes\'}}\"')){
-                                        d($argument_value);
+//                                        d($argument_value);
                                     }
                                     $argument_list[] = $argument_value;
                                 }
@@ -450,7 +450,7 @@ class Variable
                             ){
                                 $i++;
                             } else {
-                                d('yes1');
+                                d($current);
                                 $input['array'][$nr]['modifier'][] = [
                                     'name' => $modifier_name,
                                     'arguments' => []
