@@ -221,6 +221,7 @@ class Variable
                             ) {
                                 $modifier_name .= $current;
                             }
+                            $modifier_string .= $current;
                         }
                         if($modifier_name){
                             $argument_list = [];
