@@ -212,7 +212,6 @@ class Variable
                                 $modifier_name .= $current;
                             }
                         }
-                        d($modifier_name);
                         if($modifier_name){
                             $argument_list = [];
                             $argument_array = [];
@@ -220,6 +219,7 @@ class Variable
                             $is_double_quote = false;
                             $is_single_quote = false;
                             $current = Parse::item($input, $i);
+                            d($current);
                             if($current === ':'){
                                 for($j = $i + 1; $j < $count; $j++){
                                     $previous = Parse::item($input, $j - 1);
@@ -360,6 +360,20 @@ class Variable
                                     $input['array'][$k] = null;
                                 }
                                 $is_modifier = false;
+                            }
+                            elseif(
+                                !in_array(
+                                    $current,
+                                    [
+                                        ' ',
+                                        "\t",
+                                        "\n",
+                                        "\r",
+                                    ],
+                                true
+                                )
+                            ){
+                                //nothing
                             } else {
                                 $input['array'][$nr]['modifier'][] = [
                                     'name' => $modifier_name,
