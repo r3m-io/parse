@@ -407,15 +407,15 @@ class Variable
                                         $flags,
                                         $options
                                     );
-                                    if(str_contains($argument, '\"{{$test3 | default: \'yes\'}}\"')){
-                                        ddd($argument_value);
-                                    }
                                     $argument_value = Parse::value(
                                         $object,
                                         $argument_value,
                                         $flags,
                                         $options
                                     );
+                                    if(str_contains($argument, '\"{{$test3 | default: \'yes\'}}\"')){
+                                        ddd($argument_value);
+                                    }
                                     $argument_list[] = $argument_value;
                                 }
                                 if(!array_key_exists('modifier', $input['array'][$nr])){
