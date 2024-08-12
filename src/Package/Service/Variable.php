@@ -194,8 +194,7 @@ class Variable
                             ){
                                 break;
                             }
-                            elseif($set_depth <= 0) {
-                                ddd('yes');
+                            elseif($set_depth < 0) {
                                 break;
                             } else {
                                 $modifier_name .= $current;
