@@ -147,6 +147,7 @@ class Variable
                 $is_double_quote === false
             ){
                 if($is_argument !== false){
+                    d($is_variable);
                     d($modifier_name);
                     $argument_list = [];
 
