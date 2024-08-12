@@ -87,6 +87,7 @@ class Variable
         $curly_depth = 0;
         $outer_curly_depth = 0;
         $modifier_string = '';
+        $modifier_name = '';
         $is_variable = false;
         $is_modifier = false;
         $is_argument = false;
@@ -166,7 +167,8 @@ class Variable
                 is_array($char) &&
                 $char['type'] === 'variable' &&
                 $is_single_quote === false &&
-                $is_double_quote === false
+                $is_double_quote === false &&
+                $is_variable === false
             ){
                 $is_variable = $nr;
             }
