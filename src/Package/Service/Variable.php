@@ -202,7 +202,6 @@ class Variable
                     $argument_array[$argument_nr] = [];
                 }
                 $argument_array[$argument_nr][] = $char;
-                ddd($modifier_name);
             }
         }
 //        d($input['array']);
