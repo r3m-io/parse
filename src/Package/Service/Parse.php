@@ -1241,96 +1241,74 @@ class Parse
     {
         $is_single_quote = false;
         $is_double_quote = false;
+        $is_double_quote_slash = false;
         $is_parse = false;
         $whitespace_nr = false;
         $curly_depth = 0;
         foreach($input['array'] as $nr => $char){
-            $previous = $input['array'][$nr - 1] ?? null;
+            $previous = Parse::item($object, $input, $nr - 1);
+            $current = Parse::item($object, $input, $nr);
             if(
-                is_array($previous) &&
-                array_key_exists('execute',  $previous)
-            ){
-                $previous = $previous['execute'];
-            }
-            elseif(
-                is_array($previous) &&
-                array_key_exists('value',  $previous)
-            ){
-                $previous = $previous['value'];
-            }
-            if(
-                (
-                    (
-                        is_array($char) &&
-                        array_key_exists('value', $char) &&
-                        $char['value'] === '\''
-                    ) ||
-                    $char == '\''
-                ) &&
+                $current === '\'' &&
                 $is_single_quote === false &&
                 $is_double_quote === false &&
+                $is_double_quote_slash === false &&
                 $previous !== '\\'
             ){
                 $is_single_quote = true;
             }
             elseif(
-                (
-                    (
-                        is_array($char) &&
-                        array_key_exists('value', $char) &&
-                        $char['value'] === '\''
-                    ) ||
-                    $char == '\''
-                ) &&
+                $current === '\'' &&
                 $is_single_quote === true &&
                 $is_double_quote === false &&
+                $is_double_quote_slash === false &&
                 $previous !== '\\'
             ){
                 $is_single_quote = false;
             }
             elseif(
-                (
-                    (
-                        is_array($char) &&
-                        array_key_exists('value', $char) &&
-                        $char['value'] === '"'
-                    ) ||
-                    $char == '"'
-                ) &&
+                $current === '"' &&
                 $is_single_quote === false &&
                 $is_double_quote === false &&
+                $is_double_quote_slash === false &&
                 $previous !== '\\'
             ){
                 $is_double_quote = true;
             }
             elseif(
-                (
-                    (
-                        is_array($char) &&
-                        array_key_exists('value', $char) &&
-                        $char['value'] === '"'
-                    ) ||
-                    $char == '"'
-                ) &&
+                $current === '"' &&
                 $is_single_quote === false &&
                 $is_double_quote === true &&
+                $is_double_quote_slash === false &&
                 $previous !== '\\'
             ){
                 $is_double_quote = false;
             }
             elseif(
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '{{'
+                $current === '"' &&
+                $is_single_quote === false &&
+//                $is_double_quote === false &&  //can be true or false
+                $is_double_quote_slash === false &&
+                $previous === '\\'
             ){
+                $is_double_quote_slash = true;
+            }
+            elseif(
+                $current === '"' &&
+                $is_single_quote === false &&
+//                $is_double_quote === false && //can be true or false
+                $is_double_quote_slash === true &&
+                $previous === '\\'
+            ){
+                $is_double_quote_slash = false;
+            }
+            elseif($current === '{{'){
                 $is_parse = true;
                 $curly_depth++;
             }
             elseif(
                 $is_parse === true &&
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '}}'
+                $current === '}}'
             ){
                 $curly_depth--;
                 $is_parse = false;
@@ -1338,7 +1316,7 @@ class Parse
             elseif(
                 (
                     in_array(
-                        $char,
+                        $current,
                         [
                             null,
                             ' ',
@@ -1355,18 +1333,26 @@ class Parse
                 (
                     (
                         $is_single_quote === false &&
-                        $is_double_quote === false
+                        $is_double_quote === false &&
+                        $is_double_quote_slash === false
                     ) ||
                     (
                         $is_single_quote === false &&
                         $is_double_quote === true &&
+                        $is_double_quote_slash === false &&
+                        $is_parse === true
+                    ) ||
+                    (
+                        $is_single_quote === false &&
+                        $is_double_quote === false &&
+                        $is_double_quote_slash === true &&
                         $is_parse === true
                     )
                 )
             ){
                 unset($input['array'][$nr]);
             }
-            elseif($char === null){
+            elseif($current === null){
                 unset($input['array'][$nr]);
             }
             if(
@@ -1389,6 +1375,7 @@ class Parse
                 array_key_exists('value', $char) &&
                 $is_single_quote === false &&
                 $is_double_quote === false &&
+                $is_double_quote_slash === false &&
                 in_array(
                     $char['value'],
                     [
