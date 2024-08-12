@@ -156,7 +156,7 @@ class Variable
                             'array' => $argument_array
                         ]
                     ];
-                    for($index = $is_modifier; $index < $nr; $index++){
+                    for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
                     $modifier_name = '';
@@ -171,7 +171,7 @@ class Variable
                         'name' => $modifier_name,
                         'argument' => []
                     ];
-                    for($index = $is_modifier; $index < $nr; $index++){
+                    for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
                     $modifier_name = '';
