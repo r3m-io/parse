@@ -84,6 +84,7 @@ class Variable
     {
         $count = count($input['array']);
         $set_depth = 0;
+        $set_depth_modifier = false;
         $curly_depth = 0;
         $outer_curly_depth = 0;
         $modifier_string = '';
@@ -108,6 +109,7 @@ class Variable
             elseif($current === ')'){
                 $set_depth--;
                 if($is_modifier){
+                    d($set_depth_modifier);
                     d($modifier_name);
                     ddd($is_modifier);
                 }
@@ -271,6 +273,9 @@ class Variable
                     )
                 ){
                     $modifier_name .= $current;
+                    if($set_depth_modifier === false){
+                        $set_depth_modifier = $set_depth;
+                    }
                 }
             }
             elseif(
