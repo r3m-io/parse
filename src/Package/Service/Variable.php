@@ -454,6 +454,7 @@ class Variable
                                 ];
                                 $modifier_name = '';
                                 $modifier_string = '';
+                                $is_modifier = false;
                                 $i--;
                             }
                         }
