@@ -590,6 +590,7 @@ class Value
         $tag_array = [];
         $tag_nr = false;
         $curly_depth = 0;
+        $string_depth = 0;
         foreach($input['array'] as $nr => $char){
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -600,13 +601,17 @@ class Value
                 $is_double_quote === false
             ){
                 $is_double_quote = true;
+                $string_depth++;
             }
             elseif(
                 $current === '"' &&
                 $previous === '\\' &&
                 $is_double_quote === true
             ){
-                $is_double_quote = false;
+                $string_depth--;
+                if($string_depth === 0){
+                    $is_double_quote = false;
+                }
             }
             elseif($is_double_quote === true){
                 if($current === '{{'){
