@@ -768,11 +768,21 @@ class Token
                         ];
                         if(
                             array_key_exists(0, $list['array']) &&
+                            is_array($list['array'][0]) &&
                             array_key_exists('type', $list['array'][0]) &&
                             $list['array'][0]['type'] === 'method'
                         ){
                             $tags[$line][$nr]['method'] = $tag;
                         } else {
+                            if(
+                                array_key_exists(0, $list['array']) &&
+                                is_array($list['array'][0]) &&
+                                array_key_exists('type', $list['array'][0]) &&
+                                $list['array'][0]['type'] === 'symbol' &&
+                                $list['array'][0]['value'] === '/'
+                            ){
+                                $tag['is_close'] = true;
+                            }
                             $tags[$line][$nr]['tag'] = $tag;
                         }
                     }
