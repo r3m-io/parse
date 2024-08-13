@@ -13,6 +13,7 @@ class Value
     {
         $value = '';
         $is_double_quoted = false;
+        $is_double_quoted_backslash = false;
         $value_nr = false;
         $array_depth = 0;
         $array_nr = false;
@@ -88,6 +89,35 @@ class Value
                     $is_double_quoted === true
                 ){
                     $is_double_quoted = false;
+                    if(
+                        $value === 0 ||
+                        $value === '0' ||
+                        $value
+                    ){
+                        $length = strlen($value);
+                        $value = Value::basic($object, $value, $flags, $options);
+                        $input['array'][$value_nr] = $value;
+                        for($i = $value_nr; $i < $value_nr + $length; $i++){
+                            if($i === $value_nr){
+                                continue;
+                            }
+                            $input['array'][$i] = null;
+                        }
+                    }
+                }
+                if(
+                    $char['value'] === '"' &&
+                    $previous === '\\' &&
+                    $is_double_quoted_backslash === false
+                ){
+                    $is_double_quoted_backslash = true;
+                }
+                elseif(
+                    $char['value'] === '"' &&
+                    $previous === '\\' &&
+                    $is_double_quoted_backslash === true
+                ){
+                    $is_double_quoted_backslash = false;
                     if(
                         $value === 0 ||
                         $value === '0' ||
