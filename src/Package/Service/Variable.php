@@ -303,15 +303,7 @@ class Variable
                 $is_variable = $nr;
             }
             if($is_modifier){
-                if($outer_curly_depth > 0){
-                    if($current === '}}'){
-                        //nothing
-                    } else {
-                        $modifier_string .= $current;
-                    }
-                } else {
-                    $modifier_string .= $current;
-                }
+                $modifier_string .= $current;
             }
             if(
                 $is_modifier === true &&
@@ -354,17 +346,8 @@ class Variable
                         $argument_array[$argument_nr] = [];
                         $argument[$argument_nr] = '';
                     }
-                    if($outer_curly_depth > 0){
-                        if($current === '}}'){
-                            //nothing
-                        } else {
-                            $argument[$argument_nr] .= $current;
-                            $argument_array[$argument_nr][] = $char;
-                        }
-                    } else {
-                        $argument[$argument_nr] .= $current;
-                        $argument_array[$argument_nr][] = $char;
-                    }
+                    $argument[$argument_nr] .= $current;
+                    $argument_array[$argument_nr][] = $char;
                 }
             }
         }
