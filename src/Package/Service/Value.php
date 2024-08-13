@@ -588,6 +588,7 @@ class Value
         $tag_array = [];
         $tag_nr = false;
         $curly_depth = 0;
+        d($input['string']);
         foreach($input['array'] as $nr => $char){
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
