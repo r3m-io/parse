@@ -516,7 +516,6 @@ class Value
     public static function double_quoted_string(App $object, $input, $flags, $options): array
     {
         $is_double_quote = false;
-        $is_double_quote_backslash = false;
         $tag = '';
         $tag_array = [];
         $tag_nr = false;
@@ -538,20 +537,6 @@ class Value
                 $is_double_quote === true
             ){
                 $is_double_quote = false;
-            }
-            elseif(
-                $current === '"' &&
-                $previous === '\\' &&
-                $is_double_quote_backslash === false
-            ){
-                $is_double_quote_backslash = true;
-            }
-            elseif(
-                $current === '"' &&
-                $previous === '\\' &&
-                $is_double_quote_backslash === true
-            ){
-                $is_double_quote_backslash = false;
             }
             elseif($is_double_quote === true){
                 if($current === '{{'){
