@@ -20,25 +20,12 @@ class Value
         $array_string = '';
         $array = [];
         foreach($input['array'] as $nr => $char){
-            $previous_nr = $nr - 1;
-            if($previous_nr < 0){
-                $previous = null;
-            } else {
-                $previous = $input['array'][$previous_nr];
-                if(is_array($previous)){
-                    if(array_key_exists('execute', $previous)){
-                        $previous = $previous['execute'];
-                    }
-                    elseif(array_key_exists('value', $previous)){
-                        $previous = $previous['value'];
-                    } else {
-                        $previous = null;
-                    }
-                }
-            }
+            $previous = Parse::item($input, $nr - 1);
             if(
+                !is_array($char) &&
                 in_array(
-                    $char, [
+                    $char,
+                    [
                         null,
                         " ",
                         "\t",
@@ -105,7 +92,7 @@ class Value
                         }
                     }
                 }
-                if(
+                elseif(
                     $char['value'] === '"' &&
                     $previous === '\\' &&
                     $is_double_quoted_backslash === false
@@ -358,22 +345,7 @@ class Value
         $array_nr = false;
         $array_string = '';
         foreach($input['array'] as $nr => $char){
-            $previous_nr = $nr - 1;
-            if($previous_nr < 0){
-                $previous = null;
-            } else {
-                $previous = $input['array'][$previous_nr];
-                if(is_array($previous)){
-                    if(array_key_exists('execute', $previous)){
-                        $previous = $previous['execute'];
-                    }
-                    elseif(array_key_exists('value', $previous)){
-                        $previous = $previous['value'];
-                    } else {
-                        $previous = null;
-                    }
-                }
-            }
+            $previous = Parse::item($input, $nr - 1);
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
