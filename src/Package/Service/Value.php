@@ -520,8 +520,6 @@ class Value
         $tag_array = [];
         $tag_nr = false;
         $curly_depth = 0;
-        trace();
-        ddd($input);
         foreach($input['array'] as $nr => $char){
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -531,7 +529,6 @@ class Value
                 $previous !== '\\' &&
                 $is_double_quote === false
             ){
-                ddd('yes');
                 $is_double_quote = true;
             }
             elseif(
