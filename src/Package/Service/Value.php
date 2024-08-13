@@ -548,7 +548,6 @@ class Value
                 elseif($current === '}}'){
                     $curly_depth--;
                     if($curly_depth <= 0){
-                        $options->debug = true;
                         $tag .= $current;
                         $tag_array[] = $char;
                         $tag_value = Cast::define(
@@ -617,9 +616,9 @@ class Value
                 elseif($current === '}}'){
                     $curly_depth--;
                     if($curly_depth <= 0){
-                        $options->debug = true;
                         $tag .= $current;
                         $tag_array[] = $char;
+                        ddd($tag_array);
                         $tag_value = Cast::define(
                             $object, [
                             'string' => $tag,
