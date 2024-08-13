@@ -98,7 +98,7 @@ class Variable
         $argument_nr = -1;
         $argument = [];
         $argument_array = [];
-        $nr = $count;
+        $nr = $count - 1;
         d($input);
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
