@@ -16,7 +16,8 @@ class Token
     /**
      * @throws Exception
      */
-    public static function tokenize(App $object, $flags, $options){
+    public static function tokenize(App $object, $flags, $options): mixed
+    {
         if(!property_exists($options, 'source')){
             throw new Exception('Source not found');
         }
@@ -53,7 +54,6 @@ class Token
                     File::exist($cache_url) &&
                     $mtime === File::mtime($cache_url)
                 ){
-                    d($cache_url);
                     $tags = File::read($cache_url);
                     $tags = gzdecode($tags);
                     $tags = Core::object($tags, Core::OBJECT_ARRAY);
@@ -66,7 +66,6 @@ class Token
                 File::exist($cache_url) &&
                 $mtime === File::mtime($cache_url)
             ){
-                d($cache_url);
                 $tags = File::read($cache_url);
                 $tags = Core::object($tags, Core::OBJECT_ARRAY);
             }
@@ -75,7 +74,6 @@ class Token
             }
         }
         if($tags === false){
-            d($template);
             $tags = Token::tags($object, $template, $flags, $options);
             $tags = Token::tags_remove($object, $tags, $flags, $options);
             $tags = Token::abstract_syntax_tree($object, $tags, $flags, $options);
@@ -122,6 +120,7 @@ class Token
         if($data){
             return $data->get();
         }
+        return false;
     }
 
     public static function tags(App $object, $string='', $flags, $options): array
