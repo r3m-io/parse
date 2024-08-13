@@ -748,17 +748,25 @@ class Token
                         }
                         $tags[$line][$nr]['variable'] = $variable;
                     } else {
-                        $tag_array = mb_str_split($record['tag'], 1);
-                        $list = Token::value(
-                            $object,
-                            [
-                                'string' => $record['tag'],
-                                'array' => $tag_array
-                            ],
-                            $flags,
-                            $options
-                        );
-                        d($list);
+                        $method_hash = hash('sha256', $record['tag']);
+                        if($cache->has($method_hash)){
+                            $list = $cache->get($method_hash);
+                        } else {
+                            $tag_array = mb_str_split($record['tag'], 1);
+                            $list = Token::value(
+                                $object,
+                                [
+                                    'string' => $record['tag'],
+                                    'array' => $tag_array
+                                ],
+                                $flags,
+                                $options
+                            );
+                        }
+                        $method = [
+                            'value' => $list
+                        ];
+                        $tags[$line][$nr]['method'] = $method;
                     }
                 }
             }
