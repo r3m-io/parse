@@ -16,21 +16,14 @@ class Token
     /**
      * @throws Exception
      */
-    public static function tokenize(App $object, $flags, $options): mixed
+    public static function tokenize(App $object, $input, $flags, $options): mixed
     {
-        if(!property_exists($options, 'source')){
-            throw new Exception('Source not found');
-        }
-        if(File::exist($options->source) === false){
-            throw new Exception('Source not found');
-        }
         // Step 1: Read the template file
         $start = microtime(true);
-        $template = File::read($options->source);
         $cache_url = false;
         $cache_dir = false;
         $tags = false;
-        $hash = hash('sha256', $template);
+        $hash = hash('sha256', $input);
         $cache_dir = $object->config('ramdisk.url') .
             $object->config(Config::POSIX_ID) .
             $object->config('ds') .
@@ -74,7 +67,7 @@ class Token
             }
         }
         if($tags === false){
-            $tags = Token::tags($object, $template, $flags, $options);
+            $tags = Token::tags($object, $input, $flags, $options);
             $tags = Token::tags_remove($object, $tags, $flags, $options);
             $tags = Token::abstract_syntax_tree($object, $tags, $flags, $options);
             $is_new = true;
