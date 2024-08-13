@@ -350,6 +350,40 @@ class Variable
             } else {
             }
         }
+        if(
+            $is_variable &&
+            $is_modifier
+        ){
+            ddd($modifier_name);
+        }
+        /*
+        foreach($argument_array as $argument_nr => $array){
+            $argument_value = Cast::define(
+                $object, [
+                'string' => $argument[$argument_nr],
+                'array' => $array
+            ],
+                $flags,
+                $options
+            );
+            $argument_value = Parse::value(
+                $object,
+                $argument_value,
+                $flags,
+                $options
+            );
+            $argument_array[$argument_nr] = $argument_value;
+        }
+        $input['array'][$is_variable]['modifier'][] = [
+            'string' => $modifier_string,
+            'name' => $modifier_name,
+            'argument' => $argument_array
+        ];
+        for($index = $is_variable + 1; $index < $nr; $index++){
+            $input['array'][$index] = null;
+        }
+        */
+
 //        d($input['array']);
         return $input;
     }
