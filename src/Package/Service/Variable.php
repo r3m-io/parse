@@ -304,10 +304,6 @@ class Variable
             }
             if($is_modifier){
                 $modifier_string .= $current;
-                $minus = $outer_curly_depth * 2;
-                if($minus > 0){
-                    $modifier_string = substr($modifier_string, 0, -$minus);
-                }
             }
             if(
                 $is_modifier === true &&
@@ -351,10 +347,6 @@ class Variable
                         $argument[$argument_nr] = '';
                     }
                     $argument[$argument_nr] .= $current;
-                    $minus = $outer_curly_depth * 2;
-                    if($minus > 0){
-                        $argument[$argument_nr] = substr($argument[$argument_nr], 0, -$minus);
-                    }
                     $argument_array[$argument_nr][] = $char;
                 }
             }
