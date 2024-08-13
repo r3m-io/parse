@@ -353,10 +353,18 @@ class Variable
                         $argument_array[$argument_nr] = [];
                         $argument[$argument_nr] = '';
                     }
-                    $argument[$argument_nr] .= $current;
-                    $argument_array[$argument_nr][] = $char;
+                    if($outer_curly_depth > 0){
+                        if($current === '}}'){
+                            $outer_curly_depth--;
+                        } else {
+                            $argument[$argument_nr] .= $current;
+                            $argument_array[$argument_nr][] = $char;
+                        }
+                    } else {
+                        $argument[$argument_nr] .= $current;
+                        $argument_array[$argument_nr][] = $char;
+                    }
                 }
-            } else {
             }
         }
         if(
