@@ -619,7 +619,6 @@ class Value
                     if($curly_depth <= 0){
                         $tag .= $current;
                         $tag_array[] = $char;
-                        ddd($tag_array);
                         $tag_value = Cast::define(
                             $object, [
                             'string' => $tag,
