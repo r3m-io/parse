@@ -209,6 +209,7 @@ class Variable
                 $is_double_quote_backslash === false
             ){
                 d('yes1');
+                d('yes1');
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
