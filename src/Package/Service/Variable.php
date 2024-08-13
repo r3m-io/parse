@@ -210,6 +210,7 @@ class Variable
                 $is_double_quote_backslash === false
             ){
                 if($is_argument !== false){
+                    d($argument);
 //                    d($argument_array);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
@@ -372,7 +373,7 @@ class Variable
             $is_modifier
         ){
             if($is_argument !== false){
-                $options->debug = true;
+                d($argument);
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
                         $object, [
