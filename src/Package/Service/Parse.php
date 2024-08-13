@@ -1826,6 +1826,7 @@ class Parse
 //            d($input);
             $input = Variable::modifier($object, $input, $flags, $options);
             if(property_exists($options, 'debug')){
+                trace();
                 ddd($input);
             }
 //            d($input);
