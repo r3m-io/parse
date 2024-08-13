@@ -96,7 +96,7 @@ class Variable
         $is_double_quote = false;
         $is_double_quote_backslash = false;
         $argument_nr = -1;
-        $argument = '';
+        $argument = [];
         $argument_array = [];
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
@@ -111,24 +111,27 @@ class Variable
                     $is_modifier &&
                     $set_depth === $set_depth_modifier
                 ){
-                    $argument_value = Cast::define(
-                        $object, [
-                        'string' => $argument,
-                        'array' => $argument_array
-                    ],
-                        $flags,
-                        $options
-                    );
-                    $argument_value = Parse::value(
-                        $object,
-                        $argument_value,
-                        $flags,
-                        $options
-                    );
+                    foreach($argument_array as $argument_nr => $array){
+                        $argument_value = Cast::define(
+                            $object, [
+                            'string' => $argument[$argument_nr],
+                            'array' => $array
+                        ],
+                            $flags,
+                            $options
+                        );
+                        $argument_value = Parse::value(
+                            $object,
+                            $argument_value,
+                            $flags,
+                            $options
+                        );
+                        $argument_array[$argument_nr] = $argument_value;
+                    }
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
-                        'argument' => $argument_value
+                        'argument' => $argument_array
                     ];
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
@@ -139,7 +142,7 @@ class Variable
                     $is_variable = false;
                     $is_modifier = false;
                     $argument_array = [];
-                    $argument = '';
+                    $argument = [];
                     $argument_nr = -1;
                 }
             }
@@ -206,24 +209,27 @@ class Variable
                 $is_double_quote_backslash === false
             ){
                 if($is_argument !== false){
-                    $argument_value = Cast::define(
-                        $object, [
-                        'string' => $argument,
-                        'array' => $argument_array
-                    ],
-                        $flags,
-                        $options
-                    );
-                    $argument_value = Parse::value(
-                        $object,
-                        $argument_value,
-                        $flags,
-                        $options
-                    );
+                    foreach($argument_array as $argument_nr => $array){
+                        $argument_value = Cast::define(
+                            $object, [
+                                'string' => $argument[$argument_nr],
+                                'array' => $array
+                            ],
+                            $flags,
+                            $options
+                        );
+                        $argument_value = Parse::value(
+                            $object,
+                            $argument_value,
+                            $flags,
+                            $options
+                        );
+                        $argument_array[$argument_nr] = $argument_value;
+                    }
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
-                        'argument' => $argument_value
+                        'argument' => $argument_array
                     ];
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
@@ -232,7 +238,7 @@ class Variable
                     $modifier_string = '';
                     $is_argument = false;
                     $argument_array = [];
-                    $argument = '';
+                    $argument = [];
                     $argument_nr = -1;
                 }
                 elseif($is_modifier !== false){
@@ -248,7 +254,7 @@ class Variable
                     $modifier_string = '';
                     $is_argument = false;
                     $argument_array = [];
-                    $argument = '';
+                    $argument = [];
                     $argument_nr = -1;
                 }
                 elseif($is_variable !== false){
@@ -332,8 +338,9 @@ class Variable
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
+                        $argument[$argument_nr] = '';
                     }
-                    $argument .= $current;
+                    $argument[$argument_nr] .= $current;
                     $argument_array[$argument_nr][] = $char;
                 }
             } else {
