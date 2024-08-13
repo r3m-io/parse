@@ -33,7 +33,6 @@ class Token
         $cache_url = $cache_dir . $hash . $object->config('extension.json');
         $mtime = File::mtime($options->source);
         $is_new = false;
-        $data = false;
         if(
             property_exists($options, 'ramdisk') &&
             $options->ramdisk === true
@@ -110,10 +109,7 @@ class Token
             }
             File::touch($cache_url, $mtime);
         }
-        if($data){
-            return $data->get();
-        }
-        return false;
+        return $tags;
     }
 
     public static function tags(App $object, $string='', $flags, $options): array
