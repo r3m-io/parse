@@ -274,6 +274,8 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = true;
                 }
+                d($modifier_name);
+                d($argument);
                 $argument_nr++;
             }
             elseif(
