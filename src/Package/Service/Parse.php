@@ -1821,6 +1821,10 @@ class Parse
             $input = Symbol::define($object, $input, $flags, $options);
             $input = Cast::define($object, $input, $flags, $options);
             $input = Method::define($object, $input, $flags, $options);
+            if(property_exists($options, 'debug')){
+//                trace();
+                ddd($input);
+            }
             $input = Variable::define($object, $input, $flags, $options);
 
 //            d($input);
