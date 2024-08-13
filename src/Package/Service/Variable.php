@@ -98,6 +98,7 @@ class Variable
         $argument_nr = -1;
         $argument = [];
         $argument_array = [];
+        $nr = $count;
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -354,38 +355,44 @@ class Variable
             $is_variable &&
             $is_modifier
         ){
-            d($argument_array);
-            ddd($modifier_name);
-
+            if($is_argument !== false){
+                foreach($argument_array as $argument_nr => $array){
+                    $argument_value = Cast::define(
+                        $object, [
+                        'string' => $argument[$argument_nr],
+                        'array' => $array
+                    ],
+                        $flags,
+                        $options
+                    );
+                    $argument_value = Parse::value(
+                        $object,
+                        $argument_value,
+                        $flags,
+                        $options
+                    );
+                    $argument_array[$argument_nr] = $argument_value;
+                }
+                $input['array'][$is_variable]['modifier'][] = [
+                    'string' => $modifier_string,
+                    'name' => $modifier_name,
+                    'argument' => $argument_array
+                ];
+                for($index = $is_variable + 1; $index < $nr; $index++){
+                    $input['array'][$index] = null;
+                }
+            }
+            elseif($is_modifier !== false){
+                $input['array'][$is_variable]['modifier'][] = [
+                    'string' => $modifier_string,
+                    'name' => $modifier_name,
+                    'argument' => []
+                ];
+                for($index = $is_variable + 1; $index < $nr; $index++){
+                    $input['array'][$index] = null;
+                }
+            }
         }
-        /*
-        foreach($argument_array as $argument_nr => $array){
-            $argument_value = Cast::define(
-                $object, [
-                'string' => $argument[$argument_nr],
-                'array' => $array
-            ],
-                $flags,
-                $options
-            );
-            $argument_value = Parse::value(
-                $object,
-                $argument_value,
-                $flags,
-                $options
-            );
-            $argument_array[$argument_nr] = $argument_value;
-        }
-        $input['array'][$is_variable]['modifier'][] = [
-            'string' => $modifier_string,
-            'name' => $modifier_name,
-            'argument' => $argument_array
-        ];
-        for($index = $is_variable + 1; $index < $nr; $index++){
-            $input['array'][$index] = null;
-        }
-        */
-
 //        d($input['array']);
         return $input;
     }
