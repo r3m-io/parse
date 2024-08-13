@@ -364,7 +364,7 @@ class Variable
             $is_modifier
         ){
             if($is_argument !== false){
-                d($argument_array);
+                $options->debug = true;
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
                         $object, [
@@ -382,7 +382,10 @@ class Variable
                     );
                     $argument_array[$argument_nr] = $argument_value;
                 }
-                d($argument_array);
+                if(property_exists($options, 'debug') && $options->debug){
+                    ddd($argument_array);
+                }
+
                 $input['array'][$is_variable]['modifier'][] = [
                     'string' => $modifier_string,
                     'name' => $modifier_name,
