@@ -304,7 +304,7 @@ class Variable
             if($is_modifier){
                 if($outer_curly_depth > 0){
                     if($current === '}}'){
-                        $outer_curly_depth--;
+                        //nothing
                     } else {
                         $modifier_string .= $current;
                     }
@@ -355,7 +355,7 @@ class Variable
                     }
                     if($outer_curly_depth > 0){
                         if($current === '}}'){
-                            $outer_curly_depth--;
+                            //nothing
                         } else {
                             $argument[$argument_nr] .= $current;
                             $argument_array[$argument_nr][] = $char;
