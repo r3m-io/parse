@@ -748,12 +748,12 @@ class Token
                         }
                         $tags[$line][$nr]['variable'] = $variable;
                     } else {
-                        $content_array = mb_str_split($content, 1);
+                        $tag_array = mb_str_split($record['tag'], 1);
                         $list = Token::value(
                             $object,
                             [
-                                'string' => $content,
-                                'array' => $content_array
+                                'string' => $record['tag'],
+                                'array' => $tag_array
                             ],
                             $flags,
                             $options
