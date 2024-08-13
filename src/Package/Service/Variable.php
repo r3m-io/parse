@@ -383,6 +383,7 @@ class Variable
                     $argument_array[$argument_nr] = $argument_value;
                 }
                 if(property_exists($options, 'debug') && $options->debug){
+                    d($argument);
                     ddd($argument_array);
                 }
 
