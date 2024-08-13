@@ -104,18 +104,31 @@ class Variable
             $current = Parse::item($input, $nr);
             if($current === '('){
                 $set_depth++;
-                d($set_depth);
             }
             elseif($current === ')'){
                 $set_depth--;
-                if($is_modifier && $set_depth === $set_depth_modifier){
+                if(
+                    $is_modifier &&
+                    $set_depth === $set_depth_modifier
+                ){
+                    $argument_value = Cast::define(
+                        $object, [
+                        'string' => $argument,
+                        'array' => $argument_array
+                    ],
+                        $flags,
+                        $options
+                    );
+                    $argument_value = Parse::value(
+                        $object,
+                        $argument_value,
+                        $flags,
+                        $options
+                    );
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
-                        'argument' => [
-                            'string' => $argument,
-                            'array' => $argument_array
-                        ]
+                        'argument' => $argument_value
                     ];
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
@@ -129,7 +142,6 @@ class Variable
                     $argument = '';
                     $argument_nr = -1;
                 }
-                d($set_depth);
             }
             elseif($current === '{{'){
                 $outer_curly_depth++;
@@ -194,13 +206,24 @@ class Variable
                 $is_double_quote_backslash === false
             ){
                 if($is_argument !== false){
+                    $argument_value = Cast::define(
+                        $object, [
+                        'string' => $argument,
+                        'array' => $argument_array
+                    ],
+                        $flags,
+                        $options
+                    );
+                    $argument_value = Parse::value(
+                        $object,
+                        $argument_value,
+                        $flags,
+                        $options
+                    );
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
-                        'argument' => [
-                            'string' => $argument,
-                            'array' => $argument_array
-                        ]
+                        'argument' => $argument_value
                     ];
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
