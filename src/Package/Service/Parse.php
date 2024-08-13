@@ -1398,6 +1398,7 @@ class Parse
     {
         $is_single_quote = false;
         $is_double_quote = false;
+        $is_double_quote_backslash = false;
         $is_parse = false;
         $whitespace_nr = false;
         $curly_depth = 0;
@@ -1476,6 +1477,36 @@ class Parse
                 $is_double_quote = false;
             }
             elseif(
+                (
+                    (
+                        is_array($char) &&
+                        array_key_exists('value', $char) &&
+                        $char['value'] === '"'
+                    ) ||
+                    $char == '"'
+                ) &&
+                $is_single_quote === false &&
+                $is_double_quote_backslash === false &&
+                $previous === '\\'
+            ){
+                $is_double_quote_backslash = true;
+            }
+            elseif(
+                (
+                    (
+                        is_array($char) &&
+                        array_key_exists('value', $char) &&
+                        $char['value'] === '"'
+                    ) ||
+                    $char == '"'
+                ) &&
+                $is_single_quote === false &&
+                $is_double_quote_backslash === true &&
+                $previous === '\\'
+            ){
+                $is_double_quote_backslash = false;
+            }
+            elseif(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
                 $char['value'] === '{{'
@@ -1546,6 +1577,7 @@ class Parse
                 array_key_exists('value', $char) &&
                 $is_single_quote === false &&
                 $is_double_quote === false &&
+                $is_double_quote_backslash === false &&
                 in_array(
                     $char['value'],
                     [
