@@ -354,7 +354,9 @@ class Variable
             $is_variable &&
             $is_modifier
         ){
+            d($argument_array);
             ddd($modifier_name);
+
         }
         /*
         foreach($argument_array as $argument_nr => $array){
