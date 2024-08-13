@@ -553,10 +553,7 @@ class Value
             ){
                 $is_double_quote_backslash = false;
             }
-            elseif(
-                $is_double_quote === true ||
-                $is_double_quote_backslash === true
-            ){
+            elseif($is_double_quote === true){
                 if($current === '{{'){
                     $curly_depth++;
                     if($tag_nr === false){
