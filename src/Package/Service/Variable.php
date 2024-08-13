@@ -209,6 +209,7 @@ class Variable
                 $is_double_quote_backslash === false
             ){
                 d($modifier_name);
+                d($argument);
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
