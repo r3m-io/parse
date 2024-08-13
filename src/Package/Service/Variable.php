@@ -209,9 +209,8 @@ class Variable
                 $is_double_quote === false &&
                 $is_double_quote_backslash === false
             ){
-                d($modifier_name);
-                d($argument);
                 if($is_argument !== false){
+                    d($argument_array);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object, [
@@ -354,7 +353,6 @@ class Variable
                         $argument[$argument_nr] = '';
                     }
                     $argument[$argument_nr] .= $current;
-                    d($char);
                     $argument_array[$argument_nr][] = $char;
                 }
             } else {
@@ -365,6 +363,7 @@ class Variable
             $is_modifier
         ){
             if($is_argument !== false){
+                d($argument_array);
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
                         $object, [
