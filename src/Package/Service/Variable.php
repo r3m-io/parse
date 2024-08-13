@@ -99,7 +99,6 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
-        d($input);
         foreach($input['array'] as $nr => $char) {
             $previous = Parse::item($input, $nr - 1);
             $next = Parse::item($input, $nr + 1);
@@ -355,6 +354,7 @@ class Variable
                         $argument[$argument_nr] = '';
                     }
                     $argument[$argument_nr] .= $current;
+                    d($char);
                     $argument_array[$argument_nr][] = $char;
                 }
             } else {
