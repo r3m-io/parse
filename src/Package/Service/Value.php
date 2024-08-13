@@ -565,7 +565,75 @@ class Value
                             $flags,
                             $options
                         );
-                        d($tag_value);
+                        for($i = $tag_nr + 1; $i < $nr; $i++){
+                            $input['array'][$i] = array_pop($tag_value['array']);
+                        }
+                        $tag_nr = false;
+                        $tag = '';
+                        $tag_array = [];
+                    }
+                }
+                if($curly_depth > 0){
+                    $tag .= $current;
+                    $tag_array[] = $char;
+                }
+            }
+        }
+        return $input;
+    }
+
+    public static function double_quoted_string_backslash(App $object, $input, $flags, $options): array
+    {
+        $is_double_quote = false;
+        $tag = '';
+        $tag_array = [];
+        $tag_nr = false;
+        $curly_depth = 0;
+        foreach($input['array'] as $nr => $char){
+            $previous = Parse::item($input, $nr - 1);
+            $next = Parse::item($input, $nr + 1);
+            $current = Parse::item($input, $nr);
+            if(
+                $current === '"' &&
+                $previous === '\\' &&
+                $is_double_quote === false
+            ){
+                $is_double_quote = true;
+            }
+            elseif(
+                $current === '"' &&
+                $previous === '\\' &&
+                $is_double_quote === true
+            ){
+                $is_double_quote = false;
+            }
+            elseif($is_double_quote === true){
+                if($current === '{{'){
+                    $curly_depth++;
+                    if($tag_nr === false){
+                        $tag_nr = $nr;
+                    }
+                }
+                elseif($current === '}}'){
+                    $curly_depth--;
+                    if($curly_depth <= 0){
+                        $options->debug = true;
+                        $tag .= $current;
+                        $tag_array[] = $char;
+                        $tag_value = Cast::define(
+                            $object, [
+                            'string' => $tag,
+                            'array' => $tag_array
+                        ],
+                            $flags,
+                            $options
+                        );
+                        $tag_value = Parse::value(
+                            $object,
+                            $tag_value,
+                            $flags,
+                            $options
+                        );
                         for($i = $tag_nr + 1; $i < $nr; $i++){
                             $input['array'][$i] = array_pop($tag_value['array']);
                         }

@@ -1857,6 +1857,7 @@ class Parse
             $input = Variable::modifier($object, $input, $flags, $options);
 //            $input = Value::define($object, $input, $flags, $options);
             $input = Value::double_quoted_string($object, $input, $flags, $options);
+            $input = Value::double_quoted_string_backslash($object, $input, $flags, $options);
             $input = Value::array($object, $input, $flags, $options);
             $input = Parse::cleanup($object, $input, $flags, $options);
             $cache->set($hash, $input);
