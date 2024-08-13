@@ -763,10 +763,18 @@ class Token
                                 $options
                             );
                         }
-                        $method = [
+                        $tag = [
                             'value' => $list
                         ];
-                        $tags[$line][$nr]['method'] = $method;
+                        if(
+                            array_key_exists(0, $list['array']) &&
+                            array_key_exists('type', $list['array'][0]) &&
+                            $list['array'][0]['type'] === 'method'
+                        ){
+                            $tags[$line][$nr]['method'] = $tag;
+                        } else {
+                            $tags[$line][$nr]['tag'] = $tag;
+                        }
                     }
                 }
             }
