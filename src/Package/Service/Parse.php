@@ -1823,7 +1823,7 @@ class Parse
             $input = Method::define($object, $input, $flags, $options);
             if(property_exists($options, 'debug')){
 //                trace();
-                ddd($input);
+                d($input);
             }
             $input = Variable::define($object, $input, $flags, $options);
 
