@@ -783,7 +783,7 @@ class Token
                             ){
                                 $tag['is_close'] = true;
                             }
-                            $tags[$line][$nr]['tag'] = $tag;
+                            $tags[$line][$nr]['other'] = $tag;
                         }
                     }
                 }
