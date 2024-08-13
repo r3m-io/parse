@@ -302,6 +302,8 @@ class Variable
                 $is_variable = $nr;
             }
             if($is_modifier){
+                d($curly_depth);
+                d($outer_curly_depth);
                 $modifier_string .= $current;
             }
             if(
