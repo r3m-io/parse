@@ -483,15 +483,10 @@ class Token
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
-                                    d($set_depth);
-                                    d($char);
-
-                                    ddd($after_array);
                                     $is_modifier = true;
                                     continue;
                                 }
                                 elseif($modifier_name){
-                                    d($char);
                                     if(
                                         in_array(
                                             $char,
@@ -752,6 +747,8 @@ class Token
                             $cache->set($hash, $variable);
                         }
                         $tags[$line][$nr]['variable'] = $variable;
+                    } else {
+                        d($content);
                     }
                 }
             }
