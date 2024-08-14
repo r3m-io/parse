@@ -278,7 +278,9 @@ class Tag
                     foreach($block_functions as $block_function){
                         if($method_name === $block_function){
                             if($is_block === false){
-                                $is_block = $nr;
+                                $is_block = [
+                                    $line => $nr
+                                ];
                             }
                             $block_depth++;
                             d($block_depth);
@@ -287,8 +289,13 @@ class Tag
                     }
                 }
                 if($is_block !== false){
-                    d($record);
-                    d($method_name);
+                    if(array_key_exists('method', $record)){
+                        $record_method_name = $record['method']['name'];
+                        if($record_method_name === $block_function){
+                            $block_depth++;
+                            d($block_depth);
+                        }
+                    }
                     if(array_key_exists('marker', $record)){
                         $marker_name = $record['marker']['name'];
                         d($marker_name);
@@ -297,6 +304,7 @@ class Tag
                             d($block_depth);
                             if($block_depth === 0){
                                 d($nr);
+                                d($line);
                                 ddd($is_block);
 
                                 $is_block = false;
