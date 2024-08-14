@@ -362,7 +362,10 @@ class Method
             if(in_array($method_name, $block_functions)){
                 $is_block =  true;
             }
-            if($is_block && is_array($char)){
+            if(
+                $is_block &&
+                is_array($char)
+            ){
                 $input['array'][$nr]['type'] = 'block';
                 d($char);
             }
