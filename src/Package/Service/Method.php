@@ -338,8 +338,34 @@ class Method
         if (array_key_exists('array', $input) === false) {
             return $input;
         }
+        $method_name = false;
+        $is_block = false;
+        $block_functions = [
+            'if',
+            'block.html',
+            'block.code',
+            'block.data',
+            'foreach',
+            'for.each',
+            'for',
+            'while',
+            'switch'
+        ];
         foreach ($input['array'] as $nr => $char) {
-            d($char);
+            if(
+                is_array($char) &&
+                array_key_exists('type', $char) &&
+                $char['type'] === 'method'
+            ){
+                $method_name = $char['method']['name'];
+            }
+            if(in_array($method_name, $block_functions)){
+                $is_block =  true;
+            }
+            if($is_block){
+                $input['array'][$nr]['type'] = 'block';
+                d($char);
+            }
         }
         return $input;
     }
