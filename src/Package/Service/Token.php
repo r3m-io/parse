@@ -790,6 +790,13 @@ class Token
                                 ){
                                     $name = $list['array'][1]['value'];
                                 }
+                            } elseif(
+                                array_key_exists(0, $list['array']) &&
+                                is_array($list['array'][0]) &&
+                                array_key_exists('type', $list['array'][0]) &&
+                                $list['array'][0]['type'] === 'string'
+                            ){
+                                $name = $list['array'][0]['value'];
                             }
                             $tags[$line][$nr]['marker'] = [
                                 'value' => $list,
