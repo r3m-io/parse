@@ -20,6 +20,8 @@ class Variable
         $is_variable = false;
         $has_name = false;
         $name = '';
+        trace();
+        d($input['array']);
         foreach($input['array'] as $nr => $char){
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
