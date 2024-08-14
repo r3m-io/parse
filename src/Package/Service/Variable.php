@@ -26,7 +26,6 @@ class Variable
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
-            d($current);
             if($current === '$'){
                 $is_variable = $nr;
                 $name = '$';
