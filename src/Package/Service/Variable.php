@@ -9,7 +9,13 @@ use R3m\Io\Module\File;
 use Exception;
 class Variable
 {
-    public static function define(App $object, $input, $flags, $options){
+    public static function define(App $object, $flags, $options, $input=[]){
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $count = count($input['array']);
         $is_variable = false;
         $has_name = false;
@@ -80,8 +86,14 @@ class Variable
         return $input;
     }
 
-    public static function modifier(App $object, $input, $flags, $options): array
+    public static function modifier(App $object, $flags, $options, $input=[]): array
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $count = count($input['array']);
         $set_depth = 0;
         $set_depth_modifier = false;
@@ -114,18 +126,19 @@ class Variable
                 ){
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
-                            $object, [
-                            'string' => $argument[$argument_nr],
-                            'array' => $array
-                        ],
-                            $flags,
-                            $options
-                        );
-                        $argument_value = Parse::value(
                             $object,
-                            $argument_value,
                             $flags,
-                            $options
+                            $options,
+                            [
+                                'string' => $argument[$argument_nr],
+                                'array' => $array
+                            ]
+                        );
+                        $argument_value = Token::value(
+                            $object,
+                            $flags,
+                            $options,
+                            $argument_value,
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
@@ -210,26 +223,24 @@ class Variable
                 $is_double_quote_backslash === false
             ){
                 if($is_argument !== false){
-                    d($argument);
-//                    d($argument_array);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
-                            $object, [
+                            $object,
+                            $flags,
+                            $options,
+                            [
                                 'string' => $argument[$argument_nr],
                                 'array' => $array
-                            ],
-                            $flags,
-                            $options
+                            ]
                         );
-                        $argument_value = Parse::value(
+                        $argument_value = Token::value(
                             $object,
-                            $argument_value,
                             $flags,
-                            $options
+                            $options,
+                            $argument_value,
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
-//                    d($argument_array);
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -356,21 +367,21 @@ class Variable
             $is_modifier
         ){
             if($is_argument !== false){
-                d($argument);
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
-                        $object, [
-                        'string' => $argument[$argument_nr],
-                        'array' => $array
-                    ],
-                        $flags,
-                        $options
-                    );
-                    $argument_value = Parse::value(
                         $object,
-                        $argument_value,
                         $flags,
-                        $options
+                        $options,
+                        [
+                            'string' => $argument[$argument_nr],
+                            'array' => $array
+                        ]
+                    );
+                    $argument_value = Token::value(
+                        $object,
+                        $flags,
+                        $options,
+                        $argument_value,
                     );
                     $argument_array[$argument_nr] = $argument_value;
                 }
@@ -394,7 +405,6 @@ class Variable
                 }
             }
         }
-//        d($input['array']);
         return $input;
     }
 

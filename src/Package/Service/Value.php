@@ -9,8 +9,14 @@ use R3m\Io\Module\File;
 use Exception;
 class Value
 {
-    public static function define(App $object, $input, $flags, $options): array
+    public static function define(App $object, $flags, $options, $input=[]): array
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $value = '';
         $is_double_quoted = false;
         $is_double_quoted_backslash = false;
@@ -41,7 +47,7 @@ class Value
                     $value
                 ){
                     $length = strlen($value);
-                    $value = Value::basic($object, $value, $flags, $options);
+                    $value = Value::basic($object, $flags, $options, $value);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
                         if($i === $value_nr){
@@ -82,7 +88,7 @@ class Value
                         $value
                     ){
                         $length = strlen($value);
-                        $value = Value::basic($object, $value, $flags, $options);
+                        $value = Value::basic($object, $flags, $options, $value);
                         $input['array'][$value_nr] = $value;
                         for($i = $value_nr; $i < $value_nr + $length; $i++){
                             if($i === $value_nr){
@@ -111,7 +117,7 @@ class Value
                         $value
                     ){
                         $length = strlen($value);
-                        $value = Value::basic($object, $value, $flags, $options);
+                        $value = Value::basic($object, $flags, $options, $value);
                         $input['array'][$value_nr] = $value;
                         for($i = $value_nr; $i < $value_nr + $length; $i++){
                             if($i === $value_nr){
@@ -127,7 +133,7 @@ class Value
                     $value
                 ){
                     $length = strlen($value);
-                    $value = Value::basic($object, $value, $flags, $options);
+                    $value = Value::basic($object, $flags, $options, $value);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
                         if($i === $value_nr){
@@ -150,7 +156,7 @@ class Value
                     $value
                 ){
                     $length = strlen($value);
-                    $value = Value::basic($object, $value, $flags, $options);
+                    $value = Value::basic($object, $flags, $options, $value);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
                         if($i === $value_nr){
@@ -181,7 +187,7 @@ class Value
         }
         if($value_nr !== false){
             $length = strlen($value);
-            $input['array'][$value_nr] = Value::basic($object, $value, $flags, $options);
+            $input['array'][$value_nr] = Value::basic($object, $flags, $options, $value);
             for($i = $value_nr; $i < $value_nr + $length; $i++){
                 if($i === $value_nr){
                     continue;
@@ -192,7 +198,7 @@ class Value
         return $input;
     }
 
-    public static function basic(App $object, $input, $flags, $options){
+    public static function basic(App $object, $flags, $options, $input=''){
         switch($input){
             case 'true':
                 return [
@@ -293,7 +299,9 @@ class Value
                                 ]
                             )
                         ){
-                            $collect .= $data[$i];
+                            if(strtolower($data[$i]) !== 'x'){
+                                $collect .= $data[$i];
+                            }
                             $is_hex = true;
                         }
                         elseif($data[$i] === '.'){
@@ -336,8 +344,14 @@ class Value
         ];
     }
 
-    public static function array(App $object, $input, $flags, $options): array
+    public static function array(App $object, $flags, $options, $input=[]): array
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $is_single_quote = false;
         $is_double_quote = false;
         $array_depth = 0;
@@ -416,7 +430,7 @@ class Value
                         'string' => $array_string,
                         'array' => $array
                     ];
-                    $input['array'][$array_nr] = Parse::cleanup($object, $input['array'][$array_nr], $flags, $options);
+                    $input['array'][$array_nr] = Token::cleanup($object, $flags, $options, $input['array'][$array_nr]);
                     for($i = $array_nr + 1; $i <= $nr; $i++){
                         $input['array'][$i] = null;
                     }
@@ -460,63 +474,14 @@ class Value
         return $input;
     }
 
-    public static function double_quoted_string_collect(App $object, $input, $flags, $options): array
+    public static function double_quoted_string(App $object, $flags, $options, $input=[]): array
     {
-        $tag_index = 0;
-        $tag_array = [];
-        $tag = '';
-        return $input;
-        foreach($input['array'] as $nr => $char){
-            if(
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '{{'
-            ){
-                $tag_index++;
-                continue;
-            }
-            elseif(
-                is_array($char) &&
-                array_key_exists('value', $char) &&
-                $char['value'] === '}}'
-            ){
-                $tag_index--;
-                if($tag_index === 0){
-                    $options->debug = true;
-                    $tag_value = Parse::value(
-                        $object,
-                        [
-                            'string' => $tag,
-                            'array' => $tag_array
-                        ],
-                        $flags,
-                        $options
-                    );
-                    ddd($tag_value);
-                }
-            }
-            if($tag_index > 0){
-                $tag_array[] = $char;
-                if(is_array($char)){
-                    if(array_key_exists('execute', $char)){
-                        $tag .= $char['execute'];
-                    }
-                    elseif(array_key_exists('tag', $char)){
-                        $tag .= $char['tag'];
-                    }
-                    elseif(array_key_exists('value', $char)){
-                        $tag .= $char['value'];
-                    }
-                } else {
-                    $tag .= $char;
-                }
-            }
+        if(!is_array($input)){
+            return $input;
         }
-        return $input;
-    }
-
-    public static function double_quoted_string(App $object, $input, $flags, $options): array
-    {
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $is_double_quote = false;
         $tag = '';
         $tag_array = [];
@@ -553,18 +518,19 @@ class Value
                         $tag .= $current;
                         $tag_array[] = $char;
                         $tag_value = Cast::define(
-                            $object, [
-                            'string' => $tag,
-                            'array' => $tag_array
-                        ],
-                            $flags,
-                            $options
-                        );
-                        $tag_value = Parse::value(
                             $object,
-                            $tag_value,
                             $flags,
-                            $options
+                            $options,
+                            [
+                                'string' => $tag,
+                                'array' => $tag_array
+                            ]
+                        );
+                        $tag_value = Token::value(
+                            $object,
+                            $flags,
+                            $options,
+                            $tag_value,
                         );
                         for($i = $tag_nr + 1; $i < $nr; $i++){
                             $input['array'][$i] = array_pop($tag_value['array']);
@@ -583,8 +549,14 @@ class Value
         return $input;
     }
 
-    public static function double_quoted_string_backslash(App $object, $input, $flags, $options): array
+    public static function double_quoted_string_backslash(App $object, $flags, $options, $input=[]): array
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $is_double_quote = false;
         $tag = '';
         $tag_array = [];
@@ -626,18 +598,19 @@ class Value
                         $tag .= $current;
                         $tag_array[] = $char;
                         $tag_value = Cast::define(
-                            $object, [
-                            'string' => $tag,
-                            'array' => $tag_array
-                        ],
-                            $flags,
-                            $options
-                        );
-                        $tag_value = Parse::value(
                             $object,
-                            $tag_value,
                             $flags,
-                            $options
+                            $options,
+                            [
+                                'string' => $tag,
+                                'array' => $tag_array
+                            ]
+                        );
+                        $tag_value = Token::value(
+                            $object,
+                            $flags,
+                            $options,
+                            $tag_value,
                         );
                         for($i = $tag_nr + 1; $i < $nr; $i++){
                             $input['array'][$i] = array_pop($tag_value['array']);

@@ -9,8 +9,14 @@ use R3m\Io\Module\File;
 use Exception;
 class Cast
 {
-    public static function define(App $object, $input, $flags, $options): array
+    public static function define(App $object, $flags, $options, $input=[]): array
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $is_collect = false;
         $define = '';
         foreach($input['array'] as $nr => $char){

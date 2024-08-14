@@ -9,8 +9,14 @@ use R3m\Io\Module\File;
 use Exception;
 class Symbol
 {
-    public static function define(App $object, $input, $flags, $options): array
+    public static function define(App $object, $flags, $options, $input=[]): array
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $previous_nr = false;
         $is_single_quote = false;
         foreach($input['array'] as $nr => $char){

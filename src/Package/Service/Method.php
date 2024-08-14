@@ -9,8 +9,14 @@ use R3m\Io\Module\File;
 use Exception;
 class Method
 {
-    public static function define(App $object, $input, $flags, $options): array
+    public static function define(App $object, $flags, $options, $input=[]): array
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $has_name = false;
         $name = false;
         $is_method = false;
@@ -136,18 +142,19 @@ class Method
                     } else{
                         if(array_key_exists(0, $argument_array)){
                             $argument_value = Cast::define(
-                                $object, [
-                                'string' => $argument,
-                                'array' => $argument_array
-                            ],
-                                $flags,
-                                $options
-                            );
-                            $argument_value = Parse::value(
                                 $object,
-                                $argument_value,
                                 $flags,
-                                $options
+                                $options,
+                                [
+                                    'string' => $argument,
+                                    'array' => $argument_array
+                                ]
+                            );
+                            $argument_value = Token::value(
+                                $object,
+                                $flags,
+                                $options,
+                                $argument_value
                             );
                             $argument_list[] = $argument_value;
                             $argument_array = [];
@@ -158,7 +165,6 @@ class Method
                             'argument' => $argument_list
                         ];
                         $input['array'][$is_method]['type'] = 'method';
-//                        unset($input['array'][$is_method]['is_symbol']);
                         unset($input['array'][$is_method]['value']);
                         $argument_list = [];
                         $argument_array = [];
@@ -274,18 +280,19 @@ class Method
                     ){
                         if(array_key_exists(0, $argument_array)){
                             $argument_value = Cast::define(
-                                $object, [
+                                $object,
+                                $flags,
+                                $options,
+                                [
                                     'string' => $argument,
                                     'array' => $argument_array
-                                ],
-                                $flags,
-                                $options
+                                ]
                             );
-                            $argument_value = Parse::value(
+                            $argument_value = Token::value(
                                 $object,
-                                $argument_value,
                                 $flags,
-                                $options
+                                $options,
+                                $argument_value,
                             );
                             $argument_list[] = $argument_value;
                             $argument_array = [];

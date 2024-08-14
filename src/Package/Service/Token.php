@@ -66,9 +66,9 @@ class Token
             }
         }
         if($tags === false){
-            $tags = Token::tags($object, $input, $flags, $options);
-            $tags = Token::tags_remove($object, $tags, $flags, $options);
-            $tags = Token::abstract_syntax_tree($object, $tags, $flags, $options);
+            $tags = Token::tags($object, $flags, $options, $input);
+            $tags = Token::tags_remove($object, $flags, $options, $tags);
+            $tags = Token::abstract_syntax_tree($object, $flags, $options, $tags);
             $is_new = true;
         }
         if(
@@ -110,7 +110,7 @@ class Token
         return $tags;
     }
 
-    public static function tags(App $object, $string, $flags, $options): array
+    public static function tags(App $object, $flags, $options, $string=''): array
     {
         $length = mb_strlen($string);
         $start = microtime(true);
@@ -325,8 +325,11 @@ class Token
         return $tag_list;
     }
 
-    public static function tags_remove(App $object, $tags, $flags, $options): array
+    public static function tags_remove(App $object, $flags, $options, $tags=[]): array
     {
+        if(!is_array($tags)){
+            return $tags;
+        }
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
                 if(
@@ -348,8 +351,11 @@ class Token
     /**
      * @throws Exception
      */
-    public static function abstract_syntax_tree(App $object, $tags, $flags, $options): array
+    public static function abstract_syntax_tree(App $object, $flags, $options, $tags=[]): array
     {
+        if(!is_array($tags)){
+            return $tags;
+        }
         $cache = $object->get(App::CACHE);
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
@@ -671,12 +677,12 @@ class Token
                                 } else {
                                     $argument_value = Token::value(
                                         $object,
+                                        $flags,
+                                        $options,
                                         [
                                             'string' => $argument,
                                             'array' => $argument_array
-                                        ],
-                                        $flags,
-                                        $options
+                                        ]
                                     );
                                     $cache->set($argument_hash, $argument_value);
                                 }
@@ -712,12 +718,12 @@ class Token
                                 } else {
                                     $list = Token::value(
                                         $object,
+                                        $flags,
+                                        $options,
                                         [
                                             'string' => $after,
                                             'array' => $after_array
-                                        ],
-                                        $flags,
-                                        $options
+                                        ]
                                     );
                                     $cache->set($after_hash, $list);
                                 }
@@ -750,12 +756,12 @@ class Token
                             $tag_array = mb_str_split($record['tag'], 1);
                             $list = Token::value(
                                 $object,
+                                $flags,
+                                $options,
                                 [
                                     'string' => $record['tag'],
                                     'array' => $tag_array
-                                ],
-                                $flags,
-                                $options
+                                ]
                             );
                         }
                         $tag = [
@@ -795,8 +801,14 @@ class Token
         return $tags;
     }
 
-    public static function value(App $object, $input, $flags, $options): mixed
+    public static function value(App $object, $flags, $options, $input=[]): mixed
     {
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
         $value = $input['string'] ?? null;
         switch($value){
             case '[]':
@@ -853,11 +865,11 @@ class Token
                     ]];
                     return $input;
                 }
-                return Token::value_split($object, $input, $flags, $options);
+                return Token::value_split($object, $flags, $options, $input);
         }
     }
 
-    public static function cleanup(App $object, $input, $flags, $options): array
+    public static function cleanup(App $object, $flags, $options, $input=[]): array
     {
         $is_single_quote = false;
         $is_double_quote = false;
@@ -1058,22 +1070,31 @@ class Token
         return $input;
     }
 
-    public static function value_split(App $object, $input, $flags, $options){
+    public static function value_split(App $object, $flags, $options, $input=[]){
+        if(!is_array($input)){
+            return $input;
+        }
+        if(array_key_exists('array', $input) === false){
+            return $input;
+        }
+        if(array_key_exists('string', $input) === false){
+            return $input;
+        }
         $cache = $object->get(App::CACHE);
         $hash = hash('sha256', $input['string']);
         if($cache->has($hash)){
             $input = $cache->get($hash);
         } else {
-            $input = Symbol::define($object, $input, $flags, $options);
-            $input = Cast::define($object, $input, $flags, $options);
-            $input = Method::define($object, $input, $flags, $options);
-            $input = Variable::define($object, $input, $flags, $options);
-            $input = Variable::modifier($object, $input, $flags, $options);
-            $input = Value::define($object, $input, $flags, $options);
-            $input = Value::double_quoted_string($object, $input, $flags, $options);
-            $input = Value::double_quoted_string_backslash($object, $input, $flags, $options);
-            $input = Value::array($object, $input, $flags, $options);
-            $input = Token::cleanup($object, $input, $flags, $options);
+            $input = Symbol::define($object, $flags, $options, $input);
+            $input = Cast::define($object, $flags, $options, $input);
+            $input = Method::define($object, $flags, $options, $input);
+            $input = Variable::define($object, $flags, $options, $input);
+            $input = Variable::modifier($object, $flags, $options, $input);
+            $input = Value::define($object, $flags, $options, $input);
+            $input = Value::double_quoted_string($object, $flags, $options, $input);
+            $input = Value::double_quoted_string_backslash($object, $flags, $options, $input);
+            $input = Value::array($object, $flags, $options, $input);
+            $input = Token::cleanup($object, $flags, $options, $input);
             $cache->set($hash, $input);
         }
         return $input;
