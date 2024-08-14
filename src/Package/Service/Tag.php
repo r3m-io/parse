@@ -254,7 +254,7 @@ class Tag
     {
         $block_functions = [
             'if',
-            'block.*',
+            'block.',
             'script',
             'link',
             'foreach',
@@ -270,6 +270,7 @@ class Tag
         $method = false;
         $block_function = false;
         $block_array = [];
+        $block_if = [];
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
                 if(
@@ -279,7 +280,8 @@ class Tag
                     $method = $record['method'];
                     $method_name = $method['name'];
                     foreach($block_functions as $block_function){
-                        if($method_name === $block_function){
+                        $block_length = mb_strlen($block_function);
+                        if(substr($method_name, 0, $block_length) === $block_function){
                             if($is_block === false){
                                 $is_block = [
                                     $line => $nr
