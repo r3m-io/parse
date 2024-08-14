@@ -278,6 +278,7 @@ class Tag
                                 $is_block = $nr;
                             }
                             $block_depth++;
+                            d($block_depth);
                             break;
                         }
                     }
@@ -285,8 +286,9 @@ class Tag
                 if($is_block !== false){
                     if(array_key_exists('marker', $record)){
                         $marker_name = $record['marker']['name'];
-                        if($marker_name === $block_function){
+                        if($marker_name === $method_name){
                             $block_depth--;
+                            d($block_depth);
                             if($block_depth === 0){
                                 d($nr);
                                 ddd($is_block);
