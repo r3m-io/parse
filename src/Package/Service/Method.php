@@ -338,8 +338,6 @@ class Method
         if (array_key_exists('array', $input) === false) {
             return $input;
         }
-        $method_name = false;
-        $is_block = false;
         $block_functions = [
             'if',
             'block.html',
@@ -354,6 +352,9 @@ class Method
         d($input['array']);
 
         foreach($block_functions as $block_function){
+            $block_depth = 0;
+            $is_block = false;
+            $method_name = false;
             foreach ($input['array'] as $nr => $char) {
                 if(
                     is_array($char) &&
