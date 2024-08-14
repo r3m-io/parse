@@ -16,9 +16,8 @@ class Token
     /**
      * @throws Exception
      */
-    public static function tokenize(App $object, $input, $flags, $options): mixed
+    public static function tokenize(App $object,$flags, $options,  $input=''): mixed
     {
-        // Step 1: Read the template file
         $start = microtime(true);
         $cache_url = false;
         $cache_dir = false;
@@ -1091,8 +1090,8 @@ class Token
             $input = Variable::define($object, $flags, $options, $input);
             $input = Variable::modifier($object, $flags, $options, $input);
             $input = Value::define($object, $flags, $options, $input);
-            $input = Value::double_quoted_string($object, $flags, $options, $input);
-            $input = Value::double_quoted_string_backslash($object, $flags, $options, $input);
+            $input = Value::double_quoted_string($object, $flags, $options, $input, false);
+            $input = Value::double_quoted_string_backslash($object, $flags, $options, $input, true);
             $input = Value::array($object, $flags, $options, $input);
             $input = Token::cleanup($object, $flags, $options, $input);
             $cache->set($hash, $input);

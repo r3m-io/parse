@@ -474,82 +474,7 @@ class Value
         return $input;
     }
 
-    public static function double_quoted_string(App $object, $flags, $options, $input=[]): array
-    {
-        if(!is_array($input)){
-            return $input;
-        }
-        if(array_key_exists('array', $input) === false){
-            return $input;
-        }
-        $is_double_quote = false;
-        $tag = '';
-        $tag_array = [];
-        $tag_nr = false;
-        $curly_depth = 0;
-        foreach($input['array'] as $nr => $char){
-            $previous = Token::item($input, $nr - 1);
-            $next = Token::item($input, $nr + 1);
-            $current = Token::item($input, $nr);
-            if(
-                $current === '"' &&
-                $previous !== '\\' &&
-                $is_double_quote === false
-            ){
-                $is_double_quote = true;
-            }
-            elseif(
-                $current === '"' &&
-                $previous !== '\\' &&
-                $is_double_quote === true
-            ){
-                $is_double_quote = false;
-            }
-            elseif($is_double_quote === true){
-                if($current === '{{'){
-                    $curly_depth++;
-                    if($tag_nr === false){
-                        $tag_nr = $nr;
-                    }
-                }
-                elseif($current === '}}'){
-                    $curly_depth--;
-                    if($curly_depth <= 0){
-                        $tag .= $current;
-                        $tag_array[] = $char;
-                        $tag_value = Cast::define(
-                            $object,
-                            $flags,
-                            $options,
-                            [
-                                'string' => $tag,
-                                'array' => $tag_array
-                            ]
-                        );
-                        $tag_value = Token::value(
-                            $object,
-                            $flags,
-                            $options,
-                            $tag_value,
-                        );
-                        for($i = $tag_nr + 1; $i < $nr; $i++){
-                            $input['array'][$i] = array_pop($tag_value['array']);
-                        }
-                        $tag_nr = false;
-                        $tag = '';
-                        $tag_array = [];
-                    }
-                }
-                if($curly_depth > 0){
-                    $tag .= $current;
-                    $tag_array[] = $char;
-                }
-            }
-        }
-        return $input;
-    }
-
-    public static function double_quoted_string_backslash(App $object, $flags, $options, $input=[]): array
+    public static function double_quoted_string(App $object, $flags, $options, $input=[], $with_backslash=false): array
     {
         if(!is_array($input)){
             return $input;
@@ -567,25 +492,46 @@ class Value
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
-            if(
-                $current === '"' &&
-                $previous === '\\' &&
-                $is_double_quote === false
-            ){
-                $is_double_quote = true;
-                $string_depth++;
-            }
-            elseif(
-                $current === '"' &&
-                $previous === '\\' &&
-                $is_double_quote === true
-            ){
-                $string_depth--;
-                if($string_depth === 0){
-                    $is_double_quote = false;
+            if($with_backslash){
+                if(
+                    $current === '"' &&
+                    $previous === '\\' &&
+                    $is_double_quote === false
+                ){
+                    $is_double_quote = true;
+                    $string_depth++;
+                }
+                elseif(
+                    $current === '"' &&
+                    $previous === '\\' &&
+                    $is_double_quote === true
+                ){
+                    $string_depth--;
+                    if($string_depth === 0){
+                        $is_double_quote = false;
+                    }
+                }
+            } else {
+                if(
+                    $current === '"' &&
+                    $previous !== '\\' &&
+                    $is_double_quote === false
+                ){
+                    $is_double_quote = true;
+                    $string_depth++;
+                }
+                elseif(
+                    $current === '"' &&
+                    $previous !== '\\' &&
+                    $is_double_quote === true
+                ){
+                    $string_depth--;
+                    if($string_depth === 0){
+                        $is_double_quote = false;
+                    }
                 }
             }
-            elseif($is_double_quote === true){
+            if($is_double_quote === true){
                 if($current === '{{'){
                     $curly_depth++;
                     if($tag_nr === false){
