@@ -270,7 +270,10 @@ class Tag
         $block_function = false;
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
-                if(array_key_exists('method', $record)){
+                if(
+                    $is_block === false &&
+                    array_key_exists('method', $record)
+                ){
                     $method_name = $record['method']['name'];
                     foreach($block_functions as $block_function){
                         if($method_name === $block_function){
