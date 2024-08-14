@@ -126,7 +126,6 @@ class Variable
         $count = count($input['array']);
         $set_depth = 0;
         $set_depth_modifier = false;
-        $curly_depth = 0;
         $outer_curly_depth = 0;
         $modifier_string = '';
         $modifier_name = '';
