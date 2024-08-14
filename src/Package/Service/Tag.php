@@ -288,6 +288,7 @@ class Tag
                     d($method_name);
                     if(array_key_exists('marker', $record)){
                         $marker_name = $record['marker']['name'];
+                        d($marker_name);
                         if($marker_name === $method_name){
                             $block_depth--;
                             d($block_depth);
