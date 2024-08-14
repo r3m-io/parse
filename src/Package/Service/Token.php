@@ -782,6 +782,14 @@ class Token
                                 $list['array'][0]['value'] === '/'
                             ){
                                 $tag['is_close'] = true;
+                                if(
+                                    array_key_exists(1, $list['array']) &&
+                                    is_array($list['array'][1]) &&
+                                    array_key_exists('type', $list['array'][1]) &&
+                                    $list['array'][1]['type'] === 'string'
+                                ){
+                                    $tag['string'] = $list['array'][1]['value'];
+                                }
                             }
                             $tags[$line][$nr]['other'] = $tag;
                         }
