@@ -284,6 +284,7 @@ class Tag
                     }
                 }
                 if($is_block !== false){
+                    d($record);
                     if(array_key_exists('marker', $record)){
                         $marker_name = $record['marker']['name'];
                         if($marker_name === $method_name){
