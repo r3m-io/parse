@@ -783,7 +783,7 @@ class Token
                             ){
                                 $is_close = true;
                                 $temp['array'] = $list['array'];
-                                array_shift($temp);
+                                array_shift($temp['array']);
                                 foreach($temp['array'] as $temp_nr => $char){
                                     $current = Token::item($temp, $temp_nr);
                                     $name .= $current;
