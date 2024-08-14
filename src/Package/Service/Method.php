@@ -367,6 +367,7 @@ class Method
                 d($char);
             }
         }
+        ddd('end');
         return $input;
     }
 }
