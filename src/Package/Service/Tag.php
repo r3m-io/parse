@@ -304,6 +304,7 @@ class Tag
                             $block_depth--;
                             if($block_depth === 0){
                                 d($method);
+                                d($block_if);
                                 d($block_array);
                                 d($nr);
                                 d($line);
@@ -313,6 +314,15 @@ class Tag
                             }
                         }
                     }
+                    if($method_name === 'if'){
+                        if(array_key_exists('method', $record)){
+                            $record_method_name = $record['method']['name'];
+                        }
+                        d($record_method_name);
+                        $block_if[] = $record;
+                    }
+
+
                     $block_array[] = $record;
                 }
             }
