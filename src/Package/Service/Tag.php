@@ -267,14 +267,17 @@ class Tag
         $block_depth = 0;
         $is_block = false;
         $method_name = false;
+        $method = false;
         $block_function = false;
+        $block_array = [];
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
                 if(
                     $is_block === false &&
                     array_key_exists('method', $record)
                 ){
-                    $method_name = $record['method']['name'];
+                    $method = $record['method'];
+                    $method_name = $method['name'];
                     foreach($block_functions as $block_function){
                         if($method_name === $block_function){
                             if($is_block === false){
@@ -291,16 +294,17 @@ class Tag
                 if($is_block !== false){
                     if(array_key_exists('method', $record)){
                         $record_method_name = $record['method']['name'];
-                        if($record_method_name === $block_function){
+                        if($record_method_name === $method_name){
                             $block_depth++;
                         }
                     }
                     if(array_key_exists('marker', $record)){
                         $marker_name = $record['marker']['name'];
-                        d($marker_name);
                         if($marker_name === $method_name){
                             $block_depth--;
                             if($block_depth === 0){
+                                d($method);
+                                d($block_array);
                                 d($nr);
                                 d($line);
                                 ddd($is_block);
@@ -309,6 +313,7 @@ class Tag
                             }
                         }
                     }
+                    $block_array[] = $record;
                 }
             }
         }
