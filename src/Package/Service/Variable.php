@@ -71,7 +71,7 @@ class Variable
                                 'name' => substr($name, 1),
                                 'is_reference' => $is_reference
                             ];
-                            $name = '';
+                            $name = '$';
                             $has_name = false;
                             for($j = $is_variable + 1; $j < $i; $j++){
                                 $input['array'][$j] = null;
@@ -85,7 +85,6 @@ class Variable
                     }
                 }
                 if($name !== '$'){
-                    d($name);
                     $is_reference = false;
                     if ($previous === '&') {
                         $is_reference = true;
