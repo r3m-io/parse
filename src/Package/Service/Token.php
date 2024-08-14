@@ -763,15 +763,17 @@ class Token
                                 ]
                             );
                         }
-                        $tag = $list['array'];
                         if(
                             array_key_exists(0, $list['array']) &&
                             is_array($list['array'][0]) &&
                             array_key_exists('type', $list['array'][0]) &&
-                            $list['array'][0]['type'] === 'method'
+                            $list['array'][0]['type'] === 'method' &&
+                            array_key_exists('method', $list['array'][0])
                         ){
-                            $tags[$line][$nr]['method'] = $tag;
+                            $tags[$line][$nr]['method'] = $list['array'][0]['method'];
                         } else {
+                            $is_close = false;
+                            $name = null;
                             if(
                                 array_key_exists(0, $list['array']) &&
                                 is_array($list['array'][0]) &&
@@ -779,17 +781,21 @@ class Token
                                 $list['array'][0]['type'] === 'symbol' &&
                                 $list['array'][0]['value'] === '/'
                             ){
-                                $tags[$line][$nr]['is_close'] = true;
+                                $is_close = true;
                                 if(
                                     array_key_exists(1, $list['array']) &&
                                     is_array($list['array'][1]) &&
                                     array_key_exists('type', $list['array'][1]) &&
                                     $list['array'][1]['type'] === 'string'
                                 ){
-                                    $tags[$line][$nr]['string'] = $list['array'][1]['value'];
+                                    $name = $list['array'][1]['value'];
                                 }
                             }
-                            $tags[$line][$nr]['other'] = $tag;
+                            $tags[$line][$nr]['marker'] = [
+                                'value' => $list,
+                                'is_close' => $is_close,
+                                'name' => $name
+                            ];
                         }
                     }
                 }
