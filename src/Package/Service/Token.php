@@ -773,7 +773,7 @@ class Token
                             $tags[$line][$nr]['method'] = $list['array'][0]['method'];
                         } else {
                             $is_close = false;
-                            $name = null;
+                            $name = '';
                             if(
                                 array_key_exists(0, $list['array']) &&
                                 is_array($list['array'][0]) &&
@@ -782,21 +782,20 @@ class Token
                                 $list['array'][0]['value'] === '/'
                             ){
                                 $is_close = true;
-                                if(
-                                    array_key_exists(1, $list['array']) &&
-                                    is_array($list['array'][1]) &&
-                                    array_key_exists('type', $list['array'][1]) &&
-                                    $list['array'][1]['type'] === 'string'
-                                ){
-                                    $name = $list['array'][1]['value'];
+                                $temp['array'] = $list['array'];
+                                array_shift($temp);
+                                foreach($temp['array'] as $temp_nr => $char){
+                                    $current = Token::item($temp, $temp_nr);
+                                    $name .= $current;
                                 }
-                            } elseif(
-                                array_key_exists(0, $list['array']) &&
-                                is_array($list['array'][0]) &&
-                                array_key_exists('type', $list['array'][0]) &&
-                                $list['array'][0]['type'] === 'string'
-                            ){
-                                $name = $list['array'][0]['value'];
+                            } else {
+                                foreach($list['array'] as $temp_nr => $char){
+                                    $current = Token::item($list, $temp_nr);
+                                    $name .= $current;
+                                }
+                            }
+                            if($name === ''){
+                                $name = null;
                             }
                             $tags[$line][$nr]['marker'] = [
                                 'value' => $list,
