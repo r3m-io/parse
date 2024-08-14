@@ -57,7 +57,7 @@ class Variable
                             )
                         )
                     ){
-                        if($name !== ''){
+                        if($name !== '$'){
                             $has_name = true;
                             $is_reference = false;
                             if ($previous === '&') {
@@ -82,6 +82,23 @@ class Variable
                     elseif($has_name === false){
                         $name .= $current;
                     }
+                }
+                if($name !== '$'){
+                    $is_reference = false;
+                    if ($previous === '&') {
+                        $is_reference = true;
+                        $input['array'][$is_variable - 1] = null;
+                    }
+                    $input['array'][$is_variable] = [
+                        'type' => 'variable',
+                        'tag' => $name,
+                        'name' => substr($name, 1),
+                        'is_reference' => $is_reference
+                    ];
+                    for($j = $is_variable + 1; $j < $i; $j++){
+                        $input['array'][$j] = null;
+                    }
+                    break;
                 }
             }
         }
