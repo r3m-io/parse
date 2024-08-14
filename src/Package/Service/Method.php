@@ -340,9 +340,9 @@ class Method
         }
         $block_functions = [
             'if',
-            'block.html',
-            'block.code',
-            'block.data',
+            'block.*',
+            'script',
+            'link',
             'foreach',
             'for.each',
             'for',
