@@ -271,6 +271,7 @@ class Tag
         $block_function = false;
         $block_array = [];
         $block_if = [];
+        $has_block_if = false;
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
                 if(
@@ -316,16 +317,29 @@ class Tag
                             }
                         }
                     }
-                    if($method_name === 'if'){
+                    if(
+                        $method_name === 'if' &&
+                        $block_depth === 1
+                    ){
                         if(array_key_exists('method', $record)){
                             $record_method_name = $record['method']['name'];
-                            d($record_method_name);
+                            if(
+                                in_array(
+                                    $record_method_name,
+                                    [
+                                        'else.if',
+                                        'elseif',
+                                    ],
+                                    true
+                                )
+                            ){
+                                $has_block_if = true;
+                            }
                         }
-
-                        $block_if[] = $record;
+                        if($has_block_if === false){
+                            $block_if[] = $record;
+                        }
                     }
-
-
                     $block_array[] = $record;
                 }
             }
