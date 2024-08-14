@@ -58,6 +58,7 @@ class Variable
                         )
                     ){
                         if($name !== '$'){
+                            d($name);
                             $has_name = true;
                             $is_reference = false;
                             if ($previous === '&') {
@@ -84,6 +85,7 @@ class Variable
                     }
                 }
                 if($name !== '$'){
+                    d($name);
                     $is_reference = false;
                     if ($previous === '&') {
                         $is_reference = true;
