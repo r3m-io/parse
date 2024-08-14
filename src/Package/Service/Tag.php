@@ -319,8 +319,9 @@ class Tag
                     if($method_name === 'if'){
                         if(array_key_exists('method', $record)){
                             $record_method_name = $record['method']['name'];
+                            d($record_method_name);
                         }
-                        d($record_method_name);
+
                         $block_if[] = $record;
                     }
 
