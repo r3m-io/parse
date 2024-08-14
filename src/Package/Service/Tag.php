@@ -287,6 +287,7 @@ class Tag
                             break;
                         }
                     }
+                    continue;
                 }
                 if($is_block !== false){
                     if(array_key_exists('method', $record)){
