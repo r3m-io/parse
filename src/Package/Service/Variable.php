@@ -395,10 +395,11 @@ class Variable
             }
         }
         if(
-            $is_variable &&
-            $is_modifier
+            $is_variable !== false &&
+            $is_modifier !== false
         ){
             if($is_argument !== false){
+                d($argument_array);
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
                         $object,
