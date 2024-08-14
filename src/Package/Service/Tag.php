@@ -11,12 +11,6 @@ class Tag
 {
     public static function define(App $object, $flags, $options, $input=''): array
     {
-        if(!is_array($input)){
-            return $input;
-        }
-        if(array_key_exists('array', $input) === false){
-            return $input;
-        }
         $length = mb_strlen($input);
         $start = microtime(true);
         $split = mb_str_split($input, 1);
