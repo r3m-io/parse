@@ -27,6 +27,7 @@ trait Main {
         $object = $this->object();
         $input = File::read($options->source);
         $token = Token::tokenize($object, $flags, $options, $input);
+        die('end');
         ddd($token);
 
 
