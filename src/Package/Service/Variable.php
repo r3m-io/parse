@@ -56,7 +56,6 @@ class Variable
                         )
                     ){
                         if($name !== '$'){
-                            d($name);
                             $has_name = true;
                             $is_reference = false;
                             if ($previous === '&') {
