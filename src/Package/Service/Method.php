@@ -329,4 +329,18 @@ class Method
         }
         return $input;
     }
+
+    public static function block(App $object, $flags, $options, $input=[]): array
+    {
+        if (!is_array($input)) {
+            return $input;
+        }
+        if (array_key_exists('array', $input) === false) {
+            return $input;
+        }
+        foreach ($input['array'] as $nr => $char) {
+            d($char);
+        }
+        return $input;
+    }
 }
