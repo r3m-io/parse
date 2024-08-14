@@ -15,14 +15,14 @@ class Variable
         $has_name = false;
         $name = '';
         foreach($input['array'] as $nr => $char){
-            $previous = Parse::item($input, $nr - 1);
-            $next = Parse::item($input, $nr + 1);
-            $current = Parse::item($input, $nr);
+            $previous = Token::item($input, $nr - 1);
+            $next = Token::item($input, $nr + 1);
+            $current = Token::item($input, $nr);
             if($current === '$'){
                 $is_variable = $nr;
                 $name = '$';
                 for($i = $is_variable + 1; $i < $count; $i++){
-                    $current = Parse::item($input, $i);
+                    $current = Token::item($input, $i);
                     if(
                         in_array(
                             $current,
@@ -100,9 +100,9 @@ class Variable
         $argument_array = [];
         $nr = $count - 1;
         foreach($input['array'] as $nr => $char) {
-            $previous = Parse::item($input, $nr - 1);
-            $next = Parse::item($input, $nr + 1);
-            $current = Parse::item($input, $nr);
+            $previous = Token::item($input, $nr - 1);
+            $next = Token::item($input, $nr + 1);
+            $current = Token::item($input, $nr);
             if($current === '('){
                 $set_depth++;
             }

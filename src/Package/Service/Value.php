@@ -20,7 +20,7 @@ class Value
         $array_string = '';
         $array = [];
         foreach($input['array'] as $nr => $char){
-            $previous = Parse::item($input, $nr - 1);
+            $previous = Token::item($input, $nr - 1);
             if(
                 !is_array($char) &&
                 in_array(
@@ -345,7 +345,7 @@ class Value
         $array_nr = false;
         $array_string = '';
         foreach($input['array'] as $nr => $char){
-            $previous = Parse::item($input, $nr - 1);
+            $previous = Token::item($input, $nr - 1);
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
@@ -523,9 +523,9 @@ class Value
         $tag_nr = false;
         $curly_depth = 0;
         foreach($input['array'] as $nr => $char){
-            $previous = Parse::item($input, $nr - 1);
-            $next = Parse::item($input, $nr + 1);
-            $current = Parse::item($input, $nr);
+            $previous = Token::item($input, $nr - 1);
+            $next = Token::item($input, $nr + 1);
+            $current = Token::item($input, $nr);
             if(
                 $current === '"' &&
                 $previous !== '\\' &&
@@ -592,9 +592,9 @@ class Value
         $curly_depth = 0;
         $string_depth = 0;
         foreach($input['array'] as $nr => $char){
-            $previous = Parse::item($input, $nr - 1);
-            $next = Parse::item($input, $nr + 1);
-            $current = Parse::item($input, $nr);
+            $previous = Token::item($input, $nr - 1);
+            $next = Token::item($input, $nr + 1);
+            $current = Token::item($input, $nr);
             if(
                 $current === '"' &&
                 $previous === '\\' &&
