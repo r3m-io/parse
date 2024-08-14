@@ -283,7 +283,6 @@ class Tag
                                 ];
                             }
                             $block_depth++;
-                            d($block_depth);
                             break;
                         }
                     }
@@ -294,7 +293,6 @@ class Tag
                         $record_method_name = $record['method']['name'];
                         if($record_method_name === $block_function){
                             $block_depth++;
-                            d($block_depth);
                         }
                     }
                     if(array_key_exists('marker', $record)){
@@ -302,7 +300,6 @@ class Tag
                         d($marker_name);
                         if($marker_name === $method_name){
                             $block_depth--;
-                            d($block_depth);
                             if($block_depth === 0){
                                 d($nr);
                                 d($line);
