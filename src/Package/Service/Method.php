@@ -352,25 +352,31 @@ class Method
             'switch'
         ];
         d($input['array']);
-        foreach ($input['array'] as $nr => $char) {
-            if(
-                is_array($char) &&
-                array_key_exists('type', $char) &&
-                $char['type'] === 'method'
-            ){
-                $method_name = $char['method']['name'];
-            }
-            if(in_array($method_name, $block_functions)){
-                $is_block =  true;
-            }
-            if(
-                $is_block &&
-                is_array($char)
-            ){
-                $input['array'][$nr]['type'] = 'block';
-                d($char);
+
+        foreach($block_functions as $block_function){
+            foreach ($input['array'] as $nr => $char) {
+                if(
+                    is_array($char) &&
+                    array_key_exists('type', $char) &&
+                    $char['type'] === 'method'
+                ){
+                    $method_name = $char['method']['name'];
+                    if($method_name === $block_function){
+                        if($is_block === false){
+                            $is_block = $nr;
+                        }
+                        $block_depth++;
+                    }
+                }
+                elseif(
+                    is_array($char)
+                ){
+                    d($char);
+                }
             }
         }
+
+
         return $input;
     }
 }
