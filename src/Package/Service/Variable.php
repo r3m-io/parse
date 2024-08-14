@@ -140,7 +140,6 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
-        d($input['array']);
         foreach($input['array'] as $nr => $char) {
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
@@ -252,8 +251,6 @@ class Variable
                 $is_double_quote === false &&
                 $is_double_quote_backslash === false
             ){
-                d($is_variable);
-                d('yes');
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
@@ -319,8 +316,6 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = true;
                 }
-                d($modifier_name);
-                d($argument);
                 $argument_nr++;
             }
             elseif(
@@ -399,7 +394,6 @@ class Variable
             $is_modifier !== false
         ){
             if($is_argument !== false){
-                d($argument_array);
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
                         $object,
