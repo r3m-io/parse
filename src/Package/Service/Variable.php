@@ -140,17 +140,6 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
-        if(
-            array_key_exists(0, $input['array']) !== false &&
-            is_array($input['array'][0]) &&
-            array_key_exists('type', $input['array'][0]) &&
-            $input['array'][0]['type'] === 'variable' &&
-            array_key_exists('name', $input['array'][0]) &&
-            $input['array'][0]['name'] === ''
-        ){
-            trace();
-            ddd($input);
-        }
         d($input['array']);
         foreach($input['array'] as $nr => $char) {
             $previous = Token::item($input, $nr - 1);
@@ -263,6 +252,7 @@ class Variable
                 $is_double_quote === false &&
                 $is_double_quote_backslash === false
             ){
+                d('yes');
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
