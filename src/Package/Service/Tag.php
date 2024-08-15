@@ -71,6 +71,7 @@ class Tag
                     $previous !== '\\'
                 ){
                     $is_double_quoted = true;
+                    d($line);
                 }
                 elseif(
                     $char === '"' &&
@@ -78,6 +79,7 @@ class Tag
                     $previous !== '\\'
                 ){
                     $is_double_quoted = false;
+                    d($line);
                 }
                 elseif(
                     $char === '"' &&
