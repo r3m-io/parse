@@ -341,7 +341,7 @@ class Variable
                 $is_double_quote === false &&
                 $is_double_quote_backslash === false &&
                 (
-                    $set_depth === $set_depth_modifier |
+                    $set_depth === $set_depth_modifier ||
                     $set_depth_modifier === false
                 )
             ){
@@ -422,7 +422,12 @@ class Variable
                 ){
                     $modifier_name .= $current;
                     if($set_depth_modifier === false){
-                        $set_depth_modifier = $set_depth - 1;
+                        if($set_depth === 0){
+                            $set_depth_modifier = 0;
+                        } else {
+                            $set_depth_modifier = $set_depth - 1;
+                        }
+
                     }
                 }
             }
