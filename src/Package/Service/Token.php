@@ -919,7 +919,9 @@ class Token
             $input = Cast::define($object, $flags, $options, $input);
             $input = Method::define($object, $flags, $options, $input);
             $input = Variable::define($object, $flags, $options, $input);
+            d($input['array']);
             $input = Variable::modifier($object, $flags, $options, $input);
+            d($input['array']);
             $input = Value::define($object, $flags, $options, $input);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
