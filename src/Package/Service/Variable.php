@@ -151,6 +151,7 @@ class Variable
                     $is_modifier &&
                     $set_depth === $set_depth_modifier
                 ){
+                    d($modifier_name);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -323,6 +324,8 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = true;
                 }
+                d($is_modifier);
+                d($is_argument);
                 $argument_nr++;
             }
             elseif(
