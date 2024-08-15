@@ -142,16 +142,57 @@ class Tag
                 }
                 elseif($curly_count === 0){
                     if($tag){
-                        $before = substr($before, 0, -1);
+                        if(strlen($before) > 0){
+                            $before = substr($before, 0, -1);
+                        }
                         $tag .= $char;
                         $column[$line]++;
-
-                        $explode = explode("\n", $before);
-                        $count = count($explode);
-                        d($column);
-                        d($count);
-                        dd($before);
-
+                        if($before !== ''){
+                            $explode = explode("\n", $before);
+                            $count = count($explode);
+                            if($count > 1){
+                                $length_start = strlen($explode[0]);
+                                $record = [
+                                    'is_multiline' => true,
+                                    'line' => [
+                                        'start' => $line - $count + 1,
+                                        'end' => $line
+                                    ],
+                                    'length' => [
+                                        'start' => $length_start,
+                                        'end' => strlen($explode[$count - 1])
+                                    ],
+                                    'column' => [
+                                        ($line - $count + 1) => [
+                                            'start' => $column[$line - $count + 1] - $length_start,
+                                            'end' => $column[$line - $count + 1]
+                                        ],
+                                        $line => [
+                                            'start' => $column[$line] - strlen($explode[$count - 1]),
+                                            'end' => $column[$line]
+                                        ]
+                                    ]
+                                ];
+                                if(empty($tag_list[$line - $count + 1])){
+                                    $tag_list[$line - $count + 1] = [];
+                                }
+                                $tag_list[$line - $count + 1][] = $record;
+                            } else {
+                                $length_start = strlen($explode[0]);
+                                $record = [
+                                    'line' => $line,
+                                    'length' => $length_start,
+                                    'column' => [
+                                        'start' => $column[$line] - $length_start,
+                                        'end' => $column[$line]
+                                    ]
+                                ];
+                                if(empty($tag_list[$line])){
+                                    $tag_list[$line] = [];
+                                }
+                                $tag_list[$line][] = $record;
+                            }
+                        }
                         $explode = explode("\n", $tag);
                         $count = count($explode);
                         if($count > 1){
