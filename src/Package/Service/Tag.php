@@ -194,6 +194,7 @@ class Tag
                                 }
                                 $tag_list[$line][] = $record;
                             }
+                            $before = '';
                         }
                         $explode = explode("\n", $tag);
                         $count = count($explode);
