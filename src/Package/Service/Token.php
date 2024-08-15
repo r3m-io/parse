@@ -502,7 +502,7 @@ class Token
                                     $cache->set($argument_hash, $argument_value);
                                 }
                                 if(str_contains($argument, '$test3')){
-                                    ddd($argument_value);
+                                    d($argument_value);
                                 }
                                 $argument_list[] = $argument_value;
                                 $argument = '';
