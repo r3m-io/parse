@@ -26,6 +26,7 @@ class Tag
         $is_literal = false;
         $is_single_quoted = false;
         $is_double_quoted = false;
+        $is_double_quoted_backslash = false;
         $is_tag_in_double_quoted = false;
         $is_curly_open = false;
         $is_curly_close = false;
@@ -77,6 +78,21 @@ class Tag
                     $previous !== '\\'
                 ){
                     $is_double_quoted = false;
+                }
+                elseif(
+                    $char === '"' &&
+                    $is_double_quoted === false &&
+                    $previous === '\\'
+                ){
+                    $is_double_quoted_backslash = true;
+                    d($line);
+                }
+                elseif(
+                    $char === '"' &&
+                    $is_double_quoted === true &&
+                    $previous === '\\'
+                ){
+                    $is_double_quoted_backslash = false;
                 }
                 elseif(
                     $char === '{' &&
