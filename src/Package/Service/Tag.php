@@ -188,6 +188,7 @@ class Tag
                             $text = substr($text, 0, -1);
                         }
                         $tag .= $char;
+                        d($tag);
                         $column[$line]++;
                         if($text !== ''){
                             $explode = explode("\n", $text);
