@@ -26,7 +26,6 @@ class Tag
         $is_literal = false;
         $is_single_quoted = false;
         $is_double_quoted = false;
-        $is_double_quoted_backslash = false;
         $is_tag_in_double_quoted = false;
         $is_curly_open = false;
         $is_curly_close = false;
@@ -120,7 +119,6 @@ class Tag
                     $is_double_quoted === true &&
                     $curly_count === 0
                 ){
-                    d('yes');
                     $is_tag_in_double_quoted = true;
                     $curly_count++;
                 }
@@ -141,7 +139,6 @@ class Tag
                     $tag === false
                 ){
                     $tag = '{{';
-                    d($is_tag_in_double_quoted);
                 }
                 elseif($curly_count === 0){
                     if($tag){
