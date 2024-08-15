@@ -11,6 +11,7 @@ class Build
 {
     public static function create(App $object, $flags, $options, $input='', $tags=[]): string
     {
+        d($tags);
         ddd($input);
     }
 }
