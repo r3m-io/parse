@@ -171,6 +171,7 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
+                    ddd($argument_array);
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -270,9 +271,9 @@ class Variable
                             $options,
                             $argument_value,
                         );
-                        d($argument_value);
                         $argument_array[$argument_nr] = $argument_value;
                     }
+                    ddd($argument_array);
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -348,9 +349,9 @@ class Variable
                                 $options,
                                 $argument_value,
                             );
-                            d($argument_value);
                             $argument_array[$argument_nr] = $argument_value;
                         }
+                        ddd($argument_array);
                         $input['array'][$is_variable]['modifier'][] = [
                             'string' => $modifier_string,
                             'name' => $modifier_name,
@@ -454,6 +455,7 @@ class Variable
                     );
                     $argument_array[$argument_nr] = $argument_value;
                 }
+                ddd($argument_array);
                 $input['array'][$is_variable]['modifier'][] = [
                     'string' => $modifier_string,
                     'name' => $modifier_name,
@@ -474,7 +476,6 @@ class Variable
                 }
             }
         }
-        d($input['array']);
         return $input;
     }
 
