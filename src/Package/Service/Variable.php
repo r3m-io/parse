@@ -341,8 +341,6 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = true;
                 }
-                d($is_modifier);
-                d($is_argument);
                 $argument_nr++;
             }
             elseif(
