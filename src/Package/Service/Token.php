@@ -309,7 +309,7 @@ class Token
                                                     'array' => $argument_array
                                                 ]
                                             );
-                                            if(str_contains($argument, '$test3')){
+                                            if(str_contains($argument, '$test8')){
                                                 d($argument);
                                             }
                                             $argument = '';
@@ -333,7 +333,7 @@ class Token
                                                     'array' => $argument_array
                                                 ]
                                             );
-                                            if(str_contains($argument, '$test3')){
+                                            if(str_contains($argument, '$test8')){
                                                 d($argument);
                                             }
                                             $argument = '';
@@ -475,7 +475,7 @@ class Token
 
                                 }
                             }
-                            if(str_contains($argument, '$test3')){
+                            if(str_contains($argument, '$test8')){
                                 d($is_after);
                                 d($argument);
                                 d($argument_array);
@@ -497,7 +497,7 @@ class Token
 
                                     $cache->set($argument_hash, $argument_value);
                                 }
-                                if(str_contains($argument, '$test3')){
+                                if(str_contains($argument, '$test8')){
                                     d($argument_value);
                                 }
                                 $argument_list[] = $argument_value;
