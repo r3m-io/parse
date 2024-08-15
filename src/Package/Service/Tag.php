@@ -113,6 +113,7 @@ class Tag
                     $curly_count === 0
                 ){
                     $is_curly_open = true;
+                    $is_tag_in_double_quoted = true;
                 }
                 elseif(
                     $char === '}' &&
@@ -127,7 +128,8 @@ class Tag
                     $char === '}' &&
                     $is_curly_close === false &&
                     $is_single_quoted === false &&
-                    $is_double_quoted === true
+                    $is_double_quoted === true &&
+                    $is_tag_in_double_quoted === true
                 ){
                     $is_curly_close = true;
                     d($curly_count);
