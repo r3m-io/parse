@@ -294,12 +294,12 @@ class Token
                                         ){
                                             $argument_list[] = Token::value(
                                                 $object,
+                                                $flags,
+                                                $options,
                                                 [
                                                     'string' => $argument,
                                                     'array' => $argument_array
-                                                ],
-                                                $flags,
-                                                $options
+                                                ]
                                             );
                                             $argument = '';
                                             $argument_array = [];
@@ -507,7 +507,6 @@ class Token
                                         'value' => $list,
                                     ];
                                 }
-
                             }
                             $cache->set($hash, $variable);
                         }
