@@ -32,7 +32,7 @@ class Tag
         $next = false;
         $chunk = 64;
         $previous = false;
-        $before = '';
+        $text = '';
         for($i = 0; $i < $length; $i+=$chunk){
             $char_list = [];
             for($j = 0; $j < $chunk; $j++){
@@ -142,19 +142,19 @@ class Tag
                 }
                 elseif($curly_count === 0){
                     if($tag){
-                        if(strlen($before) > 0){
-                            $before = substr($before, 0, -1);
+                        if(strlen($text) > 0){
+                            $text = substr($text, 0, -1);
                         }
                         $tag .= $char;
                         $column[$line]++;
-                        if($before !== ''){
-                            $explode = explode("\n", $before);
+                        if($text !== ''){
+                            $explode = explode("\n", $text);
                             $count = count($explode);
                             $explode_tag = explode("\n", $tag);
                             if($count > 1){
                                 $length_start = strlen($explode[0]);
                                 $record = [
-                                    'text' => $before,
+                                    'text' => $text,
                                     'is_multiline' => true,
                                     'line' => [
                                         'start' => $line - $count + 1,
@@ -182,7 +182,7 @@ class Tag
                             } else {
                                 $length_start = strlen($explode[0]);
                                 $record = [
-                                    'text' => $before,
+                                    'text' => $text,
                                     'line' => $line,
                                     'length' => $length_start,
                                     'column' => [
@@ -196,7 +196,7 @@ class Tag
                                 $tag_list[$line][] = $record;
                             }
                         }
-                        $before = '';
+                        $text = '';
                         $explode = explode("\n", $tag);
                         $count = count($explode);
                         if($count > 1){
@@ -268,7 +268,7 @@ class Tag
                         $tag = false;
                         $column[$line]--;
                     } else {
-                        $before .= $char;
+                        $text .= $char;
                     }
                 }
                 elseif($tag){
@@ -280,14 +280,14 @@ class Tag
             }
             $previous = $char_list[$chunk - 1] ?? null;
         }
-        if($before !== ''){
-            $explode = explode("\n", $before);
+        if($text !== ''){
+            $explode = explode("\n", $text);
             $count = count($explode);
             $explode_tag = explode("\n", $tag);
             if($count > 1){
                 $length_start = strlen($explode[0]);
                 $record = [
-                    'text' => $before,
+                    'text' => $text,
                     'is_multiline' => true,
                     'line' => [
                         'start' => $line - $count + 1,
@@ -315,7 +315,7 @@ class Tag
             } else {
                 $length_start = strlen($explode[0]);
                 $record = [
-                    'text' => $before,
+                    'text' => $text,
                     'line' => $line,
                     'length' => $length_start,
                     'column' => [
