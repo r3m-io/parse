@@ -194,7 +194,6 @@ class Token
                                 } else {
                                     $next = null;
                                 }
-                                d($next);
                                 if(
                                     $char === '\'' &&
                                     $is_single_quoted === false &&
