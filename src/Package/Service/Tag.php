@@ -44,7 +44,6 @@ class Tag
                 if(array_key_exists($nr - 1, $char_list)){
                     $previous = $char_list[$nr - 1];
                 }
-                d($char);
                 if($char === null){
                     break;
                 }
@@ -101,21 +100,19 @@ class Tag
                     $char === '{' &&
                     $is_curly_open === false &&
                     $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    $is_double_quoted === false &&
+                    $curly_count === 0
                 ){
                     $is_curly_open = true;
-                    $curly_count++;
-                    d($curly_count);
                 }
                 elseif(
                     $char === '{' &&
                     $is_curly_open === false &&
                     $is_single_quoted === false &&
-                    $is_double_quoted === true
+                    $is_double_quoted === true &&
+                    $curly_count === 0
                 ){
                     $is_curly_open = true;
-                    $curly_count++;
-                    d($curly_count);
                 }
                 elseif(
                     $char === '}' &&
@@ -124,7 +121,6 @@ class Tag
                     $is_double_quoted === false
                 ){
                     $is_curly_close = true;
-                    $curly_count--;
                     d($curly_count);
                 }
                 elseif(
@@ -134,7 +130,6 @@ class Tag
                     $is_double_quoted === true
                 ){
                     $is_curly_close = true;
-                    $curly_count--;
                     d($curly_count);
                 }
                 elseif(
@@ -164,7 +159,7 @@ class Tag
                     $is_curly_open === true &&
                     $is_single_quoted === false &&
                     $is_double_quoted === true &&
-                    $curly_count === 1
+                    $curly_count === 0
                 ){
                     $is_tag_in_double_quoted = true;
                     $curly_count++;
@@ -186,7 +181,7 @@ class Tag
                     d($curly_count);
                 }
                 if(
-                    $curly_count === 2 &&
+                    $curly_count === 1 &&
                     $tag === false
                 ){
                     $tag = '{{';
