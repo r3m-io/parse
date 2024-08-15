@@ -16,8 +16,8 @@ class Variable
         if(array_key_exists('array', $input) === false){
             return $input;
         }
-        trace();
-        d($input['array']);
+//        trace();
+//        d($input['array']);
         $count = count($input['array']);
         $is_variable = false;
         $has_name = false;
