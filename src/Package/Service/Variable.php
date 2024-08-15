@@ -144,9 +144,12 @@ class Variable
             $current = Token::item($input, $nr);
             if($current === '('){
                 $set_depth++;
+                d($set_depth);
             }
             elseif($current === ')'){
                 $set_depth--;
+                d($set_depth);
+                d($set_depth_modifier);
                 if(
                     $is_modifier &&
                     $set_depth === $set_depth_modifier
