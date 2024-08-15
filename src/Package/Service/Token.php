@@ -105,7 +105,9 @@ class Token
                 }
             }
             File::touch($cache_url, $mtime);
+            d($cache_url);
         }
+
         return $tags;
     }
 
