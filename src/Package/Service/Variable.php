@@ -151,8 +151,6 @@ class Variable
                     $is_modifier &&
                     $set_depth === $set_depth_modifier
                 ){
-                    d('yes1');
-                    d($set_depth);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -273,7 +271,6 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
-                    ddd($argument_array);
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -351,7 +348,6 @@ class Variable
                             );
                             $argument_array[$argument_nr] = $argument_value;
                         }
-                        ddd($argument_array);
                         $input['array'][$is_variable]['modifier'][] = [
                             'string' => $modifier_string,
                             'name' => $modifier_name,
@@ -455,7 +451,6 @@ class Variable
                     );
                     $argument_array[$argument_nr] = $argument_value;
                 }
-                ddd($argument_array);
                 $input['array'][$is_variable]['modifier'][] = [
                     'string' => $modifier_string,
                     'name' => $modifier_name,

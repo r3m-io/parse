@@ -571,7 +571,6 @@ class Token
                 }
             }
         }
-        ddd($tags);
 //        $tags = Tag::block_method($object, $flags, $options, $tags);
         return $tags;
     }
