@@ -12,7 +12,7 @@ class Build
     public static function create(App $object, $flags, $options, $input='', $tags=[]): string
     {
         d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
-        d($tags);
+//        d($tags);
         ddd($input);
     }
 }
