@@ -250,6 +250,7 @@ class Variable
                 $is_double_quote_backslash === false &&
                 $set_depth === $set_depth_modifier
             ){
+                d($is_argument);
                 if($is_argument !== false){
                     //add set_depth
                     foreach($argument_array as $argument_nr => $array){
