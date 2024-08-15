@@ -867,7 +867,6 @@ class Token
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
             $input = Value::array($object, $flags, $options, $input);
-            d($input);
 //            $input = Method::block($object, $flags, $options, $input);
             $input = Token::cleanup($object, $flags, $options, $input);
             $cache->set($hash, $input);
