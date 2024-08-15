@@ -138,11 +138,11 @@ class Tag
                     $curly_count === 1 &&
                     $tag === false
                 ){
-                    ddd($before);
                     $tag = '{{';
                 }
                 elseif($curly_count === 0){
                     if($tag){
+                        dd($before);
                         $tag .= $char;
                         $column[$line]++;
                         $explode = explode("\n", $tag);
@@ -221,8 +221,6 @@ class Tag
                 }
                 elseif($tag){
                     $tag .= $char;
-                } else {
-                    $before .= $char;
                 }
                 if($char !== "\n") {
                     $column[$line]++;
