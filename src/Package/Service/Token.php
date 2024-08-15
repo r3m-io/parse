@@ -269,7 +269,15 @@ class Token
                                     $is_modifier = true;
                                     continue;
                                 }
-                                elseif($modifier_name){
+                                elseif(
+                                    !in_array(
+                                        $modifier_name, [
+                                            false,
+                                            ''
+                                        ],
+                                        true
+                                    )
+                                ){
                                     if(
                                         in_array(
                                             $char,
@@ -468,7 +476,11 @@ class Token
 
                                 }
                             }
-                            if($argument){
+                            if(str_contains($argument, '$test3')){
+                                d($is_after);
+                                ddd($argument);
+                            }
+                            if($argument !== ''){
                                 $argument_hash = hash('sha256', $argument);
                                 if($cache->has($argument_hash)){
                                     $argument_value = $cache->get($argument_hash);
@@ -482,10 +494,7 @@ class Token
                                             'array' => $argument_array
                                         ]
                                     );
-                                    if(str_contains($argument, '$test3')){
-                                        d($is_after);
-                                        ddd($argument);
-                                    }
+
                                     $cache->set($argument_hash, $argument_value);
                                 }
                                 $argument_list[] = $argument_value;
