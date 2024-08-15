@@ -156,6 +156,8 @@ class Token
                             $argument_nr = 0;
                             $set_depth = 0;
                             $array_depth = 0;
+                            $curly_depth = 0;
+                            $curly_depth_variable = false;
                             for($i=0; $i < $length; $i++){
                                 $char = $data[$i];
                                 if(array_key_exists($i - 1, $data)){
@@ -240,13 +242,26 @@ class Token
                                 ){
                                     $array_depth--;
                                 }
+                                elseif(
+                                    $char === '{' &&
+                                    $is_single_quoted === false
+                                ){
+                                    $curly_depth++;
+                                }
+                                elseif(
+                                    $char === '}' &&
+                                    $is_single_quoted === false
+                                ){
+                                    $curly_depth--;
+                                }
                                 if(
-                                    $variable_name &&
+                                    $variable_name !== '' &&
                                     $char === '|' &&
                                     $next !== '|' &&
                                     $previous !== '|' &&
                                     $set_depth === 0 &&
                                     $array_depth === 0 &&
+                                    $curly_depth === $curly_depth_variable &&
                                     $is_modifier === false &&
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
@@ -277,10 +292,18 @@ class Token
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
-                                            $argument_list[] = [
-                                                'string' => $argument,
-                                                'array' => $argument_array
-                                            ];
+                                            $argument_list[] = Token::value(
+                                                $object,
+                                                $flags,
+                                                $options,
+                                                [
+                                                    'string' => $argument,
+                                                    'array' => $argument_array
+                                                ]
+                                            );
+                                            if(str_contains($argument, '$test3')){
+                                                ddd($argument);
+                                            }
                                             $argument = '';
                                             $argument_array = [];
                                         }
@@ -289,6 +312,7 @@ class Token
                                             $next !== '|' &&
                                             $previous !== '|' &&
                                             $set_depth === 0 &&
+                                            $curly_depth === $curly_depth_variable &&
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
@@ -317,7 +341,8 @@ class Token
                                             if(
                                                 $char === ',' &&
                                                 $is_single_quoted === false &&
-                                                $is_double_quoted === false
+                                                $is_double_quoted === false &&
+                                                $curly_depth === $curly_depth_variable
                                             ){
                                                 break;
                                             }
@@ -331,7 +356,8 @@ class Token
                                     if(
                                         $char === ':' &&
                                         $is_single_quoted === false &&
-                                        $is_double_quoted === false
+                                        $is_double_quoted === false &&
+                                        $curly_depth === $curly_depth_variable
                                     ){
                                         if($modifier){
                                             if($modifier_name === false){
@@ -435,6 +461,10 @@ class Token
                                     $is_double_quoted === false
                                 ){
                                     $variable_name .= $char;
+                                    if($curly_depth_variable === false){
+                                        $curly_depth_variable = $curly_depth;
+                                    }
+
                                 }
                             }
                             if($argument){
@@ -514,6 +544,8 @@ class Token
                                     ];
                                 }
                             }
+                            $variable_name = '';
+                            $curly_depth_variable = false;
                             $cache->set($hash, $variable);
                         }
                         $tags[$line][$nr]['variable'] = $variable;
