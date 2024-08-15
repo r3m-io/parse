@@ -163,7 +163,7 @@ class Tag
                     $is_curly_open === true &&
                     $is_single_quoted === false &&
                     $is_double_quoted === true &&
-                    $curly_count === 0
+                    $curly_count === 1
                 ){
                     $is_tag_in_double_quoted = true;
                     $curly_count++;
