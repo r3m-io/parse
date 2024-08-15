@@ -175,7 +175,8 @@ class Token
                                     ){
                                         $previous = $data[$i - 1]['value'];
                                     }
-
+                                } else {
+                                    $previous = null;
                                 }
                                 if(array_key_exists($i + 1, $data)){
                                     $next = $data[$i + 1];
@@ -189,6 +190,8 @@ class Token
                                         array_key_exists('value', $data[$i + 1])){
                                         $next = $data[$i - 1]['value'];
                                     }
+                                } else {
+                                    $next = null;
                                 }
                                 d($next);
                                 if(
