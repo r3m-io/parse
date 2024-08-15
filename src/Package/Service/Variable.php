@@ -149,6 +149,7 @@ class Variable
             elseif($current === ')'){
                 $set_depth--;
                 d($set_depth);
+                d($set_depth_modifier);
                 if($set_depth_modifier < 1){
                     trace();
                     die('yes');
