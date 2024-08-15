@@ -572,6 +572,7 @@ class Value
                 }
             }
         }
+        d($input['array']);
         return $input;
     }
 }
