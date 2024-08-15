@@ -120,7 +120,8 @@ class Tag
                     $char === '}' &&
                     $is_curly_close === false &&
                     $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    $is_double_quoted === false &&
+                    $is_tag_in_double_quoted === false
                 ){
                     $is_curly_close = true;
                     d($curly_count);
@@ -181,6 +182,7 @@ class Tag
                         $is_curly_open = false;
                         $is_curly_close = false;
                     }
+                    d($previous);
                     d($curly_count);
                 }
                 if(
