@@ -142,11 +142,6 @@ class Variable
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
-            d($current);
-            d($set_depth);
-            d($set_depth_modifier);
-            d($is_double_quote_backslash);
-            d($is_double_quote);
             if($current === '('){
                 $set_depth++;
             }
