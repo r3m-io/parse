@@ -44,6 +44,7 @@ class Tag
                 if(array_key_exists($nr - 1, $char_list)){
                     $previous = $char_list[$nr - 1];
                 }
+                d($char);
                 if($char === null){
                     break;
                 }
