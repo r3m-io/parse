@@ -290,7 +290,8 @@ class Token
                                             $char === ':' &&
                                             $set_depth === 0 &&
                                             $is_single_quoted === false &&
-                                            $is_double_quoted === false
+                                            $is_double_quoted === false &&
+                                            $curly_depth === $curly_depth_variable
                                         ){
                                             $argument_list[] = Token::value(
                                                 $object,
