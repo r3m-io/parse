@@ -176,8 +176,11 @@ class Variable
                         $argument_array[$argument_nr] = $argument_value;
                     }
                     if(str_contains($modifier_string, '$test8')){
+                        d($set_depth);
+                        d($set_depth_modifier);
                         ddd($modifier_string);
                     }
+
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
