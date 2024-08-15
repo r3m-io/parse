@@ -147,13 +147,9 @@ class Token
                             $argument_list = [];
                             $is_after = false;
                             $is_modifier = false;
-                            $is_argument = false;
                             $is_single_quoted = false;
                             $is_double_quoted = false;
                             $after_array = [];
-                            $next = false;
-                            $previous = false;
-                            $argument_nr = 0;
                             $set_depth = 0;
                             $array_depth = 0;
                             $curly_depth = 0;
