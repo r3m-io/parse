@@ -169,7 +169,6 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
-                    ddd($argument_array);
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
