@@ -148,6 +148,7 @@ class Variable
             }
             elseif($current === ')'){
                 $set_depth--;
+                d($set_depth);
                 if(
                     $is_modifier &&
                     (
