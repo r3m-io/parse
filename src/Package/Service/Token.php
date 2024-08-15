@@ -482,7 +482,7 @@ class Token
                             if(str_contains($argument, '$test3')){
                                 d($is_after);
                                 d($argument);
-                                ddd($argument_array);
+                                d($argument_array);
                             }
                             if($argument !== ''){
                                 $argument_hash = hash('sha256', $argument);
@@ -500,6 +500,9 @@ class Token
                                     );
 
                                     $cache->set($argument_hash, $argument_value);
+                                }
+                                if(str_contains($argument, '$test3')){
+                                    ddd($argument_value);
                                 }
                                 $argument_list[] = $argument_value;
                                 $argument = '';
