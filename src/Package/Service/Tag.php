@@ -103,6 +103,7 @@ class Tag
                     $is_double_quoted === false
                 ){
                     $is_curly_open = true;
+                    $curly_count++;
                 }
                 elseif(
                     $char === '{' &&
@@ -111,6 +112,7 @@ class Tag
                     $is_double_quoted === true
                 ){
                     $is_curly_open = true;
+                    $curly_count++;
                 }
                 elseif(
                     $char === '}' &&
@@ -119,6 +121,7 @@ class Tag
                     $is_double_quoted === false
                 ){
                     $is_curly_close = true;
+                    $curly_count--;
                 }
                 elseif(
                     $char === '}' &&
@@ -127,6 +130,7 @@ class Tag
                     $is_double_quoted === true
                 ){
                     $is_curly_close = true;
+                    $curly_count--;
                 }
                 elseif(
                     $char === '{' &&
@@ -177,7 +181,7 @@ class Tag
                     d($curly_count);
                 }
                 if(
-                    $curly_count === 1 &&
+                    $curly_count === 2 &&
                     $tag === false
                 ){
                     $tag = '{{';
