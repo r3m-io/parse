@@ -153,6 +153,7 @@ class Tag
                             if($count > 1){
                                 $length_start = strlen($explode[0]);
                                 $record = [
+                                    'text' => $before,
                                     'is_multiline' => true,
                                     'line' => [
                                         'start' => $line - $count + 1,
@@ -180,6 +181,7 @@ class Tag
                             } else {
                                 $length_start = strlen($explode[0]);
                                 $record = [
+                                    'text' => $before,
                                     'line' => $line,
                                     'length' => $length_start,
                                     'column' => [
