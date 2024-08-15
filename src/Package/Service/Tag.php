@@ -104,6 +104,7 @@ class Tag
                 ){
                     $is_curly_open = true;
                     $curly_count++;
+                    d($curly_count);
                 }
                 elseif(
                     $char === '{' &&
@@ -113,6 +114,7 @@ class Tag
                 ){
                     $is_curly_open = true;
                     $curly_count++;
+                    d($curly_count);
                 }
                 elseif(
                     $char === '}' &&
@@ -122,6 +124,7 @@ class Tag
                 ){
                     $is_curly_close = true;
                     $curly_count--;
+                    d($curly_count);
                 }
                 elseif(
                     $char === '}' &&
@@ -131,6 +134,7 @@ class Tag
                 ){
                     $is_curly_close = true;
                     $curly_count--;
+                    d($curly_count);
                 }
                 elseif(
                     $char === '{' &&
