@@ -105,10 +105,26 @@ class Tag
                     $is_curly_open = true;
                 }
                 elseif(
+                    $char === '{' &&
+                    $is_curly_open === false &&
+                    $is_single_quoted === false &&
+                    $is_double_quoted === true
+                ){
+                    $is_curly_open = true;
+                }
+                elseif(
                     $char === '}' &&
                     $is_curly_close === false &&
                     $is_single_quoted === false &&
                     $is_double_quoted === false
+                ){
+                    $is_curly_close = true;
+                }
+                elseif(
+                    $char === '}' &&
+                    $is_curly_close === false &&
+                    $is_single_quoted === false &&
+                    $is_double_quoted === true
                 ){
                     $is_curly_close = true;
                 }
