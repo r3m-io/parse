@@ -253,7 +253,10 @@ class Variable
                 $is_single_quote === false &&
                 $is_double_quote === false &&
                 $is_double_quote_backslash === false &&
-                $set_depth === $set_depth_modifier
+                (
+                    $set_depth === $set_depth_modifier ||
+                    $set_depth_modifier === false
+                )
             ){
                 d($is_argument);
                 if($is_argument !== false){
