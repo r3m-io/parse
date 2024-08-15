@@ -32,6 +32,7 @@ class Tag
         $next = false;
         $chunk = 64;
         $previous = false;
+        $before = '';
         for($i = 0; $i < $length; $i+=$chunk){
             $char_list = [];
             for($j = 0; $j < $chunk; $j++){
@@ -137,6 +138,7 @@ class Tag
                     $curly_count === 1 &&
                     $tag === false
                 ){
+                    ddd($before);
                     $tag = '{{';
                 }
                 elseif($curly_count === 0){
@@ -217,6 +219,8 @@ class Tag
                 }
                 elseif($tag){
                     $tag .= $char;
+                } else {
+                    $before .= $char;
                 }
                 if($char !== "\n") {
                     $column[$line]++;
