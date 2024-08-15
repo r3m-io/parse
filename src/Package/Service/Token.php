@@ -482,6 +482,7 @@ class Token
                             if(str_contains($argument, '$test3')){
                                 d($is_after);
                                 d($argument);
+                                ddd($argument_array);
                             }
                             if($argument !== ''){
                                 $argument_hash = hash('sha256', $argument);
