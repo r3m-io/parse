@@ -143,13 +143,15 @@ class Tag
                 elseif($curly_count === 0){
                     if($tag){
                         $before = substr($before, 0, -1);
+                        $tag .= $char;
+                        $column[$line]++;
+
                         $explode = explode("\n", $before);
                         $count = count($explode);
                         d($column);
                         d($count);
                         dd($before);
-                        $tag .= $char;
-                        $column[$line]++;
+
                         $explode = explode("\n", $tag);
                         $count = count($explode);
                         if($count > 1){
