@@ -215,6 +215,8 @@ class Tag
                         }
                         $tag = false;
                         $column[$line]--;
+                    } else {
+                        $before .= $char;
                     }
                 }
                 elseif($tag){
