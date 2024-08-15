@@ -570,7 +570,7 @@ class Token
                 }
             }
         }
-        $tags = Tag::block_method($object, $flags, $options, $tags);
+//        $tags = Tag::block_method($object, $flags, $options, $tags);
         return $tags;
     }
 

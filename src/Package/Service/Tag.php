@@ -271,7 +271,12 @@ class Tag
         $block_function = false;
         $block_array = [];
         $block_if = [];
+        $block_else_if = [];
+        $block_else = [];
         $has_block_if = false;
+        $is_else = false;
+        $is_else_if = false;
+
         foreach($tags as $line => $tag){
             foreach($tag as $nr => $record){
                 if(
@@ -308,7 +313,8 @@ class Tag
                             if($block_depth === 0){
                                 d($method);
                                 d($block_if);
-                                d($block_array);
+                                d($block_else_if);
+                                d($block_else);
                                 d($nr);
                                 d($line);
                                 ddd($is_block);
@@ -334,13 +340,34 @@ class Tag
                                 )
                             ){
                                 $has_block_if = true;
+                                $is_else_if = true;
+                            }
+                        }
+                        if(array_key_exists('marker', $record)){
+                            $record_marker_name = $record['marker']['name'];
+                            if(
+                                in_array(
+                                    $record_marker_name,
+                                    [
+                                        'else'
+                                    ],
+                                    true
+                                )
+                            ){
+                                $has_block_if = true;
+                                $is_else = true;
                             }
                         }
                         if($has_block_if === false){
                             $block_if[] = $record;
                         }
+                        elseif($is_else_if === true){
+                            $block_else_if[] = $record;
+                        }
+                        elseif($is_else === true){
+                            $block_else[] = $record;
+                        }
                     }
-                    $block_array[] = $record;
                 }
             }
         }
