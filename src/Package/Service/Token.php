@@ -316,7 +316,7 @@ class Token
                                                 ]
                                             );
                                             if(str_contains($argument, '$test3')){
-                                                ddd($argument);
+                                                d($argument);
                                             }
                                             $argument = '';
                                             $argument_array = [];
@@ -340,7 +340,7 @@ class Token
                                                 ]
                                             );
                                             if(str_contains($argument, '$test3')){
-                                                ddd($argument);
+                                                d($argument);
                                             }
                                             $argument = '';
                                             $argument_array = [];
@@ -483,7 +483,7 @@ class Token
                             }
                             if(str_contains($argument, '$test3')){
                                 d($is_after);
-                                ddd($argument);
+                                d($argument);
                             }
                             if($argument !== ''){
                                 $argument_hash = hash('sha256', $argument);
