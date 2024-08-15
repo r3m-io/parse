@@ -919,14 +919,14 @@ class Token
             $input = Cast::define($object, $flags, $options, $input);
             $input = Method::define($object, $flags, $options, $input);
             $input = Variable::define($object, $flags, $options, $input);
-            d($input['array']);
+//            d($input['array']);
             $input = Variable::modifier($object, $flags, $options, $input);
             $input = Value::define($object, $flags, $options, $input);
-            d($input['array']);
+//            d($input['array']);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
-            d($input['array']);
+//            d($input['array']);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
-            d($input['array']);
+//            d($input['array']);
             $input = Value::array($object, $flags, $options, $input);
 //            $input = Method::block($object, $flags, $options, $input);
             $input = Token::cleanup($object, $flags, $options, $input);
