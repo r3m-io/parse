@@ -101,6 +101,7 @@ class Tag
                     $is_curly_open === false &&
                     $is_single_quoted === false &&
                     $is_double_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $curly_count === 0
                 ){
                     $is_curly_open = true;
@@ -110,6 +111,7 @@ class Tag
                     $is_curly_open === false &&
                     $is_single_quoted === false &&
                     $is_double_quoted === true &&
+                    $is_double_quoted_backslash === false &&
                     $curly_count === 0
                 ){
                     $is_curly_open = true;
@@ -121,6 +123,7 @@ class Tag
                     $is_curly_close === false &&
                     $is_single_quoted === false &&
                     $is_double_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $is_tag_in_double_quoted === false
                 ){
                     $is_curly_close = true;
@@ -131,6 +134,7 @@ class Tag
                     $is_curly_close === false &&
                     $is_single_quoted === false &&
                     $is_double_quoted === true &&
+                    $is_double_quoted_backslash === false &&
                     $is_tag_in_double_quoted === true
                 ){
                     $is_curly_close = true;
@@ -140,7 +144,8 @@ class Tag
                     $char === '{' &&
                     $is_curly_open === true &&
                     $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    $is_double_quoted === false &&
+                    $is_double_quoted_backslash === false
                 ){
                     $curly_count++;
                     d($curly_count);
@@ -149,7 +154,8 @@ class Tag
                     $char === '}' &&
                     $is_curly_close === true &&
                     $is_single_quoted === false &&
-                    $is_double_quoted === false
+                    $is_double_quoted === false &&
+                    $is_double_quoted_backslash === false
                 ){
                     $curly_count--;
                     if($curly_count === 0){
@@ -163,6 +169,7 @@ class Tag
                     $is_curly_open === true &&
                     $is_single_quoted === false &&
                     $is_double_quoted === true &&
+                    $is_double_quoted_backslash === false &&
                     $curly_count === 0
                 ){
                     $is_tag_in_double_quoted = true;
@@ -174,6 +181,7 @@ class Tag
                     $is_curly_close === true &&
                     $is_single_quoted === false &&
                     $is_double_quoted === true &&
+                    $is_double_quoted_backslash === false &&
                     $is_tag_in_double_quoted === true
                 ){
                     $curly_count--;
