@@ -156,7 +156,8 @@ class Variable
                         $set_depth_modifier === false
                     )
                 ){
-                    d($modifier_name);
+                    $argument[$argument_nr] .= $current;
+                    $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -175,7 +176,6 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
-                    $modifier_string .= $current;
                     if(str_contains($modifier_string, '$test8')){
                         d($argument_value);
                         d($set_depth);
