@@ -148,16 +148,12 @@ class Variable
             }
             elseif($current === ')'){
                 $set_depth--;
-                d($set_depth);
-                d($set_depth_modifier);
-                if($set_depth_modifier < 1){
-                    trace();
-                    die('yes');
-                }
-                d($set_depth_modifier);
                 if(
                     $is_modifier &&
-                    $set_depth === $set_depth_modifier
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
                 ){
                     d($modifier_name);
                     foreach($argument_array as $argument_nr => $array){
