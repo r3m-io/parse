@@ -378,7 +378,7 @@ class Variable
                 $is_variable === false
             ){
                 $is_variable = $nr;
-                d('yes3');
+                d($is_variable);
             }
             if($is_modifier === true){
                 $modifier_string .= $current;
@@ -403,6 +403,7 @@ class Variable
                     )
                 ){
                     $modifier_name .= $current;
+                    d($modifier_name);
                     if($set_depth_modifier === false){
                         $set_depth_modifier = $set_depth - 1;
                     }
@@ -419,7 +420,7 @@ class Variable
                     $is_double_quote === false &&
                     $is_double_quote_backslash === false
                 ){
-
+                    d('found here');
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
@@ -475,6 +476,7 @@ class Variable
                 }
             }
         }
+        d($input['array']);
         return $input;
     }
 
