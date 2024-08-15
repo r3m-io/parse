@@ -175,6 +175,9 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
+                    if(str_contains($modifier_string, '$test8')){
+                        ddd($modifier_string);
+                    }
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -279,6 +282,10 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
+                    if(str_contains($modifier_string, '$test8')){
+                        ddd($modifier_string);
+                    }
+
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -365,6 +372,9 @@ class Variable
                                 $argument_value,
                             );
                             $argument_array[$argument_nr] = $argument_value;
+                        }
+                        if(str_contains($modifier_string, '$test8')){
+                            ddd($modifier_string);
                         }
                         $input['array'][$is_variable]['modifier'][] = [
                             'string' => $modifier_string,
