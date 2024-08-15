@@ -190,6 +190,7 @@ class Token
                                         $next = $data[$i - 1]['value'];
                                     }
                                 }
+                                d($next);
                                 if(
                                     $char === '\'' &&
                                     $is_single_quoted === false &&
