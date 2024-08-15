@@ -127,6 +127,7 @@ class Token
                     array_key_exists('tag', $record)
                 ){
                     $content = trim(substr($record['tag'], 2, -2));
+                    d($content);
                     $hash = hash('sha256', $content);
                     if(substr($content, 0, 1) === '$'){
                         if($cache->has($hash)){
