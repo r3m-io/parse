@@ -178,12 +178,11 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
-                    if(str_contains($modifier_string, '$test8')){
-                        d($argument_value);
-                        d($set_depth);
-                        d($set_depth_modifier);
-                        ddd($modifier_string);
+                    if($modifier_name === 'defaulttrue'){
+                        trace();
+                        die('kut');
                     }
+
 
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
