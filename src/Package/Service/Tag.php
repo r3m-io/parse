@@ -280,6 +280,55 @@ class Tag
             }
             $previous = $char_list[$chunk - 1] ?? null;
         }
+        if($before !== ''){
+            $explode = explode("\n", $before);
+            $count = count($explode);
+            $explode_tag = explode("\n", $tag);
+            if($count > 1){
+                $length_start = strlen($explode[0]);
+                $record = [
+                    'text' => $before,
+                    'is_multiline' => true,
+                    'line' => [
+                        'start' => $line - $count + 1,
+                        'end' => $line
+                    ],
+                    'length' => [
+                        'start' => $length_start,
+                        'end' => strlen($explode[$count - 1])
+                    ],
+                    'column' => [
+                        ($line - $count + 1) => [
+                            'start' => $column[$line - $count + 1] - $length_start,
+                            'end' => $column[$line - $count + 1]
+                        ],
+                        $line => [
+                            'start' => $column[$line] - strlen($explode[$count - 1]) - strlen($explode_tag[0]),
+                            'end' => $column[$line] - strlen($explode_tag[0])
+                        ]
+                    ]
+                ];
+                if(empty($tag_list[$line - $count + 1])){
+                    $tag_list[$line - $count + 1] = [];
+                }
+                $tag_list[$line - $count + 1][] = $record;
+            } else {
+                $length_start = strlen($explode[0]);
+                $record = [
+                    'text' => $before,
+                    'line' => $line,
+                    'length' => $length_start,
+                    'column' => [
+                        'start' => $column[$line] - $length_start - strlen($explode_tag[0]),
+                        'end' => $column[$line] - strlen($explode_tag[0])
+                    ]
+                ];
+                if(empty($tag_list[$line])){
+                    $tag_list[$line] = [];
+                }
+                $tag_list[$line][] = $record;
+            }
+        }
         return $tag_list;
     }
 
