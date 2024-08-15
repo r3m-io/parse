@@ -320,11 +320,49 @@ class Variable
                 $is_double_quote === false &&
                 $is_double_quote_backslash === false
             ){
-                d($argument);
-                d($argument_nr);
-                d($is_variable);
-                d($is_modifier);
-                ddd($argument_array);
+                if(
+                    $is_variable !== false &&
+                    $is_modifier !== false
+                ){
+                    if($is_argument !== false){
+                        foreach($argument_array as $argument_nr => $array){
+                            $argument_value = Cast::define(
+                                $object,
+                                $flags,
+                                $options,
+                                [
+                                    'string' => $argument[$argument_nr],
+                                    'array' => $array
+                                ]
+                            );
+                            $argument_value = Token::value(
+                                $object,
+                                $flags,
+                                $options,
+                                $argument_value,
+                            );
+                            $argument_array[$argument_nr] = $argument_value;
+                        }
+                        $input['array'][$is_variable]['modifier'][] = [
+                            'string' => $modifier_string,
+                            'name' => $modifier_name,
+                            'argument' => $argument_array
+                        ];
+                        for($index = $is_variable + 1; $index < $nr; $index++){
+                            $input['array'][$index] = null;
+                        }
+                    }
+                    elseif($is_modifier !== false){
+                        $input['array'][$is_variable]['modifier'][] = [
+                            'string' => $modifier_string,
+                            'name' => $modifier_name,
+                            'argument' => []
+                        ];
+                        for($index = $is_variable + 1; $index < $nr; $index++){
+                            $input['array'][$index] = null;
+                        }
+                    }
+                }
             }
             elseif(
                 $current !== null &&
