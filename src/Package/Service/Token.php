@@ -301,6 +301,9 @@ class Token
                                                     'array' => $argument_array
                                                 ]
                                             );
+                                            if(str_contains($argument, '$test3')){
+                                                ddd($argument);
+                                            }
                                             $argument = '';
                                             $argument_array = [];
 
@@ -448,6 +451,9 @@ class Token
                                             'array' => $argument_array
                                         ]
                                     );
+                                    if(str_contains($argument, '$test3')){
+                                        ddd($argument);
+                                    }
                                     $cache->set($argument_hash, $argument_value);
                                 }
                                 $argument_list[] = $argument_value;
