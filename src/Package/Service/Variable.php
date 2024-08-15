@@ -317,6 +317,7 @@ class Variable
                     $is_argument = true;
                 }
                 $argument_nr++;
+                d('yes1');
             }
             elseif(
                 $current === ',' &&
@@ -377,9 +378,11 @@ class Variable
                 $is_variable === false
             ){
                 $is_variable = $nr;
+                d('yes3');
             }
-            if($is_modifier){
+            if($is_modifier === true){
                 $modifier_string .= $current;
+                d($modifier_string);
             }
             if(
                 $is_modifier === true &&
@@ -431,6 +434,8 @@ class Variable
             $is_variable !== false &&
             $is_modifier !== false
         ){
+            d($is_variable);
+            d($is_modifier);
             if($is_argument !== false){
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
