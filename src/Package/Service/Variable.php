@@ -254,8 +254,6 @@ class Variable
             ){
                 if($is_argument !== false){
                     //add set_depth
-                    d($set_depth);
-                    d($set_depth_modifier);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -272,6 +270,7 @@ class Variable
                             $options,
                             $argument_value,
                         );
+                        d($argument_value);
                         $argument_array[$argument_nr] = $argument_value;
                     }
                     $input['array'][$is_variable]['modifier'][] = [
@@ -349,6 +348,7 @@ class Variable
                                 $options,
                                 $argument_value,
                             );
+                            d($argument_value);
                             $argument_array[$argument_nr] = $argument_value;
                         }
                         $input['array'][$is_variable]['modifier'][] = [
