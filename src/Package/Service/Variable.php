@@ -453,6 +453,12 @@ class Variable
                     $is_double_quote === false &&
                     $is_double_quote_backslash === false
                 ){
+                    if(!array_key_exists($argument_nr, $argument_array)){
+                        $argument_array[$argument_nr] = [];
+                        $argument[$argument_nr] = '';
+                    }
+                    $argument[$argument_nr] .= $current;
+                    $argument_array[$argument_nr][] = $char;
                     d('found here');
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
