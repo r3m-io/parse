@@ -54,6 +54,8 @@ class Tag
                 if(
                     $char === '\'' &&
                     $is_single_quoted === false &&
+                    $is_double_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $previous !== '\\'
                 ){
                     $is_single_quoted = true;
@@ -61,6 +63,8 @@ class Tag
                 elseif(
                     $char === '\'' &&
                     $is_single_quoted === true &&
+                    $is_double_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $previous !== '\\'
                 ){
                     $is_single_quoted = false;
@@ -68,6 +72,8 @@ class Tag
                 elseif(
                     $char === '"' &&
                     $is_double_quoted === false &&
+                    $is_double_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $previous !== '\\'
                 ){
                     $is_double_quoted = true;
@@ -76,6 +82,8 @@ class Tag
                 elseif(
                     $char === '"' &&
                     $is_double_quoted === true &&
+                    $is_single_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $previous !== '\\'
                 ){
                     $is_double_quoted = false;
@@ -83,7 +91,8 @@ class Tag
                 }
                 elseif(
                     $char === '"' &&
-                    $is_double_quoted === false &&
+                    $is_single_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $previous === '\\'
                 ){
                     $is_double_quoted_backslash = true;
@@ -91,7 +100,8 @@ class Tag
                 }
                 elseif(
                     $char === '"' &&
-                    $is_double_quoted === true &&
+                    $is_single_quoted === false &&
+                    $is_double_quoted_backslash === false &&
                     $previous === '\\'
                 ){
                     $is_double_quoted_backslash = false;
