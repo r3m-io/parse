@@ -150,6 +150,7 @@ class Tag
                         if($before !== ''){
                             $explode = explode("\n", $before);
                             $count = count($explode);
+                            $explode_tag = explode("\n", $tag);
                             if($count > 1){
                                 $length_start = strlen($explode[0]);
                                 $record = [
@@ -169,8 +170,8 @@ class Tag
                                             'end' => $column[$line - $count + 1]
                                         ],
                                         $line => [
-                                            'start' => $column[$line] - strlen($explode[$count - 1]),
-                                            'end' => $column[$line]
+                                            'start' => $column[$line] - strlen($explode[$count - 1]) - strlen($explode_tag[0]),
+                                            'end' => $column[$line] - strlen($explode_tag[0])
                                         ]
                                     ]
                                 ];
@@ -185,8 +186,8 @@ class Tag
                                     'line' => $line,
                                     'length' => $length_start,
                                     'column' => [
-                                        'start' => $column[$line] - $length_start,
-                                        'end' => $column[$line]
+                                        'start' => $column[$line] - $length_start - strlen($explode_tag[0]),
+                                        'end' => $column[$line] - strlen($explode_tag[0])
                                     ]
                                 ];
                                 if(empty($tag_list[$line])){
