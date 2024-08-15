@@ -543,7 +543,6 @@ class Value
                     if($curly_depth <= 0){
                         $tag .= $current;
                         $tag_array[] = $char;
-                        d($tag_array);
                         $tag_value = Cast::define(
                             $object,
                             $flags,
@@ -559,7 +558,6 @@ class Value
                             $options,
                             $tag_value,
                         );
-                        ddd($tag_value);
                         for($i = $tag_nr + 1; $i < $nr; $i++){
                             $input['array'][$i] = array_shift($tag_value['array']);
                         }

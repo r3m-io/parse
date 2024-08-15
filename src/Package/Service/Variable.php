@@ -258,7 +258,6 @@ class Variable
                     $set_depth_modifier === false
                 )
             ){
-                d($is_argument);
                 if($is_argument !== false){
                     //add set_depth
                     foreach($argument_array as $argument_nr => $array){
@@ -326,8 +325,6 @@ class Variable
                     $is_argument = true;
                 }
                 $argument_nr++;
-                d('yes1');
-                d($is_modifier);
             }
             elseif(
                 $current === ',' &&
@@ -388,11 +385,9 @@ class Variable
                 $is_variable === false
             ){
                 $is_variable = $nr;
-                d($is_variable);
             }
             if($is_modifier === true){
                 $modifier_string .= $current;
-                d($modifier_string);
             }
             if(
                 $is_modifier === true &&
@@ -413,7 +408,6 @@ class Variable
                     )
                 ){
                     $modifier_name .= $current;
-                    d($modifier_name);
                     if($set_depth_modifier === false){
                         $set_depth_modifier = $set_depth - 1;
                     }
@@ -441,13 +435,10 @@ class Variable
                 }
             }
         }
-        d($is_modifier);
         if(
             $is_variable !== false &&
             $is_modifier !== false
         ){
-            d($is_variable);
-            d($is_modifier);
             if($is_argument !== false){
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
@@ -487,7 +478,6 @@ class Variable
                 }
             }
         }
-        d($input['array']);
         return $input;
     }
 
