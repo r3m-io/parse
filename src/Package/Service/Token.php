@@ -160,6 +160,7 @@ class Token
                             $curly_depth_variable = false;
                             for($i=0; $i < $length; $i++){
                                 $char = $data[$i];
+                                d($char);
                                 if(array_key_exists($i - 1, $data)){
                                     $previous = $data[$i - 1];
                                     if(
