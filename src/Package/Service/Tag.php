@@ -120,6 +120,7 @@ class Tag
                     $is_double_quoted === true &&
                     $curly_count === 0
                 ){
+                    d('yes');
                     $is_tag_in_double_quoted = true;
                     $curly_count++;
                 }
