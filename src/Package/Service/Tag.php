@@ -101,7 +101,7 @@ class Tag
                 elseif(
                     $char === '"' &&
                     $is_single_quoted === false &&
-                    $is_double_quoted_backslash === false &&
+                    $is_double_quoted_backslash === true &&
                     $previous === '\\'
                 ){
                     $is_double_quoted_backslash = false;
