@@ -156,7 +156,9 @@ class Variable
                         $set_depth_modifier === false
                     )
                 ){
-                    $argument[$argument_nr] .= $current;
+                    if($argument_nr >= 0){
+                        $argument[$argument_nr] .= $current;
+                    }
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
