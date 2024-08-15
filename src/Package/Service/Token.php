@@ -516,7 +516,7 @@ class Token
                                 $modifier_name = false;
                                 $argument_list = [];
                             }
-                            if(!$after){
+                            if($after === ''){
                                 if(array_key_exists(0, $modifier_list)){
                                     $variable = [
                                         'is_define' => true,
