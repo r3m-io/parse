@@ -431,6 +431,7 @@ class Variable
                 }
             }
         }
+        d($is_modifier);
         if(
             $is_variable !== false &&
             $is_modifier !== false
