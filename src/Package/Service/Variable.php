@@ -314,7 +314,11 @@ class Variable
                 $next !== ':' &&
                 $is_single_quote === false &&
                 $is_double_quote === false &&
-                $is_double_quote_backslash === false
+                $is_double_quote_backslash === false &&
+                (
+                    $set_depth === $set_depth_modifier |
+                    $set_depth_modifier === false
+                )
             ){
                 if($is_modifier !== false){
                     $is_argument = true;
@@ -325,7 +329,11 @@ class Variable
                 $current === ',' &&
                 $is_single_quote === false &&
                 $is_double_quote === false &&
-                $is_double_quote_backslash === false
+                $is_double_quote_backslash === false &&
+                (
+                    $set_depth === $set_depth_modifier |
+                    $set_depth_modifier === false
+                )
             ){
                 if(
                     $is_variable !== false &&
