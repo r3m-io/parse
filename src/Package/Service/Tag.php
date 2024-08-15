@@ -138,6 +138,7 @@ class Tag
                     $curly_count === 0
                 ){
                     $is_tag_in_double_quoted = true;
+                    d($line);
                     $curly_count++;
                 }
                 elseif(
