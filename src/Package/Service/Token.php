@@ -483,6 +483,7 @@ class Token
                                         ]
                                     );
                                     if(str_contains($argument, '$test3')){
+                                        d($is_after);
                                         ddd($argument);
                                     }
                                     $cache->set($argument_hash, $argument_value);
