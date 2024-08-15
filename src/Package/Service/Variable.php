@@ -175,7 +175,9 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
+                    $modifier_string .= $current;
                     if(str_contains($modifier_string, '$test8')){
+                        d($argument_value);
                         d($set_depth);
                         d($set_depth_modifier);
                         ddd($modifier_string);
