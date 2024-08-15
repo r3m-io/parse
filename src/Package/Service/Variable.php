@@ -318,6 +318,7 @@ class Variable
                 }
                 $argument_nr++;
                 d('yes1');
+                d($is_modifier);
             }
             elseif(
                 $current === ',' &&
