@@ -114,6 +114,7 @@ class Tag
                 ){
                     $is_curly_open = true;
                     $is_tag_in_double_quoted = true;
+                    d('yes');
                 }
                 elseif(
                     $char === '}' &&
