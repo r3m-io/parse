@@ -468,9 +468,6 @@ class Variable
                     $is_double_quote === false &&
                     $is_double_quote_backslash === false
                 ){
-                    if($is_modifier !== false){
-                        $is_argument = true;
-                    }
                     $argument_nr++;
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
