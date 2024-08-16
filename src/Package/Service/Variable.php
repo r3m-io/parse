@@ -174,6 +174,7 @@ class Variable
                         d($current);
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
+                        d($argument);
                         d($argument_array);
                     }
                     $modifier_string .= $current;
@@ -523,6 +524,7 @@ class Variable
                     d($set_depth_modifier);
                     d($current);
                     d($char);
+                    d($argument);
                     d($argument_array);
                 }
             }
