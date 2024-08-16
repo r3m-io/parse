@@ -522,6 +522,7 @@ class Variable
                     d($set_depth);
                     d($set_depth_modifier);
                     d($current);
+                    d($char);
                     d($argument_array);
                 }
             }
