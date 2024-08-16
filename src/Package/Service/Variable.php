@@ -459,6 +459,9 @@ class Variable
 
                     }
                 }
+                elseif(in_array($current ,[':', '|'], true)){
+                    $is_argument = true;
+                }
             }
             elseif(
                 $is_argument
