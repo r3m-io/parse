@@ -513,19 +513,16 @@ class Variable
                         $argument_array[$argument_nr] = [];
                         $argument[$argument_nr] = '';
                     }
-                    if(
-                        $set_depth >= 0 &&
-                        $set_depth === $set_depth_modifier
-                    ){
-                        $argument[$argument_nr] .= $current;
-                        $argument_array[$argument_nr][] = $char;
-                        d($set_depth);
-                        d($set_depth_modifier);
-                        d($current);
-                        d($char);
-                        d($argument);
-                        d($argument_array);
-                    }
+
+                    $argument[$argument_nr] .= $current;
+                    $argument_array[$argument_nr][] = $char;
+                    d($set_depth);
+                    d($set_depth_modifier);
+                    d($current);
+                    d($char);
+                    d($argument);
+                    d($argument_array);
+
                 }
             }
         }
