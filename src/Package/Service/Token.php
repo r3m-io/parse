@@ -925,7 +925,7 @@ class Token
 //            d($input['array']);
             $input = Variable::modifier($object, $flags, $options, $input);
             $input = Value::define($object, $flags, $options, $input);
-//            d($input['array']);
+            d($input['array']);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
 //            d($input['array']);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
