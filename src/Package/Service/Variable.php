@@ -357,6 +357,7 @@ class Variable
                 }
                 d($is_variable);
                 d($is_modifier);
+                d($is_argument);
                 $argument_nr++;
             }
             elseif(
