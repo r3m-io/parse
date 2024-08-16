@@ -468,14 +468,10 @@ class Variable
                     $is_double_quote === false &&
                     $is_double_quote_backslash === false
                 ){
-                    $argument_nr++;
-                    if(!array_key_exists($argument_nr, $argument_array)){
-                        $argument_array[$argument_nr] = [];
-                        $argument[$argument_nr] = '';
+                    if($is_modifier !== false){
+                        $is_argument = true;
                     }
-//                    $argument[$argument_nr] .= $current;
-//                    $argument_array[$argument_nr][] = $char;
-//                    d('found here');
+                    $argument_nr++;
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
