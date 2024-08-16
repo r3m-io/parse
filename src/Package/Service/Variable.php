@@ -175,6 +175,7 @@ class Variable
                                 'array' => $array
                             ]
                         );
+                        trace();
                         d($argument_value);
                         $argument_value = Token::value(
                             $object,
