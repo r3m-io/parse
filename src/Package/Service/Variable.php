@@ -126,6 +126,7 @@ class Variable
         $set_depth = 0;
         $set_depth_modifier = false;
         $outer_curly_depth = 0;
+        $outer_set_depth = 0;
         $modifier_string = '';
         $modifier_name = '';
         $is_variable = false;
@@ -144,11 +145,19 @@ class Variable
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
             if($current === '('){
-                $set_depth++;
+                if($is_variable === false){
+                    $outer_set_depth++;
+                } else {
+                    $set_depth++;
+                }
                 d($set_depth);
             }
             elseif($current === ')'){
-                $set_depth--;
+                if($is_variable === false){
+                    $outer_set_depth--;
+                } else {
+                    $set_depth--;
+                }
                 d($set_depth);
                 if(
                     $is_modifier &&
