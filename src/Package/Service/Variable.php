@@ -476,6 +476,7 @@ class Variable
                     )
                 ){
                     $argument_nr++;
+                    d($argument_nr);
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
