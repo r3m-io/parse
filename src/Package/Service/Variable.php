@@ -355,6 +355,9 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = true;
                 }
+                elseif($is_variable !== false){
+                    $is_modifier = true;
+                }
                 $argument_nr++;
             }
             elseif(
@@ -471,7 +474,6 @@ class Variable
                         $set_depth === $set_depth_modifier    ||
                         $set_depth_modifier === false
                     )
-
                 ){
                     $argument_nr++;
                 } else {
