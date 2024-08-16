@@ -165,6 +165,8 @@ class Variable
                             $argument_array[$argument_nr] = [];
                             $argument[$argument_nr] = '';
                         }
+                        d($set_depth);
+                        d($current);
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
                     }
@@ -504,6 +506,7 @@ class Variable
                         $argument_array[$argument_nr] = [];
                         $argument[$argument_nr] = '';
                     }
+                    d($current);
                     $argument[$argument_nr] .= $current;
                     $argument_array[$argument_nr][] = $char;
                 }
