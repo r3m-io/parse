@@ -27,6 +27,10 @@ class Method
         $argument_array = [];
         $argument_list = [];
         foreach($input['array'] as $nr => $char){
+            if(is_string($nr)){
+                trace();
+                ddd($nr);
+            }
             $previous_nr = $nr - 1;
             if($previous_nr < 0){
                 $previous = null;
