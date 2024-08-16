@@ -157,7 +157,10 @@ class Variable
                         $set_depth_modifier === false
                     )
                 ){
-                    if($argument_nr >= 0){
+                    if(
+                        $argument_nr >= 0 &&
+                        $set_depth >= 0
+                    ){
                         if(!array_key_exists($argument_nr, $argument)){
                             $argument_array[$argument_nr] = [];
                             $argument[$argument_nr] = '';
