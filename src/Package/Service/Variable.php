@@ -158,6 +158,7 @@ class Variable
                 ){
                     if($argument_nr >= 0){
                         $argument[$argument_nr] .= $current;
+                        $array[] = $char;
                     }
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
