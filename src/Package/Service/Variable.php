@@ -515,6 +515,7 @@ class Variable
                     d($current);
                     $argument[$argument_nr] .= $current;
                     $argument_array[$argument_nr][] = $char;
+                    d($argument_array);
                 }
             }
         }
