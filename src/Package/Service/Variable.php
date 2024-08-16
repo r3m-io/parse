@@ -353,7 +353,7 @@ class Variable
                 )
             ){
                 if($is_modifier !== false){
-                    $is_argument = true;
+                    $is_argument = false; //route
                 }
                 d($is_variable);
                 d($is_modifier);
