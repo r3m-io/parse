@@ -150,7 +150,6 @@ class Variable
             }
             elseif($current === ')'){
                 $set_depth--;
-                trace();
                 d($set_depth);
                 if(
                     $is_modifier &&
@@ -170,9 +169,9 @@ class Variable
                         d($set_depth_modifier);
                         d($set_depth);
                         d($current);
-                        ddd('shit');
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
+                        d($argument_array);
                     }
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
