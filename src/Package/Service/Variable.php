@@ -514,6 +514,10 @@ class Variable
                 }
             }
             elseif($is_modifier !== false){
+                if($modifier_name === 'defaulttrue'){
+                    trace();
+                    die('kut');
+                }
                 $input['array'][$is_variable]['modifier'][] = [
                     'string' => $modifier_string,
                     'name' => $modifier_name,
