@@ -150,6 +150,9 @@ class Variable
             }
             elseif($current === ')'){
                 $set_depth--;
+                if($set_depth < 0){
+                    $input['array'][$nr] = null;
+                }
                 d($set_depth);
                 if(
                     $is_modifier &&
