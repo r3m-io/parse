@@ -339,6 +339,10 @@ class Token
                                             $argument = '';
                                             $argument_array = [];
 
+                                            if(str_contains($modifier_name, 'defaulttrue')){
+                                                ddd($modifier_name);
+                                            }
+
                                             $modifier_list[] = [
                                                 'name' => $modifier_name,
                                                 'argument' => $argument_list
@@ -503,6 +507,9 @@ class Token
                                 $argument_list[] = $argument_value;
                                 $argument = '';
                                 $argument_array = [];
+                            }
+                            if(str_contains($modifier_name, 'defaulttrue')){
+                                ddd($modifier_name);
                             }
                             if($modifier_name){
                                 $modifier_list[] = [
