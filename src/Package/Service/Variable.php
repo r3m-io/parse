@@ -309,6 +309,10 @@ class Variable
                     $argument_nr = -1;
                 }
                 elseif($is_modifier !== false){
+                    if($modifier_name === 'defaulttrue'){
+                        trace();
+                        die('kut');
+                    }
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -378,8 +382,9 @@ class Variable
                             );
                             $argument_array[$argument_nr] = $argument_value;
                         }
-                        if(str_contains($modifier_string, '$test8')){
-                            ddd($modifier_string);
+                        if($modifier_name === 'defaulttrue'){
+                            trace();
+                            die('kut');
                         }
                         $input['array'][$is_variable]['modifier'][] = [
                             'string' => $modifier_string,
@@ -494,6 +499,10 @@ class Variable
                         $argument_value,
                     );
                     $argument_array[$argument_nr] = $argument_value;
+                }
+                if($modifier_name === 'defaulttrue'){
+                    trace();
+                    die('kut');
                 }
                 $input['array'][$is_variable]['modifier'][] = [
                     'string' => $modifier_string,
