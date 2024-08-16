@@ -459,7 +459,15 @@ class Variable
 
                     }
                 }
-                elseif(in_array($current ,[':', '|'], true)){
+                elseif(
+                    in_array(
+                        $current ,
+                        [
+                            ':'
+                        ],
+                        true
+                    )
+                ){
                     $is_argument = true;
                     if($set_depth_modifier === false){
                         if($set_depth === 0){
@@ -467,8 +475,8 @@ class Variable
                         } else {
                             $set_depth_modifier = $set_depth - 1;
                         }
-
                     }
+                    $argument_nr++;
                 }
             }
             elseif(
