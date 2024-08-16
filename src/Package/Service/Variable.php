@@ -519,13 +519,13 @@ class Variable
                     ){
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
+                        d($set_depth);
+                        d($set_depth_modifier);
+                        d($current);
+                        d($char);
+                        d($argument);
+                        d($argument_array);
                     }
-                    d($set_depth);
-                    d($set_depth_modifier);
-                    d($current);
-                    d($char);
-                    d($argument);
-                    d($argument_array);
                 }
             }
         }
