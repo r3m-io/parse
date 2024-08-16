@@ -145,19 +145,11 @@ class Variable
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
             if($current === '('){
-                if($is_variable === false){
-                    $outer_set_depth++;
-                } else {
-                    $set_depth++;
-                }
+                $set_depth++;
                 d($set_depth);
             }
             elseif($current === ')'){
-                if($is_variable === false){
-                    $outer_set_depth--;
-                } else {
-                    $set_depth--;
-                }
+                $set_depth--;
                 d($set_depth);
                 if(
                     $is_modifier &&
