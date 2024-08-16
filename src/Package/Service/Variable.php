@@ -169,6 +169,7 @@ class Variable
                         d($set_depth_modifier);
                         d($set_depth);
                         d($current);
+                        ddd('shit');
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
                     }
