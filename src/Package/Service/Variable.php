@@ -150,6 +150,7 @@ class Variable
             }
             elseif($current === ')'){
                 $set_depth--;
+                trace();
                 d($set_depth);
                 if(
                     $is_modifier &&
