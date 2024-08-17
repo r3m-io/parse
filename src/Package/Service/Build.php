@@ -39,7 +39,7 @@ class Build
             return false;
         }
         $variable_name = str_replace('.', '_', $record['variable']['name']);
-        $operator = $record['operator'];
+        $operator = $record['variable']['operator'];
         $value = Build::variable_value($object, $flags, $options, $record['variable']['value']);
         d($variable_name);
         d($operator);
