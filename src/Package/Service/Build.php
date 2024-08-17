@@ -22,12 +22,24 @@ class Build
                 if($variable_assign){
                     $data[] = $variable_assign . ';';
                     $next = $list[$nr + 1] ?? false;
-                    ddd($next);
-                    //remove return from next whitespace
+                    if($next !== false){
+                        $list[$nr + 1] = Build::variable_assign_next($next);
+                    }
                 }
             }
         }
         ddd($data);
+    }
+
+    public static function variable_assign_next($record){
+        if(array_key_exists('text', $record)){
+            $text = explode("\n", $record['text'], 2);
+            $test = trim($text[0]);
+            if($test === ''){
+                $record['text'] = $text[1];
+            }
+        }
+        return $record;
     }
 
 
