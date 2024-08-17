@@ -48,15 +48,18 @@ class Build
         $document[] = '';
         $document[] = 'use R3m\Io\Module\Data;';
         $document[] = '';
+        $document[] = 'use \Package\R3m\Io\Parse\Service\Parse;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Template;';
+        $document[] = '';
         $document[] = 'use Exception;';
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
         $document[] = '    use Template;';
         $document[] = '';
-        $document[] = '    public function __construct(App $object, Data $data, $flags, $options){';
+        $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
+        $document[] = '        $this->parse($parse);';
         $document[] = '        $this->data($data);';
         $document[] = '        $this->flags($flags);';
         $document[] = '        $this->options($options);';
@@ -71,6 +74,10 @@ class Build
         $document[] = '        $data = $this->data();';
         $document[] = '        $flags = $this->flags();';
         $document[] = '        $options = $this->options();';
+        $document[] = '        d(get_class($object));';
+        $document[] = '        d($data);';
+        $document[] = '        d($flags);';
+        $document[] = '        d($options);';
         foreach($data as $nr => $line){
             $document[] = '        ' . $line;
         }
