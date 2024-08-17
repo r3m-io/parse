@@ -15,6 +15,14 @@ use R3m\Io\Module\File;
 class Parse
 {
     use Basic;
+
+    public function __construct(App $object, Data $data, $flags, $options){
+        $this->object($object);
+        $this->data($data);
+        $this->flags($flags);
+        $this->options($options);
+    }
+
     /**
      * @throws Exception
      */
