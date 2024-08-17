@@ -255,9 +255,9 @@ class Build
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
-        if(array_key_exists('modifier', $record)){
+        if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$variable';
-            foreach($record['modifier'] as $nr => $modifier){
+            foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
                 $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
