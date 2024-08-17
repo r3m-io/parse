@@ -23,7 +23,7 @@ class Build
                     $data[] = $variable_assign . ';';
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
-                        $list[$nr + 1] = Build::variable_assign_next($next);
+                        $list[$nr + 1] = Build::variable_assign_next($object, $flags, $options, $next);
                     }
                 }
                 d($record);
@@ -32,10 +32,11 @@ class Build
         ddd($data);
     }
 
-    public static function variable_assign_next($record){
+    public static function variable_assign_next(App $object, $flags, $options,$record = []){
+        d($record);
         if(
             array_key_exists('text', $record) &&
-            array_key_exists('is_multi_line', $record) &&
+            array_key_exists('is_multiline', $record) &&
             $record['is_multi_line'] === true
         ){
             $text = explode("\n", $record['text'], 2);
@@ -49,7 +50,7 @@ class Build
     }
 
 
-    public static function variable_assign(App $object, $flags, $options, $record): bool | string
+    public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
         if(!array_key_exists('variable', $record)){
             return false;
