@@ -77,7 +77,6 @@ class Tag
                     $previous !== '\\'
                 ){
                     $is_double_quoted = true;
-                    d($line);
                 }
                 elseif(
                     $char === '"' &&
@@ -87,7 +86,6 @@ class Tag
                     $previous !== '\\'
                 ){
                     $is_double_quoted = false;
-                    d($line);
                 }
                 elseif(
                     $char === '"' &&
@@ -96,7 +94,6 @@ class Tag
                     $previous === '\\'
                 ){
                     $is_double_quoted_backslash = true;
-                    d($line);
                 }
                 elseif(
                     $char === '"' &&
@@ -126,7 +123,6 @@ class Tag
                 ){
                     $is_curly_open = true;
                     $is_tag_in_double_quoted = true;
-                    d('yes');
                 }
                 elseif(
                     $char === '}' &&
@@ -137,7 +133,6 @@ class Tag
                     $is_tag_in_double_quoted === false
                 ){
                     $is_curly_close = true;
-                    d($curly_count);
                 }
                 elseif(
                     $char === '}' &&
@@ -148,7 +143,6 @@ class Tag
                     $is_tag_in_double_quoted === true
                 ){
                     $is_curly_close = true;
-                    d($curly_count);
                 }
                 elseif(
                     $char === '{' &&
@@ -158,7 +152,6 @@ class Tag
                     $is_double_quoted_backslash === false
                 ){
                     $curly_count++;
-                    d($curly_count);
                 }
                 elseif(
                     $char === '}' &&
@@ -172,7 +165,6 @@ class Tag
                         $is_curly_open = false;
                         $is_curly_close = false;
                     }
-                    d($curly_count);
                 }
                 elseif(
                     $char === '{' &&
@@ -184,7 +176,6 @@ class Tag
                 ){
                     $is_tag_in_double_quoted = true;
                     $curly_count++;
-                    d($curly_count);
                 }
                 elseif(
                     $char === '}' &&
@@ -200,8 +191,6 @@ class Tag
                         $is_curly_open = false;
                         $is_curly_close = false;
                     }
-                    d($previous);
-                    d($curly_count);
                 }
                 if(
                     $curly_count === 1 &&
@@ -215,8 +204,6 @@ class Tag
                             $text = substr($text, 0, -1);
                         }
                         $tag .= $char;
-                        d($tag);
-                        d($char_list[$nr+1]);
                         $column[$line]++;
                         if($text !== ''){
                             $explode = explode("\n", $text);
