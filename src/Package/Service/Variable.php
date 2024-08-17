@@ -522,7 +522,7 @@ class Variable
                         property_exists($options, 'debug') &&
                         $options->debug === true
                     ){
-                        ddd($argument_value);
+                        d($argument_value);
                     }
                     $argument_array[$argument_nr] = $argument_value;
                 }
@@ -533,6 +533,12 @@ class Variable
                 ];
                 for($index = $is_variable + 1; $index < $nr; $index++){
                     $input['array'][$index] = null;
+                }
+                if(
+                    property_exists($options, 'debug') &&
+                    $options->debug === true
+                ){
+                    d($input['array']);
                 }
             }
             elseif($is_modifier !== false){
