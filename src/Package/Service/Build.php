@@ -32,7 +32,11 @@ class Build
     }
 
     public static function variable_assign_next($record){
-        if(array_key_exists('text', $record)){
+        if(
+            array_key_exists('text', $record) &&
+            array_key_exists('is_multi_line', $record) &&
+            $record['is_multi_line'] === true
+        ){
             $text = explode("\n", $record['text'], 2);
             $test = trim($text[0]);
             if($test === ''){
