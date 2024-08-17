@@ -19,7 +19,9 @@ class Build
                 if($text){
                     $text = explode(PHP_EOL, $text);
                     foreach($text as $text_nr => $line) {
-                        $data[] = $line;
+                        if($line !== ''){
+                            $data[] = $line;
+                        }
                     }
                 }
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
