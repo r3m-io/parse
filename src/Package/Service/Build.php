@@ -15,7 +15,7 @@ class Build
 //        d($tags);
 
         $data = [];
-
+        /*
         $tags = [
             1 => [
                 0 => 'test1',
@@ -38,9 +38,9 @@ class Build
         die;
 
 
-        /*
+        */
         foreach($tags as $row_nr => $list){
-            foreach($list as $nr => $record){
+            foreach($list as $nr => &$record){
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
                     $data[] = $variable_assign . ';';
@@ -54,7 +54,6 @@ class Build
                 d($record);
             }
         }
-        */
         ddd($data);
     }
 
