@@ -112,7 +112,7 @@ class Build
             array_key_exists('is_multiline', $next) &&
             $next['is_multiline'] === true
         ){
-            $text = explode("\n", $record['text'], 2);
+            $text = explode("\n", $next['text'], 2);
             $test = trim($text[0]);
             if($test === ''){
                 $next['text'] = $text[1];
