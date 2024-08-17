@@ -23,7 +23,7 @@ class Build
             ]
         ];
         foreach($tags as $row_nr => $list){
-            foreach($list as $nr => $record){
+            foreach($list as $nr => &$record){
                 if($record === 'test1'){
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
