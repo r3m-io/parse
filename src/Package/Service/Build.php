@@ -61,7 +61,7 @@ class Build
         $document[] = '    use Basic;';
         $document[] = '    use Parser;';
         $document[] = '    use Value;';
-        $document[] = '    use Modifier\Default;';
+        $document[] = '    use Modifier\Modifier_default;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
