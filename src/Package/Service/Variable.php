@@ -538,6 +538,7 @@ class Variable
                     property_exists($options, 'debug') &&
                     $options->debug === true
                 ){
+                    d($nr);
                     ddd($input['array']);
                 }
             }
