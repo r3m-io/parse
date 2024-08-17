@@ -62,6 +62,9 @@ class Build
         $document[] = '        $this->options($options);';
         $document[] = '    }';
         $document[] = '';
+        $document[] = '    /**';
+        $document[] = '     * @throws Exception';
+        $document[] = '     */';
         $document[] = '    public static function run(): mixed';
         $document[] = '    {';
         $document[] = '        $object = $this->object();';
