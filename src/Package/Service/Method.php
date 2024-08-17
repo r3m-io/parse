@@ -81,8 +81,9 @@ class Method
                         }
                     }
                 }
-                d($is_method);
-                d($name);
+                if($is_method !== false){
+                    ddd($name);
+                }
                 if($name && $has_name === false){
                     if(substr($name, 0, 1) === ':'){
                         //modifier with argument set
