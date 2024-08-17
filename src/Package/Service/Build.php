@@ -191,7 +191,7 @@ class Build
         if(array_key_exists('modifier', $record['variable'])){
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
-                $modifier_value = '$variable = $this->function_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                $modifier_value = '$variable = $this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
                 $modifier_value .= '            $variable, ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
