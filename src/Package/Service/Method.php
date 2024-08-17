@@ -27,34 +27,8 @@ class Method
         $argument_array = [];
         $argument_list = [];
         foreach($input['array'] as $nr => $char){
-            $previous_nr = $nr - 1;
-            if($previous_nr < 0){
-                $previous = null;
-            } else {
-                $previous = $input['array'][$previous_nr];
-                if(is_array($previous)){
-                    if(array_key_exists('execute', $previous)){
-                        $previous = $previous['execute'];
-                    }
-                    elseif(array_key_exists('value', $previous)){
-                        $previous = $previous['value'];
-                    } else {
-                        $previous = null;
-                    }
-                }
-            }
-            $next_nr = $nr + 1;
-            $next = $input['array'][$next_nr] ?? null;
-            if(is_array($next)){
-                if(array_key_exists('execute', $next)){
-                    $next = $next['execute'];
-                }
-                elseif(array_key_exists('value', $next)){
-                    $next = $next['value'];
-                } else {
-                    $next = null;
-                }
-            }
+            $previous = Token::item($input, $nr - 1);
+            $next = Token::item($input, $nr + 1);
             if(
                 is_array($char) &&
                 array_key_exists('value', $char) &&
@@ -79,6 +53,8 @@ class Method
                             ){
                                 $name .= $input['array'][$i]['value'];
                             } else {
+                                d($is_method);
+                                d($name);
                                 break;
                             }
                         } else {
@@ -96,6 +72,8 @@ class Method
                                 $is_single_quote === false &&
                                 $is_double_quote === false
                             ){
+                                d($is_method);
+                                d($name);
                                 break;
                             } else {
                                 $name .= $input['array'][$i];
@@ -103,6 +81,8 @@ class Method
                         }
                     }
                 }
+                d($is_method);
+                d($name);
                 if($name && $has_name === false){
                     if(substr($name, 0, 1) === ':'){
                         //modifier with argument set
