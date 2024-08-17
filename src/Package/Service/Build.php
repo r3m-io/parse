@@ -52,6 +52,7 @@ class Build
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Basic;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Parser;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Value;';
+        $document[] = 'use \Package\R3m\Io\Parse\Modifier;';
         $document[] = '';
         $document[] = 'use Exception;';
         $document[] = '';
@@ -60,6 +61,7 @@ class Build
         $document[] = '    use Basic;';
         $document[] = '    use Parser;';
         $document[] = '    use Value;';
+        $document[] = '    use Modifier\Default;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
