@@ -73,6 +73,7 @@ class Build
             $text = explode("\n", $record['text']);
             $result = [];
             foreach($text as $nr => $line) {
+                d($line);
                 if(
                     !in_array(
                         $line,
@@ -89,6 +90,7 @@ class Build
                     $result[] = '';
                 }
             }
+            d($result);
             if(array_key_exists(1, $result)){
                 return implode('echo "\n";' . PHP_EOL, $result);
             }
