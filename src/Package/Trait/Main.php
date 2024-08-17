@@ -4,6 +4,7 @@ namespace Package\R3m\Io\Parse\Trait;
 use R3m\Io\App;
 use R3m\Io\Config;
 
+use R3m\Io\Module\Data;
 use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
 use R3m\Io\Module\Cli;
