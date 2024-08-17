@@ -237,6 +237,7 @@ class Build
     public static function variable_value(App $object, $flags, $options, $input): string
     {
         $value = '';
+        $count = count($input['array']);
         foreach($input['array'] as $nr => $record){
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
@@ -266,7 +267,37 @@ class Build
                 $value .=  $record['execute'];
             }
             else {
-                d($record);
+                switch($current){
+                    case '+':
+                        $right = '';
+                        switch($next){
+                            case '\'':
+                                for($i=$nr; $i < $count; $i++){
+                                    $previous = Token::item($input, $i - 1);
+                                    $item = Token::item($input, $i);
+                                    if($item === '\'' && $previous !== '\\'){
+                                        break;
+                                    }
+                                    $right .= $item;
+                                }
+                                break;
+                            case '"':
+                                for($i=$nr; $i < $count; $i++){
+                                    $previous = Token::item($input, $i - 1);
+                                    $item = Token::item($input, $i);
+                                    if($item === '"' && $previous !== '\\'){
+                                        break;
+                                    }
+                                    $right .= $item;
+                                }
+                                break;
+                            default:
+                                d($current);
+                                ddd($next);
+                        }
+                        $value = 'value_plus(' . $value . ',' . $right . ')';
+                        $right = '';
+                }
                 d($next);
                 ddd($value);
             }
