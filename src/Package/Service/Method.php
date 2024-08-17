@@ -73,7 +73,22 @@ class Method
                                 $name !== ''
                             ){
                                 break;
-                            } else {
+                            }
+                            elseif(
+                                in_array(
+                                    $input['array'][$i],
+                                    [
+                                        null,
+                                        ' ',
+                                        "\n",
+                                        "\r",
+                                        "\t"
+                                    ]
+                                )
+                            ){
+                                continue;
+                            }
+                            else {
                                 $name .= $input['array'][$i];
                             }
                         }
