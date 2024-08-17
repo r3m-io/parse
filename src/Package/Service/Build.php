@@ -9,7 +9,7 @@ use R3m\Io\Module\File;
 use Exception;
 class Build
 {
-    public static function create(App $object, $flags, $options, $tags=[]): string
+    public static function create(App $object, $flags, $options, $tags=[]): array
     {
         d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
         $data = [];
