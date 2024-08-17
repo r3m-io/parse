@@ -48,12 +48,26 @@ class Build
         $document[] = '';
         $document[] = 'use R3m\Io\Module\Data;';
         $document[] = '';
+        $document[] = 'use \Package\R3m\Io\Parse\Trait\Template;';
         $document[] = 'use Exception;';
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
-        $document[] = '    ';
-        $document[] = '    public static function run(App $object, Data $data, $flags, $options): mixed';
+        $document[] = '';
+        $document[] = '    use Template;';
+        $document[] = '';
+        $document[] = '    public function __construct(App $object, Data $data, $flags, $options){';
+        $document[] = '        $this->object($object);';
+        $document[] = '        $this->data($data);';
+        $document[] = '        $this->flags($flags);';
+        $document[] = '        $this->options($options);';
+        $document[] = '    }';
+        $document[] = '';
+        $document[] = '    public static function run(): mixed';
         $document[] = '    {';
+        $document[] = '        $object = $this->object();';
+        $document[] = '        $data = $this->data();';
+        $document[] = '        $flags = $this->flags();';
+        $document[] = '        $options = $this->options();';
         foreach($data as $nr => $line){
             $document[] = '        ' . $line;
         }
