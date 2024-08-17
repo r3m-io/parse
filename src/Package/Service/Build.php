@@ -12,51 +12,44 @@ class Build
     public static function create(App $object, $flags, $options, $tags=[]): string
     {
         d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
-//        d($tags);
-
         $data = [];
-        /*
-        $tags = [
-            1 => [
-                0 => 'test1',
-                1 => "\n test2"
-            ]
-        ];
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
-                if($record === 'test1'){
-                    $next = $list[$nr + 1] ?? false;
-                    if($next !== false){
-                        $tags[$row_nr][$nr + 1] = 'test2';
-                        $list[$nr + 1] = $tags[$row_nr][$nr + 1];
-                        var_dump($list);
+                $text = Build::text($object, $flags, $options, $record);
+                if($text){
+                    $text = explode(PHP_EOL, $text);
+                    foreach($text as $text_nr => $line) {
+                        $data[] = $line;
                     }
                 }
-                var_dump($record);
-            }
-        }
-        die;
-
-
-        */
-        foreach($tags as $row_nr => $list){
-            foreach($list as $nr => &$record){
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
-                    $data[] = $variable_assign . ';';
+                    $data[] = $variable_assign;
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
-                        d($list);
                     }
                 }
-                d($record);
             }
         }
         ddd($data);
     }
 
+    public static function text(App $object, $flags, $options,$record = []){
+        if(
+            array_key_exists('text', $record) &&
+            $record['text'] !== ''
+        ){
+            $text = explode("\n", $record['text']);
+            foreach($text as $nr => $line) {
+                $text[$nr] = 'echo \'' . $line . '\';' . PHP_EOL;
+            }
+            return implode('echo "\n";' . PHP_EOL, $text);
+        }
+        return false;
+    }
+    
     public static function variable_assign_next(App $object, $flags, $options,$record = []){
         d($record);
         if(
@@ -94,7 +87,7 @@ class Build
             $operator !== '' &&
             $value !== ''
         ){
-            return '$' . $variable_name . ' ' . $operator . ' ' . $value;
+            return '$' . $variable_name . ' ' . $operator . ' ' . $value . ';';
         }
         return false;
     }
