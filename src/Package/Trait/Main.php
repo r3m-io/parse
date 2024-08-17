@@ -48,9 +48,6 @@ trait Main {
         d($url);
         echo str_repeat('-', Cli::tput('columns')) . PHP_EOL;
         $main = new \Package\R3m\Io\Parse\Main($object, new Parse(), new Data(), $flags, $options);
-        echo $main->run();
-
-        d($options);
-
+        return $main->run();
     }
 }
