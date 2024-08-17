@@ -283,6 +283,12 @@ class Build
             ){
                 $value .=  $record['execute'];
             }
+            elseif(
+                array_key_exists('type', $record) &&
+                $record['type'] === 'integer'
+            ){
+                $value .=  $record['execute'];
+            }
             else {
                 $right = Build::value_right(
                     $object,
