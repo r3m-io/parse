@@ -68,7 +68,7 @@ class Build
         $document[] = '    /**';
         $document[] = '     * @throws Exception';
         $document[] = '     */';
-        $document[] = '    public static function run(): mixed';
+        $document[] = '    public function run(): mixed';
         $document[] = '    {';
         $document[] = '        $object = $this->object();';
         $document[] = '        $parse = $this->parse();';
