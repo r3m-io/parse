@@ -35,7 +35,7 @@ class Build
             return false;
         }
         elseif(
-            array_key_exists('is_assign', $record['variable']) &&
+            !array_key_exists('is_assign', $record['variable']) ||
             $record['variable']['is_assign'] !== true
         ) {
             return false;
