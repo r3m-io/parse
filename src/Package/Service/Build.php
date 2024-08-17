@@ -280,6 +280,7 @@ class Build
                                         $previous !== '\\' &&
                                         $i > ($nr + 1)
                                     ){
+                                        $right .= $item;
                                         break;
                                     }
                                     $right .= $item;
@@ -294,6 +295,7 @@ class Build
                                         $previous !== '\\' &&
                                         $i > ($nr + 1)
                                     ){
+                                        $right .= $item;
                                         break;
                                     }
                                     $right .= $item;
