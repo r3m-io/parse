@@ -213,8 +213,9 @@ class Method
                             $input['array'][$i] = null;
                         }
                         // add modifier for methods
+                        trace();
                         d($input['array']);
-                        d($nr);
+                        ddd($nr);
                         $is_method = false;
                         $has_name = false;
                     }
