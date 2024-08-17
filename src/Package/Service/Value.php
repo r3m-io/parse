@@ -328,6 +328,7 @@ class Value
                         return [
                             'type' => 'integer',
                             'value' => $input,
+                            'is_hex' => true,
                             'execute' => hexdec($collect),
                         ];
                     }

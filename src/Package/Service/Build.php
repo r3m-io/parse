@@ -284,6 +284,16 @@ class Build
                 $value .=  $record['execute'];
             }
             elseif(
+                array_key_exists('is_hex', $record) &&
+                $record['is_hex'] === true
+            ) {
+                if($value === ''){
+                    $value .= $record['execute'];
+                } else {
+                    $value .= $record['value'];
+                }
+            }
+            elseif(
                 array_key_exists('type', $record) &&
                 $record['type'] === 'integer'
             ){
