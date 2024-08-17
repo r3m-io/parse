@@ -16,6 +16,7 @@ class Build
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record);
+                d($text);
                 if($text){
                     $text = explode(PHP_EOL, $text);
                     foreach($text as $text_nr => $line) {
