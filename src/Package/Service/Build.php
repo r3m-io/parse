@@ -221,7 +221,7 @@ class Build
         ){
             switch($operator){
                 case '=' :
-                    return '$data->set(\'' . $variable_name . '\',' . $value . ');';
+                    return '$data->set(\'' . $variable_name . '\', ' . $value . ');';
                 case '.=' :
                     return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'),' . $value . '));';
                 case '+=' :
