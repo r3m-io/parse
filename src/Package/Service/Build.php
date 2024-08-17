@@ -11,12 +11,11 @@ class Build
 {
     public static function create(App $object, $flags, $options, $tags=[]): array
     {
-        d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
+        $options->class = 'Main';
         $data = [];
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record);
-                d($text);
                 if($text){
                     $text = explode(PHP_EOL, $text);
                     foreach($text as $text_nr => $line) {
@@ -44,7 +43,7 @@ class Build
         $document[] = '';
         $document[] = 'use R3m\Io\Module\Data;';
         $document[] = '';
-        $document[] = 'class Main {';
+        $document[] = 'class '. $options->class .' {';
         $document[] = '    ';
         $document[] = '    public static function run(App $object, Data $data, $flags, $options): void';
         $document[] = '    {';
@@ -53,7 +52,7 @@ class Build
         }
         $document[] = '    }';
         $document[] = '}';
-
+        d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
         return $document;
     }
 
@@ -122,7 +121,19 @@ class Build
             $operator !== '' &&
             $value !== ''
         ){
-            return '$' . $variable_name . ' ' . $operator . ' ' . $value . ';';
+            switch($operator){
+                case '=' :
+                    return '$data->set(\'' . $variable_name . '\',' . $value . ');';
+                case '.=' :
+                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_concat($data->get(\'' . $variable_name . '\'),' . $value . '));';
+                case '+=' :
+                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_plus($data->get(\'' . $variable_name . '\'),' . $value . '));';
+                case '-=' :
+                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_min($data->get(\'' . $variable_name . '\'),' . $value . '));';
+                case '*=' :
+                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_multiply($data->get(\'' . $variable_name . '\'),' . $value . '));';
+            }
+
         }
         return false;
     }
