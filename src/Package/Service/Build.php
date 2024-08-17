@@ -49,13 +49,13 @@ class Build
         $document[] = 'use R3m\Io\Module\Data;';
         $document[] = '';
         $document[] = 'use \Package\R3m\Io\Parse\Service\Parse;';
-        $document[] = 'use \Package\R3m\Io\Parse\Trait\Template;';
+        $document[] = 'use \Package\R3m\Io\Parse\Trait\Basic;';
         $document[] = '';
         $document[] = 'use Exception;';
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
-        $document[] = '    use Template;';
+        $document[] = '    use Basic;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
@@ -71,6 +71,7 @@ class Build
         $document[] = '    public static function run(): mixed';
         $document[] = '    {';
         $document[] = '        $object = $this->object();';
+        $document[] = '        $parse = $this->parse();';
         $document[] = '        $data = $this->data();';
         $document[] = '        $flags = $this->flags();';
         $document[] = '        $options = $this->options();';

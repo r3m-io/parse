@@ -7,7 +7,7 @@ use R3m\Io\Module\Data;
 
 use Package\R3m\Io\Parse\Service\Parse;
 
-trait Template {
+trait Basic {
 
     protected App $object;
     protected Parse $parse;
