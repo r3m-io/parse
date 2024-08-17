@@ -42,7 +42,7 @@ class Build
             $text = explode("\n", $record['text'], 2);
             $test = trim($text[0]);
             if($test === ''){
-                d('byzo');
+                d($text[1]);
                 $record['text'] = $text[1];
             }
         }
