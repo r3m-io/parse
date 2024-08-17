@@ -13,6 +13,14 @@ class Build
     {
         d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
 //        d($tags);
+
+        foreach($tags as $row_nr => $list){
+            foreach($list as $nr => $record){
+                ddd($record);
+            }
+        }
+
+
         ddd($tags);
     }
 }
