@@ -237,8 +237,12 @@ class Build
     public static function variable_value(App $object, $flags, $options, $input): string
     {
         $value = '';
-        $count = count($input['array']);
+        $skip = 0;
         foreach($input['array'] as $nr => $record){
+            if($skip > 0){
+                $skip--;
+                continue;
+            }
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
             if(
@@ -267,52 +271,121 @@ class Build
                 $value .=  $record['execute'];
             }
             else {
+                $right = Build::value_right(
+                    $object,
+                    $flags,
+                    $options,
+                    $input,
+                    $nr,
+                    $next,
+                    $skip
+                );
                 switch($current){
                     case '+':
-                        $right = '';
-                        switch($next){
-                            case '\'':
-                                for($i = $nr + 1; $i < $count; $i++){
-                                    $previous = Token::item($input, $i - 1);
-                                    $item = Token::item($input, $i);
-                                    if(
-                                        $item === '\'' &&
-                                        $previous !== '\\' &&
-                                        $i > ($nr + 1)
-                                    ){
-                                        $right .= $item;
-                                        break;
-                                    }
-                                    $right .= $item;
-                                }
-                                break;
-                            case '"':
-                                for($i = $nr + 1; $i < $count; $i++){
-                                    $previous = Token::item($input, $i - 1);
-                                    $item = Token::item($input, $i);
-                                    if(
-                                        $item === '"' &&
-                                        $previous !== '\\' &&
-                                        $i > ($nr + 1)
-                                    ){
-                                        $right .= $item;
-                                        break;
-                                    }
-                                    $right .= $item;
-                                }
-                                break;
-                            default:
-                                d($current);
-                                ddd($next);
-                        }
                         $value = 'value_plus(' . $value . ',' . $right . ')';
-                        $right = '';
+                    break;
+                    case '-':
+                        $value = 'value_minus(' . $value . ',' . $right . ')';
+                    break;
+                    case '*':
+                        $value = 'value_multiply(' . $value . ',' . $right . ')';
+                    break;
+                    case '%':
+                        $value = 'value_modulo(' . $value . ',' . $right . ')';
+                    break;
+                    case '/':
+                        $value = 'value_divide(' . $value . ',' . $right . ')';
+                    break;
+                    case '<':
+                        $value = 'value_smaller(' . $value . ',' . $right . ')';
+                        break;
+                    case '>':
+                        $value = 'value_greater(' . $value . ',' . $right . ')';
+                        break;
+                    case '<=':
+                        $value = 'value_smaller_equal(' . $value . ',' . $right . ')';
+                        break;
+                    case '>=':
+                        $value = 'value_greater_equal(' . $value . ',' . $right . ')';
+                        break;
+                    case '<<':
+                        $value = 'value_smaller_smaller(' . $value . ',' . $right . ')';
+                        break;
+                    case '>>':
+                        $value = 'value_greater_greater(' . $value . ',' . $right . ')';
+                        break;
+                    case '==':
+                        $value = 'value_equal(' . $value . ',' . $right . ')';
+                        break;
+                    case '===':
+                        $value = 'value_identical(' . $value . ',' . $right . ')';
+                        break;
+                    case '!=':
+                        $value = 'value_not_equal(' . $value . ',' . $right . ')';
+                        break;
+                    case '!==':
+                        $value = 'value_not_identical(' . $value . ',' . $right . ')';
+                        break;
+                    case '??':
+                        $value = 'value_null coalescing(' . $value . ',' . $right . ')';
+                    break;
+                    case '&&':
+                        $value = $value . ' && ' . $right;
+                        break;
+                    case '||':
+                        $value = $value . ' || ' . $right;
+                        break;
                 }
                 d($next);
                 ddd($value);
             }
         }
         return $value;
+    }
+
+    public static function value_right(App $object, $flags, $options, $input, $nr, $next, &$skip=0): string
+    {
+        $count = count($input['array']);
+        $right = '';
+        switch($next){
+            case '\'':
+                for($i = $nr + 1; $i < $count; $i++){
+                    $previous = Token::item($input, $i - 1);
+                    $item = Token::item($input, $i);
+                    if(
+                        $item === '\'' &&
+                        $previous !== '\\' &&
+                        $i > ($nr + 1)
+                    ){
+                        $right .= $item;
+                        $skip++;
+                        break;
+                    }
+                    $right .= $item;
+                    $skip++;
+                }
+                break;
+            case '"':
+                for($i = $nr + 1; $i < $count; $i++){
+                    $previous = Token::item($input, $i - 1);
+                    $item = Token::item($input, $i);
+                    if(
+                        $item === '"' &&
+                        $previous !== '\\' &&
+                        $i > ($nr + 1)
+                    ){
+                        $right .= $item;
+                        $skip++;
+                        break;
+                    }
+                    $right .= $item;
+                    $skip++;
+                }
+                break;
+            default:
+                ddd($next);
+        }
+        return $right;
     }
 
 }
