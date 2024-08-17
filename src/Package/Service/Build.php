@@ -42,11 +42,14 @@ class Build
         $document[] = '';
         $document[] = 'use R3m\Io\App;';
         $document[] = '';
+        $document[] = 'use R3m\Io\Module\Data;';
+        $document[] = '';
         $document[] = 'class Main {';
-        $document[] = '    public static function run(App $object, $flags, $options): void';
+        $document[] = '    ';
+        $document[] = '    public static function run(App $object, Data $data, $flags, $options): void';
         $document[] = '    {';
         foreach($data as $nr => $line){
-            $document[] = '    ' . $line;
+            $document[] = '        ' . $line;
         }
         $document[] = '    }';
         $document[] = '}';
