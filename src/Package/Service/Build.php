@@ -76,10 +76,21 @@ class Build
         $document[] = '        $flags = $this->flags();';
         $document[] = '        $options = $this->options();';
         $document[] = '        $options->debug = true;';
-        $document[] = '        d(get_class($object));';
-        $document[] = '        d($data);';
-        $document[] = '        d($flags);';
-        $document[] = '        d($options);';
+        $document[] = '        if (!($object instanceof App)) {';
+        $document[] = '            throw new Exception(\'$object is not an instance of R3m\Io\App\');';
+        $document[] = '        }';
+        $document[] = '        if (!($object instanceof Parse)) {';
+        $document[] = '            throw new Exception(\'$object is not an instance of Package\R3m\Io\Parse\Service\Parse\');';
+        $document[] = '        }';
+        $document[] = '        if (!($data instanceof Data)) {';
+        $document[] = '            throw new Exception(\'$data is not an instance of R3m\Io\Module\Data\');';
+        $document[] = '        }';
+        $document[] = '        if (!is_object($flags)) {';
+        $document[] = '            throw new Exception(\'$flags is not an object\');';
+        $document[] = '        }';
+        $document[] = '        if (!is_object($options)) {';
+        $document[] = '            throw new Exception(\'$options is not an object\');';
+        $document[] = '        }';
         foreach($data as $nr => $line){
             $document[] = '        ' . $line;
         }
