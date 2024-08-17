@@ -107,10 +107,17 @@ class Build
 
     public static function variable_define(App $object, $flags, $options, $record = []): bool | string
     {
-        if(!array_key_exists('variable', $record)){
+        if (!array_key_exists('variable', $record)) {
+            return false;
+        }
+        elseif (
+            !array_key_exists('is_define', $record['variable']) ||
+            $record['variable']['is_define'] !== true
+        ) {
             return false;
         }
         ddd($record);
+    }
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
