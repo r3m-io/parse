@@ -186,6 +186,9 @@ class Build
         }
         $assign = '$variable = ';
         $variable_name = $record['variable']['name'];
+        if(array_key_exists('modifier', $record['variable'])){
+            ddd($record['variable']);
+        }
         return [
             '$variable = $data->get(\'' . $variable_name . '\');',
             'if($variable === null){',
