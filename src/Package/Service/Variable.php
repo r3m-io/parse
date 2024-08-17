@@ -538,7 +538,7 @@ class Variable
                     property_exists($options, 'debug') &&
                     $options->debug === true
                 ){
-                    d($input['array']);
+                    ddd($input['array']);
                 }
             }
             elseif($is_modifier !== false){
