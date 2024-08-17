@@ -51,6 +51,7 @@ class Build
         $document[] = 'use \Package\R3m\Io\Parse\Service\Parse;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Basic;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Parser;';
+        $document[] = 'use \Package\R3m\Io\Parse\Trait\Value;';
         $document[] = '';
         $document[] = 'use Exception;';
         $document[] = '';
@@ -58,6 +59,7 @@ class Build
         $document[] = '';
         $document[] = '    use Basic;';
         $document[] = '    use Parser;';
+        $document[] = '    use Value;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
@@ -221,15 +223,26 @@ class Build
                 case '=' :
                     return '$data->set(\'' . $variable_name . '\',' . $value . ');';
                 case '.=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_concat($data->get(\'' . $variable_name . '\'),' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'),' . $value . '));';
                 case '+=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_plus($data->get(\'' . $variable_name . '\'),' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus($data->get(\'' . $variable_name . '\'),' . $value . '));';
                 case '-=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_min($data->get(\'' . $variable_name . '\'),' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus($data->get(\'' . $variable_name . '\'),' . $value . '));';
                 case '*=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  $options->class . '::value_multiply($data->get(\'' . $variable_name . '\'),' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_multiply($data->get(\'' . $variable_name . '\'),' . $value . '));';
             }
-
+        }
+        elseif(
+            $variable_name !== '' &&
+            $operator !== '' &&
+            $value === ''
+        ){
+            switch($operator){
+                case '++' :
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_plus($data->get(\'' . $variable_name . '\')));';
+                case '--' :
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus_minus($data->get(\'' . $variable_name . '\')));';
+            }
         }
         return false;
     }
@@ -282,52 +295,52 @@ class Build
                 );
                 switch($current){
                     case '+':
-                        $value = 'value_plus(' . $value . ',' . $right . ')';
+                        $value = '$this->value_plus(' . $value . ',' . $right . ')';
                     break;
                     case '-':
-                        $value = 'value_minus(' . $value . ',' . $right . ')';
+                        $value = '$this->value_minus(' . $value . ',' . $right . ')';
                     break;
                     case '*':
-                        $value = 'value_multiply(' . $value . ',' . $right . ')';
+                        $value = '$this->value_multiply(' . $value . ',' . $right . ')';
                     break;
                     case '%':
-                        $value = 'value_modulo(' . $value . ',' . $right . ')';
+                        $value = '$this->value_modulo(' . $value . ',' . $right . ')';
                     break;
                     case '/':
-                        $value = 'value_divide(' . $value . ',' . $right . ')';
+                        $value = '$this->value_divide(' . $value . ',' . $right . ')';
                     break;
                     case '<':
-                        $value = 'value_smaller(' . $value . ',' . $right . ')';
-                    break;
-                    case '>':
-                        $value = 'value_greater(' . $value . ',' . $right . ')';
+                        $value = '$this->value_smaller(' . $value . ',' . $right . ')';
                     break;
                     case '<=':
-                        $value = 'value_smaller_equal(' . $value . ',' . $right . ')';
-                    break;
-                    case '>=':
-                        $value = 'value_greater_equal(' . $value . ',' . $right . ')';
+                        $value = '$this->value_smaller_equal(' . $value . ',' . $right . ')';
                     break;
                     case '<<':
-                        $value = 'value_smaller_smaller(' . $value . ',' . $right . ')';
+                        $value = '$this->value_smaller_smaller(' . $value . ',' . $right . ')';
+                    break;
+                    case '>':
+                        $value = '$this->value_greater(' . $value . ',' . $right . ')';
+                    break;
+                    case '>=':
+                        $value = '$this->value_greater_equal(' . $value . ',' . $right . ')';
                     break;
                     case '>>':
-                        $value = 'value_greater_greater(' . $value . ',' . $right . ')';
+                        $value = '$this->value_greater_greater(' . $value . ',' . $right . ')';
                     break;
                     case '==':
-                        $value = 'value_equal(' . $value . ',' . $right . ')';
+                        $value = '$this->value_equal(' . $value . ',' . $right . ')';
                     break;
                     case '===':
-                        $value = 'value_identical(' . $value . ',' . $right . ')';
+                        $value = '$this->value_identical(' . $value . ',' . $right . ')';
                     break;
                     case '!=':
-                        $value = 'value_not_equal(' . $value . ',' . $right . ')';
+                        $value = '$this->value_not_equal(' . $value . ',' . $right . ')';
                     break;
                     case '!==':
-                        $value = 'value_not_identical(' . $value . ',' . $right . ')';
+                        $value = '$this->value_not_identical(' . $value . ',' . $right . ')';
                     break;
                     case '??':
-                        $value = 'value_null coalescing(' . $value . ',' . $right . ')';
+                        $value = $value . ' ?? ' . $right;
                     break;
                     case '&&':
                         $value = $value . ' && ' . $right;
