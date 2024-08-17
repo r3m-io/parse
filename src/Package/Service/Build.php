@@ -22,23 +22,24 @@ class Build
                     foreach($text as $text_nr => $line) {
                         $data[] = $line;
                     }
+                    $text = false;
                 }
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
                     $data[] = $variable_assign;
-                    /*
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $record, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
                     }
-                    */
+                    $variable_assign = false;
                 }
                 $variable_define = Build::variable_define($object, $flags, $options, $record);
                 if($variable_define){
                     foreach($variable_define as $variable_define_nr => $line){
                         $data[] = $line;
                     }
+                    $variable_define = false;
                 }
             }
         }
