@@ -53,8 +53,6 @@ class Method
                             ){
                                 $name .= $input['array'][$i]['value'];
                             } else {
-                                d($is_method);
-                                d($name);
                                 break;
                             }
                         } else {
@@ -73,8 +71,6 @@ class Method
                                 $is_double_quote === false &&
                                 $name !== ''
                             ){
-                                d($is_method);
-                                d($name);
                                 break;
                             } else {
                                 $name .= $input['array'][$i];
