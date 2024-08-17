@@ -252,6 +252,7 @@ class Build
             elseif($current === '"') {
                 $value .= '"';
             } else {
+                d($record);
                 d($current);
                 ddd($value);
             }
