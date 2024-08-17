@@ -171,6 +171,9 @@ class Variable
                     }
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
+                        if(str_contains($argument[$argument_nr], '\'no\'')){
+                                ddd($input['array']);
+                        }
                         $argument_value = Cast::define(
                             $object,
                             $flags,
@@ -274,6 +277,9 @@ class Variable
             ){
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
+                        if(str_contains($argument[$argument_nr], '\'no\'')){
+                            ddd($input['array']);
+                        }
                         $argument_value = Cast::define(
                             $object,
                             $flags,
@@ -359,6 +365,9 @@ class Variable
                 ){
                     if($is_argument !== false){
                         foreach($argument_array as $argument_nr => $array){
+                            if(str_contains($argument[$argument_nr], '\'no\'')){
+                                ddd($input['array']);
+                            }
                             $argument_value = Cast::define(
                                 $object,
                                 $flags,
@@ -491,6 +500,9 @@ class Variable
         ){
             if($is_argument !== false){
                 foreach($argument_array as $argument_nr => $array){
+                    if(str_contains($argument[$argument_nr], '\'no\'')){
+                        ddd($input['array']);
+                    }
                     $argument_value = Cast::define(
                         $object,
                         $flags,
