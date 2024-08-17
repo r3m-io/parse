@@ -26,6 +26,7 @@ class Build
                         $list[$nr + 1] = Build::variable_assign_next($next);
                     }
                 }
+                d($record);
             }
         }
         ddd($data);
