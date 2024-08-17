@@ -334,7 +334,10 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'variable'
             ){
-                ddd($record);
+                $value .= '$data->get(\'' . $record['name'] . '\')';
+                if(array_key_exists('modifier', $record)){
+                    ddd($record);
+                }
             }
             elseif(
                 array_key_exists('is_hex', $record) &&
