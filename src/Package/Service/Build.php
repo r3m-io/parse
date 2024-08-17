@@ -246,12 +246,25 @@ class Build
             ){
                 $value .= '\'' . $record['execute'] . '\'';
             }
-            elseif($current === '\\') {
-                $value .= '\\';
+            elseif(
+                in_array(
+                    $current,
+                    [
+                        '\\',
+                        '"'
+                    ],
+                    true
+                )
+            ){
+                $value .= $current;
             }
-            elseif($current === '"') {
-                $value .= '"';
-            } else {
+            elseif(
+                array_key_exists('type', $record) &&
+                $record['type'] === 'string'
+            ){
+                $value .=  $record['execute'];
+            }
+            else {
                 d($record);
                 d($current);
                 ddd($value);
