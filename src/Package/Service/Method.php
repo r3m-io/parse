@@ -70,7 +70,8 @@ class Method
                                     ]
                                 ) &&
                                 $is_single_quote === false &&
-                                $is_double_quote === false
+                                $is_double_quote === false &&
+                                $name !== ''
                             ){
                                 d($is_method);
                                 d($name);
@@ -82,6 +83,7 @@ class Method
                     }
                 }
                 if($is_method !== false){
+                    d($input);
                     ddd($name);
                 }
                 if($name && $has_name === false){
