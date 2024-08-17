@@ -531,7 +531,7 @@ class Variable
                     'name' => $modifier_name,
                     'argument' => $argument_array
                 ];
-                for($index = $is_variable + 1; $index < $nr; $index++){
+                for($index = $is_variable + 1; $index <= $nr; $index++){
                     $input['array'][$index] = null;
                 }
                 if(
@@ -548,7 +548,7 @@ class Variable
                     'name' => $modifier_name,
                     'argument' => []
                 ];
-                for($index = $is_variable + 1; $index < $nr; $index++){
+                for($index = $is_variable + 1; $index <= $nr; $index++){
                     $input['array'][$index] = null;
                 }
             }
