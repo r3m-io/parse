@@ -238,14 +238,22 @@ class Build
     {
         $value = '';
         foreach($input['array'] as $nr => $record){
+            $current = Token::item($input, $nr);
             if(
                 array_key_exists('is_single_quoted', $record) &&
                 array_key_exists('execute', $record) &&
                 $record['is_single_quoted'] === true
             ){
                 $value .= '\'' . $record['execute'] . '\'';
+            }
+            elseif($current === '\\') {
+                $value .= '\\';
+            }
+            elseif($current === '"') {
+                $value .= '"';
             } else {
-                ddd($record);
+                d($current);
+                ddd($value);
             }
         }
         return $value;
