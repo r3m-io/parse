@@ -501,7 +501,7 @@ class Variable
             if($is_argument !== false){
                 foreach($argument_array as $argument_nr => $array){
                     if(str_contains($argument[$argument_nr], '\'no\'')){
-                        ddd($input['array']);
+                        $options->debug = true;
                     }
                     $argument_value = Cast::define(
                         $object,
@@ -518,6 +518,12 @@ class Variable
                         $options,
                         $argument_value,
                     );
+                    if(
+                        property_exists($options, 'debug') &&
+                        $options->debug === true
+                    ){
+                        ddd($argument_value);
+                    }
                     $argument_array[$argument_nr] = $argument_value;
                 }
                 $input['array'][$is_variable]['modifier'][] = [
