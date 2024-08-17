@@ -95,10 +95,6 @@ class Method
                         $has_name = true;
                     }
                 }
-                if($is_method !== false){
-                    d($input);
-                    ddd($name);
-                }
             }
             if(
                 $is_method !== false &&
