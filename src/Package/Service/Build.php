@@ -88,6 +88,9 @@ class Build
                 }
                 elseif($line === ''){
                     $result[] = '';
+                } else {
+                    d(ord($line));
+                    d($line);
                 }
             }
             d($result);
