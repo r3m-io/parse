@@ -29,10 +29,10 @@ class Build
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = 'test2';
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
-                        print_r($list);
+                        var_dump($list);
                     }
                 }
-                print_r($record);
+                var_dump($record);
             }
         }
         die;
