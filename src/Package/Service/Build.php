@@ -270,10 +270,7 @@ class Build
                 $modifier_value .= '        );';
                 $previous_modifier = $modifier_value;
             }
-            foreach($record['modifier[argument'] as $argument_nr => $argument){
-                $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
-            }
-            $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+            $value = $modifier_value;
         }
         if(
             $variable_name !== '' &&
