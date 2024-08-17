@@ -306,9 +306,7 @@ class Build
                 $value .=  $record['execute'];
             }
             else {
-                d($record);
                 $value = '';
-                /*
                 $right = Build::value_right(
                     $object,
                     $flags,
@@ -374,7 +372,6 @@ class Build
                         $value = $value . ' || ' . $right;
                     break;
                 }
-                */
             }
         }
         return $value;
