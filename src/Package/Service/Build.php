@@ -86,11 +86,17 @@ class Build
                 ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
-                elseif($line === ''){
+                elseif(
+                    in_array(
+                        $line,
+                        [
+                            '',
+                            "\r",
+                        ],
+                        true
+                    )
+                ){
                     $result[] = '';
-                } else {
-                    d(ord($line));
-                    d($line);
                 }
             }
             d($result);
