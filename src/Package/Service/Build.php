@@ -49,9 +49,11 @@ class Build
         $document[] = '';
         $document[] = 'use R3m\Io\Module\Data;';
         $document[] = '';
+        $document[] = 'use Exception;';
+        $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '    ';
-        $document[] = '    public static function run(App $object, Data $data, $flags, $options): void';
+        $document[] = '    public static function run(App $object, Data $data, $flags, $options): mixed';
         $document[] = '    {';
         foreach($data as $nr => $line){
             $document[] = '        ' . $line;
@@ -126,7 +128,7 @@ class Build
         return [
             '$variable = $data->get(\'' . $variable_name . '\');',
             'if($variable === null){',
-            '    throw new Exception(\'Variable: ' . $variable_name . ' not assigned on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
+            '    throw new Exception(\'Variable: "' . $variable_name . '" not assigned on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
             '}',
             'if(!is_scalar($variable)){',
             '    //array or object',
