@@ -33,6 +33,7 @@ class Build
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
                     }
                 }
+                $variable_define = Build::variable_define($object, $flags, $options, $record);
             }
         }
         $document = [];
@@ -104,6 +105,12 @@ class Build
         return $record;
     }
 
+    public static function variable_define(App $object, $flags, $options, $record = []): bool | string
+    {
+        if(!array_key_exists('variable', $record)){
+            return false;
+        }
+        ddd($record);
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
