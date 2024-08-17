@@ -255,6 +255,26 @@ class Build
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
+        if(array_key_exists('modifier', $record)){
+            $previous_modifier = '$variable';
+            foreach($record['modifier'] as $nr => $modifier){
+                //load modifier through reflection ?
+                $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
+                if(array_key_exists('argument', $modifier)){
+                    foreach($modifier['argument'] as $argument_nr => $argument){
+                        $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                    }
+                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                }
+                $modifier_value .= '        );';
+                $previous_modifier = $modifier_value;
+            }
+            foreach($record['modifier[argument'] as $argument_nr => $argument){
+                $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            }
+            $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+        }
         if(
             $variable_name !== '' &&
             $operator !== '' &&
