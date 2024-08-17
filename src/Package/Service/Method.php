@@ -82,6 +82,9 @@ class Method
                         }
                     }
                 }
+                if($name === ''){
+                    $is_method = false;
+                }
                 if($is_method !== false){
                     d($input);
                     ddd($name);
