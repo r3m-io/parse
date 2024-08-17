@@ -37,7 +37,7 @@ class Build
         if(
             array_key_exists('text', $record) &&
             array_key_exists('is_multiline', $record) &&
-            $record['is_multi_line'] === true
+            $record['is_multiline'] === true
         ){
             $text = explode("\n", $record['text'], 2);
             $test = trim($text[0]);
