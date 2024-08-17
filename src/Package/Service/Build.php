@@ -42,7 +42,7 @@ class Build
         }
         $variable_name = str_replace('.', '_', $record['variable']['name']);
 
-        if(array_key_exists('operator', $record['variable']) === false){
+        if(!array_key_exists('operator', $record['variable'])){
             ddd($record);
         }
         $operator = $record['variable']['operator'];
