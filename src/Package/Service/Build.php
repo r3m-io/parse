@@ -41,7 +41,10 @@ class Build
             return false;
         }
         $variable_name = str_replace('.', '_', $record['variable']['name']);
-        ddd($record);
+
+        if(array_key_exists('operator', $record['variable']) === false){
+            ddd($record);
+        }
         $operator = $record['variable']['operator'];
         $value = Build::variable_value($object, $flags, $options, $record['variable']['value']);
         d($variable_name);
