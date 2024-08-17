@@ -34,6 +34,11 @@ class Build
                     }
                 }
                 $variable_define = Build::variable_define($object, $flags, $options, $record);
+                if($variable_define){
+                    foreach($variable_define as $variable_define_nr => $line){
+                        $data[] = $line;
+                    }
+                }
             }
         }
         $document = [];
@@ -105,7 +110,7 @@ class Build
         return $record;
     }
 
-    public static function variable_define(App $object, $flags, $options, $record = []): bool | string
+    public static function variable_define(App $object, $flags, $options, $record = []): bool | array
     {
         if (!array_key_exists('variable', $record)) {
             return false;
@@ -116,7 +121,20 @@ class Build
         ) {
             return false;
         }
-        ddd($record);
+        $assign = '$variable = ';
+        $variable_name = $record['variable']['name'];
+        return [
+            '$variable = $data->get(\'' . $variable_name . '\');',
+            'if($variable === null){',
+            '    throw new Exception(\'Variable: ' . $variable_name . ' not assigned on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
+            '}',
+            'if(!is_scalar($variable)){',
+            '    //array or object',
+            '    return $variable;',
+            '} else {',
+            '    echo $variable;',
+            '}'
+        ];
     }
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
@@ -130,7 +148,7 @@ class Build
         ) {
             return false;
         }
-        $variable_name = str_replace('.', '_', $record['variable']['name']);
+        $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::variable_value($object, $flags, $options, $record['variable']['value']);
         if(
