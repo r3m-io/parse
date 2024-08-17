@@ -61,7 +61,6 @@ class Build
             $text = explode("\n", $record['text']);
             foreach($text as $nr => $line) {
                 if($line !== ''){
-                    d($line);
                     $text[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
             }
