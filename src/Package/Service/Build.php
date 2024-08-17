@@ -377,6 +377,7 @@ class Build
                 }
                 break;
             case '"':
+                d($input);
                 for($i = $nr + 1; $i < $count; $i++){
                     $previous = Token::item($input, $i - 1);
                     $item = Token::item($input, $i);
