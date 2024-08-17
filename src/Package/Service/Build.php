@@ -38,13 +38,16 @@ class Build
         $document = [];
         $document[] = '<?php';
         $document[] = 'namespace Package\R3m\Io\Parse;';
+        $document[] = '';
+        $document[] = 'use R3m\Io\App;';
+        $document[] = '';
         $document[] = 'class Main {';
-        $document[] = 'public function run($flags, $options): void';
-        $document[] = '{';
+        $document[] = '    public static function run(App $object, $flags, $options): void';
+        $document[] = '    {';
         foreach($data as $nr => $line){
-            $document[] = $line;
+            $document[] = '    ' . $line;
         }
-        $document[] = '}';
+        $document[] = '    }';
         $document[] = '}';
 
         return $document;
@@ -57,7 +60,9 @@ class Build
         ){
             $text = explode("\n", $record['text']);
             foreach($text as $nr => $line) {
-                $text[$nr] = 'echo \'' . $line . '\';' . PHP_EOL;
+                if($line !== ''){
+                    $text[$nr] = 'echo \'' . $line . '\';' . PHP_EOL;
+                }
             }
             return implode('echo "\n";' . PHP_EOL, $text);
         }
@@ -65,7 +70,6 @@ class Build
     }
     
     public static function variable_assign_next(App $object, $flags, $options,$record = []){
-        d($record);
         if(
             array_key_exists('text', $record) &&
             array_key_exists('is_multiline', $record) &&
@@ -74,7 +78,6 @@ class Build
             $text = explode("\n", $record['text'], 2);
             $test = trim($text[0]);
             if($test === ''){
-                d($text[1]);
                 $record['text'] = $text[1];
             }
         }
