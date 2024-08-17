@@ -75,6 +75,7 @@ class Build
         $document[] = '        $data = $this->data();';
         $document[] = '        $flags = $this->flags();';
         $document[] = '        $options = $this->options();';
+        $document[] = '        $options->debug = true;';
         $document[] = '        d(get_class($object));';
         $document[] = '        d($data);';
         $document[] = '        d($flags);';
