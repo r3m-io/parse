@@ -412,9 +412,9 @@ class Build
                 break;
             default:
             case NULL:
-                $right = Token::item($input, $nr + 1);
-                ddd($right);
-                ddd($next);
+                $right = 'NULL';
+                $skip++;
+            break;
         }
         return $right;
     }
