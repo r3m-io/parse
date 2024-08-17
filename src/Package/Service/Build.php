@@ -275,7 +275,11 @@ class Build
                                 for($i = $nr + 1; $i < $count; $i++){
                                     $previous = Token::item($input, $i - 1);
                                     $item = Token::item($input, $i);
-                                    if($item === '\'' && $previous !== '\\'){
+                                    if(
+                                        $item === '\'' &&
+                                        $previous !== '\\' &&
+                                        $i > ($nr + 1)
+                                    ){
                                         break;
                                     }
                                     $right .= $item;
@@ -285,7 +289,11 @@ class Build
                                 for($i = $nr + 1; $i < $count; $i++){
                                     $previous = Token::item($input, $i - 1);
                                     $item = Token::item($input, $i);
-                                    if($item === '"' && $previous !== '\\'){
+                                    if(
+                                        $item === '"' &&
+                                        $previous !== '\\' &&
+                                        $i > ($nr + 1)
+                                    ){
                                         break;
                                     }
                                     $right .= $item;
