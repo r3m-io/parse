@@ -61,7 +61,7 @@ class Parse
         echo PHP_EOL . str_repeat('-', Cli::tput('columns')) . PHP_EOL;
 
         ob_start();
-        $main = new \Package\R3m\Io\Parse\Main($object, new Parse(), new Data(), $flags, $options);
+        $main = new \Package\R3m\Io\Parse\Main($object, $this, $data, $flags, $options);
         $data = $main->run();
         if(!is_scalar($data)){
             return $data;
