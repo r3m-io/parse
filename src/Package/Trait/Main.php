@@ -48,6 +48,7 @@ trait Main {
         echo str_repeat('-', Cli::tput('columns')) . PHP_EOL;
         $main = new \Package\R3m\Io\Parse\Main($object, new Parse(), new Data(), $flags, $options);
         $main->run();
+        echo str_repeat('-', Cli::tput('columns')) . PHP_EOL;
         if(
             property_exists($options,'duration') &&
             $options->duration === true
