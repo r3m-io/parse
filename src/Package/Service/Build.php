@@ -272,7 +272,7 @@ class Build
                         $right = '';
                         switch($next){
                             case '\'':
-                                for($i=$nr; $i < $count; $i++){
+                                for($i = $nr + 1; $i < $count; $i++){
                                     $previous = Token::item($input, $i - 1);
                                     $item = Token::item($input, $i);
                                     if($item === '\'' && $previous !== '\\'){
@@ -282,7 +282,7 @@ class Build
                                 }
                                 break;
                             case '"':
-                                for($i=$nr; $i < $count; $i++){
+                                for($i = $nr + 1; $i < $count; $i++){
                                     $previous = Token::item($input, $i - 1);
                                     $item = Token::item($input, $i);
                                     if($item === '"' && $previous !== '\\'){
