@@ -62,11 +62,16 @@ class Build
             $text = explode("\n", $record['text']);
             $result = [];
             foreach($text as $nr => $line) {
-                if($line !== ''){
-                    if(strlen($line) === 1){
-                        d(ord($line));
-                    }
-                    d($line);
+                if(
+                    !in_array(
+                        $line,
+                        [
+                            '',
+                            "\r",
+                        ],
+                    true
+                    )
+                ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
             }
