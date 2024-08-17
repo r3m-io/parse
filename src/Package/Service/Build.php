@@ -87,7 +87,6 @@ class Build
         $document[] = '    }';
         $document[] = '}';
         d($document);
-        d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
         return $document;
     }
 

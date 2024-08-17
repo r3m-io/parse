@@ -21,7 +21,7 @@ trait Main {
     /**
      * @throws Exception
      */
-    public function compile($flags, $options){
+    public function compile($flags, $options): mixed {
         if(!property_exists($options, 'source')){
             throw new Exception('Source not found');
         }
@@ -45,9 +45,16 @@ trait Main {
         File::write($url, implode(PHP_EOL, $document));
 
         require_once $url;
-        d($url);
         echo str_repeat('-', Cli::tput('columns')) . PHP_EOL;
         $main = new \Package\R3m\Io\Parse\Main($object, new Parse(), new Data(), $flags, $options);
         $main->run();
+        if(
+            property_exists($options,'duration') &&
+            $options->duration === true
+        ){
+            $result['duration'] = round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms';
+            return $result;
+        }
+        return null;
     }
 }

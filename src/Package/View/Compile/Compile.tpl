@@ -1,2 +1,5 @@
 {{R3M}}
-{{Package.R3m.Io.Parse:Main:compile(flags(), options())}}
+{{$response = Package.R3m.Io.Parse:Main:compile(flags(), options())}}
+{{if($response)}}
+{{$response|object:'json'}}
+{{/if}}
