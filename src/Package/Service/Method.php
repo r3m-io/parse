@@ -49,7 +49,8 @@ class Method
                                         '_',
                                         ':'
                                     ]
-                                )
+                                ) &&
+                                $name !== ''
                             ){
                                 $name .= $input['array'][$i]['value'];
                             } else {
