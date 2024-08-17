@@ -139,21 +139,18 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
-        d($input['array']);
         foreach($input['array'] as $nr => $char) {
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
             if($current === '('){
                 $set_depth++;
-                d($set_depth);
             }
             elseif($current === ')'){
                 $set_depth--;
                 if($set_depth < 0){
                     $input['array'][$nr] = null;
                 }
-                d($set_depth);
                 if(
                     $is_modifier &&
                     (
@@ -169,13 +166,8 @@ class Variable
                             $argument_array[$argument_nr] = [];
                             $argument[$argument_nr] = '';
                         }
-                        d($set_depth_modifier);
-                        d($set_depth);
-                        d($current);
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
-                        d($argument);
-                        d($argument_array);
                     }
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
@@ -188,8 +180,6 @@ class Variable
                                 'array' => $array
                             ]
                         );
-                        trace();
-                        d($argument_value);
                         $argument_value = Token::value(
                             $object,
                             $flags,
@@ -198,12 +188,6 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
-                    if($modifier_name === 'defaulttrue'){
-                        trace();
-                        die('kut');
-                    }
-
-
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -289,7 +273,6 @@ class Variable
                 )
             ){
                 if($is_argument !== false){
-                    //add set_depth
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -308,11 +291,6 @@ class Variable
                         );
                         $argument_array[$argument_nr] = $argument_value;
                     }
-                    if($modifier_name === 'defaulttrue'){
-                        trace();
-                        die('kut');
-                    }
-
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -329,10 +307,6 @@ class Variable
                     $argument_nr = -1;
                 }
                 elseif($is_modifier !== false){
-                    if($modifier_name === 'defaulttrue'){
-                        trace();
-                        die('kut');
-                    }
                     $input['array'][$is_variable]['modifier'][] = [
                         'string' => $modifier_string,
                         'name' => $modifier_name,
@@ -367,9 +341,6 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = false; //route
                 }
-                d($is_variable);
-                d($is_modifier);
-                d($is_argument);
                 $argument_nr++;
             }
             elseif(
@@ -404,10 +375,6 @@ class Variable
                                 $argument_value,
                             );
                             $argument_array[$argument_nr] = $argument_value;
-                        }
-                        if($modifier_name === 'defaulttrue'){
-                            trace();
-                            die('kut');
                         }
                         $input['array'][$is_variable]['modifier'][] = [
                             'string' => $modifier_string,
@@ -507,7 +474,6 @@ class Variable
                     )
                 ){
                     $argument_nr++;
-                    d($argument_nr);
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
@@ -516,13 +482,6 @@ class Variable
 
                     $argument[$argument_nr] .= $current;
                     $argument_array[$argument_nr][] = $char;
-                    d($set_depth);
-                    d($set_depth_modifier);
-                    d($current);
-                    d($char);
-                    d($argument);
-                    d($argument_array);
-
                 }
             }
         }
@@ -549,10 +508,6 @@ class Variable
                     );
                     $argument_array[$argument_nr] = $argument_value;
                 }
-                if($modifier_name === 'defaulttrue'){
-                    trace();
-                    die('kut');
-                }
                 $input['array'][$is_variable]['modifier'][] = [
                     'string' => $modifier_string,
                     'name' => $modifier_name,
@@ -563,10 +518,6 @@ class Variable
                 }
             }
             elseif($is_modifier !== false){
-                if($modifier_name === 'defaulttrue'){
-                    trace();
-                    die('kut');
-                }
                 $input['array'][$is_variable]['modifier'][] = [
                     'string' => $modifier_string,
                     'name' => $modifier_name,
@@ -579,5 +530,4 @@ class Variable
         }
         return $input;
     }
-
 }

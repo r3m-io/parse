@@ -309,9 +309,6 @@ class Token
                                                     'array' => $argument_array
                                                 ]
                                             );
-                                            if(str_contains($argument, '$test8')){
-                                                d($argument);
-                                            }
                                             $argument = '';
                                             $argument_array = [];
                                         }
@@ -333,16 +330,8 @@ class Token
                                                     'array' => $argument_array
                                                 ]
                                             );
-                                            if(str_contains($argument, '$test8')){
-                                                d($argument);
-                                            }
                                             $argument = '';
                                             $argument_array = [];
-
-                                            if(str_contains($modifier_name, 'defaulttrue')){
-                                                ddd($modifier_name);
-                                            }
-
                                             $modifier_list[] = [
                                                 'name' => $modifier_name,
                                                 'argument' => $argument_list
@@ -479,11 +468,6 @@ class Token
 
                                 }
                             }
-                            if(str_contains($argument, '$test8')){
-                                d($is_after);
-                                d($argument);
-                                d($argument_array);
-                            }
                             if($argument !== ''){
                                 $argument_hash = hash('sha256', $argument);
                                 if($cache->has($argument_hash)){
@@ -501,15 +485,9 @@ class Token
 
                                     $cache->set($argument_hash, $argument_value);
                                 }
-                                if(str_contains($argument, '$test8')){
-                                    d($argument_value);
-                                }
                                 $argument_list[] = $argument_value;
                                 $argument = '';
                                 $argument_array = [];
-                            }
-                            if(str_contains($modifier_name, 'defaulttrue')){
-                                ddd($modifier_name);
                             }
                             if($modifier_name){
                                 $modifier_list[] = [
@@ -630,7 +608,6 @@ class Token
                 }
             }
         }
-//        $tags = Tag::block_method($object, $flags, $options, $tags);
         return $tags;
     }
 
@@ -922,14 +899,10 @@ class Token
             $input = Cast::define($object, $flags, $options, $input);
             $input = Method::define($object, $flags, $options, $input);
             $input = Variable::define($object, $flags, $options, $input);
-//            d($input['array']);
             $input = Variable::modifier($object, $flags, $options, $input);
             $input = Value::define($object, $flags, $options, $input);
-            d($input['array']);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
-//            d($input['array']);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
-//            d($input['array']);
             $input = Value::array($object, $flags, $options, $input);
 //            $input = Method::block($object, $flags, $options, $input);
             $input = Token::cleanup($object, $flags, $options, $input);
