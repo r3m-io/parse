@@ -30,32 +30,8 @@ trait Main {
         }
         $object = $this->object();
         $input = File::read($options->source);
-        $token = Token::tokenize($object, $flags, $options, $input);
-        $document = Build::create($object, $flags, $options, $token);
-
-        $dir = $object->config('project.dir.data') .
-            'Test' .
-            $object->config('ds') .
-            'Parse' .
-            $object->config('ds');
-        Dir::create($dir, Dir::CHMOD);
-        $url = $dir .
-            'Main.php'
-        ;
-        File::write($url, implode(PHP_EOL, $document));
-
-        require_once $url;
-        echo PHP_EOL . str_repeat('-', Cli::tput('columns')) . PHP_EOL;
-        $main = new \Package\R3m\Io\Parse\Main($object, new Parse(), new Data(), $flags, $options);
-        $main->run();
-        echo PHP_EOL . str_repeat('-', Cli::tput('columns')) . PHP_EOL;
-        if(
-            property_exists($options,'duration') &&
-            $options->duration === true
-        ){
-            $result['duration'] = round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms';
-            return $result;
-        }
-        return null;
+        $parse = new Parse($object, new Data(), $flags, $options);
+        $result = $parse->compile($input);
+        return $result;
     }
 }

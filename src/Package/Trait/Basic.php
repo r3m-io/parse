@@ -5,12 +5,9 @@ use R3m\Io\App;
 
 use R3m\Io\Module\Data;
 
-use Package\R3m\Io\Parse\Service\Parse;
-
 trait Basic {
 
     protected App $object;
-    protected Parse $parse;
     protected Data $data;
     protected object $flags;
     protected object $options;
@@ -31,24 +28,6 @@ trait Basic {
     private function getObject(): ?App
     {
         return $this->object;
-    }
-
-    public function parse(Parse $parse=null): ?Parse
-    {
-        if($parse !== null){
-            $this->setParse($parse);
-        }
-        return $this->getParse();
-    }
-
-    private function setParse(Parse $parse): void
-    {
-        $this->parse = $parse;
-    }
-
-    private function getParse(): ?Parse
-    {
-        return $this->parse;
     }
 
     public function data(Data $data=null): ?Data

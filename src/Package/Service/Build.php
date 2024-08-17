@@ -50,12 +50,14 @@ class Build
         $document[] = '';
         $document[] = 'use \Package\R3m\Io\Parse\Service\Parse;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Basic;';
+        $document[] = 'use \Package\R3m\Io\Parse\Trait\Parser;';
         $document[] = '';
         $document[] = 'use Exception;';
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
         $document[] = '    use Basic;';
+        $document[] = '    use Parser;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
