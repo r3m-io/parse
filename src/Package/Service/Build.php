@@ -20,7 +20,9 @@ class Build
             foreach($list as $nr => $record){
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
-                    $data[] = $variable_assign;
+                    $data[] = $variable_assign . ';';
+                    $next = $list[$nr + 1] ?? false;
+                    ddd($next);
                     //remove return from next whitespace
                 }
             }
