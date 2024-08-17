@@ -249,6 +249,7 @@ class Value
                     $data = mb_str_split($input, 1);
                     $is_float = false;
                     $is_hex = false;
+                    $is_hex_nr = false;
                     $collect = '';
                     for($i=0; $i<$length; $i++){
                         if(
@@ -271,6 +272,9 @@ class Value
                             )
                         ){
                             $collect .= $data[$i];
+                            if($is_hex_nr === false){
+                                $is_hex_nr  = $i;
+                            }
                         }
                         elseif(
                             (
@@ -301,8 +305,13 @@ class Value
                         ){
                             if(strtolower($data[$i]) !== 'x'){
                                 $collect .= $data[$i];
+                                if($is_hex_nr === false){
+                                    $is_hex_nr  = $i;
+                                }
                             }
-                            $is_hex = true;
+                            if($is_hex_nr === 0){
+                                $is_hex = true;
+                            }
                         }
                         elseif($data[$i] === '.'){
                             $collect .= $data[$i];
