@@ -23,7 +23,7 @@ class Build
                     $data[] = $variable_assign . ';';
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
-                        $list[$nr + 1] = Build::variable_assign_next($object, $flags, $options, $next);
+                        $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $next);
                     }
                 }
                 d($record);
