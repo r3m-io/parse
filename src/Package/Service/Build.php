@@ -197,7 +197,7 @@ class Build
                 $modifier_value .= '            $data,' . PHP_EOL;
                 $modifier_value .= '            $flags,' . PHP_EOL;
                 $modifier_value .= '            $options,' . PHP_EOL;
-                $modifier_value .= '            $variable, ';
+                $modifier_value .= '            $variable, ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
                         $modifier_value .= '        ' . Build::variable_value($object, $flags, $options, $argument) . ',' . PHP_EOL;
