@@ -6,6 +6,7 @@ use R3m\Io\Config;
 
 use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
+use R3m\Io\Module\Cli;
 
 use Package\R3m\Io\Parse\Service\Parse;
 use Package\R3m\Io\Parse\Service\Token;
@@ -41,6 +42,13 @@ trait Main {
             'Main.php'
         ;
         File::write($url, implode(PHP_EOL, $document));
+
+        require_once $url;
         d($url);
+        echo str_repeat('-', Cli::tput('columns')) . PHP_EOL;
+        $main = new \Package\R3m\Io\Parse\Main($object, new Parse(), new Data(), $flags, $options);
+        echo $main->run();
+
+
     }
 }
