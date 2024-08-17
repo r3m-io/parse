@@ -98,7 +98,6 @@ class Method
                     $is_method = false;
                 }
                 if($name && $has_name === false){
-                    d($name);
                     if(substr($name, 0, 1) === ':'){
                         //modifier with argument set
                         $name = '';
@@ -107,7 +106,6 @@ class Method
                         $name = strrev($name);
                         $has_name = true;
                     }
-                    d($name);
                 }
             }
 
@@ -214,6 +212,9 @@ class Method
                         for($i = $is_method + 1; $i <= $nr; $i++){
                             $input['array'][$i] = null;
                         }
+                        // add modifier for methods
+                        d($input['array']);
+                        d($nr);
                         $is_method = false;
                         $has_name = false;
                     }
