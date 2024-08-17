@@ -16,6 +16,29 @@ class Build
 
         $data = [];
 
+        $tags = [
+            1 => [
+                0 => 'test1',
+                1 => "\n test2"
+            ]
+        ];
+        foreach($tags as $row_nr => $list){
+            foreach($list as $nr => $record){
+                if($record === 'test1'){
+                    $next = $list[$nr + 1] ?? false;
+                    if($next !== false){
+                        $tags[$row_nr][$nr + 1] = 'test2';
+                        $list[$nr + 1] = $tags[$row_nr][$nr + 1];
+                        print_r($list);
+                    }
+                }
+                print_r($record);
+            }
+        }
+        die;
+
+
+        /*
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => $record){
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
@@ -31,6 +54,7 @@ class Build
                 d($record);
             }
         }
+        */
         ddd($data);
     }
 
