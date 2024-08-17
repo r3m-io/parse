@@ -300,6 +300,7 @@ class Build
                 $value .=  $record['execute'];
             }
             else {
+                d($record);
                 $right = Build::value_right(
                     $object,
                     $flags,
