@@ -300,10 +300,6 @@ class Token
                                             $is_double_quoted === false &&
                                             $curly_depth === $curly_depth_variable
                                         ){
-                                            if(str_contains($argument, '\'no\'')){
-                                                ddd($input['array']);
-                                            }
-
                                             $argument_list[] = Token::value(
                                                 $object,
                                                 $flags,
@@ -325,9 +321,6 @@ class Token
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
-                                            if(str_contains($argument, '\'no\'')){
-                                                ddd($input['array']);
-                                            }
                                             $argument_list[] = Token::value(
                                                 $object,
                                                 $flags,
@@ -476,9 +469,6 @@ class Token
                                 }
                             }
                             if($argument !== ''){
-                                if(str_contains($argument, '\'no\'')){
-                                    ddd($input['array']);
-                                }
                                 $argument_hash = hash('sha256', $argument);
                                 if($cache->has($argument_hash)){
                                     $argument_value = $cache->get($argument_hash);

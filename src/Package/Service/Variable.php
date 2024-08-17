@@ -171,9 +171,6 @@ class Variable
                     }
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
-                        if(str_contains($argument[$argument_nr], '\'no\'')){
-                                ddd($input['array']);
-                        }
                         $argument_value = Cast::define(
                             $object,
                             $flags,
@@ -277,9 +274,6 @@ class Variable
             ){
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
-                        if(str_contains($argument[$argument_nr], '\'no\'')){
-                            ddd($input['array']);
-                        }
                         $argument_value = Cast::define(
                             $object,
                             $flags,
@@ -365,9 +359,6 @@ class Variable
                 ){
                     if($is_argument !== false){
                         foreach($argument_array as $argument_nr => $array){
-                            if(str_contains($argument[$argument_nr], '\'no\'')){
-                                ddd($input['array']);
-                            }
                             $argument_value = Cast::define(
                                 $object,
                                 $flags,
@@ -500,9 +491,6 @@ class Variable
         ){
             if($is_argument !== false){
                 foreach($argument_array as $argument_nr => $array){
-                    if(str_contains($argument[$argument_nr], '\'no\'')){
-                        $options->debug = true;
-                    }
                     $argument_value = Cast::define(
                         $object,
                         $flags,
@@ -518,12 +506,6 @@ class Variable
                         $options,
                         $argument_value,
                     );
-                    if(
-                        property_exists($options, 'debug') &&
-                        $options->debug === true
-                    ){
-                        d($argument_value);
-                    }
                     $argument_array[$argument_nr] = $argument_value;
                 }
                 $input['array'][$is_variable]['modifier'][] = [
@@ -533,13 +515,6 @@ class Variable
                 ];
                 for($index = $is_variable + 1; $index <= $nr; $index++){
                     $input['array'][$index] = null;
-                }
-                if(
-                    property_exists($options, 'debug') &&
-                    $options->debug === true
-                ){
-                    d($nr);
-                    ddd($input['array']);
                 }
             }
             elseif($is_modifier !== false){
