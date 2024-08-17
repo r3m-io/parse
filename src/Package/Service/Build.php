@@ -298,46 +298,44 @@ class Build
                     break;
                     case '<':
                         $value = 'value_smaller(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '>':
                         $value = 'value_greater(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '<=':
                         $value = 'value_smaller_equal(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '>=':
                         $value = 'value_greater_equal(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '<<':
                         $value = 'value_smaller_smaller(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '>>':
                         $value = 'value_greater_greater(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '==':
                         $value = 'value_equal(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '===':
                         $value = 'value_identical(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '!=':
                         $value = 'value_not_equal(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '!==':
                         $value = 'value_not_identical(' . $value . ',' . $right . ')';
-                        break;
+                    break;
                     case '??':
                         $value = 'value_null coalescing(' . $value . ',' . $right . ')';
                     break;
                     case '&&':
                         $value = $value . ' && ' . $right;
-                        break;
+                    break;
                     case '||':
                         $value = $value . ' || ' . $right;
-                        break;
+                    break;
                 }
-                d($next);
-                ddd($value);
             }
         }
         return $value;
