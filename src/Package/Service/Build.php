@@ -334,9 +334,11 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'variable'
             ){
-                $value .= '$data->get(\'' . $record['name'] . '\')';
+
                 if(array_key_exists('modifier', $record)){
                     ddd($record);
+                } else {
+                    $value .= '$data->get(\'' . $record['name'] . '\')';
                 }
             }
             elseif(
