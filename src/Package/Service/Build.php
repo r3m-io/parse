@@ -68,7 +68,6 @@ class Build
                     !in_array(
                         $line,
                         [
-                            '',
                             "\r",
                         ],
                     true
