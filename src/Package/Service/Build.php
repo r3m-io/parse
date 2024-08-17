@@ -79,8 +79,8 @@ class Build
         $document[] = '        if (!($object instanceof App)) {';
         $document[] = '            throw new Exception(\'$object is not an instance of R3m\Io\App\');';
         $document[] = '        }';
-        $document[] = '        if (!($object instanceof Parse)) {';
-        $document[] = '            throw new Exception(\'$object is not an instance of Package\R3m\Io\Parse\Service\Parse\');';
+        $document[] = '        if (!(parse instanceof Parse)) {';
+        $document[] = '            throw new Exception(\'$parse is not an instance of Package\R3m\Io\Parse\Service\Parse\');';
         $document[] = '        }';
         $document[] = '        if (!($data instanceof Data)) {';
         $document[] = '            throw new Exception(\'$data is not an instance of R3m\Io\Module\Data\');';
