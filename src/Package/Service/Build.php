@@ -31,13 +31,20 @@ class Build
 
     public static function variable_assign(App $object, $flags, $options, $record): bool | string
     {
-        if(
+        if(!array_key_exists('variable', $record)){
+            return false;
+        }
+        elseif(
             array_key_exists('variable', $record) &&
             array_key_exists('is_assign', $record['variable']) &&
             $record['variable']['is_assign'] !== true
         ) {
             return false;
+        } else {
+            ddd($record);
         }
+
+
         $variable_name = str_replace('.', '_', $record['variable']['name']);
         $operator = $record['variable']['operator'];
         $value = Build::variable_value($object, $flags, $options, $record['variable']['value']);
