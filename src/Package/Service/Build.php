@@ -29,7 +29,7 @@ class Build
                     $data[] = $variable_assign;
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
-                        $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $next);
+                        $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $record, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
                     }
                 }
@@ -97,19 +97,28 @@ class Build
         return false;
     }
     
-    public static function variable_assign_next(App $object, $flags, $options,$record = []){
+    public static function variable_assign_next(App $object, $flags, $options,$record = [], $next=[]){
+        if(!array_key_exists('variable', $record)){
+            return $next;
+        }
+        elseif(
+            !array_key_exists('is_assign', $record['variable']) ||
+            $record['variable']['is_assign'] !== true
+        ) {
+            return $next;
+        }
         if(
-            array_key_exists('text', $record) &&
-            array_key_exists('is_multiline', $record) &&
-            $record['is_multiline'] === true
+            array_key_exists('text', $next) &&
+            array_key_exists('is_multiline', $next) &&
+            $next['is_multiline'] === true
         ){
             $text = explode("\n", $record['text'], 2);
             $test = trim($text[0]);
             if($test === ''){
-                $record['text'] = $text[1];
+                $next['text'] = $text[1];
             }
         }
-        return $record;
+        return $next;
     }
 
     public static function variable_define(App $object, $flags, $options, $record = []): bool | array
