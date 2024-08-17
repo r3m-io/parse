@@ -35,7 +35,19 @@ class Build
                 }
             }
         }
-        ddd($data);
+        $document = [];
+        $document[] = '<?php';
+        $document[] = 'namespace Package\R3m\Io\Parse;';
+        $document[] = 'class Main {';
+        $document[] = 'public function run($flags, $options): void';
+        $document[] = '{';
+        foreach($data as $nr => $line){
+            $document[] = $line;
+        }
+        $document[] = '}';
+        $document[] = '}';
+
+        return $document;
     }
 
     public static function text(App $object, $flags, $options,$record = []){

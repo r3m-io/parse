@@ -4,6 +4,7 @@ namespace Package\R3m\Io\Parse\Trait;
 use R3m\Io\App;
 use R3m\Io\Config;
 
+use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
 
 use Package\R3m\Io\Parse\Service\Parse;
@@ -29,11 +30,17 @@ trait Main {
         $input = File::read($options->source);
         $token = Token::tokenize($object, $flags, $options, $input);
         $document = Build::create($object, $flags, $options, $token);
-        ddd($document);
 
-
-        Parse::compile($object, $flags, $options);
-        d($flags);
-        ddd($options);
+        $dir = $object->config('project.dir.data') .
+            'Test' .
+            $object->config('ds') .
+            'Parse' .
+            $object->config('ds');
+        Dir::create($dir, Dir::CHMOD);
+        $url = $dir .
+            'Main.php'
+        ;
+        File::write($url, implode(PHP_EOL, $document));
+        d($url);
     }
 }
