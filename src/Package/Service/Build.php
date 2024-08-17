@@ -25,6 +25,7 @@ class Build
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
+                        d($list);
                     }
                 }
                 d($record);
