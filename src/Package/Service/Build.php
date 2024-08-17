@@ -63,6 +63,9 @@ class Build
             $result = [];
             foreach($text as $nr => $line) {
                 if($line !== ''){
+                    if(strlen($line) === 1){
+                        d(ord($line));
+                    }
                     d($line);
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
