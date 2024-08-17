@@ -192,17 +192,17 @@ class Build
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
                 $modifier_value = '$variable = $this->function_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
-                $modifier_value .= '$object,' . PHP_EOL;
-                $modifier_value .= '$parse,' . PHP_EOL;
-                $modifier_value .= '$data,' . PHP_EOL;
-                $modifier_value .= '$flags,' . PHP_EOL;
-                $modifier_value .= '$options,' . PHP_EOL;
-                $modifier_value .= '$variable, ';
+                $modifier_value .= '        $object,' . PHP_EOL;
+                $modifier_value .= '        $parse,' . PHP_EOL;
+                $modifier_value .= '        $data,' . PHP_EOL;
+                $modifier_value .= '        $flags,' . PHP_EOL;
+                $modifier_value .= '        $options,' . PHP_EOL;
+                $modifier_value .= '        $variable, ';
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= Build::variable_value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= '        ' . Build::variable_value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                     }
-                    $modifier_value = substr($modifier_value, 0, -2);
+                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
                 }
                 $modifier_value .= ');';
                 $modifier_list[] = $modifier_value;
