@@ -85,10 +85,6 @@ class Method
                 if($name === ''){
                     $is_method = false;
                 }
-                if($is_method !== false){
-                    d($input);
-                    ddd($name);
-                }
                 if($name && $has_name === false){
                     if(substr($name, 0, 1) === ':'){
                         //modifier with argument set
@@ -98,6 +94,10 @@ class Method
                         $name = strrev($name);
                         $has_name = true;
                     }
+                }
+                if($is_method !== false){
+                    d($input);
+                    ddd($name);
                 }
             }
             if(
