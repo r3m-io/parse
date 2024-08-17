@@ -62,18 +62,12 @@ class Parse
 
         ob_start();
         $main = new \Package\R3m\Io\Parse\Main($object, new Parse(), new Data(), $flags, $options);
-        $main->run();
-        $result = [];
-        $result['output'] = ob_get_clean();
-        echo PHP_EOL . str_repeat('-', Cli::tput('columns')) . PHP_EOL;
-        if(
-            property_exists($options,'duration') &&
-            $options->duration === true
-        ){
-            $result['duration'] = round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms';
-
+        $data = $main->run();
+        if(!is_scalar($data)){
+            return $data;
+        } else {
+            return ob_get_clean();
         }
-        return $result;
         /*
         // Step 2: Define the placeholder values
         $placeholders = [
