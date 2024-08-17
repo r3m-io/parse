@@ -68,12 +68,16 @@ class Build
                     !in_array(
                         $line,
                         [
+                            '',
                             "\r",
                         ],
                     true
                     )
                 ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                }
+                elseif($line === ''){
+                    $result[] = '';
                 }
             }
             if(array_key_exists(1, $result)){
