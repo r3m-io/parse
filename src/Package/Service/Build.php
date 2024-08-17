@@ -68,7 +68,7 @@ class Build
         $document[] = '    /**';
         $document[] = '     * @throws Exception';
         $document[] = '     */';
-        $document[] = '    public function run(): void | mixed';
+        $document[] = '    public function run(): mixed';
         $document[] = '    {';
         $document[] = '        $object = $this->object();';
         $document[] = '        $parse = $this->parse();';
@@ -82,6 +82,7 @@ class Build
         foreach($data as $nr => $line){
             $document[] = '        ' . $line;
         }
+        $document[] = '        return null;';
         $document[] = '    }';
         $document[] = '}';
         d(round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms');
