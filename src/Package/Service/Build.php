@@ -60,16 +60,16 @@ class Build
             $record['text'] !== ''
         ){
             $text = explode("\n", $record['text']);
-            d($text);
+            $result = [];
             foreach($text as $nr => $line) {
                 if($line !== ''){
-                    $text[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                    $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
             }
-            if(array_key_exists(1, $text)){
-                return implode('echo "\n";' . PHP_EOL, $text);
+            if(array_key_exists(1, $result)){
+                return implode('echo "\n";' . PHP_EOL, $result);
             }
-            return $text[0];
+            return $result[0] ?? false;
 
         }
         return false;
