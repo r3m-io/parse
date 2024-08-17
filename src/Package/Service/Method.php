@@ -91,8 +91,10 @@ class Method
                         $name = strrev($name);
                         $has_name = true;
                     }
+                    d($name);
                 }
             }
+
             if(
                 $is_method !== false &&
                 $name &&
