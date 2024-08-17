@@ -39,11 +39,7 @@ class Build
             $record['variable']['is_assign'] !== true
         ) {
             return false;
-        } else {
-            ddd($record);
         }
-
-
         $variable_name = str_replace('.', '_', $record['variable']['name']);
         $operator = $record['variable']['operator'];
         $value = Build::variable_value($object, $flags, $options, $record['variable']['value']);
