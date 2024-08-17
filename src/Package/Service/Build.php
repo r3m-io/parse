@@ -189,7 +189,7 @@ class Build
         return [
             '$variable = $data->get(\'' . $variable_name . '\');',
             'if($variable === null){',
-            '    throw new Exception(\'Variable: "$' . $variable_name . '" not assigned on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
+            '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
             '}',
             'if(!is_scalar($variable)){',
             '    //array or object',
