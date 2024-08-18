@@ -398,6 +398,7 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
+                    ddd($input);
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['variable']['modifier'] as $nr => $modifier){
                         //load modifier through reflection ?
