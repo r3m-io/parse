@@ -407,6 +407,7 @@ class Build
                         $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
+                                d($argument);
                                 $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                             }
                             $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
