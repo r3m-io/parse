@@ -485,7 +485,8 @@ class Variable
                     $argument_array[$argument_nr][] = $char;
                 }
             } elseif($is_variable !== false){
-                d($current);
+                d($is_variable);
+                ddd($input['array'] );
             }
         }
         if(
