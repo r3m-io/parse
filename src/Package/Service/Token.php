@@ -520,16 +520,17 @@ class Token
                                     ];
                                 }
                             } else {
+                                if($modifier_list){
+                                    foreach($modifier_list as $modifier_nr => $modifier){
+                                        d($modifier);
+                                        //add modifier to after & after_array
+                                    }
+                                }
                                 $after_hash = hash('sha256', $after);
                                 if($cache->has($after_hash)){
                                     $list = $cache->get($after_hash);
                                 } else {
-                                    if($modifier_list){
-                                        foreach($modifier_list as $modifier_nr => $modifier){
-                                            d($modifier);
-                                            //add modifier to after & after_array
-                                        }
-                                    }
+
 
 
                                     $list = Token::value(
