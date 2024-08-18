@@ -231,15 +231,6 @@ class Variable
                     */
                     $index_set_depth = 0;
                     for($index = $is_variable + 1; $index < $nr; $index++){
-                        $current = Token::item($input, $index);
-                        if($current === '('){
-                            $index_set_depth++;
-                            d('yes');
-                        }
-                        elseif($current === ')'){
-                            $index_set_depth--;
-                            d('no');
-                        }
                         $input['array'][$index] = null;
                     }
                     $current = Token::item($input, $nr);
