@@ -515,7 +515,7 @@ class Build
     /**
      * @throws Exception
      */
-    public static function value_right(App $object, $flags, $options, $input, $nr, $next, &$skip=0): string
+    public static function value_right(App $object, $flags, $options, $input, $nr, $next, &$skip=0): array
     {
         $count = count($input['array']);
         $right = '';
@@ -562,10 +562,12 @@ class Build
                         $i > ($nr + 1)
                     ){
                         $right .= $item;
+                        $right_array[] = $input['array'][$i];
                         $skip++;
                         break;
                     }
                     $right .= $item;
+                    $right_array[] = $input['array'][$i];
                     $skip++;
                 }
                 break;
@@ -580,15 +582,22 @@ class Build
                         $i > ($nr + 1)
                     ){
                         $right .= $item;
+                        $right_array[] = $input['array'][$i];
                         $skip++;
                         break;
                     }
                     $right .= $item;
+                    $right_array[] = $input['array'][$i];
                     $skip++;
                 }
                 break;
             case NULL:
                 $right = 'NULL';
+                $right_array[] = [
+                    'value' => $right,
+                    'execute' => NULL,
+                    'is_null' => true
+                ];
                 $skip++;
             break;
             default:
