@@ -183,7 +183,7 @@ class Variable
                     }
                     elseif($set_depth_argument < 0){
                         d($nr);
-                        ddd($input);
+                        d($input);
                     }
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
