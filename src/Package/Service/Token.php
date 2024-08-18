@@ -477,6 +477,7 @@ class Token
                                 if($cache->has($argument_hash)){
                                     $argument_value = $cache->get($argument_hash);
                                 } else {
+                                    d($argument);
                                     $argument_value = Token::value(
                                         $object,
                                         $flags,
