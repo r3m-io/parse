@@ -161,7 +161,7 @@ class Variable
                     )
                 ){
                     d($set_depth);
-                    d($argument_nr);
+                    ddd($argument_nr);
                     if(
                         $argument_nr >= 0 &&
                         $set_depth >= 0
