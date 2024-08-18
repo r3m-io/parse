@@ -438,6 +438,7 @@ class Build
                 $value .=  $record['execute'];
             }
             else {
+                ddd($value);
                 $value = '';
                 $right = Build::value_right(
                     $object,
