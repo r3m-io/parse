@@ -345,6 +345,7 @@ class Token
                                             $argument = '';
                                             $argument_array = [];
                                             $modifier_list[] = [
+                                                'string' => $modifier_string,
                                                 'name' => $modifier_name,
                                                 'argument' => $argument_list
                                             ];
@@ -539,9 +540,6 @@ class Token
                                 if($cache->has($after_hash)){
                                     $list = $cache->get($after_hash);
                                 } else {
-
-
-
                                     $list = Token::value(
                                         $object,
                                         $flags,
