@@ -178,8 +178,8 @@ class Variable
                         }
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
+                        $modifier_string .= $current;
                     }
-                    $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
