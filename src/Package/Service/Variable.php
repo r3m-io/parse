@@ -180,6 +180,9 @@ class Variable
                         $argument_array[$argument_nr][] = $char;
                         $modifier_string .= $current;
                     }
+                    elseif($set_depth_argument < 0){
+                        $input['array'][$nr] = null;
+                    }
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
