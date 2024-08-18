@@ -406,6 +406,7 @@ class Variable
                 $is_variable === false
             ){
                 $is_variable = $nr;
+                d($is_variable);
             }
             if($is_modifier === true){
                 $modifier_string .= $current;
