@@ -448,6 +448,7 @@ class Build
                     $next,
                     $skip
                 );
+                $right = Build::value($object, $flags, $options, $right);
                 d($current);
                 ddd($right);
                 switch($current){
