@@ -268,7 +268,7 @@ class Token
                                     d($after);
                                     if($after !== ''){
                                         if(substr($after, 0, 1) === '$'){
-                                            $variable_name = $after;
+                                            d('shit');
                                         }
                                     }
                                     d($variable_name);
@@ -438,7 +438,6 @@ class Token
                                     ) {
                                         continue;
                                     } else {
-                                        d($operator);
                                         $is_after = true;
                                         $after .= $char;
                                         $after_array[] = $char;
@@ -527,7 +526,7 @@ class Token
                                 } else {
                                     d($after);
                                     d($after_array);
-                                    d($modifier_list);
+                                    ddd($modifier_list);
                                     $list = Token::value(
                                         $object,
                                         $flags,
