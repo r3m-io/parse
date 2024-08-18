@@ -76,6 +76,7 @@ class Build
         $document[] = '     */';
         $document[] = '    public function run(): mixed';
         $document[] = '    {';
+        $document[] = '        ob_start();';
         $document[] = '        $object = $this->object();';
         $document[] = '        $parse = $this->parse();';
         $document[] = '        $data = $this->data();';
@@ -100,7 +101,7 @@ class Build
         foreach($data as $nr => $line){
             $document[] = '        ' . $line;
         }
-        $document[] = '        return null;';
+        $document[] = '        return ob_get_clean();';
         $document[] = '    }';
         $document[] = '}';
         d($document);
@@ -210,6 +211,7 @@ class Build
             $data[] = '}';
             $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
             $data[] = '    //array or object';
+            $data[] = '    ob_get_clean();';
             $data[] = '    return ' . $variable_uuid .';';
             $data[] = '} else {';
             $data[] = '    echo '. $variable_uuid .';';
@@ -224,6 +226,7 @@ class Build
             $data[] = '}';
             $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
             $data[] = '    //array or object';
+            $data[] = '    ob_get_clean();';
             $data[] = '    return ' . $variable_uuid .';';
             $data[] = '} else {';
             $data[] = '    echo '. $variable_uuid .';';
