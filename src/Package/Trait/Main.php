@@ -31,20 +31,15 @@ trait Main {
         $object = $this->object();
         $input = File::read($options->source);
         $parse = new Parse($object, new Data(), $flags, $options);
-        $output = $parse->compile($input);
+        echo $parse->compile($input);
         echo PHP_EOL . str_repeat('-', Cli::tput('columns')) . PHP_EOL;
         if(
             property_exists($options,'duration') &&
             $options->duration === true
         ){
-            $result['output'] = $output;
             $result['duration'] = round((microtime(true) - $object->config('time.start')) * 1000, 2) . 'ms';
-
+            return $result;
         }
-        return $output;
-
-
-
-        return $result;
+        return null;
     }
 }
