@@ -520,6 +520,30 @@ class Build
         $count = count($input['array']);
         $right = '';
         switch($next){
+            case '(':
+                $set_depth = 1;
+                for($i = $nr + 1; $i < $count; $i++){
+                    $previous = Token::item($input, $i - 1);
+                    $item = Token::item($input, $i);
+                    if($item === '('){
+                        $set_depth++;
+                    }
+                    elseif($item === ')'){
+                        $set_depth--;
+                    }
+                    if(
+                        $item === ')' &&
+                        $set_depth === 1 &&
+                        $i > ($nr + 1)
+                    ){
+                        $right .= $item;
+                        $skip++;
+                        break;
+                    }
+                    $right .= $item;
+                    $skip++;
+                }
+                break;
             case '\'':
                 for($i = $nr + 1; $i < $count; $i++){
                     $previous = Token::item($input, $i - 1);
