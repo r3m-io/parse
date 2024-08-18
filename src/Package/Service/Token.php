@@ -272,7 +272,7 @@ class Token
                                         }
                                     }
                                     d($variable_name);
-                                    $is_modifier = true;
+//                                    $is_modifier = true;
                                     continue;
                                 }
                                 elseif(
