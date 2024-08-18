@@ -183,10 +183,11 @@ class Variable
                     }
                     elseif($set_depth_argument < 0){
                         for($i = $nr - 1; $i >= 0; $i--){
-                            if($input['array'][$i] === '('){
+                            $current = Token::item($input, $i);
+                            if($current === '('){
                                 $set_depth_argument++;
                             }
-                            if($input['array'][$i] === ')'){
+                            if($current === ')'){
                                 $set_depth_argument--;
                             }
                             if($set_depth_argument === 0){
