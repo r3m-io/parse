@@ -534,7 +534,7 @@ class Build
                     }
                     if(
                         $item === ')' &&
-                        $set_depth === 1 &&
+                        $set_depth === 0 &&
                         $i > ($nr + 1)
                     ){
                         $right .= $item;
