@@ -233,6 +233,17 @@ class Variable
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
+                    for($index = 0; $index < $nr; $index++){
+                        $current = Token::item($input, $index);
+                        if($current === '('){
+                            $index_set_depth++;
+                            d('yes2');
+                        }
+                        elseif($current === ')'){
+                            $index_set_depth--;
+                            d('yes3');
+                        }
+                    }
                     $current = Token::item($input, $nr);
                     if($current === '('){
                         $index_set_depth++;
@@ -242,9 +253,9 @@ class Variable
                         $index_set_depth--;
                         d('yes3');
                     }
-                    d($nr);
-                    d($current);
-                    d($index_set_depth);
+                    if($index_set_depth < 0){
+                        $input['array'][$nr] = null;
+                    }
                     $modifier_name = '';
                     $modifier_string = '';
                     $is_argument = false;
