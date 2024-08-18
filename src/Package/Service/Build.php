@@ -377,7 +377,9 @@ class Build
                     $current,
                     [
                         '\\',
-                        '"'
+                        '"',
+                        '(',
+                        ')'
                     ],
                     true
                 )
@@ -396,7 +398,7 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
-                    $previous_modifier = '$variable';
+                    $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['variable']['modifier'] as $nr => $modifier){
                         //load modifier through reflection ?
                         $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
@@ -410,6 +412,7 @@ class Build
                         $modifier_value .= '        );';
                         $previous_modifier = $modifier_value;
                     }
+                    ddd($modifier_value);
                     $value .= $modifier_value;
                 } else {
                     $value .= '$data->get(\'' . $record['name'] . '\')';
