@@ -299,6 +299,7 @@ class Token
                                         $is_single_quoted === false &&
                                         $is_double_quoted === false
                                     ){
+                                        $modifier_string .= $char;
                                         //nothing
                                     } else {
                                         if(
@@ -308,6 +309,7 @@ class Token
                                             $is_double_quoted === false &&
                                             $curly_depth === $curly_depth_variable
                                         ){
+                                            $modifier_string .= $char;
                                             d($argument);
                                             $argument_list[] = Token::value(
                                                 $object,
@@ -330,7 +332,7 @@ class Token
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
-                                            d($argument);
+                                            $modifier_string .= $char;
                                             $argument_list[] = Token::value(
                                                 $object,
                                                 $flags,
@@ -371,6 +373,7 @@ class Token
                                         $is_double_quoted === false &&
                                         $curly_depth === $curly_depth_variable
                                     ){
+                                        $modifier_string .= $char;
                                         if($modifier !== ''){
                                             if($modifier_name === false){
                                                 $modifier_name = $modifier;
