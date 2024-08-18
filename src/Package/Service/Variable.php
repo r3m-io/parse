@@ -407,6 +407,7 @@ class Variable
             ){
                 $is_variable = $nr;
                 d($is_variable);
+                trace();
                 d($input['array']);
             }
             if($is_modifier === true){
