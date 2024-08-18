@@ -240,6 +240,13 @@ class Variable
                         }
                         $input['array'][$index] = null;
                     }
+                    $current = Token::item($input, $nr);
+                    if($current === '('){
+                        $index_set_depth++;
+                    }
+                    elseif($current === ')'){
+                        $index_set_depth--;
+                    }
                     d($index_set_depth);
                     $modifier_name = '';
                     $modifier_string = '';
