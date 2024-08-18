@@ -266,7 +266,12 @@ class Token
                                     $is_double_quoted === false
                                 ){
                                     d($after);
-                                    ddd($variable_name);
+                                    if($after !== ''){
+                                        if(substr($after, 0, 1) === '$'){
+                                            $variable_name = $after;
+                                        }
+                                    }
+                                    d($variable_name);
                                     $is_modifier = true;
                                     continue;
                                 }
