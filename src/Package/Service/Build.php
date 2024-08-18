@@ -185,6 +185,7 @@ class Build
             return false;
         }
         $variable_name = $record['variable']['name'];
+        $variable_uuid = Core::uuid_variable();
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
@@ -202,31 +203,32 @@ class Build
             }
             $value = $modifier_value;
             $data = [
-                '$variable = ' . $value . ';',
+                $variable_uuid . ' = ' . $value . ';',
             ];
-            $data[] = 'if($variable === null){';
+            $data[] = 'if(' . $variable_uuid .' === null){';
             $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');';
             $data[] = '}';
-            $data[] = 'if(!is_scalar($variable)){';
+            $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
             $data[] = '    //array or object';
-            $data[] = '    return $variable;';
+            $data[] = '    return ' . $variable_uuid .';';
             $data[] = '} else {';
-            $data[] = '    echo $variable;';
+            $data[] = '    echo '. $variable_uuid .';';
             $data[] = '}';
             return $data;
         } else {
-            return [
-                '$variable = $data->get(\'' . $variable_name . '\');',
-                'if($variable === null){',
-                '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
-                '}',
-                'if(!is_scalar($variable)){',
-                '    //array or object',
-                '    return $variable;',
-                '} else {',
-                '    echo $variable;',
-                '}'
+            $data = [
+                $variable_uuid . ' = $data->get(\'' . $variable_name . '\');' ,
             ];
+            $data[] = 'if(' . $variable_uuid .' === null){';
+            $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');';
+            $data[] = '}';
+            $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
+            $data[] = '    //array or object';
+            $data[] = '    return ' . $variable_uuid .';';
+            $data[] = '} else {';
+            $data[] = '    echo '. $variable_uuid .';';
+            $data[] = '}';
+            return $data;;
         }
 
         /*
