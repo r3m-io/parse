@@ -438,8 +438,7 @@ class Build
                 $value .=  $record['execute'];
             }
             else {
-                ddd($value);
-                $value = '';
+                d($value);
                 $right = Build::value_right(
                     $object,
                     $flags,
@@ -449,6 +448,8 @@ class Build
                     $next,
                     $skip
                 );
+                d($current);
+                ddd($right);
                 switch($current){
                     case '+':
                         $value = '$this->value_plus(' . $value . ', ' . $right . ')';
