@@ -142,6 +142,7 @@ class Token
                             $modifier = '';
                             $modifier_array = [];
                             $modifier_list = [];
+                            $modifier_string = '';
                             $argument = '';
                             $argument_array = [];
                             $argument_list = [];
@@ -356,6 +357,7 @@ class Token
                                             ){
                                                 break;
                                             }
+                                            $modifier_string .= $char;
                                             $argument .= $char;
                                             $argument_array[] = $char;
                                         }
@@ -369,9 +371,10 @@ class Token
                                         $is_double_quoted === false &&
                                         $curly_depth === $curly_depth_variable
                                     ){
-                                        if($modifier){
+                                        if($modifier !== ''){
                                             if($modifier_name === false){
                                                 $modifier_name = $modifier;
+                                                $modifier_string = $modifier;
                                                 $modifier = '';
                                                 $modifier_array = [];
                                             }
@@ -395,6 +398,7 @@ class Token
                                     } else {
                                         $modifier .= $char;
                                         $modifier_array[] = $char;
+                                        $modifier_string .= $char;
                                     }
                                     continue;
                                 }
@@ -500,10 +504,12 @@ class Token
                             }
                             if($modifier_name){
                                 $modifier_list[] = [
+                                    'string' => $modifier_string,
                                     'name' => $modifier_name,
                                     'argument' => $argument_list
                                 ];
                                 $modifier_name = false;
+                                $modifier_string = '';
                                 $argument_list = [];
                             }
                             if($after === ''){
