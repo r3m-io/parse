@@ -430,6 +430,7 @@ class Token
                                     ) {
                                         continue;
                                     } else {
+                                        d($operator);
                                         $is_after = true;
                                         $after .= $char;
                                         $after_array[] = $char;
