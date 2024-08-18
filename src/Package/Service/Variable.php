@@ -594,6 +594,9 @@ class Variable
             ddd($input);
         }
         if($is_variable !== false){
+            d($is_variable);
+            d($nr);
+            d($input);
             for($index = $is_variable + 1; $index <= $nr; $index++){
                 $input['array'][$index] = null;
             }
