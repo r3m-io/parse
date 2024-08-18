@@ -524,9 +524,6 @@ class Token
                                 if($cache->has($after_hash)){
                                     $list = $cache->get($after_hash);
                                 } else {
-                                    d($after);
-                                    d($after_array);
-                                    dd($modifier_list);
                                     $list = Token::value(
                                         $object,
                                         $flags,
@@ -539,7 +536,8 @@ class Token
                                     $cache->set($after_hash, $list);
                                 }
                                 if(array_key_exists(0, $modifier_list)){
-                                    d($modifier_list);
+                                    d($list);
+                                    ddd($modifier_list);
                                     $variable = [
                                         'is_assign' => true,
                                         'operator' => $operator,
