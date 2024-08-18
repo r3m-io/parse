@@ -247,6 +247,7 @@ class Variable
                     elseif($current === ')'){
                         $index_set_depth--;
                     }
+                    d($current);
                     d($index_set_depth);
                     $modifier_name = '';
                     $modifier_string = '';
