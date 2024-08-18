@@ -544,6 +544,7 @@ class Build
                     }
                     $right .= $item;
                     if(!array_key_exists($i, $input)){
+                        d($i);
                         d($item);
                         ddd($input);
                     }
