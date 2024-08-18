@@ -171,6 +171,7 @@ class Variable
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
                     }
+                    d($set_depth);
                     d($argument_array);
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
