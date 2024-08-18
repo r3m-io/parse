@@ -160,6 +160,8 @@ class Variable
                         $set_depth_modifier === false
                     )
                 ){
+                    d($set_depth);
+                    d($argument_nr);
                     if(
                         $argument_nr >= 0 &&
                         $set_depth >= 0
