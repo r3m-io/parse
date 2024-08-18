@@ -531,11 +531,18 @@ class Token
                                         [
                                             'string' => $after,
                                             'array' => $after_array,
-                                            'modifier' => $modifier_list
+//                                            'modifier' => $modifier_list
                                         ]
                                     );
                                     $cache->set($after_hash, $list);
                                 }
+                                $variable = [
+                                    'is_assign' => true,
+                                    'operator' => $operator,
+                                    'name' => substr($variable_name, 1),
+                                    'value' => $list,
+                                ];
+                                /*
                                 if(array_key_exists(0, $modifier_list)){
                                     d($list);
                                     d($modifier_list);
@@ -554,6 +561,7 @@ class Token
                                         'value' => $list,
                                     ];
                                 }
+                                */
                             }
                             $variable_name = '';
                             $curly_depth_variable = false;
