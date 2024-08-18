@@ -512,6 +512,9 @@ class Build
         return $value;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function value_right(App $object, $flags, $options, $input, $nr, $next, &$skip=0): string
     {
         $count = count($input['array']);
@@ -557,7 +560,7 @@ class Build
                 $skip++;
             break;
             default:
-                throw new Exception('Not implemented');
+                throw new Exception('Not implemented: ' . $next . ' on line ' . __LINE__ . ' in ' . __FILE__);
         }
         return $right;
     }
