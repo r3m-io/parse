@@ -240,7 +240,7 @@ class Variable
                         }
                         $input['array'][$index] = null;
                     }
-                    ddd($index_set_depth);
+                    d($index_set_depth);
                     $modifier_name = '';
                     $modifier_string = '';
                     $is_argument = false;
