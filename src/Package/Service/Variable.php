@@ -126,6 +126,7 @@ class Variable
         $set_depth = 0;
         $set_depth_modifier = false;
         $set_depth_argument = 0;
+        $set_skip = 0;
         $outer_curly_depth = 0;
         $outer_set_depth = 0;
         $modifier_string = '';
@@ -157,10 +158,15 @@ class Variable
                     if($set_depth_argument < 0){
                         $set_depth--;
                         $set_depth_argument++;
+                        $set_skip++;
                     }
                 }
                 if($set_depth < 0){
-                    $input['array'][$nr] = null;
+                    if($set_skip > 0){
+                        $set_skip--;
+                    } else {
+                        $input['array'][$nr] = null;
+                    }
                 }
                 if(
                     $is_modifier &&
