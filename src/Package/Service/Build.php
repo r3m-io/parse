@@ -552,11 +552,12 @@ class Build
                     $skip++;
                 }
                 break;
-            default:
             case NULL:
                 $right = 'NULL';
                 $skip++;
             break;
+            default:
+                throw new Exception('Not implemented');
         }
         return $right;
     }
