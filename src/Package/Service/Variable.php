@@ -160,11 +160,9 @@ class Variable
                         $set_depth_modifier === false
                     )
                 ){
-                    d($set_depth);
-                    d($argument_nr);
                     if(
                         $argument_nr >= 0 &&
-                        $set_depth >= 0
+                        $set_depth > 0  //must have been started to be added.
                     ){
                         if(!array_key_exists($argument_nr, $argument)){
                             $argument_array[$argument_nr] = [];
