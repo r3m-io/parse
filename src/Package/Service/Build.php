@@ -188,6 +188,52 @@ class Build
         }
         $assign = '$variable = ';
         $variable_name = $record['variable']['name'];
+
+        if(array_key_exists('modifier', $record['variable'])){
+            $previous_modifier = '$data->get(\'' . $variable_name . '\')';
+            foreach($record['variable']['modifier'] as $nr => $modifier){
+                //load modifier through reflection ?
+                $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
+                if(array_key_exists('argument', $modifier)){
+                    foreach($modifier['argument'] as $argument_nr => $argument){
+                        $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                    }
+                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                }
+                $modifier_value .= '        );';
+                $previous_modifier = $modifier_value;
+            }
+            $value = $modifier_value;
+            $data = [
+                '$variable = ' . $value . ';',
+            ];
+            $data[] = 'if($variable === null){';
+            $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');';
+            $data[] = '}';
+            $data[] = 'if(!is_scalar($variable)){';
+            $data[] = '    //array or object';
+            $data[] = '    return $variable;';
+            $data[] = '} else {';
+            $data[] = '    echo $variable;';
+            $data[] = '}';
+            return $data;
+        } else {
+            return [
+                '$variable = $data->get(\'' . $variable_name . '\');',
+                'if($variable === null){',
+                '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
+                '}',
+                'if(!is_scalar($variable)){',
+                '    //array or object',
+                '    return $variable;',
+                '} else {',
+                '    echo $variable;',
+                '}'
+            ];
+        }
+
+        /*
         $modifier_value = '';
         $modifier_list = [];
         if(array_key_exists('modifier', $record['variable'])){
@@ -236,9 +282,7 @@ class Build
                 '}'
             ];
         }
-
-
-
+        */
     }
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
