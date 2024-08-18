@@ -266,6 +266,8 @@ class Token
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
+                                    $after .= $char;
+                                    $after_array[] = $char;
                                     d($after);
                                     if($after !== ''){
                                         if(substr($after, 0, 1) === '$'){
@@ -273,7 +275,7 @@ class Token
                                         }
                                     }
                                     d($variable_name);
-                                    $is_modifier = true;
+//                                    $is_modifier = true;
                                     continue;
                                 }
                                 elseif(
