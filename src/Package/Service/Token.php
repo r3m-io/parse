@@ -272,7 +272,7 @@ class Token
                                         }
                                     }
                                     d($variable_name);
-//                                    $is_modifier = true;
+                                    $is_modifier = true;
                                     continue;
                                 }
                                 elseif(
@@ -530,7 +530,8 @@ class Token
                                         $options,
                                         [
                                             'string' => $after,
-                                            'array' => $after_array
+                                            'array' => $after_array,
+                                            'modifier' => $modifier_list
                                         ]
                                     );
                                     $cache->set($after_hash, $list);
@@ -911,6 +912,7 @@ class Token
             $input = Method::define($object, $flags, $options, $input);
             $input = Variable::define($object, $flags, $options, $input);
             $input = Variable::modifier($object, $flags, $options, $input);
+            unset($input['modifier']);
             $input = Value::define($object, $flags, $options, $input);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
