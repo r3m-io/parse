@@ -699,6 +699,7 @@ class Token
         $is_parse = false;
         $whitespace_nr = false;
         $curly_depth = 0;
+        unset($input['modifier']);
         foreach($input['array'] as $nr => $char){
             $previous = $input['array'][$nr - 1] ?? null;
             if(
@@ -912,7 +913,6 @@ class Token
             $input = Method::define($object, $flags, $options, $input);
             $input = Variable::define($object, $flags, $options, $input);
             $input = Variable::modifier($object, $flags, $options, $input);
-            unset($input['modifier']);
             $input = Value::define($object, $flags, $options, $input);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
