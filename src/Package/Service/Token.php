@@ -527,6 +527,7 @@ class Token
                                     $cache->set($after_hash, $list);
                                 }
                                 if(array_key_exists(0, $modifier_list)){
+                                    d($modifier_list);
                                     $variable = [
                                         'is_assign' => true,
                                         'operator' => $operator,
