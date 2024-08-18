@@ -229,7 +229,7 @@ class Variable
                         }
                     }
                     */
-                    for($index = $is_variable + 1; $index <= $nr; $index++){
+                    for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
                     $modifier_name = '';
@@ -590,12 +590,12 @@ class Variable
                     'argument' => []
                 ];
             }
-            for($index = $is_variable + 1; $index <= $nr; $index++){
-                $input['array'][$index] = null;
-            }
+
             ddd($input);
         }
-
+        for($index = $is_variable + 1; $index <= $nr; $index++){
+            $input['array'][$index] = null;
+        }
         d($input);
         return $input;
     }
