@@ -229,9 +229,18 @@ class Variable
                         }
                     }
                     */
-                    for($index = $is_variable + 1; $index <= $nr; $index++){
+                    $index_set_depth = 0;
+                    for($index = $is_variable + 1; $index < $nr; $index++){
+                        $current = Token::item($input, $index);
+                        if($current === '('){
+                            $index_set_depth++;
+                        }
+                        elseif($current === ')'){
+                            $index_set_depth--;
+                        }
                         $input['array'][$index] = null;
                     }
+                    ddd($index_set_depth);
                     $modifier_name = '';
                     $modifier_string = '';
                     $is_argument = false;
