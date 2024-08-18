@@ -533,6 +533,8 @@ class Token
                                     ];
                                 }
                             } else {
+                                d($after);
+                                d($after_array);
                                 if($modifier_list){
                                     foreach($modifier_list as $modifier_nr => $modifier){
                                         d($modifier);
