@@ -399,13 +399,9 @@ class Build
                 $record['type'] === 'variable'
             ){
                 $modifier_value = '';
-                d($record);
-                continue;
                 if(array_key_exists('modifier', $record)){
-
-                    ddd($input);
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
-                    foreach($record['variable']['modifier'] as $nr => $modifier){
+                    foreach($record['modifier'] as $nr => $modifier){
                         //load modifier through reflection ?
                         $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
                         $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
