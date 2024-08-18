@@ -378,7 +378,7 @@ class Token
                                         if($modifier !== ''){
                                             if($modifier_name === false){
                                                 $modifier_name = $modifier;
-                                                $modifier_string = $modifier;
+                                                $modifier_string = $modifier . $char;
                                                 $modifier = '';
                                                 $modifier_array = [];
                                             }
@@ -398,6 +398,7 @@ class Token
                                         $is_single_quoted === false &&
                                         $is_double_quoted === false
                                     ){
+                                        $modifier_string .= $char;
                                         //nothing
                                     } else {
                                         $modifier .= $char;
