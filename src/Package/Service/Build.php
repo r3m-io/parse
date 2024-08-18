@@ -350,6 +350,9 @@ class Build
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function value(App $object, $flags, $options, $input): string
     {
         $value = '';
@@ -438,7 +441,6 @@ class Build
                 $value .=  $record['execute'];
             }
             else {
-                d($value);
                 $right = Build::value_right(
                     $object,
                     $flags,
@@ -449,8 +451,6 @@ class Build
                     $skip
                 );
                 $right = Build::value($object, $flags, $options, $right);
-                d($current);
-                ddd($right);
                 switch($current){
                     case '+':
                         $value = '$this->value_plus(' . $value . ', ' . $right . ')';
