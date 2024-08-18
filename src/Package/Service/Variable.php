@@ -127,6 +127,7 @@ class Variable
         $count = count($input['array']);
         $set_depth = 0;
         $set_depth_modifier = false;
+        $set_depth_argument = 0;
         $outer_curly_depth = 0;
         $outer_set_depth = 0;
         $modifier_string = '';
@@ -147,9 +148,15 @@ class Variable
             $current = Token::item($input, $nr);
             if($current === '('){
                 $set_depth++;
+                if(array_key_exists($argument_nr, $argument)){
+                    $set_depth_argument++;
+                }
             }
             elseif($current === ')'){
                 $set_depth--;
+                if(array_key_exists($argument_nr, $argument)){
+                    $set_depth_argument--;
+                }
                 if($set_depth < 0){
                     $input['array'][$nr] = null;
                 }
@@ -172,6 +179,7 @@ class Variable
                         $argument_array[$argument_nr][] = $char;
                     }
                     d($set_depth);
+                    d($set_depth_argument);
                     d($argument_array);
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
