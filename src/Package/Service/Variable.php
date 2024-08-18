@@ -301,6 +301,12 @@ class Variable
                         'name' => $modifier_name,
                         'argument' => $argument_array
                     ];
+                    if(array_key_exists('modifier', $input)){
+                        foreach($input['modifier'] as $index => $modifier){
+                            $input['array'][$is_variable]['modifier'][] = $modifier;
+                        }
+                        unset($input['modifier']);
+                    }
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
@@ -317,6 +323,12 @@ class Variable
                         'name' => $modifier_name,
                         'argument' => []
                     ];
+                    if(array_key_exists('modifier', $input)){
+                        foreach($input['modifier'] as $index => $modifier){
+                            $input['array'][$is_variable]['modifier'][] = $modifier;
+                        }
+                        unset($input['modifier']);
+                    }
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
@@ -386,6 +398,12 @@ class Variable
                             'name' => $modifier_name,
                             'argument' => $argument_array
                         ];
+                        if(array_key_exists('modifier', $input)){
+                            foreach($input['modifier'] as $index => $modifier){
+                                $input['array'][$is_variable]['modifier'][] = $modifier;
+                            }
+                            unset($input['modifier']);
+                        }
                         for($index = $is_variable + 1; $index < $nr; $index++){
                             $input['array'][$index] = null;
                         }
@@ -527,6 +545,12 @@ class Variable
                     'name' => $modifier_name,
                     'argument' => $argument_array
                 ];
+                if(array_key_exists('modifier', $input)){
+                    foreach($input['modifier'] as $index => $modifier){
+                        $input['array'][$is_variable]['modifier'][] = $modifier;
+                    }
+                    unset($input['modifier']);
+                }
                 for($index = $is_variable + 1; $index <= $nr; $index++){
                     $input['array'][$index] = null;
                 }
@@ -542,7 +566,6 @@ class Variable
                 }
             }
         }
-
         return $input;
     }
 }

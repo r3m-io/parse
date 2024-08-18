@@ -699,7 +699,6 @@ class Token
         $is_parse = false;
         $whitespace_nr = false;
         $curly_depth = 0;
-        unset($input['modifier']);
         foreach($input['array'] as $nr => $char){
             $previous = $input['array'][$nr - 1] ?? null;
             if(
