@@ -265,6 +265,7 @@ class Token
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
+                                    d($after);
                                     ddd($variable_name);
                                     $is_modifier = true;
                                     continue;
