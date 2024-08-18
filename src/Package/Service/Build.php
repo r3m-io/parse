@@ -186,9 +186,7 @@ class Build
         ) {
             return false;
         }
-        $assign = '$variable = ';
         $variable_name = $record['variable']['name'];
-
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
@@ -197,7 +195,6 @@ class Build
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        ddd($argument);
                         $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                     }
                     $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
