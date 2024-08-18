@@ -543,6 +543,10 @@ class Build
                         break;
                     }
                     $right .= $item;
+                    if(!array_key_exists($i, $input)){
+                        d($item);
+                        ddd($input);
+                    }
                     $right_array[] = $input[$i];
                     $skip++;
                 }
