@@ -519,6 +519,7 @@ class Build
     {
         $count = count($input['array']);
         $right = '';
+        $right_array = [];
         switch($next){
             case '(':
                 $set_depth = 1;
@@ -537,10 +538,12 @@ class Build
                         $i > ($nr + 1)
                     ){
                         $right .= $item;
+                        $right_array[] = $input[$i];
                         $skip++;
                         break;
                     }
                     $right .= $item;
+                    $right_array[] = $input[$i];
                     $skip++;
                 }
                 break;
@@ -586,7 +589,10 @@ class Build
             default:
                 throw new Exception('Not implemented: ' . $next . ' on line ' . __LINE__ . ' in ' . __FILE__);
         }
-        return $right;
+        return [
+            'string' => $right,
+            'array' => $right_array
+        ];
     }
 
 }
