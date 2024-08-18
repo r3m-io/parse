@@ -578,10 +578,6 @@ class Variable
                     unset($input['modifier']);
                 }
                 */
-                for($index = $is_variable + 1; $index <= $nr; $index++){
-                    $input['array'][$index] = null;
-                }
-                ddd($input);
             }
             elseif($is_modifier !== false){
                 $input['array'][$is_variable]['modifier'][] = [
@@ -589,12 +585,13 @@ class Variable
                     'name' => $modifier_name,
                     'argument' => []
                 ];
-                for($index = $is_variable + 1; $index <= $nr; $index++){
-                    $input['array'][$index] = null;
-                }
-                ddd($input);
             }
+            for($index = $is_variable + 1; $index <= $nr; $index++){
+                $input['array'][$index] = null;
+            }
+            ddd($input);
         }
+
         d($input);
         return $input;
     }
