@@ -536,6 +536,7 @@ class Token
                                     );
                                     $cache->set($after_hash, $list);
                                 }
+                                d($list);
                                 $variable = [
                                     'is_assign' => true,
                                     'operator' => $operator,
