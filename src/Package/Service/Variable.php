@@ -523,12 +523,6 @@ class Variable
                     $argument[$argument_nr] .= $current;
                     $argument_array[$argument_nr][] = $char;
                 }
-            } elseif(
-                $is_variable !== false &&
-                $is_modifier === false
-            ){
-                d($is_variable);
-                d($input['array'] );
             }
         }
         if(
