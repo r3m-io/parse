@@ -165,6 +165,8 @@ class Variable
                     if($set_skip > 0){
                         $set_skip--;
                     } else {
+                        d($previous);
+                        d($next);
                         $input['array'][$nr] = null;
                     }
                 }
