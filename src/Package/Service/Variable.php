@@ -169,7 +169,8 @@ class Variable
                 ){
                     if(
                         $argument_nr >= 0 &&
-                        $set_depth >= 0
+                        $set_depth >= 0 &&
+                        $set_depth_argument >= 0
                     ){
                         if(!array_key_exists($argument_nr, $argument)){
                             $argument_array[$argument_nr] = [];
@@ -178,9 +179,6 @@ class Variable
                         $argument[$argument_nr] .= $current;
                         $argument_array[$argument_nr][] = $char;
                     }
-                    d($set_depth);
-                    d($set_depth_argument);
-                    d($argument_array);
                     $modifier_string .= $current;
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
