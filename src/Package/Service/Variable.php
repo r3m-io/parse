@@ -234,18 +234,22 @@ class Variable
                         $current = Token::item($input, $index);
                         if($current === '('){
                             $index_set_depth++;
+                            d('yes');
                         }
                         elseif($current === ')'){
                             $index_set_depth--;
+                            d('no');
                         }
                         $input['array'][$index] = null;
                     }
                     $current = Token::item($input, $nr);
                     if($current === '('){
                         $index_set_depth++;
+                        d('yes2');
                     }
                     elseif($current === ')'){
                         $index_set_depth--;
+                        d('yes3');
                     }
                     d($nr);
                     d($current);
