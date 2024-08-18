@@ -298,7 +298,6 @@ class Build
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
         if(array_key_exists('modifier', $record['variable'])){
-            d($record);
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
@@ -314,8 +313,6 @@ class Build
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
-        } else {
-            d($record);
         }
         if(
             $variable_name !== '' &&
@@ -411,7 +408,6 @@ class Build
                         $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
-                                d($argument);
                                 $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                             }
                             $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
@@ -510,7 +506,6 @@ class Build
                 }
             }
         }
-        d($value);
         return $value;
     }
 
