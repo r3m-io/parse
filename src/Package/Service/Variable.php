@@ -362,7 +362,7 @@ class Variable
                         unset($input['modifier']);
                     }
                     */
-                    for($index = $is_variable + 1; $index < $nr; $index++){
+                    for($index = $is_variable + 1; $index <= $nr; $index++){
                         $input['array'][$index] = null;
                     }
                     $modifier_name = '';
@@ -439,7 +439,7 @@ class Variable
                             unset($input['modifier']);
                         }
                         */
-                        for($index = $is_variable + 1; $index < $nr; $index++){
+                        for($index = $is_variable + 1; $index <= $nr; $index++){
                             $input['array'][$index] = null;
                         }
                     }
