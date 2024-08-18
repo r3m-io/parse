@@ -299,7 +299,7 @@ class Build
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
         if(array_key_exists('modifier', $record['variable'])){
-            $previous_modifier = '$variable';
+            $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
                 $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
@@ -399,7 +399,10 @@ class Build
                 $record['type'] === 'variable'
             ){
                 $modifier_value = '';
+                d($record);
+                continue;
                 if(array_key_exists('modifier', $record)){
+
                     ddd($input);
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['variable']['modifier'] as $nr => $modifier){
