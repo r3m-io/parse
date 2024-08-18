@@ -489,7 +489,7 @@ class Variable
                 $is_modifier === false
             ){
                 d($is_variable);
-                ddd($input['array'] );
+                d($input['array'] );
             }
         }
         if(
