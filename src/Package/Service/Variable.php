@@ -157,8 +157,9 @@ class Variable
                     $set_depth_argument--;
                 }
                 if($set_depth < 0){
-                    d($nr);
-                    d($input);
+                    $input['array'][$nr] = null;
+                }
+                if($set_depth_argument < 0){
                     $input['array'][$nr] = null;
                 }
                 if(
@@ -494,8 +495,8 @@ class Variable
                         } else {
                             $set_depth_modifier = $set_depth - 1;
                         }
-
                     }
+                    d($set_depth_argument);
                 }
                 elseif(
                     in_array(
