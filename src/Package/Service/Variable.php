@@ -194,8 +194,11 @@ class Variable
                                 break;
                             }
                         }
-                        d($nr);
-                        d($set_depth_argument);
+                        if($set_depth_argument !== 0){
+                            d($nr);
+                            d($input);
+                            ddd($set_depth_argument);
+                        }
                     }
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
