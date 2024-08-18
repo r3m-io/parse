@@ -179,7 +179,7 @@ class Variable
                         $modifier_string .= $current;
                     }
                     elseif($set_depth_argument < 0){
-                        $input['array'][$nr] = null;
+                        $set_depth += $set_depth_argument;
                     }
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
