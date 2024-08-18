@@ -381,7 +381,8 @@ class Build
                         '\\',
                         '"',
                         '(',
-                        ')'
+                        ')',
+                        '\'',
                     ],
                     true
                 )
@@ -506,6 +507,7 @@ class Build
                 }
             }
         }
+        d($value);
         return $value;
     }
 
