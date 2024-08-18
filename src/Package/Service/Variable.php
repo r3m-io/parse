@@ -111,6 +111,7 @@ class Variable
                 }
             }
         }
+        trace();
         d($input);
         return $input;
     }
