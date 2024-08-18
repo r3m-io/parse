@@ -155,20 +155,11 @@ class Variable
                 $set_depth--;
                 if(array_key_exists($argument_nr, $argument)){
                     $set_depth_argument--;
-                    if($set_depth_argument < 0){
-                        $set_depth--;
-                        $set_depth_argument++;
-                        $set_skip++;
-                    }
                 }
                 if($set_depth < 0){
-                    if($set_skip > 0){
-                        $set_skip--;
-                    } else {
-                        d($previous);
-                        d($next);
-                        $input['array'][$nr] = null;
-                    }
+                    d($nr);
+                    d($input);
+                    $input['array'][$nr] = null;
                 }
                 if(
                     $is_modifier &&
@@ -191,7 +182,8 @@ class Variable
                         $modifier_string .= $current;
                     }
                     elseif($set_depth_argument < 0){
-
+                        d($nr);
+                        ddd($input);
                     }
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
