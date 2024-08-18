@@ -518,6 +518,7 @@ class Token
                                     $list = $cache->get($after_hash);
                                 } else {
                                     d($after);
+                                    d($after_array);
                                     $list = Token::value(
                                         $object,
                                         $flags,
