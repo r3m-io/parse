@@ -538,17 +538,17 @@ class Build
                         $i > ($nr + 1)
                     ){
                         $right .= $item;
-                        $right_array[] = $input[$i];
+                        $right_array[] = $input['array'][$i];
                         $skip++;
                         break;
                     }
                     $right .= $item;
-                    if(!array_key_exists($i, $input)){
+                    if(!array_key_exists($i, $input['array'])){
                         d($i);
                         d($item);
                         ddd($input);
                     }
-                    $right_array[] = $input[$i];
+                    $right_array[] = $input['array'][$i];
                     $skip++;
                 }
                 break;
