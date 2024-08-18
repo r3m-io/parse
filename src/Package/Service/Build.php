@@ -7,8 +7,12 @@ use R3m\Io\Module\Core;
 use R3m\Io\Module\File;
 
 use Exception;
+
 class Build
 {
+    /**
+     * @throws Exception
+     */
     public static function create(App $object, $flags, $options, $tags=[]): array
     {
         $options->class = 'Main';
