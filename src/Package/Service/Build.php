@@ -199,7 +199,7 @@ class Build
                     }
                     $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
                 }
-                $modifier_value .= '        )' . PHP_EOL;
+                $modifier_value .= '        )';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
@@ -310,7 +310,7 @@ class Build
                     }
                     $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
                 }
-                $modifier_value .= '        )' . PHP_EOL;
+                $modifier_value .= '        )';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
@@ -416,7 +416,7 @@ class Build
                             }
                             $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
                         }
-                        $modifier_value .= '        )' . PHP_EOL;
+                        $modifier_value .= '        )';
                         $previous_modifier = $modifier_value;
                     }
                     $value .= $modifier_value;
