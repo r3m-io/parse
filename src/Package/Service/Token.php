@@ -526,7 +526,7 @@ class Token
                                 } else {
                                     d($after);
                                     d($after_array);
-                                    ddd($modifier_list);
+                                    dd($modifier_list);
                                     $list = Token::value(
                                         $object,
                                         $flags,
