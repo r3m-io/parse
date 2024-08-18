@@ -301,6 +301,7 @@ class Token
                                             $is_double_quoted === false &&
                                             $curly_depth === $curly_depth_variable
                                         ){
+                                            d($argument);
                                             $argument_list[] = Token::value(
                                                 $object,
                                                 $flags,
@@ -322,6 +323,7 @@ class Token
                                             $is_single_quoted === false &&
                                             $is_double_quoted === false
                                         ){
+                                            d($argument);
                                             $argument_list[] = Token::value(
                                                 $object,
                                                 $flags,
