@@ -595,7 +595,7 @@ class Variable
                 }
             }
         }
-
+        d($input);
         return $input;
     }
 }
