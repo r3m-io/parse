@@ -23,7 +23,6 @@ class Build
                         $data[] = $line;
                     }
                 }
-                ddd($record);
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
                     $data[] = $variable_assign;
@@ -287,6 +286,7 @@ class Build
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
+        d($record);
         if(!array_key_exists('variable', $record)){
             return false;
         }
