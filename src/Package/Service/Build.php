@@ -431,6 +431,7 @@ class Build
                 if($value === ''){
                     $value .= $record['execute'];
                 } else {
+                    //no hex if we have value
                     $value .= $record['value'];
                 }
             }

@@ -111,8 +111,6 @@ class Variable
                 }
             }
         }
-        trace();
-        d($input);
         return $input;
     }
 
@@ -448,9 +446,6 @@ class Variable
                 $is_variable === false
             ){
                 $is_variable = $nr;
-                d($is_variable);
-                trace();
-                d($input['array']);
             }
             if($is_modifier === true){
                 $modifier_string .= $current;
