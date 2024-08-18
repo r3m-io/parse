@@ -286,7 +286,6 @@ class Build
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
-        d($record);
         if(!array_key_exists('variable', $record)){
             return false;
         }
@@ -315,6 +314,8 @@ class Build
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
+        } else {
+            d($record);
         }
         if(
             $variable_name !== '' &&
