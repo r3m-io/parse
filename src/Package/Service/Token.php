@@ -265,7 +265,7 @@ class Token
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
-                                    d($variable_name);
+                                    ddd($variable_name);
                                     $is_modifier = true;
                                     continue;
                                 }
@@ -469,7 +469,6 @@ class Token
                                     if($curly_depth_variable === false){
                                         $curly_depth_variable = $curly_depth;
                                     }
-
                                 }
                             }
                             if($argument !== ''){
