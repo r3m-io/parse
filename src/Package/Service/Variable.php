@@ -182,8 +182,19 @@ class Variable
                         $modifier_string .= $current;
                     }
                     elseif($set_depth_argument < 0){
+                        for($i = $nr - 1; $i >= 0; $i--){
+                            if($input['array'][$i] === '('){
+                                $set_depth_argument++;
+                            }
+                            if($input['array'][$i] === ')'){
+                                $set_depth_argument--;
+                            }
+                            if($set_depth_argument === 0){
+                                break;
+                            }
+                        }
                         d($nr);
-                        d($input);
+                        d($set_depth_argument);
                     }
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
