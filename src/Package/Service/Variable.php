@@ -545,6 +545,7 @@ class Variable
         d($input);
         d($is_variable);
         d($is_modifier);
+        d($is_argument);
         if(
             $is_variable !== false &&
             $is_modifier !== false
