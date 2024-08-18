@@ -494,7 +494,6 @@ class Variable
                             $set_depth_modifier = $set_depth - 1;
                         }
                     }
-                    d($set_depth_argument);
                 }
                 elseif(
                     in_array(
@@ -582,6 +581,7 @@ class Variable
                 for($index = $is_variable + 1; $index <= $nr; $index++){
                     $input['array'][$index] = null;
                 }
+                ddd($input);
             }
             elseif($is_modifier !== false){
                 $input['array'][$is_variable]['modifier'][] = [
@@ -592,6 +592,7 @@ class Variable
                 for($index = $is_variable + 1; $index <= $nr; $index++){
                     $input['array'][$index] = null;
                 }
+                ddd($input);
             }
         }
         d($input);
