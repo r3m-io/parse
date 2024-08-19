@@ -1,9 +1,14 @@
 <?php
-namespace Package\R3m\Io\Parse\Modifier;
-
-use R3m\Io\App;
-
-use R3m\Io\Module\Data;
+/**
+ * @package Plugin\Modifier
+ * @author Remco van der Velde
+ * @since 2024-08-19
+ * @license MIT
+ * @version 1.0
+ * @changeLog
+ *    - all
+ */
+namespace Plugin\Modifier;
 
 trait Modifier_default {
 
