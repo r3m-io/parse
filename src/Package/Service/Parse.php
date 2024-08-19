@@ -44,6 +44,7 @@ class Parse
         $flags = $this->flags();
         $options = $this->options();
         $token = Token::tokenize($object, $flags, $options, $input);
+        ddd($token);
         $document = Build::create($object, $flags, $options, $token);
 
         $dir = $object->config('project.dir.data') .
