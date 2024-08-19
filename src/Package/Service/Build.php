@@ -456,6 +456,12 @@ class Build
             }
             elseif(
                 array_key_exists('type', $record) &&
+                $record['type'] === 'method'
+            ){
+                ddd($record);
+            }
+            elseif(
+                array_key_exists('type', $record) &&
                 $record['type'] === 'variable'
             ){
                 $modifier_value = '';
