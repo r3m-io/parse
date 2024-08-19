@@ -519,6 +519,7 @@ class Token
                                 $modifier_string = '';
                                 $argument_list = [];
                             }
+                            d($after);
                             if($after === ''){
                                 if(array_key_exists(0, $modifier_list)){
                                     $variable = [
