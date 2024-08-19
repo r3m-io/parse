@@ -8,11 +8,11 @@
  * @changeLog
  *    - all
  */
-namespace Plugin\Modifier;
+namespace Plugin;
 
-trait Modifier_default {
+trait Plugin_default {
 
-    function modifier_default($value, $default=null){
+    function plugin_default($value, $default=null){
         if(empty($value)){
             return $default;
         }
