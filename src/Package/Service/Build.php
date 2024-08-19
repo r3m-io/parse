@@ -221,6 +221,10 @@ class Build
         ) {
             return false;
         }
+        if(!array_key_exists('name', $record['variable'])){
+            trace();
+            ddd($record);
+        }
         $variable_name = $record['variable']['name'];
         $variable_uuid = Core::uuid_variable();
         if(array_key_exists('modifier', $record['variable'])){
