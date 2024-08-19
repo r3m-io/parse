@@ -470,7 +470,7 @@ class Build
                     $method_value = substr($method_value, 0, -2) . PHP_EOL;
                 }
                 $method_value .= ')';
-                ddd($record);
+                ddd($method_value);
             }
             elseif(
                 array_key_exists('type', $record) &&
