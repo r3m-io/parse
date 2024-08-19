@@ -188,6 +188,27 @@ class Build
         return $next;
     }
 
+    public static function plugin(App $object, $flags, $options, $name): string
+    {
+        if(
+            in_array(
+                $name,
+                [
+                    'default',
+                    'object'
+                ],
+                true
+            )
+        ){
+            $plugin = 'plugin_' . $name;
+        } else {
+            $plugin = $name;
+        }
+        $plugin = str_replace('.', '_', $plugin);
+        $plugin = str_replace('-', '_', $plugin);
+        return $plugin;
+    }
+
     public static function variable_define(App $object, $flags, $options, $record = []): bool | array
     {
         if (!array_key_exists('variable', $record)) {
@@ -205,7 +226,8 @@ class Build
             $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
-                $modifier_value = '$this->plugin_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
+                $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
@@ -335,8 +357,8 @@ class Build
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
-                //load modifier through reflection ?
-                $modifier_value = '$this->plugin_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
+                $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
@@ -439,7 +461,8 @@ class Build
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         //load modifier through reflection ?
-                        $modifier_value = '$this->plugin_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                        $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
+                        $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                         $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
