@@ -66,7 +66,8 @@ class Build
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Basic;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Parser;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Value;';
-        $document[] = 'use \Package\R3m\Io\Parse\Modifier;';
+        $document[] = 'use \Plugin\Modifier;';
+        $document[] = 'use \Plugin\Function;';
         $document[] = '';
         $document[] = 'use Exception;';
         $document[] = '';
