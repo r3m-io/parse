@@ -66,8 +66,7 @@ class Build
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Basic;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Parser;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Value;';
-        $document[] = 'use \Plugin\Modifier;';
-        $document[] = 'use \Plugin\Function;';
+        $document[] = 'use \Plugin;';
         $document[] = '';
         $document[] = 'use Exception;';
         $document[] = '';
@@ -76,7 +75,7 @@ class Build
         $document[] = '    use Basic;';
         $document[] = '    use Parser;';
         $document[] = '    use Value;';
-        $document[] = '    use Modifier\Modifier_default;';
+        $document[] = '    use Plugin\Plugin_default;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
@@ -206,7 +205,7 @@ class Build
             $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
-                $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                $modifier_value = '$this->plugin_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
@@ -337,7 +336,7 @@ class Build
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 //load modifier through reflection ?
-                $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                $modifier_value = '$this->plugin_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
@@ -440,7 +439,7 @@ class Build
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         //load modifier through reflection ?
-                        $modifier_value = '$this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
+                        $modifier_value = '$this->plugin_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
                         $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
