@@ -75,6 +75,7 @@ class Build
         $document[] = '    use Plugin\Parser;';
         $document[] = '    use Plugin\Value;';
         $document[] = '    use Plugin\Plugin_default;';
+        $document[] = '    use Plugin\Plugin_echo;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
@@ -194,7 +195,9 @@ class Build
                 $name,
                 [
                     'default',
-                    'object'
+                    'object',
+                    'echo',
+                    'parse'
                 ],
                 true
             )
