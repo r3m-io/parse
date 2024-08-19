@@ -437,7 +437,7 @@ class Build
                     }
                 }
                 $method_value .= ')';
-                ddd($method_value);
+                $value .= $method_value;
             }
             elseif(
                 array_key_exists('type', $record) &&
