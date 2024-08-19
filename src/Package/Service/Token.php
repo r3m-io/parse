@@ -586,6 +586,7 @@ class Token
                                 }
                                 */
                             }
+                            d($variable_name);
                             $variable_name = '';
                             $curly_depth_variable = false;
                             d($variable);
