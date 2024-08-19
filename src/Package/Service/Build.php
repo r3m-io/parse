@@ -458,6 +458,18 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'method'
             ){
+                $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $record['method']['name']));
+                $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+                if(
+                    array_key_exists('method', $record) &&
+                    array_key_exists('argument', $record['method'])
+                ){
+                    foreach($record['method']['argument'] as $argument_nr => $argument){
+                        $method_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                    }
+                    $method_value = substr($method_value, 0, -2) . PHP_EOL;
+                }
+                $method_value .= ')';
                 ddd($record);
             }
             elseif(
