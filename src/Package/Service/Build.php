@@ -218,8 +218,8 @@ class Build
             return false;
         }
         elseif (
-            !array_key_exists('is_define', $record['variable']) ||
-            $record['variable']['is_define'] !== true
+            array_key_exists('is_assign', $record['variable']) &&
+            $record['variable']['is_assign'] === true
         ) {
             return false;
         }
