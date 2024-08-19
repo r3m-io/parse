@@ -589,6 +589,7 @@ class Token
                             $curly_depth_variable = false;
                             $cache->set($hash, $variable);
                         }
+                        d($variable);
                         $tags[$line][$nr]['variable'] = $variable;
                     } else {
                         $method_hash = hash('sha256', $record['tag']);
