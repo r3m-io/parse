@@ -374,6 +374,7 @@ class Build
     {
         $value = '';
         $skip = 0;
+        d($input['array']);
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
