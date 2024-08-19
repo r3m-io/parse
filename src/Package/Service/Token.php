@@ -22,7 +22,7 @@ class Token
         $cache_url = false;
         $cache_dir = false;
         $tags = false;
-        $hash = hash('sha256', $input);
+        $hash = hash('sha256', 'token.' . $input);
         $cache_dir = $object->config('ramdisk.url') .
             $object->config(Config::POSIX_ID) .
             $object->config('ds') .
@@ -127,12 +127,25 @@ class Token
                     array_key_exists('tag', $record)
                 ){
                     $content = trim(substr($record['tag'], 2, -2));
-                    $hash = hash('sha256', $content);
+                    $hash = hash('sha256', 'tag.' . $content);
                     d($content);
                     if(substr($content, 0, 1) === '$'){
                         if($cache->has($hash)){
                             $variable = $cache->get($hash);
-                            ddd($variable);
+
+                            if(
+                                array_key_exists('array', $variable) &&
+                                array_key_exists(0, $variable['array']) &&
+                                is_array($variable['array'][0]) &&
+                                array_key_exists('type', $variable['array'][0]) &&
+                                $variable['array'][0]['type'] === 'variable'
+                            )
+
+                            $variable = [
+                                'is_define' => true,
+                                'name' => substr($variable_name, 1),
+                            ];
+
                         } else {
                             //we have a variable assign or define
                             $length = strlen($content);
@@ -490,7 +503,7 @@ class Token
                                 }
                             }
                             if($argument !== ''){
-                                $argument_hash = hash('sha256', $argument);
+                                $argument_hash = hash('sha256', 'argument.' . $argument);
                                 if($cache->has($argument_hash)){
                                     $argument_value = $cache->get($argument_hash);
                                 } else {
@@ -544,7 +557,7 @@ class Token
                                         //add modifier to after & after_array
                                     }
                                 }
-                                $after_hash = hash('sha256', $after);
+                                $after_hash = hash('sha256', 'after.' . $after);
                                 if($cache->has($after_hash)){
                                     $list = $cache->get($after_hash);
                                 } else {
@@ -598,7 +611,7 @@ class Token
                         d($variable);
                         $tags[$line][$nr]['variable'] = $variable;
                     } else {
-                        $method_hash = hash('sha256', $record['tag']);
+                        $method_hash = hash('sha256', 'method.' . $record['tag']);
                         if($cache->has($method_hash)){
                             $list = $cache->get($method_hash);
                         } else {
