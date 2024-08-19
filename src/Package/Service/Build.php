@@ -64,8 +64,6 @@ class Build
         $document[] = 'use R3m\Io\Module\Data;';
         $document[] = '';
         $document[] = 'use \Package\R3m\Io\Parse\Service\Parse;';
-        $document[] = 'use \Package\R3m\Io\Parse\Trait\Parser;';
-        $document[] = 'use \Package\R3m\Io\Parse\Trait\Value;';
         $document[] = 'use \Plugin;';
         $document[] = '';
         $document[] = 'use Exception;';
