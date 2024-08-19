@@ -132,6 +132,7 @@ class Token
                     if(substr($content, 0, 1) === '$'){
                         if($cache->has($hash)){
                             $variable = $cache->get($hash);
+                            ddd($variable);
                         } else {
                             //we have a variable assign or define
                             $length = strlen($content);
