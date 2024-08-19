@@ -1,5 +1,5 @@
 <?php
-namespace Package\R3m\Io\Parse\Trait;
+namespace Plugin;
 
 use Package\R3m\Io\Parse\Service\Parse;
 

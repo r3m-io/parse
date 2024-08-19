@@ -1,5 +1,5 @@
 <?php
-namespace Package\R3m\Io\Parse\Trait;
+namespace Plugin;
 
 trait Value {
     const STRING = 'string';

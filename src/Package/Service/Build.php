@@ -72,8 +72,8 @@ class Build
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
         $document[] = '    use Plugin\Basic;';
-        $document[] = '    use Parser;';
-        $document[] = '    use Value;';
+        $document[] = '    use Plugin\Parser;';
+        $document[] = '    use Plugin\Value;';
         $document[] = '    use Plugin\Plugin_default;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
