@@ -63,7 +63,6 @@ class Build
         $document[] = 'use R3m\Io\Module\Data;';
         $document[] = '';
         $document[] = 'use \Package\R3m\Io\Parse\Service\Parse;';
-        $document[] = 'use \Package\R3m\Io\Parse\Trait\Basic;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Parser;';
         $document[] = 'use \Package\R3m\Io\Parse\Trait\Value;';
         $document[] = 'use \Plugin;';
@@ -72,7 +71,7 @@ class Build
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
-        $document[] = '    use Basic;';
+        $document[] = '    use Plugin\Basic;';
         $document[] = '    use Parser;';
         $document[] = '    use Value;';
         $document[] = '    use Plugin\Plugin_default;';
