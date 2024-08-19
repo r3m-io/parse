@@ -231,11 +231,17 @@ class Build
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                 $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
+                $is_argument = false;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
                         $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $is_argument = true;
                     }
-                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                    if($is_argument === true){
+                        $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                    } else {
+                        $modifier_value = substr($modifier_value, 0, -1);
+                    }
                 }
                 $modifier_value .= '        )';
                 $previous_modifier = $modifier_value;
@@ -289,57 +295,6 @@ class Build
             $data[] = '}';
             return $data;;
         }
-
-        /*
-        $modifier_value = '';
-        $modifier_list = [];
-        if(array_key_exists('modifier', $record['variable'])){
-            foreach($record['variable']['modifier'] as $nr => $modifier){
-                //load modifier through reflection ?
-                $modifier_value = '$variable = $this->modifier_' . str_replace('.', '_', $modifier['name']) . '(' . PHP_EOL;
-                $modifier_value .= '            $variable, ' . PHP_EOL;
-                if(array_key_exists('argument', $modifier)){
-                    foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
-                    }
-                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
-                }
-                $modifier_value .= '        );';
-                $modifier_list[] = $modifier_value;
-            }
-        }
-        if(array_key_exists(0, $modifier_list)){
-            $data = [
-                '$variable = $data->get(\'' . $variable_name . '\');',
-            ];
-            foreach($modifier_list as $modifier_nr => $modifier){
-                $data[] = $modifier;
-            }
-            $data[] = 'if($variable === null){';
-            $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');';
-            $data[] = '}';
-            $data[] = 'if(!is_scalar($variable)){';
-            $data[] = '    //array or object';
-            $data[] = '    return $variable;';
-            $data[] = '} else {';
-            $data[] = '    echo $variable;';
-            $data[] = '}';
-            return $data;
-        } else {
-            return [
-                '$variable = $data->get(\'' . $variable_name . '\');',
-                'if($variable === null){',
-                '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');',
-                '}',
-                'if(!is_scalar($variable)){',
-                '    //array or object',
-                '    return $variable;',
-                '} else {',
-                '    echo $variable;',
-                '}'
-            ];
-        }
-        */
     }
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
@@ -363,12 +318,18 @@ class Build
                 $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
+                    $is_argument = false;
                     foreach($modifier['argument'] as $argument_nr => $argument){
                         $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $is_argument = true;
                     }
-                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                    if($is_argument === true){
+                        $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                    } else {
+                        $modifier_value = substr($modifier_value, 0, -1);
+                    }
                 }
-                $modifier_value .= '        )';
+                $modifier_value .= ')';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
@@ -464,10 +425,16 @@ class Build
                     array_key_exists('method', $record) &&
                     array_key_exists('argument', $record['method'])
                 ){
+                    $is_argument = false;
                     foreach($record['method']['argument'] as $argument_nr => $argument){
                         $method_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $is_argument = true;
                     }
-                    $method_value = substr($method_value, 0, -2) . PHP_EOL;
+                    if($is_argument === true){
+                        $method_value = substr($method_value, 0, -2) . PHP_EOL;
+                    } else {
+                        $method_value = substr($method_value, 0, -1);
+                    }
                 }
                 $method_value .= ')';
                 ddd($method_value);
@@ -484,13 +451,19 @@ class Build
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                         $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
+                        $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
                                 $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                                $is_argument = true;
                             }
-                            $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                            if($is_argument === true){
+                                $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                            } else {
+                                $modifier_value = substr($modifier_value, 0, -1);
+                            }
                         }
-                        $modifier_value .= '        )';
+                        $modifier_value .= ')';
                         $previous_modifier = $modifier_value;
                     }
                     $value .= $modifier_value;
