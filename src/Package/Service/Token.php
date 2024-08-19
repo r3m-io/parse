@@ -588,6 +588,7 @@ class Token
                             }
                             $variable_name = '';
                             $curly_depth_variable = false;
+                            d($variable);
                             $cache->set($hash, $variable);
                         }
                         d($variable_name);
