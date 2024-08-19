@@ -220,9 +220,18 @@ class Build
             $data = [
                 $variable_uuid . ' = ' . $value . ';',
             ];
-            $data[] = 'if(' . $variable_uuid .' === null){';
-            $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ' you can use modifier "default" to surpress it \');';
-            $data[] = '}';
+            if(
+                array_key_exists('is_multiline', $record) &&
+                $record['is_multiline'] === true
+            ){
+                $data[] = 'if(' . $variable_uuid .' === null){';
+                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '. You can use modifier "default" to surpress it \');';
+                $data[] = '}';
+            } else {
+                $data[] = 'if(' . $variable_uuid .' === null){';
+                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '. You can use modifier "default" to surpress it \');';
+                $data[] = '}';
+            }
             $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
             $data[] = '    //array or object';
             $data[] = '    ob_get_clean();';
