@@ -345,7 +345,6 @@ class Build
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
-                //load modifier through reflection ?
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                 $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
@@ -519,6 +518,7 @@ class Build
                 $skip--;
                 continue;
             }
+            $previous = Token::item($input, $nr - 1);
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
             if(
@@ -526,7 +526,13 @@ class Build
                 array_key_exists('execute', $record) &&
                 $record['is_single_quoted'] === true
             ){
-                $value .= '\'' . $record['execute'] . '\'';
+                if($previous === '\'' && $next === '\''){
+                    $value .= $record['execute'];
+                } elseif($previous === '"' && $next === '"') {
+                    $value .= $record['execute'];
+                } else {
+                    $value .= '\'' . $record['execute'] . '\'';
+                }
             }
             elseif(
                 array_key_exists('is_null', $record) &&
@@ -587,7 +593,6 @@ class Build
                 if(array_key_exists('modifier', $record)){
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
-                        //load modifier through reflection ?
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                         $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
@@ -615,12 +620,7 @@ class Build
                 array_key_exists('is_hex', $record) &&
                 $record['is_hex'] === true
             ) {
-                if($value === ''){
-                    $value .= $record['execute'];
-                } else {
-                    //no hex if we have value
-                    $value .= $record['value'];
-                }
+                $value .= $record['execute'];
             }
             elseif(
                 array_key_exists('type', $record) &&
