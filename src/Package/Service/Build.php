@@ -44,7 +44,7 @@ class Build
                 }
             }
         }
-        ddd($object->config('package.r3m_io/parse.build.use.trait'));
+        ddd($object->config('package'));
 
         $document = [];
         $document[] = '<?php';
