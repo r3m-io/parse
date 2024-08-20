@@ -530,6 +530,7 @@ class Build
                 $is_single_quote = false;
             }
         }
+        $input = Token::cleanup($input);
         return $input;
     }
 
