@@ -317,15 +317,40 @@ class Variable
                 $is_double_quote_backslash = false;
             }
             elseif(
-                $current === '|' &&
-                $previous !== '|' &&
-                $next !== '|' &&
-                $is_single_quote === false &&
-                $is_double_quote === false &&
-                $is_double_quote_backslash === false &&
                 (
-                    $set_depth === $set_depth_modifier ||
-                    $set_depth_modifier === false
+                    $current === '|' &&
+                    $previous !== '|' &&
+                    $next !== '|' &&
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $is_double_quote_backslash === false &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
+                ) ||
+                (
+                    $current === '|' &&
+                    $previous !== '|' &&
+                    $next !== '|' &&
+                    $is_single_quote === false &&
+                    $is_double_quote === true &&
+                    $is_double_quote_backslash === false &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
+                ) ||
+                (
+                    $current === '|' &&
+                    $previous !== '|' &&
+                    $next !== '|' &&
+                    $is_single_quote === false &&
+                    $is_double_quote_backslash === true &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
                 )
             ){
                 if($is_argument !== false){
@@ -397,12 +422,35 @@ class Variable
                 }
             }
             elseif(
+                (
+                    $current === ':' &&
+                    $previous !== ':' &&
+                    $next !== ':' &&
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $is_double_quote_backslash === false &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
+                ) ||
+                (
+                    $current === ':' &&
+                    $previous !== ':' &&
+                    $next !== ':' &&
+                    $is_single_quote === false &&
+                    $is_double_quote === true &&
+                    $is_double_quote_backslash === false &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
+                ) ||
                 $current === ':' &&
                 $previous !== ':' &&
                 $next !== ':' &&
                 $is_single_quote === false &&
-                $is_double_quote === false &&
-                $is_double_quote_backslash === false &&
+                $is_double_quote_backslash === true &&
                 (
                     $set_depth === $set_depth_modifier ||
                     $set_depth_modifier === false
@@ -414,13 +462,34 @@ class Variable
                 $argument_nr++;
             }
             elseif(
-                $current === ',' &&
-                $is_single_quote === false &&
-                $is_double_quote === false &&
-                $is_double_quote_backslash === false &&
                 (
-                    $set_depth === $set_depth_modifier ||
-                    $set_depth_modifier === false
+                    $current === ',' &&
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $is_double_quote_backslash === false &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
+                ) ||
+                (
+                    $current === ',' &&
+                    $is_single_quote === false &&
+                    $is_double_quote === true &&
+                    $is_double_quote_backslash === false &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
+                ) ||
+                (
+                    $current === ',' &&
+                    $is_single_quote === false &&
+                    $is_double_quote_backslash === true &&
+                    (
+                        $set_depth === $set_depth_modifier ||
+                        $set_depth_modifier === false
+                    )
                 )
             ){
                 if(
