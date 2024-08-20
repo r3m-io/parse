@@ -187,6 +187,9 @@ class Build
         return $next;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function plugin(App $object, $flags, $options, $name): string
     {
         if(
@@ -209,10 +212,18 @@ class Build
         $plugin = str_replace('-', '_', $plugin);
 
         $use_plugin = explode('_', $plugin);
+        foreach($use_plugin as $nr => $use){
+            $use_plugin[$nr] = ucfirst($use);
+        }
+        $use_plugin = 'Plugin\\' . implode('_', $use_plugin);
 
+        $use = $object->config('package.r3m_io/parse.build.use.trait');
+        if(!$use){
+            $use = [];
+        }
+        $use[] = $use_plugin;
+        $object->config('package.r3m_io/parse.build.use.trait', $use);
         ddd($object->config());
-
-
         return strtolower($plugin);
     }
 
