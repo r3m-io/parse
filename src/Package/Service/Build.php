@@ -18,7 +18,6 @@ class Build
         $options->class = 'Main';
         $data = [];
         Build::use_default($object, $flags, $options);
-        d($tags);
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record);
