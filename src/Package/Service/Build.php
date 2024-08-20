@@ -545,8 +545,6 @@ class Build
         $input = Build::value_single_quote($object, $flags, $options, $input);
         $is_double_quote = false;
         $double_quote_previous = false;
-        d($input['array']);
-        trace();
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
