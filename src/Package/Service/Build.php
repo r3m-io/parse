@@ -81,6 +81,7 @@ class Build
                         $data[] = $line;
                     }
                 }
+                $method = Build::method($object, $flags, $options, $record);
             }
         }
         return $data;
@@ -409,6 +410,14 @@ class Build
             $data[] = '}';
             return $data;;
         }
+    }
+
+    public static function method(App $object, $flags, $options, $record = []): bool | string
+    {
+        if(!array_key_exists('method', $record)){
+            return false;
+        }
+        ddd($record);
     }
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
