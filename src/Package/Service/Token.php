@@ -132,20 +132,6 @@ class Token
                     if(substr($content, 0, 1) === '$'){
                         if($cache->has($hash)){
                             $variable = $cache->get($hash);
-
-                            if(
-                                array_key_exists('array', $variable) &&
-                                array_key_exists(0, $variable['array']) &&
-                                is_array($variable['array'][0]) &&
-                                array_key_exists('type', $variable['array'][0]) &&
-                                $variable['array'][0]['type'] === 'variable'
-                            )
-
-                            $variable = [
-                                'is_define' => true,
-                                'name' => substr($variable_name, 1),
-                            ];
-
                         } else {
                             //we have a variable assign or define
                             $length = strlen($content);
