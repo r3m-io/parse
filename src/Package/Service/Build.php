@@ -423,8 +423,13 @@ class Build
         $method_name = $record['method']['name'];
         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
         $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+        $is_argument = false;
         foreach($record['method']['argument'] as $nr => $argument) {
             $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            $is_argument = true;
+        }
+        if($is_argument){
+            $method_value = substr($method_value, 0, -2) . PHP_EOL;
         }
         $method_value .= '        );';
         return $method_value;
