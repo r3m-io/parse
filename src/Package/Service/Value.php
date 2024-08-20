@@ -350,14 +350,14 @@ class Value
                         return [
                             'type' => 'string',
                             'value' => $input,
-                            'execute' => $input
+                            'execute' => '\'' . $input . '\''
                         ];
                     }
                 } else {
                     return [
                         'type' => 'string',
                         'value' => $input,
-                        'execute' => $input
+                        'execute' => '\'' . $input . '\''
                     ];
                 }
         }
