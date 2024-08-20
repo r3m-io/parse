@@ -18,6 +18,14 @@ class Build
         $options->class = 'Main';
         $data = [];
         d($tags);
+        $use_trait = $object->config('package.r3m_io/parse.build.use.trait');
+        if(!$use_trait){
+            $use_trait = [];
+        }
+        $use_trait[] = 'Plugin\Basic';
+        $use_trait[] = 'Plugin\Parse';
+        $use_trait[] = 'Plugin\Value';
+        $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record);
@@ -44,8 +52,6 @@ class Build
                 }
             }
         }
-        ddd($object->config('package'));
-
         $document = [];
         $document[] = '<?php';
         $document[] = '/**';
@@ -71,11 +77,15 @@ class Build
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
-        $document[] = '    use Plugin\Basic;';
-        $document[] = '    use Plugin\Parse;';
-        $document[] = '    use Plugin\Value;';
-        $document[] = '    use Plugin\Plugin_Default;';
-        $document[] = '    use Plugin\Plugin_Echo;';
+        $use_trait = $object->config('package.r3m_io/parse.build.use.trait');
+        if($use_trait){
+            foreach($use_trait as $nr => $use){
+                if(empty($use)){
+                    $document[] = '';
+                }
+                $document[] = '    use ' . $use . ';';
+            }
+        }
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
