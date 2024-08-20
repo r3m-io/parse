@@ -45,6 +45,8 @@ class Build
                 }
             }
         }
+        ddd($object->config('package.r3m_io/parse.build.use.trait'));
+
         $document = [];
         $document[] = '<?php';
         $document[] = '/**';
@@ -221,9 +223,40 @@ class Build
         if(!$use){
             $use = [];
         }
-        $use[] = $use_plugin;
+        if(
+            !in_array(
+                $use,
+                [
+                    $use_plugin,
+                    'Plugin\\Value_Concatenate',
+                    'Plugin\\Value_Plus_Plus',
+                    'Plugin\\Value_Minus_Minus',
+                    'Plugin\\Value_Plus',
+                    'Plugin\\Value_Minus',
+                    'Plugin\\Value_Multiply',
+                    'Plugin\\Value_Modulo',
+                    'Plugin\\Value_Divide',
+                    'Plugin\\Value_Smaller',
+                    'Plugin\\Value_Smaller_Equal',
+                    'Plugin\\Value_Smaller_Smaller',
+                    'Plugin\\Value_Greater',
+                    'Plugin\\Value_Greater_Equal',
+                    'Plugin\\Value_Greater_Greater',
+                    'Plugin\\Value_Equal',
+                    'Plugin\\Value_Identical',
+                    'Plugin\\Value_Not_Equal',
+                    'Plugin\\Value_Not_Identical',
+                    'Plugin\\Value_And',
+                    'Plugin\\Value_Or',
+                    'Plugin\\Value_Xor',
+                    'Plugin\\Value_Null_Coalescing',
+                ],
+                true
+            )
+        ){
+            $use[] = $use_plugin;
+        }
         $object->config('package.r3m_io/parse.build.use.trait', $use);
-        ddd($object->config());
         return strtolower($plugin);
     }
 
