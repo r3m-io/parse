@@ -58,7 +58,7 @@ class Parse
         ;
         File::write($url, implode(PHP_EOL, $document));
         File::permission(
-            $object
+            $object,
             [
                 'dir' => $dir,
                 'url' => $url
