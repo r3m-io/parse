@@ -353,6 +353,12 @@ class Value
                             'execute' => $input
                         ];
                     }
+                } else {
+                    return [
+                        'type' => 'string',
+                        'value' => $input,
+                        'execute' => $input
+                    ];
                 }
         }
     }
