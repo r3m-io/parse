@@ -524,13 +524,7 @@ class Build
             if(
                 array_key_exists('is_single_quoted', $record) &&
                 array_key_exists('execute', $record) &&
-                $record['is_single_quoted'] === true ||
-                (
-                    array_key_exists('type', $record) &&
-                    array_key_exists('is_raw', $record) &&
-                    $record['type'] === 'string' &&
-                    $record['is_raw'] === true
-                )
+                $record['is_single_quoted'] === true
             ){
                 $value .= $record['execute'];
             }
