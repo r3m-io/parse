@@ -248,6 +248,7 @@ class Value
                     $length = strlen($input);
                     $data = mb_str_split($input, 1);
                     $is_float = false;
+                    $is_int = false;
                     $is_hex = false;
                     $is_hex_nr = false;
                     $collect = '';
@@ -272,8 +273,38 @@ class Value
                             )
                         ){
                             $collect .= $data[$i];
-                            if($is_hex_nr === false){
-                                $is_hex_nr  = $i;
+                            $is_int = true;
+                            if(
+                                strlen($collect) > 3 &&
+                                strtoupper(substr($collect, 0, 2)) === '0X' &&
+                                Core::is_hex($collect)
+                            ){
+                                $is_hex = true;
+                            }
+                        }
+                        elseif(
+                            (
+                            in_array(
+                                strtoupper($data[$i]),
+                                [
+                                    'X',
+                                    'A',
+                                    'B',
+                                    'C',
+                                    'D',
+                                    'E',
+                                    'F',
+                                ]
+                            )
+                            )
+                        ){
+                            $collect .= $data[$i];
+                            if(
+                                strlen($collect) > 3 &&
+                                strtoupper(substr($collect, 0, 2)) === '0X' &&
+                                Core::is_hex($collect)
+                            ){
+                                $is_hex = true;
                             }
                         }
                         elseif(
@@ -289,39 +320,9 @@ class Value
                         ){
                             //nothing
                         }
-                        elseif(
-                            in_array(
-                                strtolower($data[$i]),
-                                [
-                                    'x',
-                                    'a',
-                                    'b',
-                                    'c',
-                                    'd',
-                                    'e',
-                                    'f'
-                                ]
-                            )
-                        ){
-                            if(strtolower($data[$i]) !== 'x'){
-                                $collect .= $data[$i];
-                                if($is_hex_nr === false){
-                                    $is_hex_nr  = $i;
-                                }
-                            }
-                            if($is_hex_nr === 0){
-                                $is_hex = true;
-                            }
-                        }
                         elseif($data[$i] === '.'){
                             $collect .= $data[$i];
                             $is_float = true;
-                        } else {
-                            return [
-                                'type' => 'string',
-                                'value' => $input,
-                                'execute' => $input,
-                            ];
                         }
                     }
                     if($is_hex){
@@ -329,7 +330,7 @@ class Value
                             'type' => 'integer',
                             'value' => $input,
                             'is_hex' => true,
-                            'execute' => hexdec($collect),
+                            'execute' => hexdec(substr($collect, 2)),
                         ];
                     }
                     elseif($is_float){
@@ -338,20 +339,22 @@ class Value
                             'value' => $input,
                             'execute' => $collect + 0,
                         ];
-                    } else {
+                    }
+                    elseif($is_int) {
                         return [
                             'type' => 'integer',
                             'value' => $input,
                             'execute' => $collect + 0,
                         ];
+                    } else {
+                        return [
+                            'type' => 'string',
+                            'value' => $input,
+                            'execute' => $input
+                        ];
                     }
                 }
         }
-        return [
-            'type' => 'string',
-            'value' => $input,
-            'execute' => $input
-        ];
     }
 
     public static function array(App $object, $flags, $options, $input=[]): array
