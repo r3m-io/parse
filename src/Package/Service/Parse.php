@@ -57,6 +57,14 @@ class Parse
             'Main.php'
         ;
         File::write($url, implode(PHP_EOL, $document));
+        File::permission(
+            $object
+            [
+                'dir' => $dir,
+                'url' => $url
+            ]
+        );
+
 
         require_once $url;
         echo PHP_EOL . str_repeat('-', Cli::tput('columns')) . PHP_EOL;
