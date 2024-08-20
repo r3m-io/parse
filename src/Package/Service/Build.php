@@ -27,7 +27,6 @@ class Build
                         $data[] = $line;
                     }
                 }
-                d($record);
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
                     $data[] = $variable_assign;
