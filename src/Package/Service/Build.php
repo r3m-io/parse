@@ -675,6 +675,7 @@ class Build
                 //nothing
             }
             else {
+                d($input['array']);
                 $right = Build::value_right(
                     $object,
                     $flags,
@@ -684,6 +685,7 @@ class Build
                     $next,
                     $skip
                 );
+                d($right);
                 $right = Build::value($object, $flags, $options, $right);
                 switch($current){
                     case '+':
