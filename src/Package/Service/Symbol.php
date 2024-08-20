@@ -19,6 +19,10 @@ class Symbol
         }
         $previous_nr = false;
         $is_single_quote = false;
+        if(is_int($input['array'])){
+            trace();
+            ddd($input);
+        }
         foreach($input['array'] as $nr => $char){
             if(is_array($char)){
                 continue;
