@@ -974,8 +974,17 @@ class Token
             }
             d($input['array']);
             $input = Value::define($object, $flags, $options, $input);
+            if($is_debug){
+                d($input);
+            }
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
+            if($is_debug){
+                d($input);
+            }
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
+            if($is_debug){
+                d($input);
+            }
             $input = Value::array($object, $flags, $options, $input);
             if($is_debug){
                 d($input);
