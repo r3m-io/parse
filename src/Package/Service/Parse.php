@@ -55,7 +55,6 @@ class Parse
         $url = $dir .
             'Main.php'
         ;
-        ddd($document);
         File::write($url, implode(PHP_EOL, $document));
 
         require_once $url;
