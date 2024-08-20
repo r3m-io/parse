@@ -17,29 +17,8 @@ class Build
     {
         $options->class = 'Main';
         $data = [];
+        Build::use_default($object, $flags, $options);
         d($tags);
-
-        $use_class = $object->config('package.r3m_io/parse.build.use.class');
-        if(!$use_class){
-            $use_class = [];
-        }
-        $use_class[] = 'R3m\Io\App';
-        $use_class[] = '';
-        $use_class[] = 'R3m\Io\Module\Data';
-        $use_class[] = '';
-        $use_class[] = 'Package\R3m\Io\Parse\Service\Parse';
-        $use_class[] = '';
-        $use_class[] = 'Plugin';
-        $use_class[] = 'Exception';
-        $object->config('package.r3m_io/parse.build.use.class', $use_class);
-        $use_trait = $object->config('package.r3m_io/parse.build.use.trait');
-        if(!$use_trait){
-            $use_trait = [];
-        }
-        $use_trait[] = 'Plugin\Basic';
-        $use_trait[] = 'Plugin\Parse';
-        $use_trait[] = 'Plugin\Value';
-        $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record);
@@ -128,8 +107,35 @@ class Build
         $document[] = '        return ob_get_clean();';
         $document[] = '    }';
         $document[] = '}';
-        d($document);
         return $document;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function use_default(App $object, $flags, $options): void
+    {
+        $use_class = $object->config('package.r3m_io/parse.build.use.class');
+        if(!$use_class){
+            $use_class = [];
+        }
+        $use_class[] = 'R3m\Io\App';
+        $use_class[] = '';
+        $use_class[] = 'R3m\Io\Module\Data';
+        $use_class[] = '';
+        $use_class[] = 'Package\R3m\Io\Parse\Service\Parse';
+        $use_class[] = '';
+        $use_class[] = 'Plugin';
+        $use_class[] = 'Exception';
+        $object->config('package.r3m_io/parse.build.use.class', $use_class);
+        $use_trait = $object->config('package.r3m_io/parse.build.use.trait');
+        if(!$use_trait){
+            $use_trait = [];
+        }
+        $use_trait[] = 'Plugin\Basic';
+        $use_trait[] = 'Plugin\Parse';
+        $use_trait[] = 'Plugin\Value';
+        $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
     }
 
     public static function use(App $object, $flags, $options, $document = [], $attribute=''): array
