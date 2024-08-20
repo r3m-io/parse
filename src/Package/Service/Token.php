@@ -539,6 +539,7 @@ class Token
                                     ];
                                 }
                             } else {
+                                //modifier needs variable
                                 d($after);
                                 d($after_array);
                                 if($modifier_list){
@@ -576,8 +577,11 @@ class Token
                                     $variable = [
                                         'is_define' => true,
                                         'name' => substr($variable_name, 1),
-                                        'value' => $list,
                                     ];
+                                    $list['string'] = $variable_name . $list['string'];
+                                    array_unshift($list['array'], $variable);
+                                    $variable = Variable::modifier($object, $flags, $options, $list);
+                                    ddd($variable);
                                 }
 
 
