@@ -532,17 +532,7 @@ class Build
                     $record['is_raw'] === true
                 )
             ){
-                if($previous === '\'' && $next === '\''){
-                    $value .= $record['execute'];
-                }
-                elseif($previous === '"' && $next === '"') {
-                    $value .= $record['execute'];
-                } else {
-                    $value .= '\'' . $record['execute'] . '\'';
-                }
-                d($previous);
-                d($next);
-                d($value);
+                $value .= $record['execute'];
             }
             elseif(
                 array_key_exists('is_null', $record) &&
