@@ -293,6 +293,7 @@ class Token
 //                                    $is_modifier = true;
                                     continue;
                                 }
+                                /*
                                 elseif(
                                     !in_array(
                                         $modifier_name, [
@@ -424,6 +425,7 @@ class Token
                                     }
                                     continue;
                                 }
+                                */
                                 elseif(
                                     !$operator &&
                                     in_array(
@@ -737,6 +739,7 @@ class Token
                     ]];
                     return $input;
                 }
+                d($value);
                 return Token::value_split($object, $flags, $options, $input);
         }
     }
