@@ -615,8 +615,16 @@ class Variable
             d($is_variable);
             d($nr);
             d($input);
-            for($index = $is_variable + 1; $index <= $nr; $index++){
+            for($index = $is_variable + 1; $index < $nr; $index++){
                 $input['array'][$index] = null;
+            }
+            if(
+                $outer_curly_depth > 0 &&
+                $current === '}}'
+            ){
+                $outer_curly_depth--;
+            } else {
+                $input['array'][$nr] = null;
             }
         }
         d($input);
