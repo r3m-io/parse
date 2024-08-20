@@ -207,6 +207,12 @@ class Build
         }
         $plugin = str_replace('.', '_', $plugin);
         $plugin = str_replace('-', '_', $plugin);
+
+        $use_plugin = explode('_', $plugin);
+
+        ddd($object->config());
+
+
         return strtolower($plugin);
     }
 
