@@ -83,9 +83,7 @@ class Build
                 }
                 $method = Build::method($object, $flags, $options, $record);
                 if($method){
-                    foreach($method as $method_nr => $line){
-                        $data[] = $line;
-                    }
+                    $data[] = $method;
                 }
             }
         }
