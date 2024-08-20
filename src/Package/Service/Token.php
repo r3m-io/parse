@@ -542,12 +542,48 @@ class Token
                                 //modifier needs variable
                                 d($after);
                                 d($after_array);
-                                if($modifier_list){
-                                    foreach($modifier_list as $modifier_nr => $modifier){
-                                        d($modifier);
-                                        //add modifier to after & after_array
-                                    }
+                                if($operator){
+                                    $list = Token::value(
+                                        $object,
+                                        $flags,
+                                        $options,
+                                        [
+                                            'string' => $after,
+                                            'array' => $after_array,
+//                                            'modifier' => $modifier_list
+                                        ]
+                                    );
+//                                    $cache->set($after_hash, $list);
+                                    $variable = [
+                                        'is_assign' => true,
+                                        'operator' => $operator,
+                                        'name' => substr($variable_name, 1),
+                                        'value' => $list,
+                                    ];
+                                } else {
+                                    $after = $variable_name . $after;
+                                    $after_array = array_unshift($after_array, [
+                                        'type'=> 'variable',
+                                        'tag' => $variable_name,
+                                        'name' => substr($variable_name, 1),
+                                        'is_reference' => false
+                                    ])
+                                    $list = Token::value(
+                                        $object,
+                                        $flags,
+                                        $options,
+                                        [
+                                            'string' => $after,
+                                            'array' => $after_array,
+//                                            'modifier' => $modifier_list
+                                        ]
+                                    );
+                                    ddd($list);
                                 }
+
+
+
+
                                 $after_hash = hash('sha256', 'after.' . $after);
                                 if($cache->has($after_hash)){
                                     $list = $cache->get($after_hash);
