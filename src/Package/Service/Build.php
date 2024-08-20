@@ -82,6 +82,11 @@ class Build
                     }
                 }
                 $method = Build::method($object, $flags, $options, $record);
+                if($method){
+                    foreach($method as $method_nr => $line){
+                        $data[] = $line;
+                    }
+                }
             }
         }
         return $data;
@@ -417,7 +422,14 @@ class Build
         if(!array_key_exists('method', $record)){
             return false;
         }
-        ddd($record);
+        $method_name = $record['method']['name'];
+        $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
+        $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+        foreach($record['method']['argument'] as $nr => $argument) {
+            $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+        }
+        $method_value .= ')';
+        return $method_value;
     }
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
