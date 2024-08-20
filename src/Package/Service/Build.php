@@ -224,7 +224,7 @@ class Build
         }
         if(
             !in_array(
-                $use,
+                $use_plugin,
                 [
                     $use_plugin,
                     'Plugin\\Value_Concatenate',
