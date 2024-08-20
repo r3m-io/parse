@@ -504,6 +504,35 @@ class Build
         return false;
     }
 
+    public static function value_single_quote(App $object, $flags, $options, $input): array
+    {
+        $is_single_quote = false;
+        foreach($input['array'] as $nr => $record){
+            $current = Token::item($input, $nr);
+            $next = Token::item($input, $nr + 1);
+            if(
+                $current === '\''  &&
+                $is_single_quote === false
+            ){
+                $is_single_quote = $nr;
+            }
+            elseif(
+                $current === '\''  &&
+                $is_single_quote !== false
+            ){
+                for($i = $is_single_quote + 1; $i <= $nr; $i++){
+                    $current = Token::item($input, $i);
+                    $input['array'][$is_single_quote]['value'] .= $current;
+                    $input['array'][$i] = null;
+                }
+                $input['array'][$is_single_quote]['execute'] = substr($input['array'][$is_single_quote]['value'], 1, -1);
+                $input['array'][$is_single_quote]['is_single_quoted'] = true;
+                $is_single_quote = false;
+            }
+        }
+        return $input;
+    }
+
     /**
      * @throws Exception
      */
@@ -511,6 +540,7 @@ class Build
     {
         $value = '';
         $skip = 0;
+        $input = Build::value_single_quote($object, $flags, $options, $input);
         d($input['array']);
         trace();
         foreach($input['array'] as $nr => $record){
@@ -518,7 +548,6 @@ class Build
                 $skip--;
                 continue;
             }
-            $previous = Token::item($input, $nr - 1);
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
             if(
