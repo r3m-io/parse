@@ -578,6 +578,11 @@ class Token
 //                                            'modifier' => $modifier_list
                                         ]
                                     );
+                                    $variable = [
+                                        'is_define' => true,
+                                        'name' => substr($variable_name, 1),
+                                        'value' => $list,
+                                    ];
                                     ddd($list);
                                 }
                                 /*
