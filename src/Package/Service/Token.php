@@ -562,7 +562,7 @@ class Token
                                     ];
                                 } else {
                                     $after = $variable_name . $after;
-                                    $after_array = array_unshift($after_array, [
+                                    array_unshift($after_array, [
                                         'type'=> 'variable',
                                         'tag' => $variable_name,
                                         'name' => substr($variable_name, 1),
