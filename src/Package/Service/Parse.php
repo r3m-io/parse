@@ -6,15 +6,15 @@ use R3m\Io\App;
 use R3m\Io\Module\Cli;
 use R3m\Io\Module\Data;
 
-use Package\R3m\Io\Parse\Trait\Basic;
-
+use Plugin;
 use Exception;
+
 use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
 
 class Parse
 {
-    use Basic;
+    use Plugin\Basic;
 
     public function __construct(App $object, Data $data, $flags, $options){
         $this->object($object);
