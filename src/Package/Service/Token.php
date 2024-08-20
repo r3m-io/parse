@@ -583,28 +583,7 @@ class Token
                                         'name' => substr($variable_name, 1),
                                         'value' => $list,
                                     ];
-                                    ddd($list);
                                 }
-                                /*
-                                if(array_key_exists(0, $modifier_list)){
-                                    d($list);
-                                    d($modifier_list);
-                                    $variable = [
-                                        'is_assign' => true,
-                                        'operator' => $operator,
-                                        'name' => substr($variable_name, 1),
-                                        'value' => $list,
-                                        'modifier' => $modifier_list,
-                                    ];
-                                } else {
-                                    $variable = [
-                                        'is_assign' => true,
-                                        'operator' => $operator,
-                                        'name' => substr($variable_name, 1),
-                                        'value' => $list,
-                                    ];
-                                }
-                                */
                             }
                             d($variable_name);
                             $variable_name = '';
