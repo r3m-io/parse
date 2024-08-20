@@ -969,15 +969,22 @@ class Token
                 array_key_exists(0, $input['array']) &&
                 $input['array'][0] === 'a'
             ){
-                ddd($input);
+                $is_debug = true;
             }
             d($input['array']);
             $input = Value::define($object, $flags, $options, $input);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
             $input = Value::array($object, $flags, $options, $input);
+            if($is_debug){
+                d($input);
+            }
+
 //            $input = Method::block($object, $flags, $options, $input);
             $input = Token::cleanup($object, $flags, $options, $input);
+            if($is_debug){
+                ddd($input);
+            }
             $cache->set($hash, $input);
         }
         return $input;
