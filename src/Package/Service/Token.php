@@ -485,6 +485,7 @@ class Token
                                     $is_double_quoted === false
                                 ){
                                     $variable_name .= $char;
+                                    d($variable_name);
                                     if($curly_depth_variable === false){
                                         $curly_depth_variable = $curly_depth;
                                     }
