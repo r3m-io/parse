@@ -327,6 +327,7 @@ class Build
 
     public static function variable_define(App $object, $flags, $options, $record = []): bool | array
     {
+        d($record);
         if (!array_key_exists('variable', $record)) {
             return false;
         }
