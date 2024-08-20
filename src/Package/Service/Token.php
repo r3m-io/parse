@@ -993,7 +993,7 @@ class Token
 //            $input = Method::block($object, $flags, $options, $input);
             $input = Token::cleanup($object, $flags, $options, $input);
             if($is_debug){
-                ddd($input);
+                d($input);
             }
             $cache->set($hash, $input);
         }
