@@ -71,10 +71,10 @@ class Build
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
         $document[] = '    use Plugin\Basic;';
-        $document[] = '    use Plugin\Parser;';
+        $document[] = '    use Plugin\Parse;';
         $document[] = '    use Plugin\Value;';
-        $document[] = '    use Plugin\Plugin_default;';
-        $document[] = '    use Plugin\Plugin_echo;';
+        $document[] = '    use Plugin\Plugin_Default;';
+        $document[] = '    use Plugin\Plugin_Echo;';
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
@@ -207,7 +207,7 @@ class Build
         }
         $plugin = str_replace('.', '_', $plugin);
         $plugin = str_replace('-', '_', $plugin);
-        return $plugin;
+        return strtolower($plugin);
     }
 
     public static function variable_define(App $object, $flags, $options, $record = []): bool | array
@@ -625,7 +625,6 @@ class Build
                 }
                 break;
             case '"':
-                d($input);
                 for($i = $nr + 1; $i < $count; $i++){
                     $previous = Token::item($input, $i - 1);
                     $item = Token::item($input, $i);
