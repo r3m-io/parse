@@ -32,6 +32,9 @@ class Build
         return $document;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function document_header(App $object, $flags, $options): array
     {
         $document[] = '<?php';
