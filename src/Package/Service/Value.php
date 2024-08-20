@@ -326,6 +326,7 @@ class Value
                         }
                     }
                     if($is_hex){
+                        ddd($collect);
                         return [
                             'type' => 'integer',
                             'value' => $input,
