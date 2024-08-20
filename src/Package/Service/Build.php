@@ -50,7 +50,7 @@ class Build
         $document[] = ' * @package Package\R3m\Io\Parse';
         $document[] = ' * @license MIT';
         $document[] = ' * @version ' . $object->config('framework.version');
-        $document[] = ' * @author ' . 'Remco van der Velde';
+        $document[] = ' * @author ' . 'Remco van der Velde (remco@universeorange.com)';
         $document[] = ' * @compile-date ' . date('Y-m-d H:i:s');
         $document[] = ' * @compile-time ' . round((microtime(true) - $object->config('time.start')) * 1000, 3) . ' ms';
         $document[] = ' * @note compiled by ' . $object->config('framework.name') . ' ' . $object->config('framework.version');
