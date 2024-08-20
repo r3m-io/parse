@@ -543,6 +543,7 @@ class Build
         $value = '';
         $skip = 0;
         $input = Build::value_single_quote($object, $flags, $options, $input);
+        $is_double_quote = false;
         d($input['array']);
         trace();
         foreach($input['array'] as $nr => $record){
@@ -578,6 +579,12 @@ class Build
                     true
                 )
             ){
+                if($current === '"' && $is_double_quote === false){
+                    $is_double_quote = true;
+                }
+                elseif($current === '"' && $is_double_quote === true){
+                    $is_double_quote = false;
+                }
                 $value .= $current;
             }
             elseif(
@@ -652,6 +659,13 @@ class Build
                 $record['type'] === 'integer'
             ){
                 $value .=  $record['execute'];
+            }
+            elseif(
+                array_key_exists('type', $record) &&
+                $record['type'] === 'whitespace' &&
+                $is_double_quote === true
+            ){
+                $value .=  $record['value'];
             }
             else {
                 $right = Build::value_right(
