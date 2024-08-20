@@ -680,7 +680,7 @@ class Token
         if(!is_array($input)){
             return $input;
         }
-        if(array_key_exists('array', $input) === false){
+        if(!array_key_exists('array', $input)){
             return $input;
         }
         $value = $input['string'] ?? null;

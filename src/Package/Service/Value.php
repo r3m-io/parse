@@ -350,14 +350,16 @@ class Value
                         return [
                             'type' => 'string',
                             'value' => $input,
-                            'execute' => '\'' . $input . '\''
+                            'execute' => $input,
+                            'is_raw' => true
                         ];
                     }
                 } else {
                     return [
                         'type' => 'string',
                         'value' => $input,
-                        'execute' => '\'' . $input . '\''
+                        'execute' => $input,
+                        'is_raw' => true
                     ];
                 }
         }
