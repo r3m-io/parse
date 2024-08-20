@@ -739,7 +739,6 @@ class Token
                     ]];
                     return $input;
                 }
-                d($value);
                 return Token::value_split($object, $flags, $options, $input);
         }
     }
@@ -966,6 +965,12 @@ class Token
             $input = Variable::define($object, $flags, $options, $input);
             d($input['array']);
             $input = Variable::modifier($object, $flags, $options, $input);
+            if(
+                array_key_exists(0, $input['array']) &&
+                $input['array'][0] === 'a'
+            ){
+                ddd($input);
+            }
             d($input['array']);
             $input = Value::define($object, $flags, $options, $input);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
