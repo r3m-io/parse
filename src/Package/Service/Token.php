@@ -572,11 +572,13 @@ class Token
                                         'operator' => $operator,
                                         'name' => substr($variable_name, 1),
                                         'value' => $list,
+                                        'type' => 'variable'
                                     ];
                                 } else {
                                     $variable = [
                                         'is_define' => true,
                                         'name' => substr($variable_name, 1),
+                                        'type' => 'variable'
                                     ];
                                     $list['string'] = $variable_name . $list['string'];
                                     array_unshift($list['array'], $variable);
