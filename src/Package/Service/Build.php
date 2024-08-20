@@ -544,6 +544,7 @@ class Build
         $skip = 0;
         $input = Build::value_single_quote($object, $flags, $options, $input);
         $is_double_quote = false;
+        $double_quote_previous = false;
         d($input['array']);
         trace();
         foreach($input['array'] as $nr => $record){
@@ -551,6 +552,7 @@ class Build
                 $skip--;
                 continue;
             }
+            $previous = Token::item($input, $nr - 1);
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
             if(
@@ -571,7 +573,32 @@ class Build
                     true
                 )
             ){
-                //nothing
+                if(
+                    $is_double_quote === true &&
+                    $record['value'] === '{{'
+                ){
+                    if($double_quote_previous === '\\'){
+                        $value .= '\\" . ';
+                    } else {
+                        $value .= '" . ';
+                    }
+                    $double_quote_previous = false;
+
+                }
+                elseif(
+                    $is_double_quote === true &&
+                    $record['value'] === '}}'
+                ){
+                    if($double_quote_previous === '\\'){
+                        $value .= ' . \\"';
+                    } else {
+                        $value .= ' . "';
+                    }
+                    $double_quote_previous = false;
+                } else {
+                    //nothing
+                }
+
             }
             elseif(
                 array_key_exists('is_null', $record) &&
@@ -592,11 +619,19 @@ class Build
                     true
                 )
             ){
-                if($current === '"' && $is_double_quote === false){
+                if(
+                    $current === '"' &&
+                    $is_double_quote === false
+                ){
                     $is_double_quote = true;
+                    $double_quote_previous = $previous;
                 }
-                elseif($current === '"' && $is_double_quote === true){
+                elseif(
+                    $current === '"' &&
+                    $is_double_quote === true
+                ){
                     $is_double_quote = false;
+                    $double_quote_previous = $previous;
                 }
                 $value .= $current;
             }
