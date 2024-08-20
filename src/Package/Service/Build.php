@@ -667,6 +667,13 @@ class Build
             ){
                 $value .=  $record['value'];
             }
+            elseif(
+                array_key_exists('type', $record) &&
+                $record['type'] === 'whitespace' &&
+                $is_double_quote === false
+            ){
+                //nothing
+            }
             else {
                 $right = Build::value_right(
                     $object,
