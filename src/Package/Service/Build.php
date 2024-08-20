@@ -534,11 +534,15 @@ class Build
             ){
                 if($previous === '\'' && $next === '\''){
                     $value .= $record['execute'];
-                } elseif($previous === '"' && $next === '"') {
+                }
+                elseif($previous === '"' && $next === '"') {
                     $value .= $record['execute'];
                 } else {
                     $value .= '\'' . $record['execute'] . '\'';
                 }
+                d($previous);
+                d($next);
+                d($value);
             }
             elseif(
                 array_key_exists('is_null', $record) &&
