@@ -86,8 +86,9 @@ class Build
             foreach($use_class as $nr => $use){
                 if(empty($use)){
                     $document[] = '';
+                } else {
+                    $document[] = '    use ' . $use . ';';
                 }
-                $document[] = '    use ' . $use . ';';
             }
         }
         $document[] = '';
@@ -98,8 +99,9 @@ class Build
             foreach($use_trait as $nr => $use){
                 if(empty($use)){
                     $document[] = '';
+                } else {
+                    $document[] = '    use ' . $use . ';';
                 }
-                $document[] = '    use ' . $use . ';';
             }
         }
         $document[] = '';
