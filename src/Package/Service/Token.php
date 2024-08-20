@@ -267,6 +267,7 @@ class Token
                                     $is_single_quoted === false &&
                                     $is_double_quoted === false
                                 ){
+                                    $is_after = true;
                                     $after .= $char;
                                     $after_array[] = $char;
                                     d($after);
