@@ -562,12 +562,23 @@ class Token
                                     $cache->set($after_hash, $list);
                                 }
                                 d($list);
-                                $variable = [
-                                    'is_assign' => true,
-                                    'operator' => $operator,
-                                    'name' => substr($variable_name, 1),
-                                    'value' => $list,
-                                ];
+
+                                if($operator){
+                                    $variable = [
+                                        'is_assign' => true,
+                                        'operator' => $operator,
+                                        'name' => substr($variable_name, 1),
+                                        'value' => $list,
+                                    ];
+                                } else {
+                                    $variable = [
+                                        'is_define' => true,
+                                        'name' => substr($variable_name, 1),
+                                        'value' => $list,
+                                    ];
+                                }
+
+
                                 /*
                                 if(array_key_exists(0, $modifier_list)){
                                     d($list);
