@@ -44,7 +44,7 @@ class Build
         $document[] = ' * @version ' . $object->config('framework.version');
         $document[] = ' * @author ' . 'Remco van der Velde (remco@universeorange.com)';
         $document[] = ' * @compile-date ' . date('Y-m-d H:i:s');
-        $document[] = ' * @compile-time ' . round((microtime(true) - $object->config('time.start')) * 1000, 3) . ' ms';
+        $document[] = ' * @compile-time ' . round((microtime(true) - $object->config('package.r3m_io/parse.time.start')) * 1000, 3) . ' ms';
         $document[] = ' * @note compiled by ' . $object->config('framework.name') . ' ' . $object->config('framework.version');
         $document[] = ' * @url ' . $object->config('framework.url');
         $document[] = ' */';

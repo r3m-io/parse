@@ -17,6 +17,7 @@ class Parse
     use Plugin\Basic;
 
     public function __construct(App $object, Data $data, $flags, $options){
+        $object->config('package.r3m_io/parse.time.start', microtime(true));
         $this->object($object);
         $this->data($data);
         $this->flags($flags);
