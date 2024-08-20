@@ -959,6 +959,7 @@ class Token
         if($cache->has($hash)){
             $input = $cache->get($hash);
         } else {
+            $is_debug = false;
             $input = Symbol::define($object, $flags, $options, $input);
             $input = Cast::define($object, $flags, $options, $input);
             $input = Method::define($object, $flags, $options, $input);
