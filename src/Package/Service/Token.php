@@ -582,10 +582,9 @@ class Token
                                         array_key_exists(0, $list['array']) &&
                                         is_array($list['array'][0]) &&
                                         array_key_exists('type', $list['array'][0]) &&
-                                        $list['array'][0]['type'] === 'variable' &&
-                                        array_key_exists('variable', $list['array'][0])
+                                        $list['array'][0]['type'] === 'variable'
                                     ){
-                                        $tags[$line][$nr]['variable'] = $list['array'][0]['variable'];
+                                        $tags[$line][$nr]['variable'] = $list['array'][0];
                                         $tags[$line][$nr]['variable']['is_define'] = true;
                                     }
                                 }
