@@ -971,6 +971,7 @@ class Token
             ){
                 $is_debug = true;
             }
+            trace();
             d($input['array']);
             $input = Value::define($object, $flags, $options, $input);
             if($is_debug){
