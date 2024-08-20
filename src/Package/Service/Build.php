@@ -794,8 +794,44 @@ class Build
                 $skip++;
             break;
             default:
-                ddd($input);
-                throw new Exception('Not implemented: ' . $next . ' on line ' . __LINE__ . ' in ' . __FILE__);
+                for($i = $nr + 1; $i < $count; $i++){
+                    $previous = Token::item($input, $i - 1);
+                    $item = Token::item($input, $i);
+                    if(
+                        in_array(
+                            $item,
+                            [
+                                '.',
+                                '+',
+                                '-',
+                                '*',
+                                '%',
+                                '/',
+                                '<',
+                                '<=',
+                                '<<',
+                                '>',
+                                '>=',
+                                '>>',
+                                '==',
+                                '===',
+                                '!=',
+                                '!==',
+                                '??',
+                                '&&',
+                                '||',
+                            ],
+                            true
+                        )
+                    ){
+                        $skip++;
+                        break;
+                    }
+                    $right .= $item;
+                    $right_array[] = $input['array'][$i];
+                    $skip++;
+                }
+                break;
         }
         return [
             'string' => $right,
