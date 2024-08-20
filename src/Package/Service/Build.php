@@ -426,7 +426,7 @@ class Build
         foreach($record['method']['argument'] as $nr => $argument) {
             $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
         }
-        $method_value .= ');';
+        $method_value .= '            );';
         return $method_value;
     }
 
