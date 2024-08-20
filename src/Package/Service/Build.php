@@ -17,7 +17,7 @@ class Build
     {
         $options->class = 'Main';
         Build::document_default($object, $flags, $options);
-        $data = document_tag($object, $flags, $options, $tags);
+        $data = Build::document_tag($object, $flags, $options, $tags);
         $document = Build::document_header($object, $flags, $options);
         $document = Build::document_use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.class');
         $document[] = '';
