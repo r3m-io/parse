@@ -525,7 +525,7 @@ class Build
                 array_key_exists('execute', $record) &&
                 $record['is_single_quoted'] === true
             ){
-                $value .= '\'' . $record['execute'] . '\'';
+                $value .= $record['execute'];
             }
             elseif(
                 array_key_exists('is_null', $record) &&
