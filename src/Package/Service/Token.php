@@ -567,7 +567,7 @@ class Token
                                         'tag' => $variable_name,
                                         'name' => substr($variable_name, 1),
                                         'is_reference' => false
-                                    ])
+                                    ]);
                                     $list = Token::value(
                                         $object,
                                         $flags,
@@ -580,49 +580,6 @@ class Token
                                     );
                                     ddd($list);
                                 }
-
-
-
-
-                                $after_hash = hash('sha256', 'after.' . $after);
-                                if($cache->has($after_hash)){
-                                    $list = $cache->get($after_hash);
-                                } else {
-                                    $list = Token::value(
-                                        $object,
-                                        $flags,
-                                        $options,
-                                        [
-                                            'string' => $after,
-                                            'array' => $after_array,
-//                                            'modifier' => $modifier_list
-                                        ]
-                                    );
-                                    $cache->set($after_hash, $list);
-                                }
-                                d($list);
-
-                                if($operator){
-                                    $variable = [
-                                        'is_assign' => true,
-                                        'operator' => $operator,
-                                        'name' => substr($variable_name, 1),
-                                        'value' => $list,
-                                        'type' => 'variable'
-                                    ];
-                                } else {
-                                    $variable = [
-                                        'is_define' => true,
-                                        'name' => substr($variable_name, 1),
-                                        'type' => 'variable'
-                                    ];
-                                    $list['string'] = $variable_name . $list['string'];
-                                    array_unshift($list['array'], $variable);
-                                    $variable = Variable::modifier($object, $flags, $options, $list);
-                                    ddd($variable);
-                                }
-
-
                                 /*
                                 if(array_key_exists(0, $modifier_list)){
                                     d($list);
