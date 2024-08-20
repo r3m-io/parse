@@ -584,19 +584,18 @@ class Token
                                         array_key_exists('type', $list['array'][0]) &&
                                         $list['array'][0]['type'] === 'variable'
                                     ){
-                                        $tags[$line][$nr]['variable'] = $list['array'][0];
-                                        $tags[$line][$nr]['variable']['is_define'] = true;
+                                        $variable = $list['array'][0];
+                                        $variable['is_define'] = true;
                                     }
                                 }
                             }
-                            d($variable_name);
                             $variable_name = '';
                             $curly_depth_variable = false;
-                            d($variable);
-                            $cache->set($hash, $variable);
+
+//                            $cache->set($hash, $variable);
                         }
-                        d($variable_name);
-                        d($variable);
+//                        d($variable_name);
+//                        d($variable);
                         $tags[$line][$nr]['variable'] = $variable;
                     } else {
                         $method_hash = hash('sha256', 'method.' . $record['tag']);
