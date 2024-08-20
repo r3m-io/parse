@@ -824,7 +824,6 @@ class Build
                             true
                         )
                     ){
-                        $skip++;
                         break;
                     }
                     $right .= $item;
