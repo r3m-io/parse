@@ -794,6 +794,7 @@ class Build
                 $skip++;
             break;
             default:
+                d($input);
                 throw new Exception('Not implemented: ' . $next . ' on line ' . __LINE__ . ' in ' . __FILE__);
         }
         return [
