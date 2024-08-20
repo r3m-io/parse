@@ -226,7 +226,6 @@ class Build
             !in_array(
                 $use_plugin,
                 [
-                    $use_plugin,
                     'Plugin\\Value_Concatenate',
                     'Plugin\\Value_Plus_Plus',
                     'Plugin\\Value_Minus_Minus',
@@ -253,7 +252,9 @@ class Build
                 true
             )
         ){
-            $use[] = $use_plugin;
+            if(!in_array($use_plugin, $use, true)){
+                $use[] = $use_plugin;
+            }
         }
         $object->config('package.r3m_io/parse.build.use.trait', $use);
         return strtolower($plugin);
