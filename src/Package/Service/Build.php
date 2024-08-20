@@ -16,8 +16,44 @@ class Build
     public static function create(App $object, $flags, $options, $tags=[]): array
     {
         $options->class = 'Main';
+        Build::document_default($object, $flags, $options);
+        $data = document_tag($object, $flags, $options, $tags);
+        $document = Build::document_header($object, $flags, $options);
+        $document = Build::document_use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.class');
+        $document[] = '';
+        $document[] = 'class '. $options->class .' {';
+        $document[] = '';
+        $document = Build::document_use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.trait');
+        $document[] = '';
+        $document = Build::document_construct($object, $flags, $options, $document);
+        $document[] = '';
+        $document[] = Build::document_run($object, $flags, $options, $document, $data);
+        $document[] = '}';
+        return $document;
+    }
+
+    public static function document_header(App $object, $flags, $options): array
+    {
+        $document[] = '<?php';
+        $document[] = '/**';
+        $document[] = ' * @package Package\R3m\Io\Parse';
+        $document[] = ' * @license MIT';
+        $document[] = ' * @version ' . $object->config('framework.version');
+        $document[] = ' * @author ' . 'Remco van der Velde (remco@universeorange.com)';
+        $document[] = ' * @compile-date ' . date('Y-m-d H:i:s');
+        $document[] = ' * @compile-time ' . round((microtime(true) - $object->config('time.start')) * 1000, 3) . ' ms';
+        $document[] = ' * @note compiled by ' . $object->config('framework.name') . ' ' . $object->config('framework.version');
+        $document[] = ' * @url ' . $object->config('framework.url');
+        $document[] = ' */';
+        $document[] = '';
+        $document[] = 'namespace Package\R3m\Io\Parse;';
+        $document[] = '';
+        return $document;
+    }
+
+    public static function document_tag(App $object, $flags, $options, $tags = []): array
+    {
         $data = [];
-        Build::use_default($object, $flags, $options);
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record);
@@ -44,27 +80,11 @@ class Build
                 }
             }
         }
-        $document = [];
-        $document[] = '<?php';
-        $document[] = '/**';
-        $document[] = ' * @package Package\R3m\Io\Parse';
-        $document[] = ' * @license MIT';
-        $document[] = ' * @version ' . $object->config('framework.version');
-        $document[] = ' * @author ' . 'Remco van der Velde (remco@universeorange.com)';
-        $document[] = ' * @compile-date ' . date('Y-m-d H:i:s');
-        $document[] = ' * @compile-time ' . round((microtime(true) - $object->config('time.start')) * 1000, 3) . ' ms';
-        $document[] = ' * @note compiled by ' . $object->config('framework.name') . ' ' . $object->config('framework.version');
-        $document[] = ' * @url ' . $object->config('framework.url');
-        $document[] = ' */';
-        $document[] = '';
-        $document[] = 'namespace Package\R3m\Io\Parse;';
-        $document[] = '';
-        $document = Build::use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.class');
-        $document[] = '';
-        $document[] = 'class '. $options->class .' {';
-        $document[] = '';
-        $document = Build::use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.trait');
-        $document[] = '';
+        return $data;
+    }
+
+    public static function document_construct(App $object, $flags, $options, $document = []): array
+    {
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
         $document[] = '        $this->parse($parse);';
@@ -72,12 +92,17 @@ class Build
         $document[] = '        $this->flags($flags);';
         $document[] = '        $this->options($options);';
         $document[] = '    }';
-        $document[] = '';
+        return $document;
+    }
+
+    public static function document_run(App $object, $flags, $options, $document = [], $data = []): array
+    {
         $document[] = '    /**';
         $document[] = '     * @throws Exception';
         $document[] = '     */';
         $document[] = '    public function run(): mixed';
         $document[] = '    {';
+
         $document[] = '        ob_start();';
         $document[] = '        $object = $this->object();';
         $document[] = '        $parse = $this->parse();';
@@ -105,14 +130,14 @@ class Build
         }
         $document[] = '        return ob_get_clean();';
         $document[] = '    }';
-        $document[] = '}';
         return $document;
     }
+
 
     /**
      * @throws Exception
      */
-    public static function use_default(App $object, $flags, $options): void
+    public static function document_default(App $object, $flags, $options): void
     {
         $use_class = $object->config('package.r3m_io/parse.build.use.class');
         if(!$use_class){
@@ -137,7 +162,10 @@ class Build
         $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
     }
 
-    public static function use(App $object, $flags, $options, $document = [], $attribute=''): array
+    /**
+     * @throws Exception
+     */
+    public static function document_use(App $object, $flags, $options, $document = [], $attribute=''): array
     {
         $use_class = $object->config($attribute);
         if($use_class){
