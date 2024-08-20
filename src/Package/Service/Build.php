@@ -81,29 +81,11 @@ class Build
         $document[] = '';
         $document[] = 'namespace Package\R3m\Io\Parse;';
         $document[] = '';
-        $use_class = $object->config('package.r3m_io/parse.build.use.class');
-        if($use_class){
-            foreach($use_class as $nr => $use){
-                if(empty($use)){
-                    $document[] = '';
-                } else {
-                    $document[] = '    use ' . $use . ';';
-                }
-            }
-        }
+        $document = Build::use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.class');
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
-        $use_trait = $object->config('package.r3m_io/parse.build.use.trait');
-        if($use_trait){
-            foreach($use_trait as $nr => $use){
-                if(empty($use)){
-                    $document[] = '';
-                } else {
-                    $document[] = '    use ' . $use . ';';
-                }
-            }
-        }
+        $document = Build::use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.trait');
         $document[] = '';
         $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
         $document[] = '        $this->object($object);';
@@ -147,6 +129,21 @@ class Build
         $document[] = '    }';
         $document[] = '}';
         d($document);
+        return $document;
+    }
+
+    public static function use(App $object, $flags, $options, $document = [], $attribute=''): array
+    {
+        $use_class = $object->config($attribute);
+        if($use_class){
+            foreach($use_class as $nr => $use){
+                if(empty($use)){
+                    $document[] = '';
+                } else {
+                    $document[] = 'use ' . $use . ';';
+                }
+            }
+        }
         return $document;
     }
 
