@@ -561,6 +561,19 @@ class Build
                 $value .= $record['execute'];
             }
             elseif(
+                array_key_exists('value', $record) &&
+                in_array(
+                    $record['value'],
+                    [
+                        '{{',
+                        '}}'
+                    ],
+                    true
+                )
+            ){
+                //nothing
+            }
+            elseif(
                 array_key_exists('is_null', $record) &&
                 $record['is_null'] === true
             ){
