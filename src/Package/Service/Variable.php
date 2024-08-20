@@ -610,8 +610,6 @@ class Variable
                     'argument' => []
                 ];
             }
-
-            ddd($input);
         }
         if($is_variable !== false){
             d($is_variable);
