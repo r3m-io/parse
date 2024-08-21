@@ -944,43 +944,17 @@ class Token
         if($cache->has($hash)){
             $input = $cache->get($hash);
         } else {
-            $is_debug = false;
             $input = Symbol::define($object, $flags, $options, $input);
             $input = Cast::define($object, $flags, $options, $input);
             $input = Method::define($object, $flags, $options, $input);
             $input = Variable::define($object, $flags, $options, $input);
-            d($input['array']);
             $input = Variable::modifier($object, $flags, $options, $input);
-            if(
-                array_key_exists(0, $input['array']) &&
-                $input['array'][0] === 'a'
-            ){
-                $is_debug = true;
-            }
-            trace();
-            d($input['array']);
             $input = Value::define($object, $flags, $options, $input);
-            if($is_debug){
-                d($input);
-            }
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
-            if($is_debug){
-                d($input);
-            }
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
-            if($is_debug){
-                d($input);
-            }
             $input = Value::array($object, $flags, $options, $input);
-            if($is_debug){
-                d($input);
-            }
-
 //            $input = Method::block($object, $flags, $options, $input);
             $input = Token::cleanup($object, $flags, $options, $input);
-            if($is_debug){
-                d($input);
-            }
             $cache->set($hash, $input);
         }
         return $input;
