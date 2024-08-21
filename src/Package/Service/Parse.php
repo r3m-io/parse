@@ -17,6 +17,8 @@ use R3m\Io\Node\Model\Node;
 
 class Parse
 {
+    const NODE = 'System.Parse';
+
     use Plugin\Basic;
 
     public function __construct(App $object, Data $data, $flags, $options){
@@ -34,7 +36,7 @@ class Parse
     {
         $node = new Node($this->object());
         $parse = $node->record(
-            'System.Parse',
+            Parse::NODE,
             $node->role_system(),
             [
                 'ramdisk' => true
