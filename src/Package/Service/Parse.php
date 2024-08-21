@@ -3,6 +3,7 @@ namespace Package\R3m\Io\Parse\Service;
 
 use R3m\Io\App;
 
+use R3m\Io\Exception\ObjectException;
 use R3m\Io\Module\Cli;
 use R3m\Io\Module\Data;
 
@@ -11,6 +12,8 @@ use Exception;
 
 use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
+
+use R3m\Io\Node\Model\Node;
 
 class Parse
 {
@@ -23,6 +26,37 @@ class Parse
         $this->flags($flags);
         $this->options($options);
     }
+
+    /**
+     * @throws ObjectException
+     */
+    protected function config(): void
+    {
+        $node = new Node($this->object());
+        $parse = $node->record(
+            'System.Parse',
+            $node->role_system(),
+            [
+                'ramdisk' => true
+            ]
+        );
+        if(!$parse){
+            $url = $this->object()->config('framework.dir.vendor') .
+                'r3m_io' .
+                $this->object()->config('ds') .
+                'parse' .
+                $this->object()->config('ds') .
+                'Data' .
+                $this->object()->config('ds') .
+                'Default' .
+                $this->object()->config('extension.json')
+            ;
+            ddd($url);
+
+        }
+
+    }
+
 
     /**
      * @throws Exception
@@ -46,6 +80,8 @@ class Parse
         $options = $this->options();
         $token = Token::tokenize($object, $flags, $options, $input);
         $document = Build::create($object, $flags, $options, $token);
+
+        d($object->config('package'));
 
         $dir = $object->config('project.dir.data') .
             'Test' .

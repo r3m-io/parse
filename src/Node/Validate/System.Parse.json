@@ -1,0 +1,120 @@
+{
+    "System": {
+        "Event": {
+            "create": {
+                "validate": {
+                    "uuid": [
+                        {
+                            "is.uuid": true
+                        }
+                    ],
+                    "action": [
+                        {
+                            "is.unique": {
+                                "class": "System.Event",
+                                "attribute": [
+                                    "action",
+                                    "options.priority"
+                                ]
+                            }
+                        }
+                    ],
+                    "options.priority": [
+                        {
+                            "integer": ">=1"
+                        },
+                        {
+                            "integer": "<=1000000000"
+                        }
+                    ],
+                    "options.command": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "options.controller": [
+                        {
+                            "is.array": true
+                        }
+                    ]
+                }
+            },
+            "put": {
+                "validate": {
+                    "uuid": [
+                        {
+                            "is.uuid": true
+                        }
+                    ],
+                    "action": [
+                        {
+                            "is.unique": {
+                                "class": "System.Event",
+                                "attribute": [
+                                    "action",
+                                    "options.priority"
+                                ]
+                            }
+                        }
+                    ],
+                    "options.priority": [
+                        {
+                            "integer": ">=1"
+                        },
+                        {
+                            "integer": "<=1000000000"
+                        }
+                    ],
+                    "options.command": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "options.controller": [
+                        {
+                            "is.array": true
+                        }
+                    ]
+                }
+            },
+            "patch": {
+                "validate": {
+                    "uuid": [
+                        {
+                            "is.uuid": true
+                        }
+                    ],
+                    "?action": [
+                        {
+                            "is.unique": {
+                                "class": "System.Event",
+                                "attribute": [
+                                    "action",
+                                    "options.priority"
+                                ]
+                            }
+                        }
+                    ],
+                    "?options.priority": [
+                        {
+                            "integer": ">=1"
+                        },
+                        {
+                            "integer": "<=1000000000"
+                        }
+                    ],
+                    "?options.command": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "?options.controller": [
+                        {
+                            "is.array": true
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

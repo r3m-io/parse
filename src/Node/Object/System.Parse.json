@@ -1,0 +1,42 @@
+{
+  "Node": {
+    "#class": "System.Parse",
+    "type": "object",
+    "property": [
+      {
+        "name": "action",
+        "type": "string"
+      },
+      {
+        "name": "options",
+        "type": "object",
+        "property": [
+          {
+            "name": "command",
+            "type": "array"
+          },
+          {
+            "name": "controller",
+            "type": "array"
+          },
+          {
+            "name": "priority",
+            "type": "integer"
+          }
+        ],
+        "multiple": false
+      },
+      {
+        "name": "uuid",
+        "type": "uuid"
+      },
+      {
+        "name": "#class",
+        "type": "string"
+      }
+    ]
+  },
+  "is.unique": [
+    "action, options.priority"
+  ]
+}
