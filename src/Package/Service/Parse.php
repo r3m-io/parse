@@ -52,10 +52,8 @@ class Parse
                 'ramdisk' => true
             ]
         );
-        d($object->config('project'));
-        ddd($object->config('framework'));
         if(!$parse){
-            $url = $object->config('framework.dir.vendor') .
+            $url = $object->config('project.dir.vendor') .
                 'r3m_io' .
                 $object->config('ds') .
                 'parse' .
