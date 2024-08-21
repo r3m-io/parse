@@ -3,5 +3,9 @@
   "rank" : 1,
   "#class": "Account.Role",
   "permission": [
+    {
+      "name": "System:Parse:record",
+      "#class": "Account.Permission"
+    }
   ]
 }
