@@ -612,12 +612,10 @@ class Variable
             }
         }
         if($is_variable !== false){
-            d($is_variable);
-            d($nr);
-            d($input);
-            for($index = $is_variable + 1; $index < $nr; $index++){
+            for($index = $is_variable + 1; $index <= $nr; $index++){
                 $input['array'][$index] = null;
             }
+            /*
             if(
                 $outer_curly_depth > 0 &&
                 $current === '}}'
@@ -626,8 +624,8 @@ class Variable
             } else {
                 $input['array'][$nr] = null;
             }
+            */
         }
-        d($input);
         return $input;
     }
 }
