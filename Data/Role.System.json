@@ -74,6 +74,10 @@
     {
       "name": "System:Parse:rename",
       "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:import",
+      "#class": "Account.Permission"
     }
   ]
 }
