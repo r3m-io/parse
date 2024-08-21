@@ -141,7 +141,6 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
-        d($input['array']);
         foreach($input['array'] as $nr => $char) {
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
@@ -562,10 +561,6 @@ class Variable
                 }
             }
         }
-        d($input);
-        d($is_variable);
-        d($is_modifier);
-        d($is_argument);
         if(
             $is_variable !== false &&
             $is_modifier !== false
