@@ -3,38 +3,48 @@ namespace Package\R3m\Io\Parse\Service;
 
 use R3m\Io\App;
 
-use R3m\Io\Exception\ObjectException;
 use R3m\Io\Module\Cli;
 use R3m\Io\Module\Data;
 
 use Plugin;
-use Exception;
 
 use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
 
 use R3m\Io\Node\Model\Node;
 
+use Exception;
+
+use R3m\Io\Exception\ObjectException;
+
 class Parse
 {
     const NODE = 'System.Parse';
+    const CONFIG = 'package.r3m_io/parse';
+
 
     use Plugin\Basic;
 
+    /**
+     * @throws ObjectException
+     * @throws Exception
+     */
     public function __construct(App $object, Data $data, $flags, $options){
-        $object->config('package.r3m_io/parse.time.start', microtime(true));
         $this->object($object);
         $this->data($data);
         $this->flags($flags);
         $this->options($options);
+        $this->config();
     }
 
     /**
      * @throws ObjectException
+     * @throws Exception
      */
     protected function config(): void
     {
-        $node = new Node($this->object());
+        $object = $this->object();
+        $node = new Node($object);
         $parse = $node->record(
             Parse::NODE,
             $node->role_system(),
@@ -50,13 +60,13 @@ class Parse
                 $this->object()->config('ds') .
                 'Data' .
                 $this->object()->config('ds') .
-                'Default' .
+                'System.Parse' .
                 $this->object()->config('extension.json')
             ;
             ddd($url);
 
         }
-
+        $object->config(Parse::CONFIG . '.time.start', microtime(true));
     }
 
 

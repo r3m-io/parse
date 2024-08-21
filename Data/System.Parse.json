@@ -1,0 +1,181 @@
+{
+  "System": {
+    "Parse": [
+      {
+        "#class": "System.Parse",
+        "object": {
+          "this": {
+            "parentNode": "#parentNode",
+            "rootNode": "#rootNode",
+            "attribute": "#attribute",
+            "key": "#key",
+            "url": "#url",
+            "parallel": "#parallel",
+            "output": "#output"
+          }
+        },
+        "plugin": {
+          "block": [
+            "block.*",
+            "capture.*",
+            "script",
+            "link",
+            "function"
+          ],
+          "literal": [
+            {
+              "name": "unset",
+              "count": "*"
+            },
+            {
+              "name":  "array_current",
+              "count": 1
+            },
+            {
+              "name":  "array_cycle",
+              "count": 1
+            },
+            {
+              "name": "array_end",
+              "count": 1
+            },
+            {
+              "name": "array_next",
+              "count": 1
+            },
+            {
+              "name": "array_pop",
+              "count": 1
+            },
+            {
+              "name": "array_previous",
+              "count": 1
+            },
+            {
+              "name": "array_push",
+              "count": 1
+            },
+            {
+              "name": "array_reset",
+              "count": 1
+            },
+            {
+              "name": "array_shift",
+              "count": 1
+            },
+            {
+              "name": "array_unshift",
+              "count": 1
+            },
+            {
+              "name": "capture_append",
+              "count": 1
+            },
+            {
+              "name": "capture_prepend",
+              "count": 1
+            },
+            {
+              "name": "config",
+              "count": 1
+            },
+            {
+              "name": "core_exec",
+              "count": 1,
+              "index": 1
+            },
+            {
+              "name": "core_execute",
+              "count": 1,
+              "index": 1
+            },
+            {
+              "name": "core_stream",
+              "count": 1,
+              "index": 1
+            },
+            {
+              "name": "core_stream_app",
+              "count": 1,
+              "index": 1
+            },
+            {
+              "name": "data",
+              "count": 1
+            },
+            {
+              "name": "data_delete",
+              "count": 1
+            },
+            {
+              "name": "data_extract",
+              "count": 1
+            },
+            {
+              "name": "data_get",
+              "count": 1
+            },
+            {
+              "name": "data_has",
+              "count": 1
+            },
+            {
+              "name": "data_index",
+              "count": 1
+            },
+            {
+              "name": "data_set",
+              "count": 1
+            },
+            {
+              "name": "execute",
+              "count": 1,
+              "index": 1
+            },
+            {
+              "name": "preg_match",
+              "count": 1,
+              "index": 2
+            },
+            {
+              "name": "preg_match_all",
+              "count": 1,
+              "index": 2
+            },
+            {
+              "name": "preg_match_replace",
+              "count": 1,
+              "index": 4
+            },
+            {
+              "name": "string_replace",
+              "count": 1,
+              "index": 3
+            },
+            {
+              "name": "string_replace_case_insensitive",
+              "count": 1,
+              "index": 3
+            }
+          ]
+        },
+        "build": {
+          "use" : {
+            "class" : [
+              "R3m\\Io\\App",
+              "R3m\\Io\\Module\\Data",
+              "Package\\R3m\\Io\\Parse\\Service\\Parse",
+              "Plugin",
+              "Exception"
+            ],
+            "trait": [
+              "Plugin\\Basic",
+              "Plugin\\Parse",
+              "Plugin\\Value"
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
