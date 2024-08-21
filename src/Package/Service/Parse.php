@@ -52,6 +52,8 @@ class Parse
                 'ramdisk' => true
             ]
         );
+        d($parse);
+        $parse = false;
         if(!$parse){
             $url = $object->config('project.dir.vendor') .
                 'r3m_io' .
@@ -63,12 +65,36 @@ class Parse
                 Parse::NODE .
                 $object->config('extension.json')
             ;
+            $options = (object) [
+                'url' => $url,
+
+            ];
+            $response = $node->import(Parse::NODE, $node->role_system(), $options);
+            $node->stats(Parse::NODE, $response);
             ddd($url);
 
         }
         $object->config(Parse::CONFIG . '.time.start', microtime(true));
     }
 
+    public function log_processor(): void
+    {
+        $object = $this->object();
+        $package = $object->request('package');
+        if($package){
+            $options = App::options($object);
+            $class = 'System.Log.Processor';
+            $options->url = $object->config('project.dir.vendor') .
+                $package . '/Data/' .
+                $class .
+                $object->config('extension.json')
+            ;
+            $options->uuid = true;
+            $node = new Node($object);
+            $response = $node->import($class, $node->role_system(), $options);
+            $node->stats($class, $response);
+        }
+    }
 
     /**
      * @throws Exception
