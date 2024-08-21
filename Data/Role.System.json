@@ -6,6 +6,74 @@
     {
       "name": "System:Parse:record",
       "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:record.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:create",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:count",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:count.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:commit",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:delete.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:read",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:read.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:put",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:patch",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:page",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:page.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:property.delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:list",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:list.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Parse:rename",
+      "#class": "Account.Permission"
     }
   ]
 }
