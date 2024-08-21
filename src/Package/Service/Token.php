@@ -128,7 +128,6 @@ class Token
                 ){
                     $content = trim(substr($record['tag'], 2, -2));
                     $hash = hash('sha256', 'tag.' . $content);
-                    d($content);
                     if(substr($content, 0, 1) === '$'){
                         if($cache->has($hash)){
                             $variable = $cache->get($hash);
@@ -270,13 +269,11 @@ class Token
                                     $is_after = true;
                                     $after .= $char;
                                     $after_array[] = $char;
-                                    d($after);
                                     if($after !== ''){
                                         if(substr($after, 0, 1) === '$'){
                                             d('shit');
                                         }
                                     }
-                                    d($variable_name);
 //                                    $is_modifier = true;
                                     continue;
                                 }
@@ -486,7 +483,6 @@ class Token
                                     $is_double_quoted === false
                                 ){
                                     $variable_name .= $char;
-                                    d($variable_name);
                                     if($curly_depth_variable === false){
                                         $curly_depth_variable = $curly_depth;
                                     }
@@ -497,7 +493,6 @@ class Token
                                 if($cache->has($argument_hash)){
                                     $argument_value = $cache->get($argument_hash);
                                 } else {
-                                    d($argument);
                                     $argument_value = Token::value(
                                         $object,
                                         $flags,
@@ -524,7 +519,6 @@ class Token
                                 $modifier_string = '';
                                 $argument_list = [];
                             }
-                            d($after);
                             if($after === ''){
                                 if(array_key_exists(0, $modifier_list)){
                                     $variable = [
@@ -539,9 +533,6 @@ class Token
                                     ];
                                 }
                             } else {
-                                //modifier needs variable
-                                d($after);
-                                d($after_array);
                                 if($operator){
                                     $list = Token::value(
                                         $object,
@@ -594,8 +585,6 @@ class Token
 
 //                            $cache->set($hash, $variable);
                         }
-//                        d($variable_name);
-//                        d($variable);
                         $tags[$line][$nr]['variable'] = $variable;
                     } else {
                         $method_hash = hash('sha256', 'method.' . $record['tag']);
