@@ -52,16 +52,18 @@ class Parse
                 'ramdisk' => true
             ]
         );
+        d($object->config('project'));
+        ddd($object->config('framework'));
         if(!$parse){
-            $url = $this->object()->config('framework.dir.vendor') .
+            $url = $object->config('framework.dir.vendor') .
                 'r3m_io' .
-                $this->object()->config('ds') .
+                $object->config('ds') .
                 'parse' .
-                $this->object()->config('ds') .
+                $object->config('ds') .
                 'Data' .
-                $this->object()->config('ds') .
+                $object->config('ds') .
                 Parse::NODE .
-                $this->object()->config('extension.json')
+                $object->config('extension.json')
             ;
             ddd($url);
 
