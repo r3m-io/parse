@@ -60,7 +60,7 @@ class Parse
                 $this->object()->config('ds') .
                 'Data' .
                 $this->object()->config('ds') .
-                'System.Parse' .
+                Parse::NODE .
                 $this->object()->config('extension.json')
             ;
             ddd($url);
