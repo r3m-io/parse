@@ -1,6 +1,6 @@
 {
     "System": {
-        "Event": {
+        "Parse": {
             "create": {
                 "validate": {
                     "uuid": [
