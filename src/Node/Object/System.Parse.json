@@ -114,6 +114,6 @@
     ]
   },
   "is.unique": [
-    "action, options.priority"
+    "#class"
   ]
 }

@@ -8,7 +8,7 @@
                             "is.uuid": true
                         }
                     ],
-                    "class": [
+                    "#class": [
                         {
                             "is.unique": {
                                 "class": "System.Parse",
@@ -47,7 +47,7 @@
                             "is.uuid": true
                         }
                     ],
-                    "class": [
+                    "#class": [
                         {
                             "is.unique": {
                                 "class": "System.Parse",
@@ -86,7 +86,7 @@
                             "is.uuid": true
                         }
                     ],
-                    "?class": [
+                    "?#class": [
                         {
                             "is.unique": {
                                 "class": "System.Parse",
