@@ -2,29 +2,106 @@
   "Node": {
     "#class": "System.Parse",
     "type": "object",
+    "multiple": false,
     "property": [
       {
-        "name": "action",
-        "type": "string"
-      },
-      {
-        "name": "options",
+        "name": "object",
         "type": "object",
+        "multiple": false,
         "property": [
           {
-            "name": "command",
-            "type": "array"
+            "name": "this",
+            "type": "object",
+            "multiple": false,
+            "property": [
+              {
+                "name": "rootNode",
+                "type": "string"
+              },
+              {
+                "name": "parentNode",
+                "type": "string"
+              },
+              {
+                "name": "key",
+                "type": "string"
+              },
+              {
+                "name": "attribute",
+                "type": "string"
+              },
+              {
+                "name": "url",
+                "type": "string"
+              },
+              {
+                "name": "parallel",
+                "type": "array"
+              },
+              {
+                "name": "output",
+                "type": "object",
+                "multiple": false,
+                "property": [
+                    {
+                        "name": "filter",
+                        "type": "array"
+                    }
+                ]
+              }
+            ]
           },
           {
-            "name": "controller",
-            "type": "array"
+            "name": "plugin",
+            "type": "object",
+            "multiple": false,
+            "property": [
+                {
+                    "name": "block",
+                    "type": "array"
+                },
+                {
+                    "name": "literal",
+                    "type": "object",
+                    "multiple": true,
+                    "property": [
+                        {
+                            "name": "name",
+                            "type": "string"
+                        },
+                        {
+                            "name": "count",
+                            "type": "integer"
+                        },
+                        {
+                            "name": "index",
+                            "type": "integer|array"
+                        }
+                    ]
+                }
+            ]
           },
           {
-            "name": "priority",
-            "type": "integer"
+            "name": "build",
+            "type": "object",
+            "property": [
+                {
+                    "name": "use",
+                    "type": "object",
+                    "property": [
+                        {
+                            "name": "class",
+                            "type": "array"
+                        },
+                        {
+                            "name": "trait",
+                            "type": "array"
+                        }
+                    ]
+                }
+            ]
           }
-        ],
-        "multiple": false
+        ]
       },
       {
         "name": "uuid",

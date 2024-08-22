@@ -1,24 +1,69 @@
 {
     "System": {
-        "Event": {
+        "Parse": {
             "count": {
                 "output": [
                     {
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -30,18 +75,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -53,18 +143,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -76,18 +211,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -99,18 +279,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -122,18 +347,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -145,18 +415,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -168,18 +483,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -191,18 +551,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -214,18 +619,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }
@@ -237,18 +687,63 @@
                         "role": "ROLE_SYSTEM",
                         "property": [
                             "uuid",
-                            "options",
-                            "action",
+                            "object",
+                            "plugin",
+                            "build",
                             "#class"
                         ],
                         "object": {
-                            "options": {
+                            "object": {
                                 "multiple": false,
                                 "output": [
-                                    "priority",
-                                    "command",
-                                    "controller"
-                                ]
+                                    "this"
+                                ],
+                                "object" : {
+                                    "this" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "rootNode",
+                                            "parentNode",
+                                            "key",
+                                            "attribute",
+                                            "url",
+                                            "parallel",
+                                            "output"
+                                        ]
+                                    }
+                                }
+                            },
+                            "plugin": {
+                                "multiple": false,
+                                "output": [
+                                    "block",
+                                    "literal"
+                                ],
+                                "object" : {
+                                    "literal" : {
+                                        "multiple": true,
+                                        "output": [
+                                            "name",
+                                            "count",
+                                            "index"
+                                        ]
+                                    }
+                                }
+                            },
+                            "build": {
+                                "multiple": false,
+                                "output": [
+                                    "use"
+                                ],
+                                "object" : {
+                                    "use" : {
+                                        "multiple": false,
+                                        "output": [
+                                            "class",
+                                            "trait"
+                                        ]
+                                    }
+                                }
                             }
                         }
                     }

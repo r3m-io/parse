@@ -8,31 +8,32 @@
                             "is.uuid": true
                         }
                     ],
-                    "action": [
+                    "class": [
                         {
                             "is.unique": {
-                                "class": "System.Event",
+                                "class": "System.Parse",
                                 "attribute": [
-                                    "action",
-                                    "options.priority"
+                                    "#class"
                                 ]
                             }
                         }
                     ],
-                    "options.priority": [
-                        {
-                            "integer": ">=1"
-                        },
-                        {
-                            "integer": "<=1000000000"
-                        }
-                    ],
-                    "options.command": [
+                    "plugin.block": [
                         {
                             "is.array": true
                         }
                     ],
-                    "options.controller": [
+                    "plugin.literal": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "build.use.class": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "build.use.trait": [
                         {
                             "is.array": true
                         }
@@ -46,31 +47,32 @@
                             "is.uuid": true
                         }
                     ],
-                    "action": [
+                    "class": [
                         {
                             "is.unique": {
-                                "class": "System.Event",
+                                "class": "System.Parse",
                                 "attribute": [
-                                    "action",
-                                    "options.priority"
+                                    "#class"
                                 ]
                             }
                         }
                     ],
-                    "options.priority": [
-                        {
-                            "integer": ">=1"
-                        },
-                        {
-                            "integer": "<=1000000000"
-                        }
-                    ],
-                    "options.command": [
+                    "plugin.block": [
                         {
                             "is.array": true
                         }
                     ],
-                    "options.controller": [
+                    "plugin.literal": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "build.use.class": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "build.use.trait": [
                         {
                             "is.array": true
                         }
@@ -84,31 +86,32 @@
                             "is.uuid": true
                         }
                     ],
-                    "?action": [
+                    "?class": [
                         {
                             "is.unique": {
-                                "class": "System.Event",
+                                "class": "System.Parse",
                                 "attribute": [
-                                    "action",
-                                    "options.priority"
+                                    "#class"
                                 ]
                             }
                         }
                     ],
-                    "?options.priority": [
-                        {
-                            "integer": ">=1"
-                        },
-                        {
-                            "integer": "<=1000000000"
-                        }
-                    ],
-                    "?options.command": [
+                    "?plugin.block": [
                         {
                             "is.array": true
                         }
                     ],
-                    "?options.controller": [
+                    "?plugin.literal": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "?build.use.class": [
+                        {
+                            "is.array": true
+                        }
+                    ],
+                    "?build.use.trait": [
                         {
                             "is.array": true
                         }
