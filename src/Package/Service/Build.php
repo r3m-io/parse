@@ -460,6 +460,9 @@ class Build
             if($is_argument){
                 $method_value = substr($method_value, 0, -2);
             }
+            elseif($method_name === 'break'){
+                $method_value = substr($method_value, 0, -1);
+            }
         } else {
             $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
             $method_value = '$this->' . $plugin . '(' . PHP_EOL;
