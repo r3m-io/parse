@@ -31,7 +31,7 @@ trait Plugin_break {
 
     private function setBreak($break = false): void
     {
-        $this->data = $break;
+        $this->break = $break;
     }
 
     private function getBreak(): bool
