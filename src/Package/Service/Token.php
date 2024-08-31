@@ -269,11 +269,6 @@ class Token
                                     $is_after = true;
                                     $after .= $char;
                                     $after_array[] = $char;
-                                    if($after !== ''){
-                                        if(substr($after, 0, 1) === '$'){
-                                            d('shit');
-                                        }
-                                    }
 //                                    $is_modifier = true;
                                     continue;
                                 }
