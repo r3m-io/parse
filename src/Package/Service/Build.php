@@ -148,6 +148,7 @@ class Build
     public static function document_default(App $object, $flags, $options): void
     {
         $use_class = $object->config('package.r3m_io/parse.build.use.class');
+        ddd($use_class);
         if(!$use_class){
             $use_class = [];
         }
