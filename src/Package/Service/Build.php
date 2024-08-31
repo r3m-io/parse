@@ -148,8 +148,7 @@ class Build
     public static function document_default(App $object, $flags, $options): void
     {
         $use_class = $object->config('package.r3m_io/parse.build.use.class');
-        ddd($use_class);
-        if(!$use_class){
+        if(empty($use_class)){
             $use_class = [];
         }
         $use_class[] = 'R3m\Io\App';
@@ -159,7 +158,7 @@ class Build
         $use_class[] = 'Exception';
         $object->config('package.r3m_io/parse.build.use.class', $use_class);
         $use_trait = $object->config('package.r3m_io/parse.build.use.trait');
-        if(!$use_trait){
+        if(empty($use_trait)){
             $use_trait = [];
         }
         $use_trait[] = 'Plugin\Basic';
