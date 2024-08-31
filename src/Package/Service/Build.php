@@ -16,8 +16,7 @@ class Build
     public static function create(App $object, $flags, $options, $tags=[]): array
     {
         $options->class = 'Main';
-        ddd($object->config('package'));
-//        Build::document_default($object, $flags, $options);
+        Build::document_default($object, $flags, $options);
         $data = Build::document_tag($object, $flags, $options, $tags);
         $document = Build::document_header($object, $flags, $options);
         $document = Build::document_use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.class');
@@ -153,11 +152,8 @@ class Build
             $use_class = [];
         }
         $use_class[] = 'R3m\Io\App';
-        $use_class[] = '';
         $use_class[] = 'R3m\Io\Module\Data';
-        $use_class[] = '';
         $use_class[] = 'Package\R3m\Io\Parse\Service\Parse';
-        $use_class[] = '';
         $use_class[] = 'Plugin';
         $use_class[] = 'Exception';
         $object->config('package.r3m_io/parse.build.use.class', $use_class);
