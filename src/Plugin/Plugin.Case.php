@@ -12,7 +12,7 @@ namespace Plugin;
 
 trait Plugin_case {
 
-    function plugin_case($value, $default=null){
+    protected function plugin_case($value, $default=null){
         if(empty($value)){
             return $default;
         }

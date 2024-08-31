@@ -12,7 +12,7 @@ namespace Plugin;
 
 trait Plugin_switch {
 
-    function plugin_switch($value, $default=null){
+    protected function plugin_switch($value, $default=null){
         if(empty($value)){
             return $default;
         }

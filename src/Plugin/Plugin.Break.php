@@ -11,12 +11,52 @@
 namespace Plugin;
 
 trait Plugin_break {
+    protected $break = false;
+    protected $break_level = 0;
 
-    function plugin_break($value, $default=null){
-        if(empty($value)){
-            return $default;
+    protected function plugin_break($level=1): void
+    {
+        $this->break(true);
+        $this->break_level = $level;
+    }
+
+    public function break($break = null): bool
+    {
+        if($break !== null){
+            $this->setBreak($break);
+
         }
-        return $value;
+        return $this->getBreak();
+    }
+
+    private function setBreak($break = false): void
+    {
+        $this->data = $break;
+    }
+
+    private function getBreak(): bool
+    {
+        return $this->break;
+    }
+
+
+    public function break_level($level = null): int
+    {
+        if($level !== null){
+            $this->set_break_level($level);
+
+        }
+        return $this->get_break_level();
+    }
+
+    private function set_break_level($level = 0): void
+    {
+        $this->break_level = $level;
+    }
+
+    private function get_break_level(): int
+    {
+        return $this->break_level;
     }
 
 }
