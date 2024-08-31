@@ -34,7 +34,7 @@ class Parse
         $this->data($data);
         $this->flags($flags);
         $this->options($options);
-//        $this->config();
+        $this->config();
     }
 
     /**
