@@ -150,20 +150,20 @@ class Build
         $use_class = $object->config('package.r3m_io/parse.build.use.class');
         if(empty($use_class)){
             $use_class = [];
+            $use_class[] = 'R3m\Io\App';
+            $use_class[] = 'R3m\Io\Module\Data';
+            $use_class[] = 'Package\R3m\Io\Parse\Service\Parse';
+            $use_class[] = 'Plugin';
+            $use_class[] = 'Exception';
         }
-        $use_class[] = 'R3m\Io\App';
-        $use_class[] = 'R3m\Io\Module\Data';
-        $use_class[] = 'Package\R3m\Io\Parse\Service\Parse';
-        $use_class[] = 'Plugin';
-        $use_class[] = 'Exception';
         $object->config('package.r3m_io/parse.build.use.class', $use_class);
         $use_trait = $object->config('package.r3m_io/parse.build.use.trait');
         if(empty($use_trait)){
             $use_trait = [];
+            $use_trait[] = 'Plugin\Basic';
+            $use_trait[] = 'Plugin\Parse';
+            $use_trait[] = 'Plugin\Value';
         }
-        $use_trait[] = 'Plugin\Basic';
-        $use_trait[] = 'Plugin\Parse';
-        $use_trait[] = 'Plugin\Value';
         $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
     }
 
