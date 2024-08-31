@@ -618,6 +618,7 @@ class Build
         $input = Build::value_single_quote($object, $flags, $options, $input);
         $is_double_quote = false;
         $double_quote_previous = false;
+        d($input);
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -740,6 +741,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'variable'
             ){
+                d($record);
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
