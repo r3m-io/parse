@@ -67,7 +67,7 @@ class Parse
             ;
             $options = (object) [
                 'url' => $url,
-
+                'patch' => true
             ];
             $response = $node->import(Parse::NODE, $node->role_system(), $options);
             $node->stats(Parse::NODE, $response);
