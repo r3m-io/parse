@@ -263,7 +263,11 @@ class Build
                     'default',
                     'object',
                     'echo',
-                    'parse'
+                    'parse',
+                    'switch',
+                    'case',
+                    'break',
+                    'continue'
                 ],
                 true
             )
