@@ -516,8 +516,11 @@ class Build
             return false;
         }
         $variable_name = $record['variable']['name'];
+        d($variable_name);
         $operator = $record['variable']['operator'];
+        d($operator);
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
+        d($value);
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
