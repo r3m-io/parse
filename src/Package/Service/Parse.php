@@ -120,7 +120,7 @@ class Parse
         $token = Token::tokenize($object, $flags, $options, $input);
         $document = Build::create($object, $flags, $options, $token);
 
-        d($object->config('package'));
+//        d($object->config('package'));
 
         $dir = $object->config('project.dir.data') .
             'Test' .
