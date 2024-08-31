@@ -433,18 +433,21 @@ class Build
                 true
             )
         ){
-            if($method_name === 'switch'){
+            if($method_name === 'switch') {
                 $method_value = $method_name . '(';
-                $is_argument = false;
-                foreach($record['method']['argument'] as $nr => $argument) {
-                    $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ', ';
-                    $is_argument = true;
-                }
-                if($is_argument){
-                    $method_value = substr($method_value, 0, -2);
-                }
+            }
+            elseif($method_name === 'case'){
+                $method_value = $method_name . ' ';
             } else {
                 $method_value = $method_name . ' ';
+            }
+            $is_argument = false;
+            foreach($record['method']['argument'] as $nr => $argument) {
+                $method_value .= Build::value($object, $flags, $options, $argument) . ', ';
+                $is_argument = true;
+            }
+            if($is_argument){
+                $method_value = substr($method_value, 0, -2);
             }
         } else {
             $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
