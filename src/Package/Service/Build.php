@@ -422,11 +422,26 @@ class Build
             return false;
         }
         $method_name = $record['method']['name'];
-
-        d($method_name);
-
-        $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
-        $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+        if(
+            in_array(
+                $method_name,
+                [
+                    'switch',
+                    'case',
+                    'break'
+                ],
+                true
+            )
+        ){
+            if($method_name === 'switch'){
+                $method_value = $method_name . '(';
+            } else {
+                $method_value = $method_name . ' ';
+            }
+        } else {
+            $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
+            $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+        }
         $is_argument = false;
         foreach($record['method']['argument'] as $nr => $argument) {
             $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
@@ -435,7 +450,29 @@ class Build
         if($is_argument){
             $method_value = substr($method_value, 0, -2) . PHP_EOL;
         }
-        $method_value .= '        );';
+        if(
+            in_array(
+                $method_name,
+                [
+                    'switch',
+                    'case',
+                    'break'
+                ],
+                true
+            )
+        ){
+            if($method_name === 'switch'){
+                $method_value .=  '){';
+            }
+            elseif($method_name === 'case') {
+                $method_value .= ':';
+            }
+            elseif($method_name === 'break'){
+                $method_value .= ';';
+            }
+        } else {
+            $method_value .= '        );';
+        }
         return $method_value;
     }
 
