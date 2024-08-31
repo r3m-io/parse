@@ -505,6 +505,7 @@ class Build
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
+        d($record);
         if(!array_key_exists('variable', $record)){
             return false;
         }
