@@ -53,6 +53,15 @@ class Parse
                 'ramdisk' => true
             ]
         );
+        $options = $this->options();
+        $force = false;
+        if(property_exists('force', $options)){
+            $parse = false;
+            $force = true;
+        }
+        if(property_exists('patch', $options)){
+            $parse = false;
+        }
         if(!$parse){
             $url = $object->config('project.dir.vendor') .
                 'r3m_io' .
@@ -64,10 +73,17 @@ class Parse
                 Parse::NODE .
                 $object->config('extension.json')
             ;
-            $options = (object) [
-                'url' => $url,
-                'patch' => true
-            ];
+            if($force){
+                $options = (object) [
+                    'url' => $url,
+                    'force' => true
+                ];
+            } else {
+                $options = (object) [
+                    'url' => $url,
+                    'patch' => true
+                ];
+            }
             $response = $node->import(Parse::NODE, $node->role_system(), $options);
             $parse = $node->record(
                 Parse::NODE,
