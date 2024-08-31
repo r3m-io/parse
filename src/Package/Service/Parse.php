@@ -55,11 +55,11 @@ class Parse
         );
         $options = $this->options();
         $force = false;
-        if(property_exists('force', $options)){
+        if(property_exists($options,'force')){
             $parse = false;
             $force = true;
         }
-        if(property_exists('patch', $options)){
+        if(property_exists($options, 'patch')){
             $parse = false;
         }
         if(!$parse){
