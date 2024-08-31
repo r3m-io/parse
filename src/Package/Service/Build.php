@@ -68,6 +68,7 @@ class Build
                     }
                 }
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
+                d($variable_assign);
                 if($variable_assign){
                     $data[] = $variable_assign;
                     $next = $list[$nr + 1] ?? false;
