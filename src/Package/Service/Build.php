@@ -165,6 +165,7 @@ class Build
             $use_trait[] = 'Plugin\Value';
         }
         $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
+        $object->config('package.r3m_io/parse.build.state.echo', true);
     }
 
     /**
@@ -186,6 +187,10 @@ class Build
     }
 
     public static function text(App $object, $flags, $options,$record = []){
+        $is_echo = $object->config('package.r3m_io/parse.build.state.echo');
+        if($is_echo !== true){
+            return false;
+        }
         if(
             array_key_exists('text', $record) &&
             $record['text'] !== ''
@@ -435,10 +440,16 @@ class Build
         ){
             if($method_name === 'switch') {
                 $method_value = $method_name . '(';
+                $object->config('package.r3m_io/parse.build.state.echo', false);
+                //echo_off till next case or end tag
             }
             elseif($method_name === 'case'){
+                $object->config('package.r3m_io/parse.build.state.echo', true);
+                //echo on
                 $method_value = $method_name . ' ';
             } else {
+                //echo off till next case or end tag
+                $object->config('package.r3m_io/parse.build.state.echo', false);
                 $method_value = $method_name . ' ';
             }
             $is_argument = false;
