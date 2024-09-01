@@ -8,6 +8,7 @@ use R3m\Io\Module\Data;
 
 use Plugin;
 
+use R3m\Io\Module\Core;
 use R3m\Io\Module\Dir;
 use R3m\Io\Module\File;
 
@@ -117,17 +118,24 @@ class Parse
         $object = $this->object();
         $flags = $this->flags();
         $options = $this->options();
-        $token = Token::tokenize($object, $flags, $options, $input);
-        $document = Build::create($object, $flags, $options, $token);
-
-//        d($object->config('package'));
-
         $dir = $object->config('project.dir.data') .
             'Test' .
             $object->config('ds') .
             'Parse' .
             $object->config('ds');
         Dir::create($dir, Dir::CHMOD);
+        $token = Token::tokenize($object, $flags, $options, $input);
+
+        $url = $dir .
+            'Main.json'
+        ;
+        File::write($url, Core::object($token, Core::OBJECT_JSON));
+
+        $document = Build::create($object, $flags, $options, $token);
+
+//        d($object->config('package'));
+
+
         $url = $dir .
             'Main.php'
         ;
