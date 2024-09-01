@@ -489,7 +489,7 @@ class Build
                         $modifier_value = substr($modifier_value, 0, -1);
                     }
                 }
-                $modifier_value .= ')';
+                $modifier_value .= '            ' . ')';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
