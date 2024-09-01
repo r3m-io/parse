@@ -429,6 +429,14 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = false; //route
                 }
+                $is_argument = true;
+                if($set_depth_modifier === false){
+                    if($set_depth === 0){
+                        $set_depth_modifier = 0;
+                    } else {
+                        $set_depth_modifier = $set_depth - 1;
+                    }
+                }
                 $argument_nr++;
                 d($argument_nr);
             }
@@ -557,26 +565,6 @@ class Variable
                             $set_depth_modifier = $set_depth - 1;
                         }
                     }
-                }
-                elseif(
-                    in_array(
-                        $current,
-                        [
-                            ':'
-                        ],
-                        true
-                    )
-                ){
-                    $is_argument = true;
-                    if($set_depth_modifier === false){
-                        if($set_depth === 0){
-                            $set_depth_modifier = 0;
-                        } else {
-                            $set_depth_modifier = $set_depth - 1;
-                        }
-                    }
-                    $argument_nr++;
-                    d($argument_nr);
                 }
             }
             elseif(
