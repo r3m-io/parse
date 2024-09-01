@@ -499,6 +499,7 @@ class Build
         $is_argument = false;
         $indent++;
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
+        d($indent);
         foreach($record['method']['argument'] as $nr => $argument) {
             $method_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
             $is_argument = true;
@@ -840,8 +841,6 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'variable'
             ){
-                trace();
-                d($record);
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
