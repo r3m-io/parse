@@ -648,6 +648,7 @@ class Build
         $is_double_quote = false;
         $double_quote_previous = false;
         $is_array = false;
+        $indent = 1;
         if(
             array_key_exists('type', $input) &&
             $input['type'] === 'array'
@@ -787,7 +788,8 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array'
             ){
-                $value .= Build::value($object, $flags, $options, $record);
+                $array_value .= Build::value($object, $flags, $options, $record);
+                ddd($array_value);
             }
             elseif(
                 array_key_exists('type', $record) &&
