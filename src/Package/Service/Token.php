@@ -934,13 +934,9 @@ class Token
             $input = Symbol::define($object, $flags, $options, $input);
             $input = Cast::define($object, $flags, $options, $input);
             $input = Method::define($object, $flags, $options, $input);
-            d($input);
             $input = Variable::define($object, $flags, $options, $input);
-            d($input);
             $input = Variable::modifier($object, $flags, $options, $input);
-            ddd($input);
             $input = Value::define($object, $flags, $options, $input);
-            d($input);
             $input = Value::double_quoted_string($object, $flags, $options, $input, false);
             $input = Value::double_quoted_string($object, $flags, $options, $input, true);
             $input = Value::array($object, $flags, $options, $input);
