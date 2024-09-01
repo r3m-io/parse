@@ -206,6 +206,7 @@ class Build
      */
     public static function text(App $object, $flags, $options, $record = [], $variable_assign_next_tag = false): bool | string
     {
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $is_echo = $object->config('package.r3m_io/parse.build.state.echo');
         if($is_echo !== true){
             return false;
@@ -237,7 +238,7 @@ class Build
                     true
                     )
                 ){
-                    $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                    $result[] = str_repeat(' ', $indent * 4) . 'echo \'' . $line . '\';' . PHP_EOL;
                 }
                 elseif(
                     in_array(
@@ -253,7 +254,7 @@ class Build
                 }
             }
             if(array_key_exists(1, $result)){
-                return implode('echo "\n";' . PHP_EOL, $result);
+                return implode(str_repeat(' ', $indent * 4) . 'echo "\n";' . PHP_EOL, $result);
             }
             return $result[0] ?? false;
         }
@@ -358,6 +359,9 @@ class Build
         return strtolower($plugin);
     }
 
+    /**
+     * @throws Exception
+     */
     public static function variable_define(App $object, $flags, $options, $record = []): bool | array
     {
         if (!array_key_exists('variable', $record)) {
@@ -373,18 +377,21 @@ class Build
             trace();
             ddd($record);
         }
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $variable_name = $record['variable']['name'];
         $variable_uuid = Core::uuid_variable();
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
-                $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
+                $modifier_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
+                $indent++;
+                $object->config('package.r3m_io/parse.build.state.indent', $indent);
+                $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
                 $is_argument = false;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -393,7 +400,9 @@ class Build
                         $modifier_value = substr($modifier_value, 0, -1);
                     }
                 }
-                $modifier_value .= ')';
+                $indent--;
+                $object->config('package.r3m_io/parse.build.state.indent', $indent);
+                $modifier_value .= str_repeat(' ', $indent * 4) . ')';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
@@ -404,21 +413,30 @@ class Build
                 array_key_exists('is_multiline', $record) &&
                 $record['is_multiline'] === true
             ){
-                $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '. You can use modifier "default" to surpress it \');';
-                $data[] = '}';
+                $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
+                $indent++;
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '. You can use modifier "default" to surpress it \');';
+                $indent--;
+                $data[] = str_repeat(' ', $indent * 4) . '}';
             } else {
-                $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '. You can use modifier "default" to surpress it \');';
-                $data[] = '}';
+                $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
+                $indent++;
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '. You can use modifier "default" to surpress it \');';
+                $indent--;
+                $data[] = str_repeat(' ', $indent * 4) . '}';
             }
-            $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
-            $data[] = '    //array or object';
-            $data[] = '    ob_get_clean();';
-            $data[] = '    return ' . $variable_uuid .';';
-            $data[] = '} else {';
-            $data[] = '    echo '. $variable_uuid .';';
-            $data[] = '}';
+            $data[] = str_repeat(' ', $indent * 4) . 'if(!is_scalar('. $variable_uuid. ')){';
+            $indent++;
+            $data[] = str_repeat(' ', $indent * 4) . '//array or object';
+            $data[] = str_repeat(' ', $indent * 4) . 'ob_get_clean();';
+            $data[] = str_repeat(' ', $indent * 4) . 'return ' . $variable_uuid .';';
+            $indent--;
+            $data[] = str_repeat(' ', $indent * 4) . '} else {';
+            $indent++;
+            $data[] = str_repeat(' ', $indent * 4) . 'echo '. $variable_uuid .';';
+            $indent--;
+            $data[] = str_repeat(' ', $indent * 4) . '}';
+            $object->config('package.r3m_io/parse.build.state.indent', $indent);
             return $data;
         } else {
             $data = [
@@ -428,23 +446,33 @@ class Build
                 array_key_exists('is_multiline', $record) &&
                 $record['is_multiline'] === true
             ){
-                $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '. You can use modifier "default" to surpress it \');';
-                $data[] = '}';
+                $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
+                $indent++;
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '. You can use modifier "default" to surpress it \');';
+                $indent--;
+                $data[] = str_repeat(' ', $indent * 4) . '}';
             } else {
-                $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '. You can use modifier "default" to surpress it \');';
-                $data[] = '}';
+                $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
+                $indent++;
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '. You can use modifier "default" to surpress it \');';
+                $indent--;
+                $data[] = str_repeat(' ', $indent * 4) . '}';
             }
-            $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
-            $data[] = '    //array or object';
-            $data[] = '    ob_get_clean();';
-            $data[] = '    return ' . $variable_uuid .';';
-            $data[] = '} else {';
-            $data[] = '    echo '. $variable_uuid .';';
-            $data[] = '}';
+            $data[] = str_repeat(' ', $indent * 4) . 'if(!is_scalar('. $variable_uuid. ')){';
+            $indent++;
+            $data[] = str_repeat(' ', $indent * 4) . '//array or object';
+            $data[] = str_repeat(' ', $indent * 4) . 'ob_get_clean();';
+            $data[] = str_repeat(' ', $indent * 4) . 'return ' . $variable_uuid .';';
+            $indent--;
+            $data[] = str_repeat(' ', $indent * 4) . '} else {';
+            $indent++;
+            $data[] = str_repeat(' ', $indent * 4) . 'echo '. $variable_uuid .';';
+            $indent--;
+            $data[] = str_repeat(' ', $indent * 4) . '}';
+            $object->config('package.r3m_io/parse.build.state.indent', $indent);
             return $data;;
         }
+        return false;
     }
 
     public static function method(App $object, $flags, $options, $record = []): bool | string
@@ -452,24 +480,27 @@ class Build
         if(!array_key_exists('method', $record)){
             return false;
         }
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $method_name = $record['method']['name'];
         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
-        $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+        $method_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
         $is_argument = false;
+        $indent++;
         foreach($record['method']['argument'] as $nr => $argument) {
-            $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            $method_value .= str_repeat(' ', $indent * 4) .Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
             $is_argument = true;
         }
         if($is_argument){
             $method_value = substr($method_value, 0, -2) . PHP_EOL;
         }
-        $method_value .= '        );';
+        $indent--;
+        $method_value .= str_repeat(' ', $indent * 4) . ');';
+        $object->config('package.r3m_io/parse.build.state.indent', $indent);
         return $method_value;
     }
 
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
-        d($record);
         if(!array_key_exists('variable', $record)){
             return false;
         }
@@ -479,22 +510,22 @@ class Build
         ) {
             return false;
         }
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $variable_name = $record['variable']['name'];
-        d($variable_name);
         $operator = $record['variable']['operator'];
-        d($operator);
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
-        d($value);
         if(array_key_exists('modifier', $record['variable'])){
-            $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
+            $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
-                $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                $modifier_value .= '            ' . $previous_modifier .', ' . PHP_EOL;
+                $modifier_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
+                $indent++;
+                $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
+                    $indent++;
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -502,11 +533,14 @@ class Build
                     } else {
                         $modifier_value = substr($modifier_value, 0, -1);
                     }
+                    $indent--;
                 }
-                $modifier_value .= '            ' . ')';
+                $indent--;
+                $modifier_value .= str_repeat(' ', $indent * 4) . ')';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
+            $object->config('package.r3m_io/parse.build.state.indent', $indent);
         }
         if(
             $variable_name !== '' &&
@@ -515,15 +549,15 @@ class Build
         ){
             switch($operator){
                 case '=' :
-                    return '$data->set(\'' . $variable_name . '\', ' . $value . ');';
+                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' . $value . ');';
                 case '.=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '+=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '-=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '*=' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_multiply($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_multiply($data->get(\'' . $variable_name . '\'), ' . $value . '));';
             }
         }
         elseif(
@@ -533,9 +567,9 @@ class Build
         ){
             switch($operator){
                 case '++' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_plus($data->get(\'' . $variable_name . '\')));';
+                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_plus($data->get(\'' . $variable_name . '\')));';
                 case '--' :
-                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus_minus($data->get(\'' . $variable_name . '\')));';
+                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus_minus($data->get(\'' . $variable_name . '\')));';
             }
         }
         return false;
@@ -589,6 +623,7 @@ class Build
         ){
             $is_array = true;
         }
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -629,11 +664,11 @@ class Build
                 if($next === null){
                     $value .= $record['value'] .
                         PHP_EOL .
-                        '        ';
+                        str_repeat(' ', $indent * 4);
                 } else {
                     $value .= $record['value'] .
                         PHP_EOL .
-                        '            ';
+                        str_repeat(' ', $indent * 4);;
                 }
             }
             elseif(
@@ -726,14 +761,15 @@ class Build
                 $record['type'] === 'method'
             ){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $record['method']['name']));
-                $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+                $method_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
                 if(
                     array_key_exists('method', $record) &&
                     array_key_exists('argument', $record['method'])
                 ){
                     $is_argument = false;
+                    $indent++;
                     foreach($record['method']['argument'] as $argument_nr => $argument){
-                        $method_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $method_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -741,8 +777,9 @@ class Build
                     } else {
                         $method_value = substr($method_value, 0, -1);
                     }
+                    $indent--;
                 }
-                $method_value .= ')';
+                $method_value .= str_repeat(' ', $indent * 4) . ')';
                 $value .= $method_value;
             }
             elseif(
@@ -751,15 +788,17 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
-                    $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
+                    $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                        $modifier_value .= '            '. $previous_modifier .', ' . PHP_EOL;
+                        $indent++;
+                        $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
                         $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
+                            $indent++;
                             foreach($modifier['argument'] as $argument_nr => $argument){
-                                $modifier_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                                $modifier_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                                 $is_argument = true;
                             }
                             if($is_argument === true){
@@ -767,13 +806,15 @@ class Build
                             } else {
                                 $modifier_value = substr($modifier_value, 0, -1);
                             }
+                            $indent--;
                         }
-                        $modifier_value .= '        ' . ')';
+                        $modifier_value .= str_repeat(' ', $indent * 4) . ')';
                         $previous_modifier = $modifier_value;
+                        $indent--;
                     }
-                    $value .= $modifier_value;
+                    $value .= str_repeat(' ', $indent * 4) . $modifier_value;
                 } else {
-                    $value .= '$data->get(\'' . $record['name'] . '\')';
+                    $value .= str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
                 }
             }
             elseif(
@@ -781,7 +822,7 @@ class Build
                 $record['type'] === 'whitespace' &&
                 $is_double_quote === true
             ){
-                $value .=  $record['value'];
+                $value .=  str_repeat(' ', $indent * 4) . $record['value'];
             }
             elseif(
                 array_key_exists('type', $record) &&
@@ -802,58 +843,58 @@ class Build
                 $right = Build::value($object, $flags, $options, $right);
                 switch($current){
                     case '+':
-                        $value = '$this->value_plus(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_plus(' . $value . ', ' . $right . ')';
                     break;
                     case '-':
-                        $value = '$this->value_minus(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_minus(' . $value . ', ' . $right . ')';
                     break;
                     case '*':
-                        $value = '$this->value_multiply(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_multiply(' . $value . ', ' . $right . ')';
                     break;
                     case '%':
-                        $value = '$this->value_modulo(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_modulo(' . $value . ', ' . $right . ')';
                     break;
                     case '/':
-                        $value = '$this->value_divide(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_divide(' . $value . ', ' . $right . ')';
                     break;
                     case '<':
-                        $value = '$this->value_smaller(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_smaller(' . $value . ', ' . $right . ')';
                     break;
                     case '<=':
-                        $value = '$this->value_smaller_equal(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_smaller_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '<<':
-                        $value = '$this->value_smaller_smaller(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_smaller_smaller(' . $value . ', ' . $right . ')';
                     break;
                     case '>':
-                        $value = '$this->value_greater(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_greater(' . $value . ', ' . $right . ')';
                     break;
                     case '>=':
-                        $value = '$this->value_greater_equal(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_greater_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '>>':
-                        $value = '$this->value_greater_greater(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_greater_greater(' . $value . ', ' . $right . ')';
                     break;
                     case '==':
-                        $value = '$this->value_equal(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '===':
-                        $value = '$this->value_identical(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_identical(' . $value . ', ' . $right . ')';
                     break;
                     case '!=':
-                        $value = '$this->value_not_equal(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_not_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '!==':
-                        $value = '$this->value_not_identical(' . $value . ', ' . $right . ')';
+                        $value = str_repeat(' ', $indent * 4) . '$this->value_not_identical(' . $value . ', ' . $right . ')';
                     break;
                     case '??':
-                        $value = $value . ' ?? ' . $right;
+                        $value = str_repeat(' ', $indent * 4) . $value . ' ?? ' . $right;
                     break;
                     case '&&':
-                        $value = $value . ' && ' . $right;
+                        $value = str_repeat(' ', $indent * 4) . $value . ' && ' . $right;
                     break;
                     case '||':
-                        $value = $value . ' || ' . $right;
+                        $value = str_repeat(' ', $indent * 4) . $value . ' || ' . $right;
                     break;
                 }
             }
@@ -993,5 +1034,4 @@ class Build
             'array' => $right_array
         ];
     }
-
 }
