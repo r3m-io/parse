@@ -390,21 +390,16 @@ class Build
             trace();
             ddd($record);
         }
-        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $variable_name = $record['variable']['name'];
         $variable_uuid = Core::uuid_variable();
         if(array_key_exists('modifier', $record['variable'])){
-            $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $variable_name . '\')';
+            $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
-                $modifier_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
-                $indent++;
-                $object->config('package.r3m_io/parse.build.state.indent', $indent);
-                $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
+                $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
+                $modifier_value .= $previous_modifier .', ' . PHP_EOL;
                 $is_argument = false;
                 if(array_key_exists('argument', $modifier)){
-                    $indent++;
-                    $object->config('package.r3m_io/parse.build.state.indent', $indent);
                     foreach($modifier['argument'] as $argument_nr => $argument){
                         $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
@@ -414,10 +409,7 @@ class Build
                     } else {
                         $modifier_value = substr($modifier_value, 0, -1);
                     }
-                    $indent--;
                 }
-                $indent--;
-                $object->config('package.r3m_io/parse.build.state.indent', $indent);
                 $modifier_value .= str_repeat(' ', $indent * 4) . ')';
                 $previous_modifier = $modifier_value;
             }
@@ -425,6 +417,7 @@ class Build
             $data = [
                 $variable_uuid . ' = ' . $value . ';',
             ];
+            $indent = 2;
             if(
                 array_key_exists('is_multiline', $record) &&
                 $record['is_multiline'] === true
@@ -554,7 +547,6 @@ class Build
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
-            $object->config('package.r3m_io/parse.build.state.indent', $indent);
         }
         if(
             $variable_name !== '' &&
@@ -647,7 +639,6 @@ class Build
         ){
             $is_array = true;
         }
-        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -685,9 +676,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'symbol'
             ){
-                $value .= $record['value'] .
-                    PHP_EOL .
-                    str_repeat(' ', $indent * 4);
+                $value .= $record['value'];
                 /*
                 if($next === null){
                     $value .= $record['value'] .
