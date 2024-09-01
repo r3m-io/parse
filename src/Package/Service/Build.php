@@ -794,7 +794,11 @@ class Build
                 $explode = explode(PHP_EOL, $array_value);
                 foreach($explode as $nr => $line){
                     $next = $explode[$nr + 1] ?? null;
+                    $next_next = $explode[$nr + 2] ?? null;
                     if($nr === 0){
+                        $explode[$nr] = $line;
+                    }
+                    elseif($next_next === null){
                         $explode[$nr] = $line;
                     }
                     elseif($next === null){
