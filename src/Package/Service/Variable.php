@@ -502,6 +502,15 @@ class Variable
                             for($index = $is_variable + 1; $index < $nr; $index++){
                                 $input['array'][$index] = null;
                             }
+                            //end of modifier
+                            $modifier_name = '';
+                            $modifier_string = '';
+                            $is_argument = false;
+                            $is_variable = false;
+                            $is_modifier = false;
+                            $argument_array = [];
+                            $argument = [];
+                            $argument_nr = -1;
                         } else {
                             //remove the comma
                             for($index = $is_variable + 1; $index <= $nr; $index++){
