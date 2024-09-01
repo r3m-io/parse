@@ -197,7 +197,7 @@ class Build
         }
         $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
         $object->config('package.r3m_io/parse.build.state.echo', true);
-        $object->config('package.r3m_io/parse.build.state.indent', 1);
+        $object->config('package.r3m_io/parse.build.state.indent', 2);
     }
 
     /**
