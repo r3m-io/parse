@@ -161,6 +161,8 @@ class Variable
                 if($set_depth < 0){
                     $input['array'][$nr] = null;
                 }
+                d($set_depth);
+                d($set_depth_modifier);
                 if(
                     $is_modifier &&
                     (
