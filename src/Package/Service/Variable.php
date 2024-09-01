@@ -561,8 +561,6 @@ class Variable
                             $set_depth_modifier = $set_depth - 1;
                         }
                     }
-                    d($set_depth);
-                    d($set_depth_modifier);
                 }
                 elseif(
                     in_array(
@@ -611,8 +609,6 @@ class Variable
                 }
             }
         }
-        d($set_depth);
-        d($set_depth_modifier);
         if(
             $is_variable !== false &&
             $is_modifier !== false
@@ -648,6 +644,10 @@ class Variable
                     'name' => $modifier_name,
                     'argument' => []
                 ];
+                //check this
+                for($index = $is_variable + 1; $index <= $nr; $index++){
+                    $input['array'][$index] = null;
+                }
             }
         }
         d($is_variable);
