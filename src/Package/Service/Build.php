@@ -119,6 +119,8 @@ class Build
 
     public static function document_run(App $object, $flags, $options, $document = [], $data = []): array
     {
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
+        ddd($indent);
         $document[] = '    /**';
         $document[] = '     * @throws Exception';
         $document[] = '     */';
