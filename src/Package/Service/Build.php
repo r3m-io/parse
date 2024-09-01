@@ -797,11 +797,11 @@ class Build
                     if($nr === 0){
                         $explode[$nr] = $line;
                     }
-                    elseif($next_next === null){
-                        $explode[$nr] = $line;
-                    }
                     elseif($next === null){
                         unset($explode[$nr]);
+                    }
+                    elseif($next_next === null){
+                        $explode[$nr] = $line;
                     } else {
                         $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
                     }
