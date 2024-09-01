@@ -98,13 +98,18 @@ class Build
 
     public static function document_construct(App $object, $flags, $options, $document = []): array
     {
-        $document[] = '    public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
-        $document[] = '        $this->object($object);';
-        $document[] = '        $this->parse($parse);';
-        $document[] = '        $this->data($data);';
-        $document[] = '        $this->flags($flags);';
-        $document[] = '        $this->options($options);';
-        $document[] = '    }';
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
+        $document[] = str_repeat(' ', $indent * 4) . 'public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
+        $object->config('package.r3m_io/parse.build.state.indent', $object->config('package.r3m_io/parse.build.state.indent') + 1);
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
+        $document[] = str_repeat(' ', $indent * 4) . '$this->object($object);';
+        $document[] = str_repeat(' ', $indent * 4) . '$this->parse($parse);';
+        $document[] = str_repeat(' ', $indent * 4) . '$this->data($data);';
+        $document[] = str_repeat(' ', $indent * 4) . '$this->flags($flags);';
+        $document[] = str_repeat(' ', $indent * 4) . '$this->options($options);';
+        $object->config('package.r3m_io/parse.build.state.indent', $object->config('package.r3m_io/parse.build.state.indent') - 1);
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
+        $document[] = str_repeat(' ', $indent * 4) . '}';
         return $document;
     }
 
