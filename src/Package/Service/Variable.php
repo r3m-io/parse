@@ -453,7 +453,6 @@ class Variable
                             'name' => $modifier_name,
                             'argument' => $argument_array
                         ];
-                        ddd($input['array'][$is_variable]);
                         /*
                         if(array_key_exists('modifier', $input)){
                             foreach($input['modifier'] as $index => $modifier){
@@ -466,6 +465,7 @@ class Variable
                         for($index = $is_variable + 1; $index <= $nr; $index++){
                             $input['array'][$index] = null;
                         }
+                        ddd($input);
                     }
                     elseif($is_modifier !== false){
                         $input['array'][$is_variable]['modifier'][] = [
