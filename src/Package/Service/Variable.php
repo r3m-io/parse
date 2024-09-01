@@ -556,7 +556,7 @@ class Variable
                         }
                     }
                 }
-                /*
+
                 elseif(
                     in_array(
                         $current,
@@ -576,7 +576,6 @@ class Variable
                     }
                     $argument_nr++;
                 }
-                */
             }
             elseif(
                 $is_argument
