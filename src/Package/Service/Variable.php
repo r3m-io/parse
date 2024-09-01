@@ -143,11 +143,11 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
+        d($input);
         foreach($input['array'] as $nr => $char) {
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
-            d($current);
             if($current === '('){
                 $set_depth++;
                 if(array_key_exists($argument_nr, $argument)){
