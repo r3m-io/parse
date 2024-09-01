@@ -700,8 +700,21 @@ class Build
                 $record['type'] === 'symbol' &&
                 $is_double_quote === false
             ){
-                d($record['value']);
-                $value .= $record['value'] . PHP_EOL;
+                if(
+                    in_array(
+                        $record['value'],
+                        [
+                        '(',
+                        ')'
+                        ],
+                        true
+                    )
+                ){
+                    $value .= $record['value'] . PHP_EOL;
+                } else {
+                    $value .= $record['value'];
+                }
+
 
                 /*
                 if($next === null){
