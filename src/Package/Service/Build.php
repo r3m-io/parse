@@ -516,6 +516,7 @@ class Build
             $is_argument = true;
         }
         if($is_argument){
+            ddd($method_value);
             $method_value = substr($method_value, 0, -2) . PHP_EOL;
         }
         $indent--;
