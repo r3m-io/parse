@@ -96,6 +96,9 @@ class Build
         return $data;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function document_construct(App $object, $flags, $options, $document = []): array
     {
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
@@ -198,7 +201,10 @@ class Build
         return $document;
     }
 
-    public static function text(App $object, $flags, $options,$record = [], $variable_assign_next_tag = false): bool | string
+    /**
+     * @throws Exception
+     */
+    public static function text(App $object, $flags, $options, $record = [], $variable_assign_next_tag = false): bool | string
     {
         $is_echo = $object->config('package.r3m_io/parse.build.state.echo');
         if($is_echo !== true){
