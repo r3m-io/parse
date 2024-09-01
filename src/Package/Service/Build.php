@@ -62,9 +62,6 @@ class Build
         $data = [];
         $variable_assign_next_tag = false;
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
-
-        ddd($indent);
-
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
@@ -256,7 +253,7 @@ class Build
                     true
                     )
                 ){
-                    $result[] = str_repeat(' ', $indent * 4) . 'echo \'' . $line . '\';' . PHP_EOL;
+                    $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
                 elseif(
                     in_array(
@@ -272,7 +269,7 @@ class Build
                 }
             }
             if(array_key_exists(1, $result)){
-                return implode(str_repeat(' ', $indent * 4) . 'echo "\n";' . PHP_EOL, $result);
+                return implode('echo "\n";' . PHP_EOL, $result);
             }
             return $result[0] ?? false;
         }
@@ -534,13 +531,12 @@ class Build
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
-        $value = str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $record['variable']['value']);
+        $value = Build::value($object, $flags, $options, $record['variable']['value']);
         if(array_key_exists('modifier', $record['variable'])){
-            $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['variable']['name'] . '\')';
+            $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
-                $modifier_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
-                $indent++;
+                $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
@@ -556,7 +552,6 @@ class Build
                     }
                     $indent--;
                 }
-                $indent--;
                 $modifier_value .= str_repeat(' ', $indent * 4) . ')';
                 $previous_modifier = $modifier_value;
             }
@@ -570,15 +565,15 @@ class Build
         ){
             switch($operator){
                 case '=' :
-                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' . $value . ');';
+                    return '$data->set(\'' . $variable_name . '\', ' . $value . ');';
                 case '.=' :
-                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '+=' :
-                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '-=' :
-                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '*=' :
-                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_multiply($data->get(\'' . $variable_name . '\'), ' . $value . '));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_multiply($data->get(\'' . $variable_name . '\'), ' . $value . '));';
             }
         }
         elseif(
@@ -588,9 +583,9 @@ class Build
         ){
             switch($operator){
                 case '++' :
-                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_plus($data->get(\'' . $variable_name . '\')));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_plus($data->get(\'' . $variable_name . '\')));';
                 case '--' :
-                    return str_repeat(' ', $indent * 4) . '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus_minus($data->get(\'' . $variable_name . '\')));';
+                    return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_minus_minus($data->get(\'' . $variable_name . '\')));';
             }
         }
         return false;
@@ -782,7 +777,7 @@ class Build
                 $record['type'] === 'method'
             ){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $record['method']['name']));
-                $method_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
+                $method_value = '$this->' . $plugin . '(' . PHP_EOL;
                 if(
                     array_key_exists('method', $record) &&
                     array_key_exists('argument', $record['method'])
@@ -809,7 +804,7 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
-                    $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
+                    $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
@@ -833,9 +828,9 @@ class Build
                         $previous_modifier = $modifier_value;
                         $indent--;
                     }
-                    $value .= str_repeat(' ', $indent * 4) . $modifier_value;
+                    $value .= $modifier_value;
                 } else {
-                    $value .= str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
+                    $value .= '$data->get(\'' . $record['name'] . '\')';
                 }
             }
             elseif(
@@ -843,7 +838,7 @@ class Build
                 $record['type'] === 'whitespace' &&
                 $is_double_quote === true
             ){
-                $value .=  str_repeat(' ', $indent * 4) . $record['value'];
+                $value .=  $record['value'];
             }
             elseif(
                 array_key_exists('type', $record) &&
@@ -864,58 +859,58 @@ class Build
                 $right = Build::value($object, $flags, $options, $right);
                 switch($current){
                     case '+':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_plus(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_plus(' . $value . ', ' . $right . ')';
                     break;
                     case '-':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_minus(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_minus(' . $value . ', ' . $right . ')';
                     break;
                     case '*':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_multiply(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_multiply(' . $value . ', ' . $right . ')';
                     break;
                     case '%':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_modulo(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_modulo(' . $value . ', ' . $right . ')';
                     break;
                     case '/':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_divide(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_divide(' . $value . ', ' . $right . ')';
                     break;
                     case '<':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_smaller(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_smaller(' . $value . ', ' . $right . ')';
                     break;
                     case '<=':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_smaller_equal(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_smaller_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '<<':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_smaller_smaller(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_smaller_smaller(' . $value . ', ' . $right . ')';
                     break;
                     case '>':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_greater(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_greater(' . $value . ', ' . $right . ')';
                     break;
                     case '>=':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_greater_equal(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_greater_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '>>':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_greater_greater(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_greater_greater(' . $value . ', ' . $right . ')';
                     break;
                     case '==':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_equal(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '===':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_identical(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_identical(' . $value . ', ' . $right . ')';
                     break;
                     case '!=':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_not_equal(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_not_equal(' . $value . ', ' . $right . ')';
                     break;
                     case '!==':
-                        $value = str_repeat(' ', $indent * 4) . '$this->value_not_identical(' . $value . ', ' . $right . ')';
+                        $value = '$this->value_not_identical(' . $value . ', ' . $right . ')';
                     break;
                     case '??':
-                        $value = str_repeat(' ', $indent * 4) . $value . ' ?? ' . $right;
+                        $value = $value . ' ?? ' . $right;
                     break;
                     case '&&':
-                        $value = str_repeat(' ', $indent * 4) . $value . ' && ' . $right;
+                        $value = $value . ' && ' . $right;
                     break;
                     case '||':
-                        $value = str_repeat(' ', $indent * 4) . $value . ' || ' . $right;
+                        $value = $value . ' || ' . $right;
                     break;
                 }
             }
