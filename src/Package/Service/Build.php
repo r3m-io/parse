@@ -568,7 +568,6 @@ class Build
         ){
             switch($operator){
                 case '=' :
-                    $indent++;
                     return '$data->set(' .
                         PHP_EOL .
                         str_repeat(' ', $indent * 4) .
