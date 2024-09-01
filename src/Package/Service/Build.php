@@ -804,7 +804,7 @@ class Build
                 $record['type'] === 'array'
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
-                /*
+                /* cannot explode on PHP_EOL, it can exist in ""
                 $explode = explode(PHP_EOL, $array_value);
                 foreach($explode as $nr => $line){
                     $next = $explode[$nr + 1] ?? null;
