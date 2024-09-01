@@ -822,7 +822,7 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
-                    $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
+                    $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
