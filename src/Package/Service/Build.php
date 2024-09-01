@@ -697,10 +697,10 @@ class Build
             }
             elseif(
                 array_key_exists('type', $record) &&
-                $record['type'] === 'symbol' &&
-                $is_double_quote === false
+                $record['type'] === 'symbol'
             ){
                 if(
+                    $is_double_quote === false &&
                     in_array(
                         $record['value'],
                         [
@@ -716,19 +716,6 @@ class Build
                 } else {
                     $value .= $record['value'];
                 }
-
-
-                /*
-                if($next === null){
-                    $value .= $record['value'] .
-                        PHP_EOL .
-                        str_repeat(' ', $indent * 4);
-                } else {
-                    $value .= $record['value'] .
-                        PHP_EOL .
-                        str_repeat(' ', $indent * 4);
-                }
-                */
             }
             elseif(
                 array_key_exists('value', $record) &&
