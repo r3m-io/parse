@@ -498,8 +498,9 @@ class Build
         $method_value = '$this->' . $plugin . '(' . PHP_EOL;
         $is_argument = false;
         $indent++;
+        $object->config('package.r3m_io/parse.build.state.indent', $indent);
         foreach($record['method']['argument'] as $nr => $argument) {
-            $method_value .= str_repeat(' ', $indent * 4) .Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            $method_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
             $is_argument = true;
         }
         if($is_argument){
@@ -633,6 +634,7 @@ class Build
         $value = '';
         $skip = 0;
         $input = Build::value_single_quote($object, $flags, $options, $input);
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $is_double_quote = false;
         $double_quote_previous = false;
         $is_array = false;
@@ -845,6 +847,8 @@ class Build
                 $record['type'] === 'whitespace' &&
                 $is_double_quote === false
             ){
+                d($record);
+                d($value);
                 //nothing
             } else {
                 $right = Build::value_right(
