@@ -558,20 +558,27 @@ class Build
             $operator !== '' &&
             $value !== ''
         ){
-            d($value);
-            ddd($indent);
             switch($operator){
                 case '=' :
-                    $result = '$data->set(' .
-                        PHP_EOL .
+                    $result = '$data->set(';
+                    $indent++;
+                    $result .= PHP_EOL .
+                      str_repeat(' ', $indent * 4) .
                         '\'' .
                         $variable_name .
-                        '\',' .
-                        PHP_EOL .
-                        $value .
-                        PHP_EOL .
+                        '\', ' .
+                        PHP_EOL
+                    ;
+                    $explode = explode(PHP_EOL, $value);
+                    foreach($explode as $nr => $line){
+                        $result .= str_repeat(' ', $indent * 4) . $line . PHP_EOL;
+                    }
+                    $indent--;
+                    $result .= PHP_EOL .
+                        str_repeat(' ', $indent * 4) .
                         ');'
                     ;
+                    return $result;
                 case '.=' :
                     return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '+=' :
