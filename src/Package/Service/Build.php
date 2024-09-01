@@ -61,28 +61,21 @@ class Build
         $variable_assign_next_tag = false;
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
-                if($variable_assign_next_tag === true){
-                    ddd($record);
-                }
-                $text = Build::text($object, $flags, $options, $record);
+                $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
                 if($text){
                     $text = explode(PHP_EOL, $text);
                     foreach($text as $text_nr => $line) {
                         $data[] = $line;
                     }
                 }
+                $variable_assign_next_tag = false; //Build::text is taking care of this
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
-                d($variable_assign);
-                d($nr);
                 if($variable_assign){
                     $data[] = $variable_assign;
                     $next = $list[$nr + 1] ?? false;
-
-                    d($next);
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $record, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
-                        d($list[$nr + 1]);
                     } else {
                         $variable_assign_next_tag = true;
                     }
@@ -197,7 +190,8 @@ class Build
         return $document;
     }
 
-    public static function text(App $object, $flags, $options,$record = []){
+    public static function text(App $object, $flags, $options,$record = [], $variable_assign_next_tag = false): bool | string
+    {
         $is_echo = $object->config('package.r3m_io/parse.build.state.echo');
         if($is_echo !== true){
             return false;
@@ -206,6 +200,16 @@ class Build
             array_key_exists('text', $record) &&
             $record['text'] !== ''
         ){
+            if(
+                array_key_exists('is_multiline', $record) &&
+                $record['is_multiline'] === true
+            ){
+                $text = explode("\n", $record['text'], 2);
+                $test = trim($text[0]);
+                if($test === ''){
+                    $record['text'] = $text[1];
+                }
+            }
             $text = explode("\n", $record['text']);
             $result = [];
             foreach($text as $nr => $line) {
@@ -238,7 +242,6 @@ class Build
                 return implode('echo "\n";' . PHP_EOL, $result);
             }
             return $result[0] ?? false;
-
         }
         return false;
     }
