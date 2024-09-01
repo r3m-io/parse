@@ -492,15 +492,16 @@ class Variable
                          */
 
                         //if set depth modifier === 0 && is_array = true
-                        d($is_array);
-                        d($array_depth);
-                        d($set_depth);
-                        d($set_depth_modifier);
 
-                        for($index = $is_variable + 1; $index <= $nr; $index++){
-                            $input['array'][$index] = null;
+                        if($is_array === true && $set_depth === $set_depth_modifier){
+                            for($index = $is_variable + 1; $index < $nr; $index++){
+                                $input['array'][$index] = null;
+                            }
+                        } else {
+                            for($index = $is_variable + 1; $index <= $nr; $index++){
+                                $input['array'][$index] = null;
+                            }
                         }
-                        ddd($input);
                     }
                     elseif($is_modifier !== false){
                         $input['array'][$is_variable]['modifier'][] = [
