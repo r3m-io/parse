@@ -23,6 +23,8 @@ class Build
         $document[] = '';
         $document[] = 'class '. $options->class .' {';
         $document[] = '';
+        $object->config('package.r3m_io/parse.build.state.indent', $object->config('package.r3m_io/parse.build.state.indent') + 1);
+        //indent++
         $document = Build::document_use($object, $flags, $options, $document, 'package.r3m_io/parse.build.use.trait');
         $document[] = '';
         $document = Build::document_construct($object, $flags, $options, $document);
@@ -170,6 +172,7 @@ class Build
         }
         $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
         $object->config('package.r3m_io/parse.build.state.echo', true);
+        $object->config('package.r3m_io/parse.build.state.indent', 0);
     }
 
     /**
@@ -178,12 +181,13 @@ class Build
     public static function document_use(App $object, $flags, $options, $document = [], $attribute=''): array
     {
         $use_class = $object->config($attribute);
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         if($use_class){
             foreach($use_class as $nr => $use){
                 if(empty($use)){
                     $document[] = '';
                 } else {
-                    $document[] = 'use ' . $use . ';';
+                    $document[] = str_repeat(' ', $indent * 4) . 'use ' . $use . ';';
                 }
             }
         }
