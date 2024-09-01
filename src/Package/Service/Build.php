@@ -503,20 +503,14 @@ class Build
         $indent++;
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         d($indent);
-        $argument_value = '';
         foreach($record['method']['argument'] as $nr => $argument) {
-            $argument_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            $method_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
             $is_argument = true;
         }
         if($is_argument){
-            $argument_value = substr($method_value, 0, -2) . PHP_EOL;
-        }
-        $explode = explode(PHP_EOL, $argument_value);
-        foreach($explode as $nr => $line){
-            $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
+            $method_value = substr($method_value, 0, -2) . PHP_EOL;
         }
         $indent--;
-        $method_value .= implode(PHP_EOL, $explode);
         $method_value .= str_repeat(' ', $indent * 4) . ');';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         d($method_value);
@@ -835,7 +829,6 @@ class Build
                     $indent = 1;
                     $indent = $object->config('package.r3m_io/parse.build.state.indent');
                     $indent++;
-                    d($indent);
                     foreach($record['method']['argument'] as $argument_nr => $argument){
                         $method_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
