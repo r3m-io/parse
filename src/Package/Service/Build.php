@@ -487,6 +487,9 @@ class Build
         return false;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function method(App $object, $flags, $options, $record = []): bool | string
     {
         if(!array_key_exists('method', $record)){
