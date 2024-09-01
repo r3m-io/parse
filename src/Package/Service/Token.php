@@ -540,6 +540,7 @@ class Token
                                         ]
                                     );
                                     d($after);
+                                    d($list);
                                     ddd($after_array);
 //                                    $cache->set($after_hash, $list);
                                     $variable = [
