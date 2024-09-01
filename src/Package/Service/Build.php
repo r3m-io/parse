@@ -39,6 +39,7 @@ class Build
      */
     public static function document_header(App $object, $flags, $options): array
     {
+        $object->config('package.r3m_io/parse.build.state.indent', 0);
         $document[] = '<?php';
         $document[] = '/**';
         $document[] = ' * @package Package\R3m\Io\Parse';
@@ -179,7 +180,7 @@ class Build
         }
         $object->config('package.r3m_io/parse.build.use.trait', $use_trait);
         $object->config('package.r3m_io/parse.build.state.echo', true);
-        $object->config('package.r3m_io/parse.build.state.indent', 0);
+        $object->config('package.r3m_io/parse.build.state.indent', 1);
     }
 
     /**
