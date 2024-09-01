@@ -153,6 +153,9 @@ class Variable
                 if(array_key_exists($argument_nr, $argument)){
                     $set_depth_argument++;
                 }
+                d($set_depth);
+                d($set_depth_modifier);
+                d($set_depth_argument);
             }
             elseif($current === ')'){
                 $set_depth--;
@@ -584,6 +587,8 @@ class Variable
                             $set_depth_modifier = $set_depth - 1;
                         }
                     }
+                    d($set_depth);
+                    d($set_depth_modifier);
                 }
                 elseif(
                     in_array(
