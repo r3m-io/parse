@@ -790,6 +790,7 @@ class Build
                 $record['type'] === 'array'
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
+                d($array_value);
                 $explode = explode(PHP_EOL, $array_value);
                 foreach($explode as $nr => $line){
                     $next = $explode[$nr + 1] ?? null;
