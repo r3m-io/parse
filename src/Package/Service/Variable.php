@@ -362,7 +362,7 @@ class Variable
                     $set_depth_modifier === false
                 )
             ){
-                d('yes');
+                d($nr);
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
