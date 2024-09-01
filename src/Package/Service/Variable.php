@@ -366,7 +366,7 @@ class Variable
             ){
                 d($nr);
                 d($set_depth);
-                ddd($set_depth_modifier);
+                d($set_depth_modifier);
             }
             elseif(
                 $current === '|' &&
