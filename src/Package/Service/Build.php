@@ -805,19 +805,15 @@ class Build
                     array_key_exists('argument', $record['method'])
                 ){
                     $is_argument = false;
-                    $indent++;
-                    $object->config('package.r3m_io/parse.build.state.indent', $indent);
                     foreach($record['method']['argument'] as $argument_nr => $argument){
                         $method_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
                         $method_value = substr($method_value, 0, -2) . PHP_EOL;
-                        $indent--;
-                        $method_value .= str_repeat(' ', $indent * 4) . ')';
+                        $method_value .= ')';
                     } else {
                         $method_value = substr($method_value, 0, -1);
-                        $indent--;
                         $method_value .= ')';
                     }
                 }
@@ -829,16 +825,13 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
-                    $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
+                    $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                        $indent++;
-                        $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
+                        $modifier_value .= $previous_modifier . ', ' . PHP_EOL;
                         $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
-                            $indent++;
-                            $object->config('package.r3m_io/parse.build.state.indent', $indent);
                             foreach($modifier['argument'] as $argument_nr => $argument){
                                 $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                                 $is_argument = true;
@@ -848,11 +841,9 @@ class Build
                             } else {
                                 $modifier_value = substr($modifier_value, 0, -1);
                             }
-                            $indent--;
                         }
-                        $modifier_value .= str_repeat(' ', $indent * 4) . ')';
+                        $modifier_value .= ')';
                         $previous_modifier = $modifier_value;
-                        $indent--;
                     }
                     $value .= $modifier_value;
                 } else {
@@ -941,7 +932,7 @@ class Build
                 }
             }
         }
-        return str_repeat(' ', $indent * 4) . $value;
+        return $value;
     }
 
     /**
