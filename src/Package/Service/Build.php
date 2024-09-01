@@ -532,7 +532,7 @@ class Build
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
         if(array_key_exists('modifier', $record['variable'])){
-            $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
+            $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                 $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
