@@ -564,7 +564,10 @@ class Variable
                             ':'
                         ],
                         true
-                    )
+                    ) &&
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $is_double_quote_backslash === false
                 ){
                     $is_argument = true;
                     if($set_depth_modifier === false){
@@ -582,8 +585,6 @@ class Variable
             ){
                 if(
                     $current === ':' &&
-                    $previous !== ':' &&
-                    $next !== ':' &&
                     $is_single_quote === false &&
                     $is_double_quote === false &&
                     $is_double_quote_backslash === false &&
