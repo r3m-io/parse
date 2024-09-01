@@ -691,7 +691,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'symbol'
             ){
-                $value .= $record['value'];
+                $value .= $record['value'] . PHP_EOL;
                 /*
                 if($next === null){
                     $value .= $record['value'] .
