@@ -571,7 +571,8 @@ class Variable
                     $is_double_quote_backslash === false
                 ){
                     $is_argument = true;
-                    ddd($set_depth_modifier);
+                    d($set_depth);
+                    d($set_depth_modifier);
                     if($set_depth_modifier === false){
                         if($set_depth === 0){
                             $set_depth_modifier = 0;
