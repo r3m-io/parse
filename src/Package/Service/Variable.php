@@ -346,6 +346,7 @@ class Variable
                 )
             ){
                 if($is_argument !== false){
+                    d($argument_array);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -557,7 +558,6 @@ class Variable
                         }
                     }
                 }
-
                 elseif(
                     in_array(
                         $current,
@@ -596,6 +596,7 @@ class Variable
                 ){
                     $argument_nr++;
                 } else {
+                    d($current);
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
                         $argument[$argument_nr] = '';
