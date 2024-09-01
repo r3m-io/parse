@@ -61,7 +61,6 @@ class Build
     {
         $data = [];
         $variable_assign_next_tag = false;
-        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
@@ -530,7 +529,6 @@ class Build
         ) {
             return false;
         }
-        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
@@ -542,8 +540,6 @@ class Build
                 $modifier_value .= $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
-                    $indent++;
-                    $object->config('package.r3m_io/parse.build.state.indent', $indent);
                     foreach($modifier['argument'] as $argument_nr => $argument){
                         $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
@@ -553,7 +549,6 @@ class Build
                     } else {
                         $modifier_value = substr($modifier_value, 0, -1);
                     }
-                    $indent--;
                 }
                 $modifier_value .=  ')';
                 $previous_modifier = $modifier_value;
@@ -569,18 +564,14 @@ class Build
             d($value);
             switch($operator){
                 case '=' :
-                    $indent++;
                     return '$data->set(' .
                         PHP_EOL .
-                        str_repeat(' ', $indent * 4) .
                         '\'' .
                         $variable_name .
                         '\',' .
                         PHP_EOL .
-                        str_repeat(' ', $indent * 4) .
                         $value .
                         PHP_EOL .
-                        str_repeat(' ', --$indent * 4) .
                         ');'
                     ;
                 case '.=' :
