@@ -57,6 +57,9 @@ class Build
         return $document;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function document_tag(App $object, $flags, $options, $tags = []): array
     {
         $data = [];
@@ -219,7 +222,6 @@ class Build
      */
     public static function text(App $object, $flags, $options, $record = [], $variable_assign_next_tag = false): bool | string
     {
-        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $is_echo = $object->config('package.r3m_io/parse.build.state.echo');
         if($is_echo !== true){
             return false;
@@ -417,9 +419,6 @@ class Build
             $data = [
                 $variable_uuid . ' = ' . $value . ';',
             ];
-            $indent = $object->config('package.r3m_io/parse.build.state.indent');
-            d($indent);
-
             $indent = 2;
             if(
                 array_key_exists('is_multiline', $record) &&
@@ -554,6 +553,7 @@ class Build
                 $modifier_value .=  ')';
                 $previous_modifier = $modifier_value;
             }
+            ddd($modifier_value);
             $value = $modifier_value;
         }
         if(
