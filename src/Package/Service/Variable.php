@@ -630,6 +630,8 @@ class Variable
                 }
             }
         }
+        d($set_depth);
+        d($set_depth_modifier);
         if(
             $is_variable !== false &&
             $is_modifier !== false
