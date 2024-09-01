@@ -439,78 +439,17 @@ class Build
             return false;
         }
         $method_name = $record['method']['name'];
-        if(
-            in_array(
-                $method_name,
-                [
-                    'switch',
-                    'case',
-                    'break'
-                ],
-                true
-            )
-        ){
-            if($method_name === 'switch') {
-                $method_value = $method_name . '(';
-                $object->config('package.r3m_io/parse.build.state.echo', false);
-                //echo_off till next case or end tag
-            }
-            elseif($method_name === 'case'){
-                $object->config('package.r3m_io/parse.build.state.echo', true);
-                //echo on
-                $method_value = $method_name . ' ';
-            } else {
-                //echo off till next case or end tag
-                $object->config('package.r3m_io/parse.build.state.echo', false);
-                $method_value = $method_name . ' ';
-            }
-            $is_argument = false;
-            foreach($record['method']['argument'] as $nr => $argument) {
-                $method_value .= Build::value($object, $flags, $options, $argument) . ', ';
-                $is_argument = true;
-            }
-            if($is_argument){
-                $method_value = substr($method_value, 0, -2);
-            }
-            elseif($method_name === 'break'){
-                $method_value = substr($method_value, 0, -1);
-            }
-        } else {
-            $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
-            $method_value = '$this->' . $plugin . '(' . PHP_EOL;
-            $is_argument = false;
-            foreach($record['method']['argument'] as $nr => $argument) {
-                $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
-                $is_argument = true;
-            }
-            if($is_argument){
-                $method_value = substr($method_value, 0, -2) . PHP_EOL;
-            }
+        $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
+        $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+        $is_argument = false;
+        foreach($record['method']['argument'] as $nr => $argument) {
+            $method_value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            $is_argument = true;
         }
-
-        if(
-            in_array(
-                $method_name,
-                [
-                    'switch',
-                    'case',
-                    'break'
-                ],
-                true
-            )
-        ){
-            if($method_name === 'switch'){
-                $method_value .=  '){';
-            }
-            elseif($method_name === 'case') {
-                $method_value .= ':';
-            }
-            elseif($method_name === 'break'){
-                $method_value .= ';';
-            }
-        } else {
-            $method_value .= '        );';
+        if($is_argument){
+            $method_value = substr($method_value, 0, -2) . PHP_EOL;
         }
+        $method_value .= '        );';
         return $method_value;
     }
 

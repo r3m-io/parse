@@ -143,7 +143,6 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
-        d($input);
         foreach($input['array'] as $nr => $char) {
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
@@ -153,9 +152,6 @@ class Variable
                 if(array_key_exists($argument_nr, $argument)){
                     $set_depth_argument++;
                 }
-                d($set_depth);
-                d($set_depth_modifier);
-                d($set_depth_argument);
             }
             elseif($current === ')'){
                 $set_depth--;
@@ -165,14 +161,6 @@ class Variable
                 if($set_depth < 0){
                     $input['array'][$nr] = null;
                 }
-                d($is_array);
-                d($is_variable);
-                d($input['array']);
-                d($nr);
-                d($is_modifier);
-                d($set_depth);
-                d($set_depth_modifier);
-                d($argument_array);
                 if(
                     $is_modifier &&
                     (
@@ -235,13 +223,6 @@ class Variable
                         'name' => $modifier_name,
                         'argument' => $argument_array
                     ];
-                    /*
-                    if(array_key_exists('modifier', $input)){
-                        foreach($input['modifier'] as $index => $modifier){
-                            $input['array'][$is_variable]['modifier'][] = $modifier;
-                        }
-                    }
-                    */
                     $index_set_depth = 0;
                     //check this
                     for($index = $is_variable + 1; $index < $nr; $index++){

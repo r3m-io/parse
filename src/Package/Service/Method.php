@@ -27,10 +27,6 @@ class Method
         $argument_array = [];
         $argument_list = [];
         foreach($input['array'] as $nr => $char){
-            if(!is_numeric($nr)){
-                trace();
-                ddd($input);
-            }
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
             if(
@@ -112,7 +108,6 @@ class Method
                     }
                 }
             }
-
             if(
                 $is_method !== false &&
                 $name &&
