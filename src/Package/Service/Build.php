@@ -800,8 +800,9 @@ class Build
                     array_key_exists('argument', $record['method'])
                 ){
                     $is_argument = false;
+                    $indent = 1;
                     foreach($record['method']['argument'] as $argument_nr => $argument){
-                        $method_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $method_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -821,14 +822,15 @@ class Build
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
+                    $indent = 1;
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                        $modifier_value .= $previous_modifier . ', ' . PHP_EOL;
+                        $modifier_value .= str_repeat(' ' , $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
                         $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
-                                $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                                $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                                 $is_argument = true;
                             }
                             if($is_argument === true){
