@@ -575,8 +575,7 @@ class Build
                         $result .= str_repeat(' ', $indent * 4) . $line . PHP_EOL;
                     }
                     $indent--;
-                    $result .= PHP_EOL .
-                        str_repeat(' ', $indent * 4) .
+                    $result .= str_repeat(' ', $indent * 4) .
                         ');'
                     ;
                     return $result;
