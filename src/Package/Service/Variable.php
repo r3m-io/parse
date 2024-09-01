@@ -429,16 +429,7 @@ class Variable
                 if($is_modifier !== false){
                     $is_argument = false; //route
                 }
-                $is_argument = true;
-                if($set_depth_modifier === false){
-                    if($set_depth === 0){
-                        $set_depth_modifier = 0;
-                    } else {
-                        $set_depth_modifier = $set_depth - 1;
-                    }
-                }
                 $argument_nr++;
-                d($argument_nr);
             }
             elseif(
                 $current === ',' &&
@@ -455,7 +446,6 @@ class Variable
                     $is_modifier !== false
                 ){
                     if($is_argument !== false){
-                        trace();
                         d($argument_array);
                         foreach($argument_array as $argument_nr => $array){
                             if(array_key_exists('string', $array)){
@@ -566,6 +556,25 @@ class Variable
                         }
                     }
                 }
+                elseif(
+                    in_array(
+                        $current,
+                        [
+                            ':'
+                        ],
+                        true
+                    )
+                ){
+                    $is_argument = true;
+                    if($set_depth_modifier === false){
+                        if($set_depth === 0){
+                            $set_depth_modifier = 0;
+                        } else {
+                            $set_depth_modifier = $set_depth - 1;
+                        }
+                    }
+                    $argument_nr++;
+                }
             }
             elseif(
                 $is_argument
@@ -582,8 +591,7 @@ class Variable
                         $set_depth_modifier === false
                     )
                 ){
-//                    $argument_nr++; //already done
-                    d($argument_nr);
+                    $argument_nr++;
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
