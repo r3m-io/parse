@@ -200,6 +200,7 @@ class Variable
                             ddd($set_depth_argument);
                         }
                     }
+                    d($argument_array);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
