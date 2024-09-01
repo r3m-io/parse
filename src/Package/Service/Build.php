@@ -553,7 +553,6 @@ class Build
                 $modifier_value .=  ')';
                 $previous_modifier = $modifier_value;
             }
-            ddd($modifier_value);
             $value = $modifier_value;
         }
         if(
@@ -864,6 +863,7 @@ class Build
                         $modifier_value .= ')';
                         $previous_modifier = $modifier_value;
                     }
+                    ddd($modifier_value);
                     $value .= $modifier_value;
                 } else {
                     $value .= '$data->get(\'' . $record['name'] . '\')';
