@@ -832,7 +832,7 @@ class Build
                         if(array_key_exists('argument', $modifier)){
                             $indent++;
                             foreach($modifier['argument'] as $argument_nr => $argument){
-                                $modifier_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                                $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                                 $is_argument = true;
                             }
                             if($is_argument === true){
