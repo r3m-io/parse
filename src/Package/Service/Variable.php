@@ -360,7 +360,8 @@ class Variable
                 (
                     $set_depth !== $set_depth_modifier ||
                     $set_depth_modifier !== false
-                )
+                ) &&
+                $nr !== 21
             ){
                 d($nr);
                 d($set_depth);
