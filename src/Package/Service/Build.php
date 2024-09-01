@@ -569,6 +569,7 @@ class Build
             $indent++;
             switch($operator){
                 case '=' :
+
                     $result = '$data->set(';
                     $indent++;
                     $result .= PHP_EOL .
@@ -578,10 +579,12 @@ class Build
                         '\', ' .
                         PHP_EOL
                     ;
-                    $explode = explode(PHP_EOL, $value);
-                    foreach($explode as $nr => $line){
-                        $result .= str_repeat(' ', $indent * 4) . $line . PHP_EOL;
-                    }
+//                    cannot do this we PHP_EOL in the value, we cannot break on PHP_EOL, it can exist in ""
+//                    $explode = explode(PHP_EOL, $value);
+//                    foreach($explode as $nr => $line){
+//                        $result .= str_repeat(' ', $indent * 4) . $line . PHP_EOL;
+//                    }
+                    $result .= $value . PHP_EOL;
                     $indent--;
                     $result .= str_repeat(' ', $indent * 4) .
                         ');'
