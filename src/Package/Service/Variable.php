@@ -469,6 +469,7 @@ class Variable
                                 $options,
                                 $argument_value,
                             );
+                            d($argument_value);
                             $argument_array[$argument_nr] = $argument_value;
                         }
                         d($argument_array);
