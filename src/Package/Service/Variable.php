@@ -493,11 +493,16 @@ class Variable
 
                         //if set depth modifier === 0 && is_array = true
 
-                        if($is_array === true && $set_depth === $set_depth_modifier){
+                        if(
+                            $is_array === true &&
+                            $set_depth === $set_depth_modifier
+                        ){
+                            //keep the comma
                             for($index = $is_variable + 1; $index < $nr; $index++){
                                 $input['array'][$index] = null;
                             }
                         } else {
+                            //remove the comma
                             for($index = $is_variable + 1; $index <= $nr; $index++){
                                 $input['array'][$index] = null;
                             }
