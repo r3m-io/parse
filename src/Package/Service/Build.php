@@ -701,6 +701,7 @@ class Build
                 $is_double_quote === false
             ){
                 $value .= $record['value'] . PHP_EOL;
+                d($value);
                 /*
                 if($next === null){
                     $value .= $record['value'] .
