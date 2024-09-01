@@ -322,7 +322,8 @@ class Variable
             elseif(
                 $current === '[' &&
                 $is_single_quote === false &&
-                $is_double_quote_backslash === true
+                $is_double_quote === false &&
+                $is_double_quote_backslash === false
             ){
                 $is_array = true;
                 $array_depth++;
@@ -330,7 +331,8 @@ class Variable
             elseif(
                 $current === ']' &&
                 $is_single_quote === false &&
-                $is_double_quote_backslash === true
+                $is_double_quote === false &&
+                $is_double_quote_backslash === false
             ){
                 $array_depth++;
                 if($array_depth === 0){
