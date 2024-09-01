@@ -576,7 +576,7 @@ class Build
                         str_repeat(' ', $indent * 4) .
                         $value .
                         PHP_EOL .
-                        str_repeat(' ', $indent * 4) .
+                        str_repeat(' ', --$indent * 4) .
                         ');'
                     ;
                 case '.=' :
