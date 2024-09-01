@@ -812,12 +812,14 @@ class Build
                     }
                     if($is_argument === true){
                         $method_value = substr($method_value, 0, -2) . PHP_EOL;
+                        $indent--;
+                        $method_value .= str_repeat(' ', $indent * 4) . ')';
                     } else {
                         $method_value = substr($method_value, 0, -1);
+                        $indent--;
+                        $method_value .= ')';
                     }
-                    $indent--;
                 }
-                $method_value .= str_repeat(' ', $indent * 4) . ')';
                 $value .= $method_value;
             }
             elseif(
@@ -826,7 +828,7 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
-                    $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
+                    $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
