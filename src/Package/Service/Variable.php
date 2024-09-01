@@ -650,8 +650,6 @@ class Variable
                 }
             }
         }
-        d($is_variable);
-        ddd($is_modifier);
         /* wrong
         if($is_variable !== false){
             for($index = $is_variable + 1; $index <= $nr; $index++){
