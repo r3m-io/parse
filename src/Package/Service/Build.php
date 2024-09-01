@@ -788,8 +788,9 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array'
             ){
-                $array_value .= Build::value($object, $flags, $options, $record);
+                $array_value = Build::value($object, $flags, $options, $record);
                 ddd($array_value);
+                $value .= $array_value;
             }
             elseif(
                 array_key_exists('type', $record) &&
