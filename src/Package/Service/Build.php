@@ -625,16 +625,6 @@ class Build
         ){
             $is_array = true;
         }
-
-        /*
-        if(
-            property_exists($options, 'is_debug') &&
-            $options->is_debug === true
-        ){
-            ddd($input);
-        }
-        */
-
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -663,6 +653,12 @@ class Build
                 $value .= $record['execute'];
             }
             elseif(
+                array_key_exists('is_hex', $record) &&
+                $record['is_hex'] === true
+            ) {
+                $value .= $record['execute'];
+            }
+            elseif(
                 array_key_exists('type', $record) &&
                 $record['type'] === 'symbol'
             ){
@@ -675,7 +671,6 @@ class Build
                         PHP_EOL .
                         '            ';
                 }
-
             }
             elseif(
                 array_key_exists('value', $record) &&
@@ -790,7 +785,6 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'variable'
             ){
-                d($record);
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
@@ -819,18 +813,6 @@ class Build
                 }
             }
             elseif(
-                array_key_exists('is_hex', $record) &&
-                $record['is_hex'] === true
-            ) {
-                $value .= $record['execute'];
-            }
-            elseif(
-                array_key_exists('type', $record) &&
-                $record['type'] === 'integer'
-            ){
-                $value .=  $record['execute'];
-            }
-            elseif(
                 array_key_exists('type', $record) &&
                 $record['type'] === 'whitespace' &&
                 $is_double_quote === true
@@ -843,18 +825,7 @@ class Build
                 $is_double_quote === false
             ){
                 //nothing
-            }
-            /*
-            elseif(
-                array_key_exists('type', $record) &&
-                $record['type'] === 'array' &&
-                $is_double_quote === false
-            ){
-
-                //nothing
-            }
-            */
-            else {
+            } else {
                 $right = Build::value_right(
                     $object,
                     $flags,
