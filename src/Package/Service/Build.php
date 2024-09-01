@@ -497,7 +497,7 @@ class Build
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $method_name = $record['method']['name'];
         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
-        $method_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
+        $method_value = '$this->' . $plugin . '(' . PHP_EOL;
         $is_argument = false;
         $indent++;
         foreach($record['method']['argument'] as $nr => $argument) {
