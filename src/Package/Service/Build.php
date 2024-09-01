@@ -565,7 +565,19 @@ class Build
         ){
             switch($operator){
                 case '=' :
-                    return '$data->set(\'' . $variable_name . '\', ' . $value . ');';
+                    return '$data->set(' .
+                        PHP_EOL .
+                        str_repeat(' ', $indent * 4) .
+                        '\'' .
+                        $variable_name .
+                        '\',' .
+                        PHP_EOL .
+                        str_repeat(' ', $indent * 4) .
+                        $value .
+                        PHP_EOL .
+                        str_repeat(' ', $indent * 4) .
+                        ');'
+                    ;
                 case '.=' :
                     return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '+=' :
