@@ -801,7 +801,7 @@ class Build
                         $explode[$nr] = $line;
                     }
                     elseif($next === null){
-                        $explode[$nr] = $line;
+                        unset($explode[$nr]);
                     } else {
                         $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
                     }
