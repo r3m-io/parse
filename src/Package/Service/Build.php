@@ -404,8 +404,10 @@ class Build
                 $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
                 $is_argument = false;
                 if(array_key_exists('argument', $modifier)){
+                    $indent++;
+                    $object->config('package.r3m_io/parse.build.state.indent', $indent);
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -413,6 +415,7 @@ class Build
                     } else {
                         $modifier_value = substr($modifier_value, 0, -1);
                     }
+                    $indent--;
                 }
                 $indent--;
                 $object->config('package.r3m_io/parse.build.state.indent', $indent);
@@ -542,7 +545,7 @@ class Build
                     $indent++;
                     $object->config('package.r3m_io/parse.build.state.indent', $indent);
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -831,6 +834,7 @@ class Build
                         $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
                             $indent++;
+                            $object->config('package.r3m_io/parse.build.state.indent', $indent);
                             foreach($modifier['argument'] as $argument_nr => $argument){
                                 $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                                 $is_argument = true;
