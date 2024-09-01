@@ -807,9 +807,7 @@ class Build
                         $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
                     }
                 }
-                ddd($explode);
                 $array_value = implode(PHP_EOL, $explode);
-                ddd($array_value);
                 $value .= $array_value;
             }
             elseif(
