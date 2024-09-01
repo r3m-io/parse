@@ -643,7 +643,8 @@ class Build
         $value = '';
         $skip = 0;
         $input = Build::value_single_quote($object, $flags, $options, $input);
-        $indent = $object->config('package.r3m_io/parse.build.state.indent');
+//        $indent = $object->config('package.r3m_io/parse.build.state.indent');
+        // only internal indent
         $is_double_quote = false;
         $double_quote_previous = false;
         $is_array = false;
