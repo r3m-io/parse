@@ -165,6 +165,7 @@ class Variable
                 d($is_modifier);
                 d($set_depth);
                 d($set_depth_modifier);
+                d($argument_array);
                 if(
                     $is_modifier &&
                     (
