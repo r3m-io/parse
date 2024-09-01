@@ -515,7 +515,6 @@ class Build
             return false;
         }
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
-        ddd($indent);
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $record['variable']['value']);
