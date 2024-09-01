@@ -715,6 +715,24 @@ class Build
             }
             elseif(
                 array_key_exists('type', $record) &&
+                $record['type'] === 'array'
+            ){
+                $value .= '[' . PHP_EOL;
+                $is_argument = false;
+                foreach($record['array'] as $argument_nr => $argument){
+                    $value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                    $is_argument = true;
+                }
+                if($is_argument === true){
+                    $value = substr($value, 0, -2) . PHP_EOL;
+                } else {
+                    $value = substr($value, 0, -1);
+                }
+                $value .= ']';
+                ddd($value);
+            }
+            elseif(
+                array_key_exists('type', $record) &&
                 $record['type'] === 'method'
             ){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $record['method']['name']));
