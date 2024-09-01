@@ -430,7 +430,6 @@ class Variable
                     $is_modifier !== false
                 ){
                     if($is_argument !== false){
-                        ddd($argument_array);
                         foreach($argument_array as $argument_nr => $array){
                             $argument_value = Cast::define(
                                 $object,
@@ -454,6 +453,7 @@ class Variable
                             'name' => $modifier_name,
                             'argument' => $argument_array
                         ];
+                        ddd($input['array'][$is_variable]);
                         /*
                         if(array_key_exists('modifier', $input)){
                             foreach($input['modifier'] as $index => $modifier){
