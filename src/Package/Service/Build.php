@@ -848,7 +848,7 @@ class Build
                 $is_double_quote === false
             ){
                 d($record);
-                d($value);
+//                d($value);
                 //nothing
             } else {
                 $right = Build::value_right(
