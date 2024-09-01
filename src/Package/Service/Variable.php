@@ -262,7 +262,6 @@ class Variable
                 $outer_curly_depth++;
             }
             elseif($current === '}}'){
-                ddd('found');
                 $outer_curly_depth--;
             }
             elseif(
