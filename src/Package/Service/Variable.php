@@ -588,13 +588,14 @@ class Variable
                     $current === ':' &&
                     $is_single_quote === false &&
                     $is_double_quote === false &&
-                    $is_double_quote_backslash === false &&
-                    (
+                    $is_double_quote_backslash === false
+                ){
+                    if(
                         $set_depth === $set_depth_modifier ||
                         $set_depth_modifier === false
-                    )
-                ){
-                    $argument_nr++;
+                    ){
+                        $argument_nr++;
+                    }
                 } else {
                     d($current);
                     if(!array_key_exists($argument_nr, $argument_array)){
