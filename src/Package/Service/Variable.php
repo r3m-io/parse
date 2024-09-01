@@ -451,6 +451,9 @@ class Variable
                             if(array_key_exists('string', $array)){
                                 continue;
                             }
+                            if(array_key_exists('type', $array)){
+                                continue;
+                            }
                             $argument_value = Cast::define(
                                 $object,
                                 $flags,
