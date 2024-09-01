@@ -166,7 +166,7 @@ class Variable
                 if(
                     $is_modifier &&
                     (
-                        $set_depth === $set_depth_modifier ||
+                        $set_depth === $set_depth_modifier - 1 ||
                         $set_depth_modifier === false
                     )
                 ){
