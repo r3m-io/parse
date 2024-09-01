@@ -137,6 +137,8 @@ class Variable
         $is_single_quote = false;
         $is_double_quote = false;
         $is_double_quote_backslash = false;
+        $is_array = false;
+        $array_depth = 0;
         $argument_nr = -1;
         $argument = [];
         $argument_array = [];
@@ -317,6 +319,24 @@ class Variable
                 $is_double_quote_backslash = false;
             }
             elseif(
+                $current === '[' &&
+                $is_single_quote === false &&
+                $is_double_quote_backslash === true
+            ){
+                $is_array = true;
+                $array_depth++;
+            }
+            elseif(
+                $current === ']' &&
+                $is_single_quote === false &&
+                $is_double_quote_backslash === true
+            ){
+                $array_depth++;
+                if($array_depth === 0){
+                    $is_array = false;
+                }
+            }
+            elseif(
                 $current === '|' &&
                 $previous !== '|' &&
                 $next !== '|' &&
@@ -467,6 +487,10 @@ class Variable
                          * if in array the , should stay, so < $nr
                          * if not in array the , should go, so <= $nr
                          */
+
+                        //if set depth modifier === 0 && is_array = true
+                        d($is_array);
+                        d($array_depth);
                         d($set_depth);
                         d($set_depth_modifier);
 
