@@ -666,9 +666,16 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'symbol'
             ){
-                $value .= $record['value'] .
-                    PHP_EOL .
-                    '            ';
+                if($next === null){
+                    $value .= $record['value'] .
+                        PHP_EOL .
+                        '        ';
+                } else {
+                    $value .= $record['value'] .
+                        PHP_EOL .
+                        '            ';
+                }
+
             }
             elseif(
                 array_key_exists('value', $record) &&
