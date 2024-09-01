@@ -529,6 +529,7 @@ class Build
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
@@ -558,9 +559,10 @@ class Build
             $value !== ''
         ){
             d($value);
+            ddd($indent);
             switch($operator){
                 case '=' :
-                    return '$data->set(' .
+                    $result = '$data->set(' .
                         PHP_EOL .
                         '\'' .
                         $variable_name .
