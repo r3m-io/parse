@@ -595,6 +595,10 @@ class Variable
                         $set_depth_modifier === false
                     ){
                         $argument_nr++;
+                    } else {
+                        d($current);
+                        d($set_depth);
+                        d($set_depth_modifier);
                     }
                 } else {
                     d($current);
