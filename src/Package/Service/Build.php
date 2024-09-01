@@ -499,6 +499,9 @@ class Build
         return $method_value;
     }
 
+    /**
+     * @throws Exception
+     */
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
         if(!array_key_exists('variable', $record)){
@@ -511,6 +514,7 @@ class Build
             return false;
         }
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
+        ddd($indent);
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
@@ -520,7 +524,6 @@ class Build
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                 $modifier_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
                 $indent++;
-                ddd($indent);
                 $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
