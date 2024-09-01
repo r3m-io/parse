@@ -556,7 +556,7 @@ class Variable
                         if($set_depth === 0){
                             $set_depth_modifier = 0;
                         } else {
-                            $set_depth_modifier = $set_depth - 1;
+                            $set_depth_modifier = $set_depth;
                         }
                     }
                 }
@@ -579,7 +579,7 @@ class Variable
                         if($set_depth === 0){
                             $set_depth_modifier = 0;
                         } else {
-                            $set_depth_modifier = $set_depth - 1;
+                            $set_depth_modifier = $set_depth;
                         }
                     }
                     $argument_nr++;
