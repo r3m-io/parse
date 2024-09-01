@@ -571,6 +571,7 @@ class Variable
                     $is_double_quote_backslash === false
                 ){
                     $is_argument = true;
+                    ddd($set_depth_modifier);
                     if($set_depth_modifier === false){
                         if($set_depth === 0){
                             $set_depth_modifier = 0;
@@ -591,7 +592,7 @@ class Variable
                     $is_double_quote_backslash === false
                 ){
                     if(
-                        $set_depth === ($outer_set_depth + $set_depth_modifier) ||
+                        $set_depth === $set_depth_modifier ||
                         $set_depth_modifier === false
                     ){
                         $argument_nr++;
