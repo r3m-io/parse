@@ -697,7 +697,8 @@ class Build
             }
             elseif(
                 array_key_exists('type', $record) &&
-                $record['type'] === 'symbol'
+                $record['type'] === 'symbol' &&
+                $is_double_quote === false
             ){
                 $value .= $record['value'] . PHP_EOL;
                 /*
