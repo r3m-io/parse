@@ -840,6 +840,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'variable'
             ){
+                d($record);
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
