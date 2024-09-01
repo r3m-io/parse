@@ -446,6 +446,7 @@ class Variable
                     $is_modifier !== false
                 ){
                     if($is_argument !== false){
+                        ddd($argument_array);
                         foreach($argument_array as $argument_nr => $array){
                             $argument_value = Cast::define(
                                 $object,
