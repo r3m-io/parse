@@ -520,6 +520,7 @@ class Build
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                 $modifier_value = str_repeat(' ', $indent * 4) . '$this->' . $plugin . '(' . PHP_EOL;
                 $indent++;
+                ddd($indent);
                 $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
