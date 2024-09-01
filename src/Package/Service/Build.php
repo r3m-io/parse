@@ -561,6 +561,7 @@ class Build
             $operator !== '' &&
             $value !== ''
         ){
+            $indent++;
             switch($operator){
                 case '=' :
                     $result = '$data->set(';
