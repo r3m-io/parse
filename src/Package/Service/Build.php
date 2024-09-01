@@ -808,6 +808,7 @@ class Build
                 }
                 $array_value = implode(PHP_EOL, $explode);
                 $value .= $array_value;
+                ddd($value);
             }
             elseif(
                 array_key_exists('type', $record) &&
