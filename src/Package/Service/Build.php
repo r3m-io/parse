@@ -410,7 +410,7 @@ class Build
                         $modifier_value = substr($modifier_value, 0, -1);
                     }
                 }
-                $modifier_value .= str_repeat(' ', $indent * 4) . ')';
+                $modifier_value .= ')';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
@@ -451,6 +451,7 @@ class Build
             $object->config('package.r3m_io/parse.build.state.indent', $indent);
             return $data;
         } else {
+            $indent = 2;
             $data = [
                 $variable_uuid . ' = $data->get(\'' . $variable_name . '\');' ,
             ];
@@ -801,6 +802,7 @@ class Build
                         $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
                     }
                 }
+                ddd($explode);
                 $array_value = implode(PHP_EOL, $explode);
                 ddd($array_value);
                 $value .= $array_value;
