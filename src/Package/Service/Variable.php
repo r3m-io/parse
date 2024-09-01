@@ -274,6 +274,7 @@ class Variable
                     $argument_array = [];
                     $argument = [];
                     $argument_nr = -1;
+                    $set_depth_modifier = false;
                 }
             }
             elseif($current === '{{'){
@@ -540,6 +541,7 @@ class Variable
                             $argument_array = [];
                             $argument = [];
                             $argument_nr = -1;
+                            $set_depth_modifier = false;
                         } else {
                             //remove the comma
                             for($index = $is_variable + 1; $index <= $nr; $index++){
