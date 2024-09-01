@@ -718,7 +718,14 @@ class Build
                 $record['type'] === 'array'
             ){
 //                $value .= '[' . PHP_EOL;
+
+                if(property_exists($options, 'is_debug') && $options->is_debug === true){
+                    ddd($record);
+                }
+
+
                 $is_argument = false;
+                $options->is_debug = true;
                 $value_array = Build::value($object, $flags, $options, $record);
                 d($value_array);
                 ddd($record);
