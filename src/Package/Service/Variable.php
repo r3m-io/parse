@@ -229,6 +229,7 @@ class Variable
                     }
                     */
                     $index_set_depth = 0;
+                    //check this
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
@@ -357,6 +358,7 @@ class Variable
                         }
                         unset($input['modifier']);
                     }
+                    //check this
                     for($index = $is_variable + 1; $index < $nr; $index++){
                         $input['array'][$index] = null;
                     }
@@ -381,6 +383,7 @@ class Variable
                         unset($input['modifier']);
                     }
                     */
+                    //check this
                     for($index = $is_variable + 1; $index <= $nr; $index++){
                         $input['array'][$index] = null;
                     }
@@ -458,6 +461,7 @@ class Variable
                             unset($input['modifier']);
                         }
                         */
+                        //check this
                         for($index = $is_variable + 1; $index <= $nr; $index++){
                             $input['array'][$index] = null;
                         }
@@ -468,6 +472,7 @@ class Variable
                             'name' => $modifier_name,
                             'argument' => []
                         ];
+                        //check this
                         for($index = $is_variable + 1; $index <= $nr; $index++){
                             $input['array'][$index] = null;
                         }
@@ -516,7 +521,7 @@ class Variable
                 }
                 elseif(
                     in_array(
-                        $current ,
+                        $current,
                         [
                             ':'
                         ],
@@ -607,6 +612,10 @@ class Variable
             }
         }
         if($is_variable !== false){
+            //here
+            d($is_variable);
+            d($nr);
+            ddd($input['array']);
             for($index = $is_variable + 1; $index <= $nr; $index++){
                 $input['array'][$index] = null;
             }
