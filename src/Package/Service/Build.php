@@ -717,8 +717,10 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array'
             ){
-                $value .= '[' . PHP_EOL;
+//                $value .= '[' . PHP_EOL;
                 $is_argument = false;
+                $value_array = Build::value($object, $flags, $options, $record);
+                d($value_array);
                 ddd($record);
                 foreach($record['array'] as $argument_nr => $argument){
                     $value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
