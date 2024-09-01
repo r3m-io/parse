@@ -58,8 +58,12 @@ class Build
     public static function document_tag(App $object, $flags, $options, $tags = []): array
     {
         $data = [];
+        $variable_assign_next_tag = false;
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
+                if($variable_assign_next_tag === true){
+                    ddd($record);
+                }
                 $text = Build::text($object, $flags, $options, $record);
                 if($text){
                     $text = explode(PHP_EOL, $text);
@@ -69,16 +73,19 @@ class Build
                 }
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 d($variable_assign);
+                d($nr);
                 if($variable_assign){
                     $data[] = $variable_assign;
                     $next = $list[$nr + 1] ?? false;
+
                     d($next);
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $record, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
                         d($list[$nr + 1]);
+                    } else {
+                        $variable_assign_next_tag = true;
                     }
-
                 }
                 $variable_define = Build::variable_define($object, $flags, $options, $record);
                 if($variable_define){
