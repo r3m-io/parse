@@ -471,15 +471,6 @@ class Variable
                             'name' => $modifier_name,
                             'argument' => $argument_array
                         ];
-                        /*
-                        if(array_key_exists('modifier', $input)){
-                            foreach($input['modifier'] as $index => $modifier){
-                                $input['array'][$is_variable]['modifier'][] = $modifier;
-                            }
-                            unset($input['modifier']);
-                        }
-                        */
-                        //check this
                         /**
                          * check where the , belongs
                          * if in array the , should stay, so < $nr
@@ -650,14 +641,6 @@ class Variable
                     'name' => $modifier_name,
                     'argument' => $argument_array
                 ];
-                /*
-                if(array_key_exists('modifier', $input)){
-                    foreach($input['modifier'] as $index => $modifier){
-                        $input['array'][$is_variable]['modifier'][] = $modifier;
-                    }
-                    unset($input['modifier']);
-                }
-                */
             }
             elseif($is_modifier !== false){
                 $input['array'][$is_variable]['modifier'][] = [
@@ -667,6 +650,8 @@ class Variable
                 ];
             }
         }
+        d($is_variable);
+        ddd($is_modifier);
         /* wrong
         if($is_variable !== false){
             for($index = $is_variable + 1; $index <= $nr; $index++){
