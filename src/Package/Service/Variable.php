@@ -604,7 +604,6 @@ class Variable
                         $argument_array[$argument_nr] = [];
                         $argument[$argument_nr] = '';
                     }
-
                     $argument[$argument_nr] .= $current;
                     $argument_array[$argument_nr][] = $char;
                 }
@@ -638,6 +637,10 @@ class Variable
                     'name' => $modifier_name,
                     'argument' => $argument_array
                 ];
+                //check this
+                for($index = $is_variable + 1; $index <= $nr; $index++){
+                    $input['array'][$index] = null;
+                }
             }
             elseif($is_modifier !== false){
                 $input['array'][$is_variable]['modifier'][] = [
