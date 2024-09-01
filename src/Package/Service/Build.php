@@ -61,6 +61,10 @@ class Build
     {
         $data = [];
         $variable_assign_next_tag = false;
+        $indent = $object->config('package.r3m_io/parse.build.state.indent');
+
+        ddd($indent);
+
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
@@ -121,39 +125,50 @@ class Build
     {
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         ddd($indent);
-        $document[] = '    /**';
-        $document[] = '     * @throws Exception';
-        $document[] = '     */';
-        $document[] = '    public function run(): mixed';
-        $document[] = '    {';
-
-        $document[] = '        ob_start();';
-        $document[] = '        $object = $this->object();';
-        $document[] = '        $parse = $this->parse();';
-        $document[] = '        $data = $this->data();';
-        $document[] = '        $flags = $this->flags();';
-        $document[] = '        $options = $this->options();';
-        $document[] = '        $options->debug = true;';
-        $document[] = '        if (!($object instanceof App)) {';
-        $document[] = '            throw new Exception(\'$object is not an instance of R3m\Io\App\');';
-        $document[] = '        }';
-        $document[] = '        if (!($parse instanceof Parse)) {';
-        $document[] = '            throw new Exception(\'$parse is not an instance of Package\R3m\Io\Parse\Service\Parse\');';
-        $document[] = '        }';
-        $document[] = '        if (!($data instanceof Data)) {';
-        $document[] = '            throw new Exception(\'$data is not an instance of R3m\Io\Module\Data\');';
-        $document[] = '        }';
-        $document[] = '        if (!is_object($flags)) {';
-        $document[] = '            throw new Exception(\'$flags is not an object\');';
-        $document[] = '        }';
-        $document[] = '        if (!is_object($options)) {';
-        $document[] = '            throw new Exception(\'$options is not an object\');';
-        $document[] = '        }';
+        $document[] = str_repeat(' ', $indent * 4) . '/**';
+        $document[] = str_repeat(' ', $indent * 4) . ' * @throws Exception';
+        $document[] = str_repeat(' ', $indent * 4) . ' */';
+        $document[] = str_repeat(' ', $indent * 4) . 'public function run(): mixed';
+        $document[] = str_repeat(' ', $indent * 4) . '{';
+        $indent++;
+        $document[] = str_repeat(' ', $indent * 4) . 'ob_start();';
+        $document[] = str_repeat(' ', $indent * 4) . '$object = $this->object();';
+        $document[] = str_repeat(' ', $indent * 4) . '$parse = $this->parse();';
+        $document[] = str_repeat(' ', $indent * 4) . '$data = $this->data();';
+        $document[] = str_repeat(' ', $indent * 4) . '$flags = $this->flags();';
+        $document[] = str_repeat(' ', $indent * 4) . '$options = $this->options();';
+        $document[] = str_repeat(' ', $indent * 4) . '$options->debug = true;';
+        $document[] = str_repeat(' ', $indent * 4) . 'if (!($object instanceof App)) {';
+        $indent++;
+        $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$object is not an instance of R3m\Io\App\');';
+        $indent--;
+        $document[] = str_repeat(' ', $indent * 4) . '}';
+        $document[] = str_repeat(' ', $indent * 4) . 'if (!($parse instanceof Parse)) {';
+        $indent++;
+        $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$parse is not an instance of Package\R3m\Io\Parse\Service\Parse\');';
+        $indent--;
+        $document[] = str_repeat(' ', $indent * 4) . '}';
+        $document[] = str_repeat(' ', $indent * 4) . 'if (!($data instanceof Data)) {';
+        $indent++;
+        $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$data is not an instance of R3m\Io\Module\Data\');';
+        $indent--;
+        $document[] = str_repeat(' ', $indent * 4) . '}';
+        $document[] = str_repeat(' ', $indent * 4) . 'if (!is_object($flags)) {';
+        $indent++;
+        $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$flags is not an object\');';
+        $indent--;
+        $document[] = str_repeat(' ', $indent * 4) . '}';
+        $document[] = str_repeat(' ', $indent * 4) . 'if (!is_object($options)) {';
+        $indent++;
+        $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$options is not an object\');';
+        $indent--;
+        $document[] = str_repeat(' ', $indent * 4) . '}';
         foreach($data as $nr => $line){
-            $document[] = '        ' . $line;
+            $document[] = str_repeat(' ', $indent * 4) . $line;
         }
-        $document[] = '        return ob_get_clean();';
-        $document[] = '    }';
+        $document[] = str_repeat(' ', $indent * 4) . 'return ob_get_clean();';
+        $indent--;
+        $document[] = str_repeat(' ', $indent * 4) . '}';
         return $document;
     }
 
