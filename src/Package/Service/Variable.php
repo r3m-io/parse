@@ -344,7 +344,6 @@ class Variable
                     $set_depth_modifier === false
                 )
             ){
-                d($nr);
                 if($is_argument !== false){
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
@@ -447,7 +446,6 @@ class Variable
                     $is_modifier !== false
                 ){
                     if($is_argument !== false){
-                        d($argument_array);
                         foreach($argument_array as $argument_nr => $array){
                             $argument_value = Cast::define(
                                 $object,
@@ -471,14 +469,6 @@ class Variable
                             'name' => $modifier_name,
                             'argument' => $argument_array
                         ];
-                        /**
-                         * check where the , belongs
-                         * if in array the , should stay, so < $nr
-                         * if not in array the , should go, so <= $nr
-                         */
-
-                        //if set depth modifier === 0 && is_array = true
-
                         if(
                             $is_array === true &&
                             $set_depth === $set_depth_modifier
@@ -511,11 +501,6 @@ class Variable
                             'argument' => []
                         ];
                         //check this
-                        /**
-                         * check where the , belongs
-                         * if in array the , should stay, so < $nr
-                         * if not in array the , should go, so <= $nr
-                         */
                         for($index = $is_variable + 1; $index <= $nr; $index++){
                             $input['array'][$index] = null;
                         }
