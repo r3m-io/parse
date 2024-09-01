@@ -358,6 +358,22 @@ class Variable
                 $is_double_quote === false &&
                 $is_double_quote_backslash === false &&
                 (
+                    $set_depth !== $set_depth_modifier ||
+                    $set_depth_modifier !== false
+                )
+            ){
+                d($nr);
+                d($set_depth);
+                ddd($set_depth_modifier);
+            }
+            elseif(
+                $current === '|' &&
+                $previous !== '|' &&
+                $next !== '|' &&
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                $is_double_quote_backslash === false &&
+                (
                     $set_depth === $set_depth_modifier ||
                     $set_depth_modifier === false
                 )
