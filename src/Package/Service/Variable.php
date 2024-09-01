@@ -611,25 +611,13 @@ class Variable
                 ];
             }
         }
+        /* wrong
         if($is_variable !== false){
-            //here
-            d($is_variable);
-            d($nr);
-            ddd($input['array']);
             for($index = $is_variable + 1; $index <= $nr; $index++){
                 $input['array'][$index] = null;
             }
-            /*
-            if(
-                $outer_curly_depth > 0 &&
-                $current === '}}'
-            ){
-                $outer_curly_depth--;
-            } else {
-                $input['array'][$nr] = null;
-            }
-            */
         }
+        */
         return $input;
     }
 }
