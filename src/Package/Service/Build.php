@@ -513,9 +513,10 @@ class Build
         }
         $explode = explode(PHP_EOL, $argument_value);
         foreach($explode as $nr => $line){
-            $method_value .= str_repeat(' ', $indent * 4) . $line . PHP_EOL;
+            $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
         }
         $indent--;
+        $method_value .= implode(PHP_EOL, $explode);
         $method_value .= str_repeat(' ', $indent * 4) . ');';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         d($method_value);
