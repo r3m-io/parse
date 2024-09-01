@@ -503,17 +503,16 @@ class Build
         $indent++;
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         d($indent);
-        $argument_value = '';
         foreach($record['method']['argument'] as $nr => $argument) {
-            $argument_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            $value = Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+            $value = str_replace("\n", "\n" . str_repeat(' ', $indent * 4), $value);
+            $method_value .= $value;
             $is_argument = true;
         }
         if($is_argument){
-            $argument_value = substr($method_value, 0, -2) . PHP_EOL;
+            $method_value = substr($method_value, 0, -2) . PHP_EOL;
         }
         $indent--;
-        ddd($argument_value);
-
         $method_value .= str_repeat(' ', $indent * 4) . ');';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         d($method_value);
