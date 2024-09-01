@@ -618,13 +618,22 @@ class Build
         $input = Build::value_single_quote($object, $flags, $options, $input);
         $is_double_quote = false;
         $double_quote_previous = false;
+        $is_array = false;
+        if(
+            array_key_exists('type', $input) &&
+            $input['type'] === 'array'
+        ){
+            $is_array = true;
+        }
 
+        /*
         if(
             property_exists($options, 'is_debug') &&
             $options->is_debug === true
         ){
             ddd($input);
         }
+        */
 
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
@@ -640,6 +649,24 @@ class Build
                 $record['is_single_quoted'] === true
             ){
                 $value .= $record['execute'];
+            }
+            elseif(
+                array_key_exists('type', $record) &&
+                $record['type'] === 'integer'
+            ){
+                $value .= $record['execute'];
+            }
+            elseif(
+                array_key_exists('type', $record) &&
+                $record['type'] === 'float'
+            ){
+                $value .= $record['execute'];
+            }
+            elseif(
+                array_key_exists('type', $record) &&
+                $record['type'] === 'symbol'
+            ){
+                $value .= $record['value'];
             }
             elseif(
                 array_key_exists('value', $record) &&
@@ -724,23 +751,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array'
             ){
-//                $value .= '[' . PHP_EOL;
-                $is_argument = false;
-                $options->is_debug = true;
-                $value_array = Build::value($object, $flags, $options, $record);
-                d($value_array);
-                ddd($record);
-                foreach($record['array'] as $argument_nr => $argument){
-                    $value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
-                    $is_argument = true;
-                }
-                if($is_argument === true){
-                    $value = substr($value, 0, -2) . PHP_EOL;
-                } else {
-                    $value = substr($value, 0, -1);
-                }
-                $value .= ']';
-                ddd($value);
+                $value .= Build::value($object, $flags, $options, $record);
             }
             elseif(
                 array_key_exists('type', $record) &&
@@ -824,6 +835,7 @@ class Build
             ){
                 //nothing
             }
+            /*
             elseif(
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array' &&
@@ -832,6 +844,7 @@ class Build
 
                 //nothing
             }
+            */
             else {
                 $right = Build::value_right(
                     $object,
@@ -901,6 +914,7 @@ class Build
                 }
             }
         }
+        d($value);
         return $value;
     }
 
