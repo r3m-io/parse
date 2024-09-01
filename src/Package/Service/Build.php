@@ -535,11 +535,11 @@ class Build
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
         if(array_key_exists('modifier', $record['variable'])){
-            $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['variable']['name'] . '\')';
+            $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                 $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                $modifier_value .= str_repeat(' ', $indent * 4) . $previous_modifier .', ' . PHP_EOL;
+                $modifier_value .= $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
                     $indent++;
@@ -555,7 +555,7 @@ class Build
                     }
                     $indent--;
                 }
-                $modifier_value .= str_repeat(' ', $indent * 4) . ')';
+                $modifier_value .=  ')';
                 $previous_modifier = $modifier_value;
             }
             $value = $modifier_value;
@@ -566,8 +566,10 @@ class Build
             $operator !== '' &&
             $value !== ''
         ){
+            d($value);
             switch($operator){
                 case '=' :
+                    $indent++;
                     return '$data->set(' .
                         PHP_EOL .
                         str_repeat(' ', $indent * 4) .
@@ -827,7 +829,7 @@ class Build
             ){
                 $modifier_value = '';
                 if(array_key_exists('modifier', $record)){
-                    $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
+                    $previous_modifier = str_repeat(' ', $indent * 4) . '$data->get(\'' . $record['name'] . '\')';
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
