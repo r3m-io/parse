@@ -31,7 +31,6 @@ class Build
         $document[] = '';
         $document = Build::document_run($object, $flags, $options, $document, $data);
         $document[] = '}';
-        d($document);
         return $document;
     }
 
