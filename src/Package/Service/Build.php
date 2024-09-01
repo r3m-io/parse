@@ -505,7 +505,7 @@ class Build
         d($indent);
         foreach($record['method']['argument'] as $nr => $argument) {
             $value = Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
-            $value = str_replace("\n", "\n" . str_repeat(' ', $indent * 4), $value);
+            $value = str_replace(PHP_EOL, PHP_EOL . str_repeat(' ', $indent * 4), $value);
             $method_value .= $value;
             $is_argument = true;
         }
