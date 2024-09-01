@@ -283,8 +283,6 @@ class Build
                     'object',
                     'echo',
                     'parse',
-                    'switch',
-                    'case',
                     'break',
                     'continue'
                 ],
