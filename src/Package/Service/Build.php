@@ -789,6 +789,19 @@ class Build
                 $record['type'] === 'array'
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
+                $explode = explode(PHP_EOL, $array_value);
+                foreach($explode as $nr => $line){
+                    $next = $explode[$nr + 1] ?? null;
+                    if($nr === 0){
+                        $explode[$nr] = $line;
+                    }
+                    elseif($next === null){
+                        $explode[$nr] = $line;
+                    } else {
+                        $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
+                    }
+                }
+                $array_value = implode(PHP_EOL, $explode);
                 ddd($array_value);
                 $value .= $array_value;
             }
