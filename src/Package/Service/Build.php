@@ -618,7 +618,14 @@ class Build
         $input = Build::value_single_quote($object, $flags, $options, $input);
         $is_double_quote = false;
         $double_quote_previous = false;
-        d($input);
+
+        if(
+            property_exists($options, 'is_debug') &&
+            $options->is_debug === true
+        ){
+            ddd($input);
+        }
+
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -718,12 +725,6 @@ class Build
                 $record['type'] === 'array'
             ){
 //                $value .= '[' . PHP_EOL;
-
-                if(property_exists($options, 'is_debug') && $options->is_debug === true){
-                    ddd($record);
-                }
-
-
                 $is_argument = false;
                 $options->is_debug = true;
                 $value_array = Build::value($object, $flags, $options, $record);
