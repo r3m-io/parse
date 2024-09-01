@@ -540,6 +540,7 @@ class Build
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
                     $indent++;
+                    $object->config('package.r3m_io/parse.build.state.indent', $indent);
                     foreach($modifier['argument'] as $argument_nr => $argument){
                         $modifier_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
@@ -676,6 +677,10 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'symbol'
             ){
+                $value .= $record['value'] .
+                    PHP_EOL .
+                    str_repeat(' ', $indent * 4);
+                /*
                 if($next === null){
                     $value .= $record['value'] .
                         PHP_EOL .
@@ -683,8 +688,9 @@ class Build
                 } else {
                     $value .= $record['value'] .
                         PHP_EOL .
-                        str_repeat(' ', $indent * 4);;
+                        str_repeat(' ', $indent * 4);
                 }
+                */
             }
             elseif(
                 array_key_exists('value', $record) &&
