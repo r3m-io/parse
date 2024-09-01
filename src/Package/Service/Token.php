@@ -539,9 +539,6 @@ class Token
 //                                            'modifier' => $modifier_list
                                         ]
                                     );
-                                    d($after);
-                                    d($list);
-                                    ddd($after_array);
 //                                    $cache->set($after_hash, $list);
                                     $variable = [
                                         'is_assign' => true,
