@@ -719,7 +719,7 @@ class Build
             ){
                 $value .= '[' . PHP_EOL;
                 $is_argument = false;
-                dddd($record);
+                ddd($record);
                 foreach($record['array'] as $argument_nr => $argument){
                     $value .= '            ' . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
                     $is_argument = true;
