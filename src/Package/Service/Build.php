@@ -508,7 +508,7 @@ class Build
             $is_argument = true;
         }
         if($is_argument){
-            $argument_value = substr($method_value, 0, -2) . PHP_EOL;
+            $argument_value = substr($argument_value, 0, -2) . PHP_EOL;
         }
         $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent);
         $indent--;
