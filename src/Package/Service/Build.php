@@ -501,6 +501,7 @@ class Build
         $method_value = '$this->' . $plugin . '(' . PHP_EOL;
         $is_argument = false;
         $indent++;
+        $indent++;
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         $argument_value = '';
         foreach($record['method']['argument'] as $nr => $argument) {
@@ -515,9 +516,7 @@ class Build
         $indent--;
         $method_value .= str_repeat(' ', $indent * 4) . ');';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
-
         $data[] = 'try {';
-        $indent++;
         $data[] = str_repeat(' ', $indent * 4) . $method_value;
         $indent--;
         $data[] = str_repeat(' ', $indent * 4) . '} catch (Exception $exception) {';
