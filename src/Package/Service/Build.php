@@ -604,7 +604,7 @@ class Build
                     ;
                     $validate = Validator::validate($result);
                     if($validate !== true){
-                        d($result);
+//                        d($result);
                         ddd($validate);
                     }
                     /**
