@@ -393,6 +393,7 @@ class Build
             trace();
             ddd($record);
         }
+        $source = $options->source ?? '';
         $variable_name = $record['variable']['name'];
         $variable_uuid = Core::uuid_variable();
         if(array_key_exists('modifier', $record['variable'])){
@@ -427,13 +428,13 @@ class Build
             ){
                 $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
                 $indent++;
-                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '. You can use modifier "default" to surpress it \');';
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '. You can use modifier "default" to surpress it \');';
                 $indent--;
                 $data[] = str_repeat(' ', $indent * 4) . '}';
             } else {
                 $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
                 $indent++;
-                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '. You can use modifier "default" to surpress it \');';
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . 'in source: '. $source . '. You can use modifier "default" to surpress it \');';
                 $indent--;
                 $data[] = str_repeat(' ', $indent * 4) . '}';
             }
@@ -461,13 +462,13 @@ class Build
             ){
                 $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
                 $indent++;
-                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '. You can use modifier "default" to surpress it \');';
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '. You can use modifier "default" to surpress it \');';
                 $indent--;
                 $data[] = str_repeat(' ', $indent * 4) . '}';
             } else {
                 $data[] = str_repeat(' ', $indent * 4) . 'if(' . $variable_uuid .' === null){';
                 $indent++;
-                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '. You can use modifier "default" to surpress it \');';
+                $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '. You can use modifier "default" to surpress it \');';
                 $indent--;
                 $data[] = str_repeat(' ', $indent * 4) . '}';
             }
@@ -496,6 +497,7 @@ class Build
         if(!array_key_exists('method', $record)){
             return false;
         }
+        $source = $options->source ?? '';
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $method_name = $record['method']['name'];
         $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
@@ -524,9 +526,9 @@ class Build
             array_key_exists('is_multiline', $record) &&
             $record['is_multiline'] === true
         ){
-            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '\', 0, $exception);';
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: \''. $source . '\', 0, $exception);';
         } else {
-            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '\', 0, $exception);';
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: \''. $source . '\', 0, $exception);';
         }
         $indent--;
         $data[] = str_repeat(' ', $indent * 4) . '}';
@@ -548,6 +550,7 @@ class Build
         ) {
             return false;
         }
+        $source = $options->source ?? '';
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
@@ -610,9 +613,9 @@ class Build
                             array_key_exists('is_multiline', $record) &&
                             $record['is_multiline'] === true
                         ){
-                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.', 0, $exception);
+                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '.', 0, $exception);
                         } else {
-                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.', 0, $exception);
+                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
                         }
                     }
                     return $result;
