@@ -604,7 +604,7 @@ class Build
                     /**
                      * validate the result
                      */
-                    $validate = Validator::validate($result);
+                    $validate = Validator::validate($object, $result);
                     if($validate !== true){
                         if(
                             array_key_exists('is_multiline', $record) &&
