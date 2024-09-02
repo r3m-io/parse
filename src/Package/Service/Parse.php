@@ -148,7 +148,6 @@ class Parse
             ]
         );
 
-
         require_once $url;
         echo PHP_EOL . str_repeat('-', Cli::tput('columns')) . PHP_EOL;
 
