@@ -877,15 +877,21 @@ class Build
                 $data = Build::string_array($array_value);
                 foreach($data as $nr => $line){
                     $char = trim($line);
-                    $bracket_open_count = substr_count($char, '[');
-                    $bracket_close_count = substr_count($char, ']');
-                    if($bracket_open_count > 0){
-                        $data[$nr] = str_repeat(' ', $indent * $bracket_open_count * 4) . $line;
+                    if($char === '['){
+                        $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                         $indent++;
                     }
-                    elseif($bracket_close_count > 0){
+                    elseif(
+                        in_array(
+                            $char,
+                            [
+                                ']',
+                                '],'
+                            ], true
+                        )
+                    ){
                         $indent--;
-                        $data[$nr] = str_repeat(' ', $indent * $bracket_close_count * 4) . $line;
+                        $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                     } else {
                         $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                     }
