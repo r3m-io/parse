@@ -896,10 +896,7 @@ class Build
                         $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                     }
                 }
-                ddd($data);
-
-
-                $value .= $array_value;
+                $value .= implode(PHP_EOL, $data);
             }
             elseif(
                 array_key_exists('type', $record) &&
