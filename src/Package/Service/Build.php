@@ -585,7 +585,7 @@ class Build
 //                    foreach($explode as $nr => $line){
 //                        $result .= str_repeat(' ', $indent * 4) . $line . PHP_EOL;
 //                    }
-                    $result .= $value . PHP_EOL;
+//                    $result .= $value . PHP_EOL;
                     $indent--;
                     $result .= str_repeat(' ', $indent * 4) .
                         ');'
