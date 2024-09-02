@@ -812,7 +812,7 @@ class Build
                         true
                     )
                 ){
-                    $value .= ' ' . $record['value'] . ' ';
+                    $value .= ' ' . $record['value'] . PHP_EOL; //end must be a PHP_EOL
                 }
                 else {
                     $value .= $record['value'];
