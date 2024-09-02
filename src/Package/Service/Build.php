@@ -522,12 +522,17 @@ class Build
         $indent--;
         $data[] = str_repeat(' ', $indent * 4) . '} catch (Exception $exception) {';
         $indent++;
-        ddd($record);
-        $data[] = str_repeat(' ', $indent * 4) . 'echo $exception->getMessage();';
-
-
-
-        return $method_value;
+        if(
+            array_key_exists('is_multiline', $record) &&
+            $record['is_multiline'] === true
+        ){
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "$' . $record['tag'] . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '\');';
+        } else {
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "$' . $record['tag'] . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '\');';
+        }
+        $indent--;
+        $data[] = str_repeat(' ', $indent * 4) . '}';
+        return implode(PHP_EOL, $data);
     }
 
     /**
