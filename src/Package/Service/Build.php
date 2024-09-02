@@ -772,7 +772,20 @@ class Build
                         true
                     )
                 ){
-                    $value .= $record['value'] . PHP_EOL;
+                    if(
+                        in_array(
+                            $record['value'],
+                            [
+                                ']',
+                                ')',
+                            ],
+                            true
+                        )
+                    ){
+                        $value .= PHP_EOL . $record['value'] . PHP_EOL;
+                    } else {
+                        $value .= $record['value'] . PHP_EOL;
+                    }
                 } else {
                     $value .= $record['value'];
                 }
