@@ -603,7 +603,25 @@ class Build
                         ');'
                     ;
                     d($result);
-                    return $result;
+                    $data = [];
+                    $data[] = 'try {';
+                    $indent++;
+                    $data[] = str_repeat(' ', $indent * 4) . $result;
+                    $indent--;
+                    $data[] = str_repeat(' ', $indent * 4) . '} catch (Exception $exception) {';
+                    $indent++;
+                    if(
+                        array_key_exists('is_multiline', $record) &&
+                        $record['is_multiline'] === true
+                    ){
+                        $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Variable assign exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '\', 0, $exception);';
+                    } else {
+                        $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Variable assign exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '\', 0, $exception);';
+                    }
+                    $indent--;
+                    $data[] = str_repeat(' ', $indent * 4) . '}';
+
+                    return implode(PHP_EOL, $data);
                 case '.=' :
                     return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
                 case '+=' :
