@@ -604,17 +604,17 @@ class Build
                     /**
                      * validate the result
                      */
-                    $validate = Validator::validate($object, $result);
-
-
-                    if($validate !== true){
+                    try {
+                        $validate = Validator::validate($object, $result);
+                    }
+                    catch(Exception $exception){
                         if(
                             array_key_exists('is_multiline', $record) &&
                             $record['is_multiline'] === true
                         ){
-                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.');
+                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.', 0, $exception);
                         } else {
-                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.');
+                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.', 0, $exception);
                         }
                     }
                     return $result;
