@@ -161,8 +161,6 @@ class Variable
                 if($set_depth < 0){
                     $input['array'][$nr] = null;
                 }
-                d($set_depth);
-                d($set_depth_modifier);
                 if(
                     $is_modifier &&
                     (
@@ -202,7 +200,6 @@ class Variable
                             ddd($set_depth_argument);
                         }
                     }
-                    d($argument_array);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -348,7 +345,6 @@ class Variable
                 )
             ){
                 if($is_argument !== false){
-                    d($argument_array);
                     foreach($argument_array as $argument_nr => $array){
                         $argument_value = Cast::define(
                             $object,
@@ -473,10 +469,8 @@ class Variable
                                 $options,
                                 $argument_value,
                             );
-                            d($argument_value);
                             $argument_array[$argument_nr] = $argument_value;
                         }
-                        d($argument_array);
                         $input['array'][$is_variable]['modifier'][] = [
                             'string' => $modifier_string,
                             'name' => $modifier_name,
@@ -552,8 +546,6 @@ class Variable
                     )
                 ){
                     $modifier_name .= $current;
-                    d($set_depth_modifier);
-                    d($set_depth);
                     if($set_depth_modifier === false){
                         if($set_depth === 0){
                             $set_depth_modifier = 0;
@@ -575,8 +567,6 @@ class Variable
                     $is_double_quote_backslash === false
                 ){
                     $is_argument = true;
-                    d($set_depth);
-                    d($set_depth_modifier);
                     if($set_depth_modifier === false){
                         if($set_depth === 0){
                             $set_depth_modifier = 0;
@@ -601,13 +591,8 @@ class Variable
                         $set_depth_modifier === false
                     ){
                         $argument_nr++;
-                    } else {
-                        d($current);
-                        d($set_depth);
-                        d($set_depth_modifier);
                     }
                 } else {
-                    d($current);
                     if(!array_key_exists($argument_nr, $argument_array)){
                         $argument_array[$argument_nr] = [];
                         $argument[$argument_nr] = '';
