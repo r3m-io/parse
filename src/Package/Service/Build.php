@@ -601,11 +601,8 @@ class Build
                     $result .= str_repeat(' ', $indent * 4) .
                         ');'
                     ;
-                    /**
-                     * validate the result
-                     */
                     try {
-                        $validate = Validator::validate($object, $result);
+                        Validator::validate($object, $result);
                     }
                     catch(Exception $exception){
                         if(
