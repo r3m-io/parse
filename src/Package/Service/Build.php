@@ -526,9 +526,9 @@ class Build
             array_key_exists('is_multiline', $record) &&
             $record['is_multiline'] === true
         ){
-            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: \''. $source . '\', 0, $exception);';
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '\', 0, $exception);';
         } else {
-            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: \''. $source . '\', 0, $exception);';
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "' . $record['tag'] . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: '. $source . '\', 0, $exception);';
         }
         $indent--;
         $data[] = str_repeat(' ', $indent * 4) . '}';
