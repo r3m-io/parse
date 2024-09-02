@@ -21,7 +21,7 @@ class Validator
         unlink($tempFile);
         ob_end_clean();
         d($notification);
-        ddd($output);
+        d($output);
 //        $output = implode(PHP_EOL, $output);
         // Check the output to see if any syntax errors were found
         if (strpos($output, 'No syntax errors detected') !== false) {
