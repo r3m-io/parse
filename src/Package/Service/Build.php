@@ -579,13 +579,7 @@ class Build
                         '\', ' .
                         PHP_EOL
                     ;
-                    $result .= Build::align_content($object, $flags, $options, $value, $indent);
-//                    cannot do this we PHP_EOL in the value, we cannot break on PHP_EOL, it can exist in ""
-//                    $explode = explode(PHP_EOL, $value);
-//                    foreach($explode as $nr => $line){
-//                        $result .= str_repeat(' ', $indent * 4) . $line . PHP_EOL;
-//                    }
-//                    $result .= $value . PHP_EOL;
+                    $result .= Build::align_content($object, $flags, $options, $value, $indent) . PHP_EOL;
                     $indent--;
                     $result .= str_repeat(' ', $indent * 4) .
                         ');'
