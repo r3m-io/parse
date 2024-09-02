@@ -602,20 +602,20 @@ class Build
                     $result .= str_repeat(' ', $indent * 4) .
                         ');'
                     ;
+                    /**
+                     * validate the result
+                     */
                     $validate = Validator::validate($result);
                     if($validate !== true){
                         if(
                             array_key_exists('is_multiline', $record) &&
                             $record['is_multiline'] === true
                         ){
-                            throw new Exception('Error: ' . $record['tag'] . ' on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.');
+                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.');
                         } else {
-                            throw new Exception('Error: ' . $record['tag'] . '  on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.');
+                            throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.');
                         }
                     }
-                    /**
-                     * validate the result
-                     */
                     return $result;
                 case '.=' :
                     return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
