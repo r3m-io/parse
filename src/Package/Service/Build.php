@@ -629,11 +629,7 @@ class Build
         $line = 0;
         $list = [];
         foreach($data as $nr => $char){
-            if(!array_key_exists($line, $list)){
-                $list[$line] = '';
-            }
-            $list[$line] .= $char;
-            $previous = $data[$nr] ?? null;
+            $previous = $data[$nr - 1] ?? null;
             if(
                 $previous !== '\\' &&
                 $char === '\''
@@ -660,6 +656,11 @@ class Build
                 $char === PHP_EOL
             ){
                 $line++;
+            } else {
+                if(!array_key_exists($line, $list)){
+                    $list[$line] = '';
+                }
+                $list[$line] .= $char;
             }
         }
         d($indent);
