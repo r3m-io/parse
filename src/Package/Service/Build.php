@@ -860,27 +860,10 @@ class Build
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
                 //indent 1 ... end -1
-                $indent = $object->config('package.r3m_io/parse.build.state.indent');
-                /* cannot explode on PHP_EOL, it can exist in ""
-                $explode = explode(PHP_EOL, $array_value);
-                foreach($explode as $nr => $line){
-                    $next = $explode[$nr + 1] ?? null;
-                    $next_next = $explode[$nr + 2] ?? null;
-                    if($nr === 0){
-                        $explode[$nr] = $line;
-                    }
-                    elseif($next === null){
-                        unset($explode[$nr]);
-                    }
-                    elseif($next_next === null){
-                        $explode[$nr] = $line;
-                    } else {
-                        $explode[$nr] = str_repeat(' ', $indent * 4) . $line;
-                    }
-                }
-                $array_value = implode(PHP_EOL, $explode);
-                $value .= $array_value;
-                */
+                $data = Build::string_array($array_value);
+                ddd($data);
+
+
                 $value .= $array_value;
             }
             elseif(
