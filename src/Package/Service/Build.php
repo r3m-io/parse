@@ -512,10 +512,8 @@ class Build
             $argument_value = substr($argument_value, 0, -2) . PHP_EOL;
             $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent) . PHP_EOL;
         }
-
         $indent--;
         $method_value .= str_repeat(' ', $indent * 4) . ');';
-        $object->config('package.r3m_io/parse.build.state.indent', $indent);
         $data[] = 'try {';
         $data[] = str_repeat(' ', $indent * 4) . $method_value;
         $indent--;
@@ -525,12 +523,13 @@ class Build
             array_key_exists('is_multiline', $record) &&
             $record['is_multiline'] === true
         ){
-            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "$' . $record['tag'] . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '\');';
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "$' . $record['tag'] . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '\', 0, $exception);';
         } else {
-            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "$' . $record['tag'] . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '\');';
+            $data[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'Method malfunction exception: "$' . $record['tag'] . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '\', 0, $exception);';
         }
         $indent--;
         $data[] = str_repeat(' ', $indent * 4) . '}';
+        $object->config('package.r3m_io/parse.build.state.indent', $indent);
         return implode(PHP_EOL, $data);
     }
 
