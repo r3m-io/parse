@@ -873,7 +873,7 @@ class Build
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
                 //indent 1 ... end -1
-                $indent = 1;
+                $indent = 0;
                 $data = Build::string_array($array_value);
                 foreach($data as $nr => $line){
                     $char = trim($line);
