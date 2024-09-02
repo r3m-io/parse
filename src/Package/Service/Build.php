@@ -821,7 +821,7 @@ class Build
                         true
                     )
                 ){
-                    ddd($next);
+                    d($next);
                     $value .= ' ' . $record['value'] . PHP_EOL; //end must be a PHP_EOL
                 }
                 else {
