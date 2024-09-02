@@ -608,9 +608,9 @@ class Build
                             array_key_exists('is_multiline', $record) &&
                             $record['is_multiline'] === true
                         ){
-                            throw new Exception($validate . 'Error: ' . $record['tag'] . ' on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.');
+                            throw new Exception('Error: ' . $record['tag'] . ' on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.');
                         } else {
-                            throw new Exception($validate . 'Error: ' . $record['tag'] . '  on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.');
+                            throw new Exception('Error: ' . $record['tag'] . '  on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.');
                         }
                     }
                     /**
