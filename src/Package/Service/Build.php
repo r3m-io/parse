@@ -801,7 +801,20 @@ class Build
                     } else {
                         $value .= $record['value'] . PHP_EOL;
                     }
-                } else {
+                }
+                elseif(
+                    $is_double_quote === false &&
+                    in_array(
+                        $record['value'],
+                        [
+                            '=>'
+                        ],
+                        true
+                    )
+                ){
+                    $value .= ' ' . $record['value'] . ' ';
+                }
+                else {
                     $value .= $record['value'];
                 }
             }
