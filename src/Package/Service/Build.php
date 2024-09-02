@@ -662,6 +662,7 @@ class Build
                 $list[$line] .= $char;
             }
         }
+        d($list);
         return $list;
     }
 
