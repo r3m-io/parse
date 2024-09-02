@@ -865,9 +865,11 @@ class Build
                 foreach($data as $nr => $line){
                     $char = trim($line);
                     if($char === '['){
+                        $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                         $indent++;
                     }
                     elseif($char === ']'){
+                        $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                         $indent--;
                     } else {
                         $data[$nr] = str_repeat(' ', $indent * 4) . $line;
