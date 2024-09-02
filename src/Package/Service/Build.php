@@ -621,6 +621,7 @@ class Build
 
     public static function string_array($string=''): array
     {
+        d($string);
         $data = mb_str_split($string);
         $is_single_quote = false;
         $is_double_quote = false;
