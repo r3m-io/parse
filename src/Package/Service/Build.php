@@ -869,8 +869,8 @@ class Build
                         $indent++;
                     }
                     elseif($char === ']'){
-                        $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                         $indent--;
+                        $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                     } else {
                         $data[$nr] = str_repeat(' ', $indent * 4) . $line;
                     }
