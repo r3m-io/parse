@@ -603,8 +603,10 @@ class Build
                         ');'
                     ;
                     $validate = Validator::validate($result);
-                    ddd($validate);
-
+                    if($validate !== true){
+                        d($result);
+                        ddd($validate);
+                    }
                     /**
                      * validate the result
                      */
