@@ -669,9 +669,10 @@ class Build
     public static function align_content(App $object, $flags, $options, $input, $indent): string
     {
         $list = Build::string_array($input);
-        d($indent);
-        ddd($list);
-        return $input;
+        foreach($list as $nr => $line){
+            $list[$nr] = str_repeat(' ', $indent * 4) . $line;
+        }
+        return implode(PHP_EOL, $list);
     }
 
     public static function value_single_quote(App $object, $flags, $options, $input): array
