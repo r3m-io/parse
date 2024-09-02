@@ -76,6 +76,7 @@ class Build
                 $variable_assign_next_tag = false; //Build::text is taking care of this
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
+                    ddd($variable_assign);
                     $data[] = $variable_assign;
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
@@ -536,6 +537,7 @@ class Build
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
+        ddd($value);
 //        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         //internal indent only
         $indent = 1;
