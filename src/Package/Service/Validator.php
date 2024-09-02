@@ -15,8 +15,6 @@ class Validator
         // Delete the temporary file
         unlink($tempFile);
         ob_end_clean();
-        d($output);
-        ddd($code);
         // Check the output to see if any syntax errors were found
         if (strpos($output, 'No syntax errors detected') !== false) {
             return true;
