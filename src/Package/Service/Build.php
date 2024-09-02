@@ -604,8 +604,14 @@ class Build
                     ;
                     $validate = Validator::validate($result);
                     if($validate !== true){
-//                        d($result);
-                        ddd($validate);
+                        if(
+                            array_key_exists('is_multiline', $record) &&
+                            $record['is_multiline'] === true
+                        ){
+                            throw new Exception($validate . 'Error: ' . $record['tag'] . ' on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . '.');
+                        } else {
+                            throw new Exception($validate . 'Error: ' . $record['tag'] . '  on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . '.');
+                        }
                     }
                     /**
                      * validate the result
