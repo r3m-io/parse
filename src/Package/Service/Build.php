@@ -550,7 +550,6 @@ class Build
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record['variable']['value']);
-        d($value);
 //        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         //internal indent only
         $indent = 1;
@@ -644,7 +643,6 @@ class Build
 
     public static function string_array($string=''): array
     {
-        d($string);
         $data = mb_str_split($string);
         $is_single_quote = false;
         $is_double_quote = false;
@@ -685,7 +683,6 @@ class Build
                 $list[$line] .= $char;
             }
         }
-        d($list);
         return $list;
     }
 
