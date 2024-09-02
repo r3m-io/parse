@@ -621,9 +621,9 @@ class Build
         return false;
     }
 
-    public static function string_array($string): array
+    public static function string_array($string=''): array
     {
-        $data = mb_str_split($input);
+        $data = mb_str_split($string);
         $is_single_quote = false;
         $is_double_quote = false;
         $line = 0;
