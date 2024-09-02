@@ -805,6 +805,7 @@ class Build
                 $record['type'] === 'array'
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
+                ddd($array_value);
                 $indent = $object->config('package.r3m_io/parse.build.state.indent');
                 /* cannot explode on PHP_EOL, it can exist in ""
                 $explode = explode(PHP_EOL, $array_value);
@@ -880,7 +881,7 @@ class Build
                                 $modifier_value = substr($modifier_value, 0, -1);
                             }
                         }
-                        $modifier_value .= ' )';
+                        $modifier_value .= ')';
                         $previous_modifier = $modifier_value;
                     }
                     $value .= $modifier_value;
