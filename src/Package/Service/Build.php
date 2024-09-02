@@ -542,6 +542,8 @@ class Build
         //internal indent only
         $indent = 1;
         if(array_key_exists('modifier', $record['variable'])){
+            d($value);
+            ddd('what happens with value');
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
@@ -564,7 +566,6 @@ class Build
             }
             $value = $modifier_value;
         }
-        d($value);
         if(
             $variable_name !== '' &&
             $operator !== '' &&
@@ -583,6 +584,7 @@ class Build
                         '\', ' .
                         PHP_EOL
                     ;
+                    $result .= Build::align_content($object, $flags, $options, $value, $indent);
 //                    cannot do this we PHP_EOL in the value, we cannot break on PHP_EOL, it can exist in ""
 //                    $explode = explode(PHP_EOL, $value);
 //                    foreach($explode as $nr => $line){
@@ -617,6 +619,13 @@ class Build
             }
         }
         return false;
+    }
+
+    public static function align_content(App $object, $flags, $options, $input, $indent): string
+    {
+        d($indent);
+        ddd($input);
+        return $input;
     }
 
     public static function value_single_quote(App $object, $flags, $options, $input): array
