@@ -161,7 +161,6 @@ class Build
         $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$options is not an object\');';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
-        ddd($data);
         foreach($data as $nr => $line){
             $document[] = str_repeat(' ', $indent * 4) . $line;
         }
@@ -863,6 +862,7 @@ class Build
                 $record['type'] === 'array'
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
+                //indent 1 ... end -1
                 $indent = $object->config('package.r3m_io/parse.build.state.indent');
                 /* cannot explode on PHP_EOL, it can exist in ""
                 $explode = explode(PHP_EOL, $array_value);
