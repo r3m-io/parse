@@ -821,8 +821,11 @@ class Build
                         true
                     )
                 ){
-                    d($next);
-                    $value .= ' ' . $record['value'] . PHP_EOL; //end must be a PHP_EOL
+                    if($next === '['){
+                        $value .= ' ' . $record['value'] . PHP_EOL; //end must be a PHP_EOL
+                    } else {
+                        $value .= ' ' . $record['value'] . ' ';
+                    }
                 }
                 else {
                     $value .= $record['value'];
