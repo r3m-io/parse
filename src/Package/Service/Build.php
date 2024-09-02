@@ -621,7 +621,7 @@ class Build
         return false;
     }
 
-    public static function align_content(App $object, $flags, $options, $input, $indent): string
+    public static function string_array($string): array
     {
         $data = mb_str_split($input);
         $is_single_quote = false;
@@ -663,6 +663,12 @@ class Build
                 $list[$line] .= $char;
             }
         }
+        return $list;
+    }
+
+    public static function align_content(App $object, $flags, $options, $input, $indent): string
+    {
+        $list = Build::string_array($input);
         d($indent);
         ddd($list);
         return $input;
