@@ -4,12 +4,12 @@ namespace Package\R3m\Io\Parse\Service;
 class Validator
 {
 
-    public static function validate($code): bool | string
+    public static function validate($string, &$code=null): bool | string
     {
         ob_start();
         // Create a temporary file and write the PHP code into it
         $tempFile = tempnam(sys_get_temp_dir(), 'PHP');
-        file_put_contents($tempFile, "<?php\n" . $code . "\n");
+        file_put_contents($tempFile, "<?php\n" . $string . "\n");
         // Use PHP's built-in syntax checker
         exec("php -l " . escapeshellarg($tempFile), $output, $code);
         // Delete the temporary file
