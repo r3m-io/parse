@@ -590,6 +590,7 @@ class Build
                     $result .= str_repeat(' ', $indent * 4) .
                         ');'
                     ;
+                    d($result);
                     return $result;
                 case '.=' :
                     return '$data->set(\'' . $variable_name . '\', ' .  '$this->value_plus_concatenate($data->get(\'' . $variable_name . '\'), ' . $value . '));';
