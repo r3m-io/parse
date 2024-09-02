@@ -50,6 +50,7 @@ class Build
         $document[] = ' * @compile-time ' . round((microtime(true) - $object->config('package.r3m_io/parse.time.start')) * 1000, 3) . ' ms';
         $document[] = ' * @note compiled by ' . $object->config('framework.name') . ' ' . $object->config('framework.version');
         $document[] = ' * @url ' . $object->config('framework.url');
+        $document[] = ' * @source ' . $options->source ?? '';
         $document[] = ' */';
         $document[] = '';
         $document[] = 'namespace Package\R3m\Io\Parse;';

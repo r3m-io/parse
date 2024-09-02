@@ -131,14 +131,16 @@ class Parse
         ;
         File::write($url, Core::object($token, Core::OBJECT_JSON));
 
+        $url = $dir .
+            'Main.php'
+        ;
+
         $document = Build::create($object, $flags, $options, $token);
 
 //        d($object->config('package'));
 
 
-        $url = $dir .
-            'Main.php'
-        ;
+
         File::write($url, implode(PHP_EOL, $document));
         File::permission(
             $object,
