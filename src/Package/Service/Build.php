@@ -515,6 +515,18 @@ class Build
         $indent--;
         $method_value .= str_repeat(' ', $indent * 4) . ');';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
+
+        $data[] = 'try {';
+        $indent++;
+        $data[] = str_repeat(' ', $indent * 4) . $method_value;
+        $indent--;
+        $data[] = str_repeat(' ', $indent * 4) . '} catch (Exception $exception) {';
+        $indent++;
+        ddd($record);
+        $data[] = str_repeat(' ', $indent * 4) . 'echo $exception->getMessage();';
+
+
+
         return $method_value;
     }
 
