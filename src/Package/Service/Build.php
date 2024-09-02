@@ -782,7 +782,7 @@ class Build
                             true
                         )
                     ){
-                        $value .= PHP_EOL . $record['value'] . PHP_EOL;
+                        $value .= PHP_EOL . $record['value'];
                     } else {
                         $value .= $record['value'] . PHP_EOL;
                     }
