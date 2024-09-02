@@ -805,6 +805,7 @@ class Build
             ){
                 $array_value = Build::value($object, $flags, $options, $record);
                 $indent = $object->config('package.r3m_io/parse.build.state.indent');
+                trace();
                 ddd($indent);
                 /* cannot explode on PHP_EOL, it can exist in ""
                 $explode = explode(PHP_EOL, $array_value);
