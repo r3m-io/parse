@@ -623,8 +623,47 @@ class Build
 
     public static function align_content(App $object, $flags, $options, $input, $indent): string
     {
+        $data = mb_str_split($input);
+        $is_single_quote = false;
+        $is_double_quote = false;
+        $line = 0;
+        $list = [];
+        foreach($data as $nr => $char){
+            if(!array_key_exists($line, $list)){
+                $list[$line] = '';
+            }
+            $list[$line] .= $char;
+            $previous = $data[$nr] ?? null;
+            if(
+                $previous !== '\\' &&
+                $char === '\''
+            ){
+                if($is_single_quote === false){
+                    $is_single_quote = true;
+                } else {
+                    $is_single_quote = false;
+                }
+            }
+            elseif(
+                $previous !== '\\' &&
+                $char === '"'
+            ){
+                if($is_double_quote === false){
+                    $is_double_quote = true;
+                } else {
+                    $is_double_quote = false;
+                }
+            }
+            if(
+                $is_single_quote === false &&
+                $is_double_quote === false &&
+                $char === PHP_EOL
+            ){
+                $line++;
+            }
+        }
         d($indent);
-        ddd($input);
+        ddd($list);
         return $input;
     }
 
