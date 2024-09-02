@@ -530,6 +530,7 @@ class Build
         $indent--;
         $data[] = str_repeat(' ', $indent * 4) . '}';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
+        d($indent);
         return implode(PHP_EOL, $data);
     }
 
