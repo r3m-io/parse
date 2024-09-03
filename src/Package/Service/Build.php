@@ -838,11 +838,11 @@ class Build
                     in_array(
                         $record['value'],
                         [
-                        '[',
-                        ']',
-                        '(',
-                        ')',
-                        ','
+                            '[',
+                            ']',
+                            '(',
+                            ')',
+                            ',',
                         ],
                         true
                     )
@@ -885,26 +885,38 @@ class Build
                             '\\',
                             '"',
                             '\'',
+                            '{{',
+                            '}}'
                         ],
                         true
                     )
                 ){
                     if(
-                        $current === '"' &&
+                        $record['value'] === '"' &&
                         $is_double_quote === false
                     ){
                         $is_double_quote = true;
-                        d($nr);
                         $double_quote_previous = $previous;
                     }
                     elseif(
-                        $current === '"' &&
+                        $record['value'] === '"' &&
                         $is_double_quote === true
                     ){
                         $is_double_quote = false;
                         $double_quote_previous = $previous;
                     }
-                    $value .= $record['value'];
+                    if(
+                        !in_array(
+                            $record['value'],
+                            [
+                                '{{',
+                                '}}'
+                            ],
+                            true
+                        )
+                    ){
+                        $value .= $record['value'];
+                    }
                 }
                 else {
                     $value .= $record['value'];
