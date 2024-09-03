@@ -596,7 +596,6 @@ class Value
                             $options,
                             $tag_value,
                         );
-                        ddd($tag_value);
                         for($i = $tag_nr + 1; $i < $nr; $i++){
                             $input['array'][$i] = array_shift($tag_value['array']);
                         }

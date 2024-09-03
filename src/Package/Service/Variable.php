@@ -607,8 +607,6 @@ class Variable
             $is_modifier !== false
         ){
             if($is_argument !== false){
-                trace();
-                d($argument_array);
                 foreach($argument_array as $argument_nr => $array){
                     $argument_value = Cast::define(
                         $object,
