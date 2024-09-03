@@ -468,8 +468,8 @@ class Value
                         'string' => $array_string,
                         'array' => $array
                     ];
-                    ddd($input['array'][$array_nr]);
                     $input['array'][$array_nr] = Token::cleanup($object, $flags, $options, $input['array'][$array_nr]);
+                    ddd($input['array'][$array_nr]);
                     for($i = $array_nr + 1; $i <= $nr; $i++){
                         $input['array'][$i] = null;
                     }
