@@ -807,6 +807,7 @@ class Build
             $previous = Token::item($input, $nr - 1);
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
+            $is_cast = false;
             if(
                 array_key_exists('is_single_quoted', $record) &&
                 array_key_exists('execute', $record) &&
@@ -830,7 +831,8 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'cast'
             ){
-                $value .= $record['cast'];
+                $value = substr($value, 0, -1) . ' ' . $record['cast'];
+                $is_cast = true;
             }
             elseif(
                 array_key_exists('is_hex', $record) &&
@@ -866,7 +868,12 @@ class Build
                             true
                         )
                     ){
-                        $value .= PHP_EOL . $record['value'];
+                        if($is_cast){
+                            $value .= ' ' . $record['value'];
+                        } else {
+                            $value .= PHP_EOL . $record['value'];
+                        }
+
                     } else {
                         $value .= $record['value'] . PHP_EOL;
                     }
