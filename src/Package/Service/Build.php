@@ -305,7 +305,7 @@ class Build
     /**
      * @throws Exception
      */
-    public static function plugin(App $object, $flags, $options, $record, $name): string
+    public static function plugin(App $object, $flags, $options, $tag, $name): string
     {
         if(
             in_array(
@@ -425,7 +425,7 @@ class Build
                 $is_argument = false;
                 if(array_key_exists('argument', $modifier)){
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= Build::value($object, $flags, $options, $record, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -528,7 +528,7 @@ class Build
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         $argument_value = '';
         foreach($record['method']['argument'] as $nr => $argument) {
-            $argument_value .= Build::value($object, $flags, $options, $argument)  . ',' . PHP_EOL;
+            $argument_value .= Build::value($object, $flags, $options, $record, $argument)  . ',' . PHP_EOL;
             $is_argument = true;
         }
         if($is_argument){
@@ -593,7 +593,7 @@ class Build
         $source = $options->source ?? '';
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
-        $value = Build::value($object, $flags, $options, $record['variable']['value']);
+        $value = Build::value($object, $flags, $options, $record, $record['variable']['value']);
 //        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         //internal indent only
         $indent = 1;
@@ -608,7 +608,7 @@ class Build
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= str_repeat(' ', $indent * 4 ) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= str_repeat(' ', $indent * 4 ) . Build::value($object, $flags, $options, $record, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -772,7 +772,7 @@ class Build
     /**
      * @throws Exception
      */
-    public static function value(App $object, $flags, $options, $input): string
+    public static function value(App $object, $flags, $options, $tag, $input): string
     {
         $value = '';
         $skip = 0;
@@ -956,7 +956,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array'
             ){
-                $array_value = Build::value($object, $flags, $options, $record);
+                $array_value = Build::value($object, $flags, $options, $tag, $record);
                 //indent 1 ... end -1
                 $indent = 0;
                 $data = Build::string_array($array_value);
@@ -987,7 +987,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'method'
             ){
-                $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $record['method']['name']));
+                $plugin = Build::plugin($object, $flags, $options, $tag, str_replace('.', '_', $record['method']['name']));
                 $method_value = '$this->' . $plugin . '(' . PHP_EOL;
                 if(
                     array_key_exists('method', $record) &&
@@ -998,7 +998,7 @@ class Build
                     $indent = $object->config('package.r3m_io/parse.build.state.indent');
                     $indent++;
                     foreach($record['method']['argument'] as $argument_nr => $argument){
-                        $method_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                        $method_value .= str_repeat(' ', $indent * 4) . Build::value($object, $flags, $options, $tag, $argument) . ',' . PHP_EOL;
                         $is_argument = true;
                     }
                     if($is_argument === true){
@@ -1020,13 +1020,13 @@ class Build
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     $indent = 1;
                     foreach($record['modifier'] as $modifier_nr => $modifier){
-                        $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $modifier['name']));
+                        $plugin = Build::plugin($object, $flags, $options, $tag, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                         $modifier_value .= str_repeat(' ' , $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
                         $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
-                                $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $argument) . ',' . PHP_EOL;
+                                $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $tag, $argument) . ',' . PHP_EOL;
                                 $is_argument = true;
                             }
                             if($is_argument === true){
@@ -1068,7 +1068,7 @@ class Build
                     $next,
                     $skip
                 );
-                $right = Build::value($object, $flags, $options, $right);
+                $right = Build::value($object, $flags, $options, $tag, $right);
                 switch($current){
                     case '+':
                         $value = '$this->value_plus(' . $value . ', ' . $right . ')';
