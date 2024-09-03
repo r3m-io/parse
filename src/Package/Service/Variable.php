@@ -430,7 +430,6 @@ class Variable
                     $is_argument = false; //route
                 }
                 $argument_nr++;
-                d($argument_nr);
             }
             elseif(
                 $current === ',' &&
@@ -591,7 +590,6 @@ class Variable
                         $set_depth_modifier === false
                     ){
                         $argument_nr++;
-                        d($argument_nr);
                     }
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
