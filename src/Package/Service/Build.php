@@ -305,7 +305,7 @@ class Build
     /**
      * @throws Exception
      */
-    public static function plugin(App $object, $flags, $options, $tag, $name): string
+    public static function plugin(App $object, $flags, $options, $record, $name): string
     {
         if(
             in_array(
