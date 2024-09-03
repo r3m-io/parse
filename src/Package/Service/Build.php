@@ -3,6 +3,7 @@ namespace Package\R3m\Io\Parse\Service;
 
 use R3m\Io\App;
 
+use R3m\Io\Module\Autoload;
 use R3m\Io\Module\Core;
 use R3m\Io\Module\File;
 
@@ -370,7 +371,7 @@ class Build
             if(!in_array($use_plugin, $use, true)){
                 $autoload = $object->data(App::AUTOLOAD_R3M);
 
-                $locations = $autoload->locate($use_plugin);
+                $locations = $autoload->locate($use_plugin, false,  Autoload::MODE_LOCATION);
 //                $autoload = $object->config('autoload');
                 ddd($locations);
 
