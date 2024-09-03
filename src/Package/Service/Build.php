@@ -388,7 +388,7 @@ class Build
                     ){
                         throw new Exception(
                             'Plugin not found (' .
-                            $name .
+                            str_replace('_', '.', $name) .
                             ') exception: "' .
                             $record['tag'] .
                             '" on line: ' .
@@ -402,7 +402,7 @@ class Build
                     } else {
                         throw new Exception(
                             'Plugin not found (' .
-                            $name .
+                            str_replace('_', '.', $name) .
                             ') exception: "' .
                             $record['tag'] .
                             '" on line: ' .
