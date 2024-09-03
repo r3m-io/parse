@@ -29,8 +29,7 @@ class Method
         foreach($input['array'] as $nr => $char){
             if(!is_numeric($nr)){
                 // ',' in modifier causes this
-                trace();
-                ddd($input);
+                continue;
             }
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
