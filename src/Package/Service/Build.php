@@ -962,6 +962,7 @@ class Build
                     $is_double_quote === false
                 ){
                     $is_double_quote = true;
+                    d($nr);
                     $double_quote_previous = $previous;
                 }
                 elseif(
