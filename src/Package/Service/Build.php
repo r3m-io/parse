@@ -650,7 +650,7 @@ class Build
                         ');'
                     ;
                     try {
-                        d($result);
+                        ddd($result);
                         Validator::validate($object, $flags, $options, $result);
                     }
                     catch(Exception $exception){
