@@ -550,7 +550,6 @@ class Build
         $method_value = '$this->' . $plugin . '(' . PHP_EOL;
         $is_argument = false;
         $indent++;
-        $indent++;
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         $argument_value = '';
         foreach($record['method']['argument'] as $nr => $argument) {
@@ -561,7 +560,6 @@ class Build
             $argument_value = substr($argument_value, 0, -2) . PHP_EOL;
             $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent) . PHP_EOL;
         }
-        $indent--;
         $indent--;
         $method_value .= str_repeat(' ', $indent * 4) . ');';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
