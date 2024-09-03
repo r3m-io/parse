@@ -721,6 +721,10 @@ class Token
         $whitespace_nr = false;
         $curly_depth = 0;
         foreach($input['array'] as $nr => $char){
+            if(!is_numeric($nr)){
+                // ',' in modifier causes this
+                continue;
+            }
             $previous = $input['array'][$nr - 1] ?? null;
             if(
                 is_array($previous) &&
