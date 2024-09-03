@@ -563,43 +563,21 @@ class Build
         }
         $indent--;
         $method_value .= str_repeat(' ', $indent * 4) . ');';
-        $data[] = 'try {';
-        $data[] = str_repeat(' ', $indent * 4) . $method_value;
-        $indent--;
-        $data[] = str_repeat(' ', $indent * 4) . '} catch (Exception $exception) {';
-        $indent++;
-        if(
-            array_key_exists('is_multiline', $record) &&
-            $record['is_multiline'] === true
-        ){
-            $data[] = str_repeat(' ', $indent * 4) .
-                'throw new Exception(\'Method malfunction exception: "' .
-                $record['tag'] .
-                '" on line: ' .
-                $record['line']['start']  .
-                ', column: ' .
-                $record['column'][$record['line']['start']]['start'] .
-                ' in source: '.
-                $source .
-                '\', 0, $exception);'
-            ;
-        } else {
-            $data[] = str_repeat(' ', $indent * 4) .
-                'throw new Exception(\'Method malfunction exception: "' .
-                $record['tag'] .
-                '" on line: ' .
-                $record['line']  .
-                ', column: ' .
-                $record['column']['start'] .
-                ' in source: '.
-                $source .
-                '\', 0, $exception);'
-            ;
-        }
-        $indent--;
-        $data[] = str_repeat(' ', $indent * 4) . '}';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
-        return implode(PHP_EOL, $data);
+        try {
+            Validator::validate($object, $method_value);
+        }
+        catch(Exception $exception){
+            if(
+                array_key_exists('is_multiline', $record) &&
+                $record['is_multiline'] === true
+            ){
+                throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '.', 0, $exception);
+            } else {
+                throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
+            }
+        }
+        return $method_value;
     }
 
     /**
