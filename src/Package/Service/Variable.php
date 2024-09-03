@@ -23,6 +23,10 @@ class Variable
         $has_name = false;
         $name = '';
         foreach($input['array'] as $nr => $char){
+            if(!is_numeric($nr)){
+                // ',' in modifier causes this
+                continue;
+            }
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
             $current = Token::item($input, $nr);
