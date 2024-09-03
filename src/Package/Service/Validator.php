@@ -54,7 +54,9 @@ class Validator
     {
         $dir = Validator::dir_ramdisk($object);
         $url = $dir . 'Validate-' . hash('sha256', $string) . $object->config('extension.php');
-        File::write($url, '<?php ' . PHP_EOL . $string . PHP_EOL);
+        if(File::exist($url) === false){
+            File::write($url, '<?php ' . PHP_EOL . $string . PHP_EOL);
+        }
         // Use PHP's built-in syntax checker
         Core::execute($object, 'php -l ' . escapeshellarg($url), $output, $notification);
         // Check the output to see if any syntax errors were found
