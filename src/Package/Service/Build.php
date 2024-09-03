@@ -410,10 +410,6 @@ class Build
                         );
                     }
                 }
-                /**
-                 * /Application/src/Plugin/Default2/Default2.php
-                /Application/src/Plugin/Default2.php
-                 */
                 $use[] = $use_plugin;
             }
         }
