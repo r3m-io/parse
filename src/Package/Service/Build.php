@@ -992,12 +992,10 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array'
             ){
-                d($nr);
-                ddd($value);
                 $array_value = Build::value($object, $flags, $options, $tag, $record);
                 //indent 1 ... end -1
                 $indent = 0;
-                $data = Build::string_array($array_value);
+                $data = Build::string_array($value . $array_value);
                 foreach($data as $nr => $line){
                     $char = trim($line);
                     if($char === '['){
