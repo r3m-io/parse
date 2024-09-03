@@ -368,6 +368,11 @@ class Build
             )
         ){
             if(!in_array($use_plugin, $use, true)){
+                d($use_plugin);
+                /**
+                 * /Application/src/Plugin/Default2/Default2.php
+                /Application/src/Plugin/Default2.php
+                 */
                 $use[] = $use_plugin;
             }
         }
