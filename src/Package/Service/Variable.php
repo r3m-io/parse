@@ -574,8 +574,7 @@ class Variable
                             $set_depth_modifier = $set_depth;
                         }
                     }
-                    $argument_nr++;
-                    d($argument_nr);
+//                    $argument_nr++; //already happened
                 }
             }
             elseif(
