@@ -391,6 +391,10 @@ class Value
                 $previous !== '\\'
             ){
                 $is_single_quote = true;
+                if($array_depth > 0){
+                    $array[] = $char;
+                    $array_string .= $char['value'];
+                }
             }
             elseif(
                 is_array($char) &&
@@ -401,6 +405,10 @@ class Value
                 $previous !== '\\'
             ){
                 $is_single_quote = false;
+                if($array_depth > 0){
+                    $array[] = $char;
+                    $array_string .= $char['value'];
+                }
             }
             elseif(
                 is_array($char) &&
@@ -411,6 +419,10 @@ class Value
                 $previous !== '\\'
             ){
                 $is_double_quote = true;
+                if($array_depth > 0){
+                    $array[] = $char;
+                    $array_string .= $char['value'];
+                }
             }
             elseif(
                 is_array($char) &&
@@ -421,6 +433,10 @@ class Value
                 $previous !== '\\'
             ){
                 $is_double_quote = false;
+                if($array_depth > 0){
+                    $array[] = $char;
+                    $array_string .= $char['value'];
+                }
             }
             elseif(
                 $is_single_quote === false &&
