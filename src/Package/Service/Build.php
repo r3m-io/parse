@@ -799,6 +799,7 @@ class Build
         $indent = 1;
 
         d($input['array']);
+        $is_cast = false;
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -807,7 +808,6 @@ class Build
             $previous = Token::item($input, $nr - 1);
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
-            $is_cast = false;
             if(
                 array_key_exists('is_single_quoted', $record) &&
                 array_key_exists('execute', $record) &&
@@ -870,6 +870,7 @@ class Build
                     ){
                         if($is_cast){
                             $value .= ' ' . $record['value'];
+                            $is_cast = false;
                         } else {
                             $value .= PHP_EOL . $record['value'];
                         }
