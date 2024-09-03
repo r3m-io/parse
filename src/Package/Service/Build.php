@@ -979,6 +979,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'array'
             ){
+                d($nr);
                 ddd($value);
                 $array_value = Build::value($object, $flags, $options, $tag, $record);
                 //indent 1 ... end -1
