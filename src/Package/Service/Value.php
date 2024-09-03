@@ -26,6 +26,10 @@ class Value
         $array_string = '';
         $array = [];
         foreach($input['array'] as $nr => $char){
+            if(!is_numeric($nr)){
+                // ',' in modifier causes this
+                continue;
+            }
             $previous = Token::item($input, $nr - 1);
             if(
                 !is_array($char) &&
