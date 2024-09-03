@@ -565,7 +565,7 @@ class Build
         $method_value .= str_repeat(' ', $indent * 4) . ');';
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         try {
-            Validator::validate($object, $method_value);
+            Validator::validate($object, $flags, $options, $method_value);
         }
         catch(Exception $exception){
             if(
@@ -650,7 +650,7 @@ class Build
                         ');'
                     ;
                     try {
-                        Validator::validate($object, $result);
+                        Validator::validate($object, $flags, $options, $result);
                     }
                     catch(Exception $exception){
                         if(

@@ -50,8 +50,9 @@ class Validator
      * @throws ObjectException
      * @throws Exception
      */
-    public static function validate(App $object, $string): bool | string
+    public static function validate(App $object, $flags, $options, $string): bool | string
     {
+        $source = $options->source ?? '';
         $dir = Validator::dir_ramdisk($object);
         $url = $dir . 'Validate-' . hash('sha256', $string) . $object->config('extension.php');
         if(File::exist($url) === false){
@@ -65,7 +66,7 @@ class Validator
         } else {
             if($notification !== ''){
                 //don't need $output
-                throw new Exception($notification);
+                throw new Exception(str_replace($url, $source, $notification));
             }
             throw new Exception($output);
         }
