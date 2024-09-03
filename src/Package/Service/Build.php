@@ -1101,6 +1101,7 @@ class Build
                         $previous_modifier = $modifier_value;
                     }
                     $value .= $modifier_value;
+                    $is_single_line = false;
                 } else {
                     $value .= '$data->get(\'' . $record['name'] . '\')';
                 }
