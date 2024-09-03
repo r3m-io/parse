@@ -370,12 +370,20 @@ class Build
         ){
             if(!in_array($use_plugin, $use, true)){
                 $autoload = $object->data(App::AUTOLOAD_R3M);
-
                 $locations = $autoload->locate($use_plugin, false,  Autoload::MODE_LOCATION);
-//                $autoload = $object->config('autoload');
-                ddd($locations);
-
-                d($use_plugin);
+                $exist = false;
+                foreach($locations  as $nr => $fileList){
+                    foreach($fileList as $file){
+                        $exist = File::exist($file);
+                        if($exist){
+                            break;
+                        }
+                    }
+                }
+                if($exist === false){
+                    d($use_plugin);
+                    ddd('need record');
+                }
                 /**
                  * /Application/src/Plugin/Default2/Default2.php
                 /Application/src/Plugin/Default2.php
