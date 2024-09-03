@@ -4,13 +4,47 @@ namespace Package\R3m\Io\Parse\Service;
 use R3m\Io\App;
 
 use R3m\Io\Module\Core;
+use R3m\Io\Module\Dir;
+use R3m\Io\Module\File;
 
 use Exception;
 
 use R3m\Io\Exception\ObjectException;
+use R3m\Io\Exception\DirectoryCreateException;
 
 class Validator
 {
+
+    /**
+     * @throws DirectoryCreateException
+     * @throws Exception
+     */
+    private static function dir_ramdisk(App $object): string
+    {
+        $posix_id = $object->config('posix.id');
+        $dir_ramdisk = $object->config('ramdisk.url');
+        $dir_ramdisk_user = $dir_ramdisk .
+            $posix_id .
+            $object->config('ds')
+        ;
+        $dir_ramdisk_parse = $dir_ramdisk_user .
+            'Parse' .
+            $object->config('ds')
+        ;
+        if(!Dir::is($dir_ramdisk_user)){
+            Dir::create($dir_ramdisk_user,  Dir::CHMOD);
+        }
+        if(!Dir::is($dir_ramdisk_parse)){
+            Dir::create($dir_ramdisk_parse,  Dir::CHMOD);
+        }
+        if($posix_id !== 0){
+            File::permission($object, [
+                'url' => $dir_ramdisk_user,
+                'parse' => $dir_ramdisk_parse
+            ]);
+        }
+        return $dir_ramdisk_parse;
+    }
 
     /**
      * @throws ObjectException
@@ -18,12 +52,12 @@ class Validator
      */
     public static function validate(App $object, $string): bool | string
     {
-        $dir_ramdisk = $object->config('ramdisk.url');
-        $filename = 'validate-' . hash('sha256', $string);
+        $dir = Validator::dir_ramdisk($object);
 
+        $url = $dir . 'validate-' . hash('sha256', $string) . $object->config('extension.php');
 
-        d($dir_ramdisk);
-        ddd($filename);
+        ddd($url);
+
 
 
         // Create a temporary file and write the PHP code into it
