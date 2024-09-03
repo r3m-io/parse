@@ -65,8 +65,14 @@ class Validator
             return true;
         } else {
             if($notification !== ''){
+                $notification = str_replace($url, $source, $notification);
+                $notification = explode('on line', $notification);
+                if(array_key_exists(1, $notification)){
+                    array_pop($notification);
+                }
+                $notification = implode('', $notification);
                 //don't need $output
-                throw new Exception(str_replace($url, $source, $notification));
+                throw new Exception($notification);
             }
             throw new Exception($output);
         }
