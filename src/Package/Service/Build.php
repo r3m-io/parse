@@ -387,7 +387,9 @@ class Build
                         $record['is_multiline'] === true
                     ){
                         throw new Exception(
-                            'Plugin not found exception: "' .
+                            'Plugin not found (' .
+                            $name .
+                            ') exception: "' .
                             $record['tag'] .
                             '" on line: ' .
                             $record['line']['start']  .
@@ -399,7 +401,9 @@ class Build
 
                     } else {
                         throw new Exception(
-                            'Plugin not found exception: "' .
+                            'Plugin not found (' .
+                            $name .
+                            ') exception: "' .
                             $record['tag'] .
                             '" on line: ' .
                             $record['line']  .
