@@ -65,7 +65,15 @@ class Validator
             return true;
         } else {
             if($notification !== ''){
-                $notification = str_replace($url, $source, $notification);
+                $notification = str_replace(
+                    [
+                        $url,
+                        'PHP Parse'
+                    ],
+                    [
+                        $source,
+                        'R3m Parse'
+                    ], $notification);
                 $notification = explode('on line', $notification);
                 if(array_key_exists(1, $notification)){
                     array_pop($notification);
