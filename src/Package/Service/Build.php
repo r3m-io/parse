@@ -368,8 +368,8 @@ class Build
             )
         ){
             if(!in_array($use_plugin, $use, true)){
-                $dir_plugin = $object->config();
-                ddd($dir_plugin);
+                $autoload = $object->config('autoload');
+                ddd($autoload);
 
                 d($use_plugin);
                 /**
