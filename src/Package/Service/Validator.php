@@ -53,22 +53,10 @@ class Validator
     public static function validate(App $object, $string): bool | string
     {
         $dir = Validator::dir_ramdisk($object);
-
-        $url = $dir . 'validate-' . hash('sha256', $string) . $object->config('extension.php');
-
-        ddd($url);
-
-
-
-        // Create a temporary file and write the PHP code into it
-        $tempFile = tempnam(sys_get_temp_dir(), 'PHP');
-        file_put_contents($tempFile, "<?php\n" . $string . "\n");
+        $url = $dir . 'Validate-' . hash('sha256', $string) . $object->config('extension.php');
+        File::write($url, '<?php ' . PHP_EOL . $string . PHP_EOL);
         // Use PHP's built-in syntax checker
-        Core::execute($object, 'php -l ' . escapeshellarg($tempFile), $output, $notification);
-//        exec("php -l " . escapeshellarg($tempFile), $output, $code);
-        // Delete the temporary file
-        unlink($tempFile);
-//        $output = implode(PHP_EOL, $output);
+        Core::execute($object, 'php -l ' . escapeshellarg($url), $output, $notification);
         // Check the output to see if any syntax errors were found
         if (strpos($output, 'No syntax errors detected') !== false) {
             return true;
