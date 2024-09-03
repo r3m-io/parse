@@ -979,9 +979,6 @@ class Build
                 $record['type'] === 'string'
             ){
                 $value .=  $record['execute'];
-                d($nr);
-                d($value);
-                ddd($is_double_quote);
             }
             elseif(
                 array_key_exists('type', $record) &&
