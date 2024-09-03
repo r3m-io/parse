@@ -1001,6 +1001,7 @@ class Build
                 //indent 1 ... end -1
                 $indent = 0;
                 $data = Build::string_array($array_value);
+                d($data);
                 foreach($data as $nr => $line){
                     $char = trim($line);
                     if($char === '['){
