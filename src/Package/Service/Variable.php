@@ -143,6 +143,7 @@ class Variable
         $argument = [];
         $argument_array = [];
         $nr = $count - 1;
+        d($input['array']);
         foreach($input['array'] as $nr => $char) {
             $previous = Token::item($input, $nr - 1);
             $next = Token::item($input, $nr + 1);
