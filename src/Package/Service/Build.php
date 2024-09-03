@@ -873,7 +873,7 @@ class Build
                             if($is_clone){
                                $is_clone = false;
                             } else {
-                                $value .= ' ' . $record['value'];
+                                $value .= ' ' . $record['value'] . PHP_EOL;
                             }
                             $is_cast = false;
                         } else {
