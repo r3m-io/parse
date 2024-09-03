@@ -1081,7 +1081,7 @@ class Build
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
                                 if($is_single_line){
-                                    $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $tag, $argument) . ', ';
+                                    $modifier_value .= Build::value($object, $flags, $options, $tag, $argument) . ', ';
                                 } else {
                                     $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $tag, $argument) . ',' . PHP_EOL;
                                 }
