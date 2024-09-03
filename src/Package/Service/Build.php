@@ -976,7 +976,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'string'
             ){
-                $value .=  '\'' . $record['execute'] . '\'';
+                $value .=  $record['execute'];
             }
             elseif(
                 array_key_exists('type', $record) &&
