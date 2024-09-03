@@ -590,6 +590,7 @@ class Value
                                 'array' => $tag_array
                             ]
                         );
+                        ddd($tag_value);
                         $tag_value = Token::value(
                             $object,
                             $flags,
