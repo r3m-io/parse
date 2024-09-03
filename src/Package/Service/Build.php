@@ -936,7 +936,12 @@ class Build
                             true
                         )
                     ){
-                        $value .= substr($record['value'], 0, 1);
+                        if($record['value'] === '{{'){
+                            $value .= PHP_EOL .substr($record['value'], 0, 1);
+                        } else {
+                            $value .= substr($record['value'], 0, 1) . PHP_EOL;
+                        }
+
                     } else {
                         $value .= $record['value'];
                     }
