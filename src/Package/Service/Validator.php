@@ -64,7 +64,8 @@ class Validator
             return true;
         } else {
             if($notification !== ''){
-                throw new Exception($output . PHP_EOL . $notification);
+                //don't need $output
+                throw new Exception($notification);
             }
             throw new Exception($output);
         }
