@@ -16,8 +16,16 @@ class Validator
      * @throws ObjectException
      * @throws Exception
      */
-    public static function validate(App $object, $string, &$code=null): bool | string
+    public static function validate(App $object, $string): bool | string
     {
+        $dir_ramdisk = $object->config('ramdisk.url');
+        $filename = 'validate-' . hash('sha256', $string);
+
+
+        d($dir_ramdisk);
+        ddd($filename);
+
+
         // Create a temporary file and write the PHP code into it
         $tempFile = tempnam(sys_get_temp_dir(), 'PHP');
         file_put_contents($tempFile, "<?php\n" . $string . "\n");
