@@ -28,6 +28,7 @@ class Method
         $argument_list = [];
         foreach($input['array'] as $nr => $char){
             if(!is_numeric($nr)){
+                // ',' in modifier causes this
                 trace();
                 ddd($input);
             }
