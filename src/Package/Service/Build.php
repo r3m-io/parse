@@ -368,6 +368,9 @@ class Build
             )
         ){
             if(!in_array($use_plugin, $use, true)){
+                $dir_plugin = $object->config();
+                ddd($dir_plugin);
+
                 d($use_plugin);
                 /**
                  * /Application/src/Plugin/Default2/Default2.php
