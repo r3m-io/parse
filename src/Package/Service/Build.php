@@ -305,7 +305,7 @@ class Build
     /**
      * @throws Exception
      */
-    public static function plugin(App $object, $flags, $options, $name): string
+    public static function plugin(App $object, $flags, $options, $record, $name): string
     {
         if(
             in_array(
@@ -382,7 +382,7 @@ class Build
                 }
                 if($exist === false){
                     d($use_plugin);
-                    ddd('need record');
+                    ddd($record);
                 }
                 /**
                  * /Application/src/Plugin/Default2/Default2.php
@@ -419,7 +419,7 @@ class Build
         if(array_key_exists('modifier', $record['variable'])){
             $previous_modifier = '$data->get(\'' . $variable_name . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
-                $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
+                $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $modifier['name']));
                 $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= $previous_modifier .', ' . PHP_EOL;
                 $is_argument = false;
@@ -520,7 +520,7 @@ class Build
         $source = $options->source ?? '';
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $method_name = $record['method']['name'];
-        $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $method_name));
+        $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $method_name));
         $method_value = '$this->' . $plugin . '(' . PHP_EOL;
         $is_argument = false;
         $indent++;
@@ -602,7 +602,7 @@ class Build
             ddd('what happens with value');
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
-                $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
+                $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $modifier['name']));
                 $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                 $modifier_value .= str_repeat(' ', $indent * 4 ) . $previous_modifier .', ' . PHP_EOL;
                 if(array_key_exists('argument', $modifier)){
@@ -987,7 +987,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'method'
             ){
-                $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $record['method']['name']));
+                $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $record['method']['name']));
                 $method_value = '$this->' . $plugin . '(' . PHP_EOL;
                 if(
                     array_key_exists('method', $record) &&
@@ -1020,7 +1020,7 @@ class Build
                     $previous_modifier = '$data->get(\'' . $record['name'] . '\')';
                     $indent = 1;
                     foreach($record['modifier'] as $modifier_nr => $modifier){
-                        $plugin = Build::plugin($object, $flags, $options, str_replace('.', '_', $modifier['name']));
+                        $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $modifier['name']));
                         $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
                         $modifier_value .= str_repeat(' ' , $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
                         $is_argument = false;
