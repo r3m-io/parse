@@ -906,7 +906,7 @@ class Build
                         $double_quote_previous = $previous;
                     }
                     if(
-                        !in_array(
+                        in_array(
                             $record['value'],
                             [
                                 '{{',
@@ -915,6 +915,8 @@ class Build
                             true
                         )
                     ){
+                        $value .= substr($record['value'], 0, 1);
+                    } else {
                         $value .= $record['value'];
                     }
                 }
