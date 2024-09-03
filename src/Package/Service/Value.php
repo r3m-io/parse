@@ -590,13 +590,13 @@ class Value
                                 'array' => $tag_array
                             ]
                         );
-                        ddd($tag_value);
                         $tag_value = Token::value(
                             $object,
                             $flags,
                             $options,
                             $tag_value,
                         );
+                        ddd($tag_value);
                         for($i = $tag_nr + 1; $i < $nr; $i++){
                             $input['array'][$i] = array_shift($tag_value['array']);
                         }
