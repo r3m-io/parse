@@ -995,7 +995,7 @@ class Build
                 $array_value = Build::value($object, $flags, $options, $tag, $record);
                 //indent 1 ... end -1
                 $indent = 0;
-                $data = Build::string_array($value . PHP_EOL . $array_value);
+                $data = Build::string_array($array_value);
                 foreach($data as $nr => $line){
                     $char = trim($line);
                     if($char === '['){
