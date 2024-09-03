@@ -307,6 +307,7 @@ class Build
      */
     public static function plugin(App $object, $flags, $options, $record, $name): string
     {
+        $source = $options->source ?? '';
         if(
             in_array(
                 $name,
@@ -381,8 +382,33 @@ class Build
                     }
                 }
                 if($exist === false){
-                    d($use_plugin);
-                    ddd($record);
+                    if(
+                        array_key_exists('is_multiline', $record) &&
+                        $record['is_multiline'] === true
+                    ){
+                        throw new Exception(
+                            'Function not found exception: "' .
+                            $record['tag'] .
+                            '" on line: ' .
+                            $record['line']['start']  .
+                            ', column: ' .
+                            $record['column'][$record['line']['start']]['start'] .
+                            ' in source: '.
+                            $source
+                        );
+
+                    } else {
+                        throw new Exception(
+                            'Function not found exception: "' .
+                            $record['tag'] .
+                            '" on line: ' .
+                            $record['line']  .
+                            ', column: ' .
+                            $record['column']['start'] .
+                            ' in source: '.
+                            $source
+                        );
+                    }
                 }
                 /**
                  * /Application/src/Plugin/Default2/Default2.php
