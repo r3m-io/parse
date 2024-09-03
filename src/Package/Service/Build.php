@@ -805,6 +805,9 @@ class Build
             $previous = Token::item($input, $nr - 1);
             $current = Token::item($input, $nr);
             $next = Token::item($input, $nr + 1);
+            if(!is_array($record)){
+                continue;
+            }
             if(
                 array_key_exists('is_single_quoted', $record) &&
                 array_key_exists('execute', $record) &&
