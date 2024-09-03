@@ -368,7 +368,9 @@ class Build
             )
         ){
             if(!in_array($use_plugin, $use, true)){
-                $autoload = $object->config('autoload');
+                $autoload = $object->data(App::AUTOLOAD_R3M);
+
+//                $autoload = $object->config('autoload');
                 ddd($autoload);
 
                 d($use_plugin);
