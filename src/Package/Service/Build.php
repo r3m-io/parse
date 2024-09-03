@@ -370,8 +370,9 @@ class Build
             if(!in_array($use_plugin, $use, true)){
                 $autoload = $object->data(App::AUTOLOAD_R3M);
 
+                $locations = $autoload->locate($use_plugin);
 //                $autoload = $object->config('autoload');
-                ddd($autoload);
+                ddd($locations);
 
                 d($use_plugin);
                 /**
