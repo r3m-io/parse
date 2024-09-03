@@ -800,6 +800,13 @@ class Build
      */
     public static function value(App $object, $flags, $options, $tag, $input): string
     {
+        if(
+            array_key_exists('type', $input) &&
+            $input['type'] === 'array'
+        ){
+            $is_array = true;
+        }
+
         $value = '';
         $skip = 0;
         $input = Build::value_single_quote($object, $flags, $options, $input);
@@ -809,12 +816,7 @@ class Build
         $double_quote_previous = false;
         $is_array = false;
         $indent = 1;
-        if(
-            array_key_exists('type', $input) &&
-            $input['type'] === 'array'
-        ){
-            $is_array = true;
-        }
+
         d($input['array']);
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
@@ -898,6 +900,34 @@ class Build
                         $value .= ' ' . $record['value'] . ' ';
                     }
                 }
+                elseif(
+                    in_array(
+                        $record['value'],
+                        [
+                            '\\',
+                            '"',
+                            '\'',
+                        ],
+                        true
+                    )
+                ){
+                    if(
+                        $current === '"' &&
+                        $is_double_quote === false
+                    ){
+                        $is_double_quote = true;
+                        d($nr);
+                        $double_quote_previous = $previous;
+                    }
+                    elseif(
+                        $current === '"' &&
+                        $is_double_quote === true
+                    ){
+                        $is_double_quote = false;
+                        $double_quote_previous = $previous;
+                    }
+                    $value .= $record['value'];
+                }
                 else {
                     $value .= $record['value'];
                 }
@@ -943,36 +973,6 @@ class Build
                 $record['is_null'] === true
             ){
                 $value .= 'NULL';
-            }
-            elseif(
-                in_array(
-                    $current,
-                    [
-                        '\\',
-                        '"',
-                        '(',
-                        ')',
-                        '\'',
-                    ],
-                    true
-                )
-            ){
-                if(
-                    $current === '"' &&
-                    $is_double_quote === false
-                ){
-                    $is_double_quote = true;
-                    d($nr);
-                    $double_quote_previous = $previous;
-                }
-                elseif(
-                    $current === '"' &&
-                    $is_double_quote === true
-                ){
-                    $is_double_quote = false;
-                    $double_quote_previous = $previous;
-                }
-                $value .= $current;
             }
             elseif(
                 array_key_exists('type', $record) &&
