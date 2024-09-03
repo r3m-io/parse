@@ -598,8 +598,6 @@ class Build
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record, $record['variable']['value']);
-        d($record);
-        ddd($value);
 //        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         //internal indent only
         $indent = 1;
