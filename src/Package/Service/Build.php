@@ -796,6 +796,7 @@ class Build
         d($input['array']);
         $is_cast = false;
         $is_clone = false;
+        $is_single_line = false;
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -936,6 +937,11 @@ class Build
                             true
                         )
                     ){
+                        if($record['value'] === '{{'){
+                            $is_single_line = true;
+                        } else {
+                            $is_single_line = false;
+                        }
                         $value .= substr($record['value'], 0, 1);
                     } else {
                         $value .= $record['value'];
@@ -1064,16 +1070,29 @@ class Build
                     $indent = 1;
                     foreach($record['modifier'] as $modifier_nr => $modifier){
                         $plugin = Build::plugin($object, $flags, $options, $tag, str_replace('.', '_', $modifier['name']));
-                        $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                        $modifier_value .= str_repeat(' ' , $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
+                        if($is_single_line){
+                            $modifier_value = '$this->' . $plugin . '( ' ;
+                            $modifier_value .= $previous_modifier . ', ';
+                        } else {
+                            $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
+                            $modifier_value .= str_repeat(' ' , $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
+                        }
                         $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
                             foreach($modifier['argument'] as $argument_nr => $argument){
-                                $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $tag, $argument) . ',' . PHP_EOL;
+                                if($is_single_line){
+                                    $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $tag, $argument) . ', ';
+                                } else {
+                                    $modifier_value .= str_repeat(' ' , $indent * 4) . Build::value($object, $flags, $options, $tag, $argument) . ',' . PHP_EOL;
+                                }
                                 $is_argument = true;
                             }
                             if($is_argument === true){
-                                $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                                if($is_single_line){
+                                    $modifier_value = substr($modifier_value, 0, -2);
+                                } else {
+                                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                                }
                             } else {
                                 $modifier_value = substr($modifier_value, 0, -1);
                             }
