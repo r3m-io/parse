@@ -379,7 +379,7 @@ class Value
         $array = [];
         $array_nr = false;
         $array_string = '';
-//        d($input);
+        d($input);
         foreach($input['array'] as $nr => $char){
             $previous = Token::item($input, $nr - 1);
             if(
