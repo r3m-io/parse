@@ -634,7 +634,6 @@ class Build
             $indent++;
             switch($operator){
                 case '=' :
-
                     $result = '$data->set(';
                     $indent++;
                     $result .= PHP_EOL .
@@ -797,6 +796,7 @@ class Build
 
         d($input['array']);
         $is_cast = false;
+        $is_clone = false;
         foreach($input['array'] as $nr => $record){
             if($skip > 0){
                 $skip--;
@@ -828,7 +828,12 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'cast'
             ){
-                $value = substr($value, 0, -1) . ' ' . $record['cast'];
+                if($record['cast'] === 'clone'){
+                    $value = substr($value, 0, -2) . ' ' . $record['cast'] . ' ';
+                    $is_clone = true;
+                } else {
+                    $value = substr($value, 0, -1) . ' ' . $record['cast'];
+                }
                 $is_cast = true;
             }
             elseif(
@@ -866,7 +871,11 @@ class Build
                         )
                     ){
                         if($is_cast){
-                            $value .= ' ' . $record['value'];
+                            if($is_clone){
+                               $is_clone = false;
+                            } else {
+                                $value .= ' ' . $record['value'];
+                            }
                             $is_cast = false;
                         } else {
                             $value .= PHP_EOL . $record['value'];
