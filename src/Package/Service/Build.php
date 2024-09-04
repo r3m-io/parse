@@ -563,7 +563,25 @@ class Build
             case 'for.each':
             case 'for_each':
             case 'foreach':
-                $method_value = 'foreach(' . PHP_EOL;
+                $foreach_from = $record['method']['argument'][0] ?? null;
+                $foreach_key = $record['method']['argument'][2] ?? null;
+                $foreach_value = $record['method']['argument'][4] ?? null;
+                if($foreach_value === null){
+                    $foreach_value === $foreach_key;
+                    $foreach_key = null;
+                    $key = null;
+                } else {
+                    $key = Core::uuid_variable();
+                }
+                $from = Core::uuid_variable();
+                $value = Core::uuid_variable();
+                $method_value = $from . ' = ' . $foreach_from . ';' . PHP_EOL;
+                if($key){
+                    $method_value .= 'foreach(' . $from . ' as ' . $key . ' => ' . $value . '){' . PHP_EOL;
+                } else {
+                    $method_value .= 'foreach(' . $from . ' as ' . $value . '){' . PHP_EOL;
+                }
+                ddd($method_value);
             break;
             default:
                 $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $method_name));
