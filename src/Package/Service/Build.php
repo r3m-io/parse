@@ -15,6 +15,7 @@ class Build
 {
     /**
      * @throws Exception
+     * @throws LocateException
      */
     public static function create(App $object, $flags, $options, $tags=[]): array
     {
@@ -63,6 +64,7 @@ class Build
 
     /**
      * @throws Exception
+     * @throws LocateException
      */
     public static function document_tag(App $object, $flags, $options, $tags = []): array
     {
@@ -306,6 +308,7 @@ class Build
 
     /**
      * @throws Exception
+     * @throws LocateException
      */
     public static function plugin(App $object, $flags, $options, $record, $name): string
     {
@@ -427,6 +430,7 @@ class Build
 
     /**
      * @throws Exception
+     * @throws LocateException
      */
     public static function variable_define(App $object, $flags, $options, $record = []): bool | array
     {
@@ -541,6 +545,7 @@ class Build
 
     /**
      * @throws Exception
+     * @throws LocateException
      */
     public static function method(App $object, $flags, $options, $record = []): bool | string
     {
@@ -585,6 +590,7 @@ class Build
 
     /**
      * @throws Exception
+     * @throws LocateException
      */
     public static function variable_assign(App $object, $flags, $options, $record = []): bool | string
     {
@@ -777,6 +783,7 @@ class Build
 
     /**
      * @throws Exception
+     * @throws LocateException
      */
     public static function value(App $object, $flags, $options, $tag, $input): string
     {
