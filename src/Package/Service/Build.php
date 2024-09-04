@@ -1053,7 +1053,17 @@ class Build
                 $possible_variable = $input['array'][$nr + 1] ?? null;
 
                 d($possible_variable);
-                $value .=  $record['execute'];
+
+                if(
+                    $possible_variable &&
+                    array_key_exists('type', $possible_variable) &&
+                    $possible_variable['type'] === 'variable' &&
+                    $record['execute'] === 'as'
+                ){
+                    $value .=  ' ' . $record['execute'] . ' ';
+                } else {
+                    $value .=  $record['execute'];
+                }
             }
             elseif(
                 array_key_exists('type', $record) &&
