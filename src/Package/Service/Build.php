@@ -556,23 +556,18 @@ class Build
         }
         $source = $options->source ?? '';
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
-        $method_name = $record['method']['name'];
+        $method_name = strtolower($record['method']['name']);
 
-        if(
-            in_array(
-                $method_name,
-                [
-                    'for.each',
-                    'for_each',
-                    'foreach'
-                ],
-                true
-            )
-        ){
-            $method_value = 'foreach(';
-        } else {
-            $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $method_name));
-            $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+        switch($method_name){
+            case 'for.each':
+            case 'for_each':
+            case 'foreach':
+                $method_name = 'foreach';
+            break;
+            default:
+                $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $method_name));
+                $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+            break;
         }
         $is_argument = false;
         $indent++;
