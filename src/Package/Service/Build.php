@@ -1048,12 +1048,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'string'
             ){
-                d($record);
-
                 $possible_variable = $input['array'][$nr + 1] ?? null;
-
-                d($possible_variable);
-
                 if(
                     $possible_variable &&
                     array_key_exists('type', $possible_variable) &&
