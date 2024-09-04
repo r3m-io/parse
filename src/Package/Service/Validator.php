@@ -80,8 +80,6 @@ class Validator
                 }
                 $notification = implode('', $notification);
                 //don't need $output
-                $content = ob_get_clean();
-                echo $content . PHP_EOL;
                 throw new Exception($notification . PHP_EOL . 'Temp-file: ' . $url);
             }
             throw new Exception($output);
