@@ -940,7 +940,6 @@ class Build
                         $record['value'],
                         [
                             '=>',
-                            'as'
                         ],
                         true
                     )
@@ -1048,6 +1047,7 @@ class Build
                 array_key_exists('type', $record) &&
                 $record['type'] === 'string'
             ){
+                d($record);
                 $value .=  $record['execute'];
             }
             elseif(
