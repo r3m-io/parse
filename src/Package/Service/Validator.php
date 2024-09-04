@@ -80,7 +80,7 @@ class Validator
                 }
                 $notification = implode('', $notification);
                 //don't need $output
-                throw new Exception($notification);
+                throw new Exception($notification . PHP_EOL . $url);
             }
             throw new Exception($output);
         }
