@@ -562,7 +562,7 @@ class Build
             case 'for.each':
             case 'for_each':
             case 'foreach':
-                $method_name = 'foreach';
+                $method_value = 'foreach';
             break;
             default:
                 $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $method_name));
