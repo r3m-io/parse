@@ -9,6 +9,8 @@ use R3m\Io\Module\File;
 
 use Exception;
 
+use R3m\Io\Exception\LocateException;
+
 class Build
 {
     /**
@@ -386,7 +388,7 @@ class Build
                         array_key_exists('is_multiline', $record) &&
                         $record['is_multiline'] === true
                     ){
-                        throw new Exception(
+                        throw new LocateException(
                             'Plugin not found (' .
                             str_replace('_', '.', $name) .
                             ') exception: "' .
@@ -396,11 +398,12 @@ class Build
                             ', column: ' .
                             $record['column'][$record['line']['start']]['start'] .
                             ' in source: '.
-                            $source
+                            $source,
+                            $locations
                         );
 
                     } else {
-                        throw new Exception(
+                        throw new LocateException(
                             'Plugin not found (' .
                             str_replace('_', '.', $name) .
                             ') exception: "' .
@@ -410,7 +413,8 @@ class Build
                             ', column: ' .
                             $record['column']['start'] .
                             ' in source: '.
-                            $source
+                            $source,
+                            $locations
                         );
                     }
                 }
