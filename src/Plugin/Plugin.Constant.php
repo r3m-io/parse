@@ -10,13 +10,9 @@
  */
 namespace Plugin;
 
-trait Plugin_switch {
+trait Plugin_constant {
 
-    protected function plugin_switch($value, $default=null){
-        if(empty($value)){
-            return $default;
-        }
-        return $value;
+    protected function plugin_constant($constant, $value=null){
+        define($constant, $value);
     }
-
 }
