@@ -567,6 +567,7 @@ class Build
                 $foreach_key = $record['method']['argument'][0]['array'][2] ?? null;
                 $foreach_value = $record['method']['argument'][0]['array'][4] ?? null;
                 if($foreach_value === null){
+                    $foreach_value = $foreach_key;
                     /*
                     $foreach_value = [
                         'string' => $foreach_key['tag'],
