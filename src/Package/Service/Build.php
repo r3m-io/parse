@@ -593,6 +593,7 @@ class Build
             break;
         }
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
+        ddd($method_value);
         try {
             Validator::validate($object, $flags, $options, $method_value);
         }
