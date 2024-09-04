@@ -322,7 +322,8 @@ class Build
                     'echo',
                     'parse',
                     'break',
-                    'continue'
+                    'continue',
+                    'constant'
                 ],
                 true
             )
