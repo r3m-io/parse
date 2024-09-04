@@ -575,6 +575,7 @@ class Build
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
         $argument_value = '';
         foreach($record['method']['argument'] as $nr => $argument) {
+            d($argument);
             $argument_value .= Build::value($object, $flags, $options, $record, $argument)  . ',' . PHP_EOL;
             $is_argument = true;
         }
