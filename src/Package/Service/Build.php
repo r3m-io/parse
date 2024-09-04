@@ -576,6 +576,7 @@ class Build
                 } else {
                     $key = Core::uuid_variable();
                     $foreach_key = Build::value($object, $flags, $options, $record, $foreach_key);
+                    $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
                 }
                 $foreach_from = Build::value($object, $flags, $options, $record, $foreach_from);
                 $from = Core::uuid_variable();
