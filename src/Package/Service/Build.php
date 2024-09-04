@@ -567,7 +567,7 @@ class Build
                 $foreach_key = $record['method']['argument'][2] ?? null;
                 $foreach_value = $record['method']['argument'][4] ?? null;
                 if($foreach_value === null){
-                    $foreach_value === $foreach_key;
+                    $foreach_value = $foreach_key;
                     $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
                     $foreach_key = null;
                     $key = null;
