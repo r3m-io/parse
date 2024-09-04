@@ -570,7 +570,7 @@ class Build
                     $foreach_value = [
                         'string' => $foreach_key['tag'],
                         'array'  => [
-                            [$foreach_key]
+                            0 => $foreach_key
                         ]
                     ];
                     $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
@@ -581,14 +581,14 @@ class Build
                     $value = [
                         'string' => $foreach_key['tag'],
                         'array'  => [
-                            [$foreach_key]
+                            0 => $foreach_key
                         ]
                     ];
                     $foreach_key = Build::value($object, $flags, $options, $record, $value);
                     $value = [
                         'string' => $foreach_value['tag'],
                         'array'  => [
-                            [$foreach_value]
+                            0 => $foreach_value
                         ]
                     ];
                     $foreach_value = Build::value($object, $flags, $options, $record, $value);
@@ -596,7 +596,7 @@ class Build
                 $value = [
                     'string' => $foreach_from['tag'],
                     'array' => [
-                        [$foreach_from]
+                        0 => $foreach_from
                     ]
                 ];
                 $foreach_from = Build::value($object, $flags, $options, $record, $value);
