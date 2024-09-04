@@ -568,11 +568,14 @@ class Build
                 $foreach_value = $record['method']['argument'][4] ?? null;
                 if($foreach_value === null){
                     $foreach_value === $foreach_key;
+                    $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
                     $foreach_key = null;
                     $key = null;
                 } else {
                     $key = Core::uuid_variable();
+                    $foreach_key = Build::value($object, $flags, $options, $record, $foreach_key);
                 }
+                $foreach_from = Build::value($object, $flags, $options, $record, $foreach_from);
                 $from = Core::uuid_variable();
                 $value = Core::uuid_variable();
                 $method_value = $from . ' = ' . $foreach_from . ';' . PHP_EOL;
