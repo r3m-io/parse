@@ -567,13 +567,15 @@ class Build
                 $foreach_key = $record['method']['argument'][0]['array'][2] ?? null;
                 $foreach_value = $record['method']['argument'][0]['array'][4] ?? null;
                 if($foreach_value === null){
+                    /*
                     $foreach_value = [
                         'string' => $foreach_key['tag'],
                         'array'  => [
                             0 => $foreach_key
                         ]
                     ];
-                    $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
+                    */
+//                    $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
                     $foreach_key = null;
                     $key = null;
                 } else {
@@ -591,7 +593,7 @@ class Build
                             0 => $foreach_value
                         ]
                     ];
-                    $foreach_value = Build::value($object, $flags, $options, $record, $value);
+//                    $foreach_value = Build::value($object, $flags, $options, $record, $value);
                 }
                 $value = [
                     'string' => $foreach_from['tag'],
@@ -608,7 +610,9 @@ class Build
                 } else {
                     $method_value .= 'foreach(' . $from . ' as ' . $value . '){' . PHP_EOL;
                 }
-                $method_value .= str_repeat(' ', $indent * 4) . $foreach_value . $value .';' . PHP_EOL;
+                $foreach_value = '$data->set(\'' . $foreach_value['name'] . '\', ' . $value . ');';
+
+                $method_value .= str_repeat(' ', $indent * 4) . $foreach_value . PHP_EOL;
                 ddd($method_value);
             break;
             default:
