@@ -376,10 +376,12 @@ class Build
         ){
             if(!in_array($use_plugin, $use, true)){
                 $autoload = $object->data(App::AUTOLOAD_R3M);
-                $locations = $autoload->locate($use_plugin, false,  Autoload::MODE_LOCATION);
+                $location = $autoload->locate($use_plugin, false,  Autoload::MODE_LOCATION);
                 $exist = false;
-                foreach($locations  as $nr => $fileList){
+                $locate_exception = [];
+                foreach($location  as $nr => $fileList){
                     foreach($fileList as $file){
+                        $locate_exception[] = $file;
                         $exist = File::exist($file);
                         if($exist){
                             break;
@@ -402,7 +404,7 @@ class Build
                             $record['column'][$record['line']['start']]['start'] .
                             ' in source: '.
                             $source,
-                            $locations
+                            $locate_exception
                         );
 
                     } else {
@@ -417,7 +419,7 @@ class Build
                             $record['column']['start'] .
                             ' in source: '.
                             $source,
-                            $locations
+                            $locate_exception
                         );
                     }
                 }
