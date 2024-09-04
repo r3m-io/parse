@@ -563,9 +563,9 @@ class Build
             case 'for.each':
             case 'for_each':
             case 'foreach':
-                $foreach_from = $record['method']['argument'][0] ?? null;
-                $foreach_key = $record['method']['argument'][2] ?? null;
-                $foreach_value = $record['method']['argument'][4] ?? null;
+                $foreach_from = $record['method']['argument'][0]['array'][0] ?? null;
+                $foreach_key = $record['method']['argument'][0]['array'][2] ?? null;
+                $foreach_value = $record['method']['argument'][0]['array'][4] ?? null;
                 if($foreach_value === null){
                     $foreach_value = $foreach_key;
                     d($foreach_value);
