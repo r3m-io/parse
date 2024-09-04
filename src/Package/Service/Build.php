@@ -607,9 +607,9 @@ class Build
                 $value = Core::uuid_variable();
                 $method_value = $from . ' = ' . $foreach_from . ';' . PHP_EOL;
                 if($key){
-                    $method_value .= 'foreach(' . $from . ' as ' . $key . ' => ' . $value . '){' . PHP_EOL;
+                    $method_value .= str_repeat(' ', $indent * 4) . 'foreach(' . $from . ' as ' . $key . ' => ' . $value . '){' . PHP_EOL;
                 } else {
-                    $method_value .= 'foreach(' . $from . ' as ' . $value . '){' . PHP_EOL;
+                    $method_value .= str_repeat(' ', $indent * 4) . 'foreach(' . $from . ' as ' . $value . '){' . PHP_EOL;
                 }
                 $foreach_value = '$data->set(\'' . $foreach_value['name'] . '\', ' . $value . ');';
                 $indent++;
