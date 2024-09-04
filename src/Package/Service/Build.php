@@ -567,18 +567,39 @@ class Build
                 $foreach_key = $record['method']['argument'][0]['array'][2] ?? null;
                 $foreach_value = $record['method']['argument'][0]['array'][4] ?? null;
                 if($foreach_value === null){
-                    $foreach_value = $foreach_key;
-                    d($foreach_value);
-                    ddd($record);
+                    $foreach_value = [
+                        'string' => $foreach_key['tag'],
+                        'array'  => [
+                            [$foreach_key]
+                        ]
+                    ];
                     $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
                     $foreach_key = null;
                     $key = null;
                 } else {
                     $key = Core::uuid_variable();
-                    $foreach_key = Build::value($object, $flags, $options, $record, $foreach_key);
-                    $foreach_value = Build::value($object, $flags, $options, $record, $foreach_value);
+                    $value = [
+                        'string' => $foreach_key['tag'],
+                        'array'  => [
+                            [$foreach_key]
+                        ]
+                    ];
+                    $foreach_key = Build::value($object, $flags, $options, $record, $value);
+                    $value = [
+                        'string' => $foreach_value['tag'],
+                        'array'  => [
+                            [$foreach_value]
+                        ]
+                    ];
+                    $foreach_value = Build::value($object, $flags, $options, $record, $value);
                 }
-                $foreach_from = Build::value($object, $flags, $options, $record, $foreach_from);
+                $value = [
+                    'string' => $foreach_from['tag'],
+                    'array' => [
+                        [$foreach_from]
+                    ]
+                ];
+                $foreach_from = Build::value($object, $flags, $options, $record, $value);
                 $from = Core::uuid_variable();
                 $value = Core::uuid_variable();
                 $method_value = $from . ' = ' . $foreach_from . ';' . PHP_EOL;
