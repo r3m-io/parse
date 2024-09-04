@@ -613,6 +613,7 @@ class Build
                 }
                 $foreach_value = '$data->set(\'' . $foreach_value['name'] . '\', ' . $value . ');';
                 $indent++;
+                $object->config('package.r3m_io/parse.build.state.indent', $indent);
                 $method_value .= str_repeat(' ', $indent * 4) . $foreach_value . PHP_EOL;
                 $indent--;
             break;
