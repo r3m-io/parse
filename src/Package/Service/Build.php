@@ -612,35 +612,35 @@ class Build
                     $method_value .= 'foreach(' . $from . ' as ' . $value . '){' . PHP_EOL;
                 }
                 $foreach_value = '$data->set(\'' . $foreach_value['name'] . '\', ' . $value . ');';
-
+                $indent++;
                 $method_value .= str_repeat(' ', $indent * 4) . $foreach_value . PHP_EOL;
-                ddd($method_value);
+                $indent--;
             break;
             default:
                 $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $method_name));
                 $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+                $is_argument = false;
+                $indent++;
+                $object->config('package.r3m_io/parse.build.state.indent', $indent);
+                $argument_value = '';
+                foreach($record['method']['argument'] as $nr => $argument) {
+                    d($argument);
+                    $argument_value .= Build::value($object, $flags, $options, $record, $argument)  . ',' . PHP_EOL;
+                    $is_argument = true;
+                }
+                if($is_argument){
+                    $argument_value = substr($argument_value, 0, -2) . PHP_EOL;
+                    $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent) . PHP_EOL;
+                }
+                $indent--;
             break;
         }
-        $is_argument = false;
-        $indent++;
-        $object->config('package.r3m_io/parse.build.state.indent', $indent);
-        $argument_value = '';
-        foreach($record['method']['argument'] as $nr => $argument) {
-            d($argument);
-            $argument_value .= Build::value($object, $flags, $options, $record, $argument)  . ',' . PHP_EOL;
-            $is_argument = true;
-        }
-        if($is_argument){
-            $argument_value = substr($argument_value, 0, -2) . PHP_EOL;
-            $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent) . PHP_EOL;
-        }
-        $indent--;
+
         switch($method_name){
             case 'for.each':
             case 'for_each':
             case 'foreach':
                 $method_value .= str_repeat(' ', $indent * 4) . '){' . PHP_EOL;
-                ddd($method_value);
                 try {
                     Validator::validate($object, $flags, $options, $method_value . '}');
                 }
