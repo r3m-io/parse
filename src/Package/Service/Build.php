@@ -608,6 +608,7 @@ class Build
                 } else {
                     $method_value .= 'foreach(' . $from . ' as ' . $value . '){' . PHP_EOL;
                 }
+                $method_value .= str_repeat(' ', $indent * 4) . $foreach_value . $value .';' . PHP_EOL;
                 ddd($method_value);
             break;
             default:
