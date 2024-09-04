@@ -635,12 +635,10 @@ class Build
                 $indent--;
             break;
         }
-
         switch($method_name){
             case 'for.each':
             case 'for_each':
             case 'foreach':
-                $method_value .= str_repeat(' ', $indent * 4) . '){' . PHP_EOL;
                 try {
                     Validator::validate($object, $flags, $options, $method_value . '}');
                 }
@@ -673,7 +671,6 @@ class Build
             break;
         }
         $object->config('package.r3m_io/parse.build.state.indent', $indent);
-
         return $method_value;
     }
 
