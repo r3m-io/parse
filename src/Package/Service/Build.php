@@ -588,19 +588,20 @@ class Build
             case 'for_each':
             case 'foreach':
                 $method_value .= str_repeat(' ', $indent * 4) . '){' . PHP_EOL;
-            try {
-                Validator::validate($object, $flags, $options, $method_value . '}');
-            }
-            catch(Exception $exception){
-                if(
-                    array_key_exists('is_multiline', $record) &&
-                    $record['is_multiline'] === true
-                ){
-                    throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '.', 0, $exception);
-                } else {
-                    throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
+                die;
+                try {
+                    Validator::validate($object, $flags, $options, $method_value . '}');
                 }
-            }
+                catch(Exception $exception){
+                    if(
+                        array_key_exists('is_multiline', $record) &&
+                        $record['is_multiline'] === true
+                    ){
+                        throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '.', 0, $exception);
+                    } else {
+                        throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
+                    }
+                }
             break;
             default:
                 $method_value .= str_repeat(' ', $indent * 4) . ');';
