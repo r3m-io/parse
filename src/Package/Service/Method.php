@@ -313,7 +313,8 @@ class Method
                             $is_single_quote === false &&
                             $is_double_quote === false
                         ){
-                            //nothing
+                            $argument .= $char;
+                            $argument_array[] = $char;
                         } else {
                             $argument_array[] = $char;
                             if(is_array($char) && array_key_exists('value', $char)){
