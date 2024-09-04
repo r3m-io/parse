@@ -1049,7 +1049,10 @@ class Build
                 $record['type'] === 'string'
             ){
                 d($record);
-                d($next);
+
+                $possible_variable = $input['array'][$nr + 1] ?? null;
+
+                d($possible_variable);
                 $value .=  $record['execute'];
             }
             elseif(
