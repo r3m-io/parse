@@ -1049,6 +1049,7 @@ class Build
                 $record['type'] === 'string'
             ){
                 d($record);
+                d($next);
                 $value .=  $record['execute'];
             }
             elseif(
