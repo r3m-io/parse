@@ -939,7 +939,8 @@ class Build
                     in_array(
                         $record['value'],
                         [
-                            '=>'
+                            '=>',
+                            'as'
                         ],
                         true
                     )
