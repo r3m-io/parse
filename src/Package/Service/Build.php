@@ -589,6 +589,7 @@ class Build
             case 'for_each':
             case 'foreach':
                 $method_value .= str_repeat(' ', $indent * 4) . '){' . PHP_EOL;
+                ddd($method_value);
                 try {
                     Validator::validate($object, $flags, $options, $method_value . '}');
                 }
