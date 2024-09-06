@@ -178,14 +178,84 @@ class Build
         $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$options is not an object\');';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
-        d($indent);
-        ddd($data);
-        foreach($data as $nr => $line){
-            $document[] = str_repeat(' ', $indent * 4) . $line;
-        }
+        $document[] = Build::format($object, $flags, $options, $document, $data, $indent);
         $document[] = str_repeat(' ', $indent * 4) . 'return ob_get_clean();';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
+        return $document;
+    }
+
+    public static function format(App $object, $flags, $options, $document=[], $data=[], $indent=2): array
+    {
+        foreach($data as $line_nr => $line){
+            $line = mb_str_split($line);
+            $is_single_quote = false;
+            $is_double_quote = false;
+            foreach($line as $column_nr => $char){
+                $previous = $line[$column_nr - 1] ?? null;
+                if(
+                    $previous !== '\\' &&
+                    $char === '\'' &&
+                    $is_double_quote === false &&
+                    $is_single_quote === false
+                ){
+                    $is_single_quote = true;
+                }
+                elseif(
+                    $previous !== '\\' &&
+                    $char === '\'' &&
+                    $is_double_quote === false &&
+                    $is_single_quote === true
+                ){
+                    $is_single_quote = false;
+                }
+                elseif(
+                    $previous !== '\\' &&
+                    $char === '"' &&
+                    $is_double_quote === false &&
+                    $is_single_quote === false
+                ){
+                    $is_double_quote = true;
+                }
+                elseif(
+                    $previous !== '\\' &&
+                    $char === '"' &&
+                    $is_double_quote === true &&
+                    $is_single_quote === false
+                ){
+                    $is_double_quote = false;
+                }
+                if(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        [
+                            '{',
+                            '[',
+                        ],
+                        true
+                    )
+                ){
+                    $indent++;
+                }
+                if(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        [
+                            '}',
+                            ']'
+                        ],
+                        true
+                    )
+                ){
+                    $indent--;
+                }
+            }
+            $document[] = str_repeat(' ', $indent * 4) . $line;
+        }
         return $document;
     }
 
