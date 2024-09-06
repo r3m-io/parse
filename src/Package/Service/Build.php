@@ -74,11 +74,14 @@ class Build
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
                 if($text){
-                    d($text);
+                    //cannot explode on PHP_EOL, it can exist in ""
+                    $data[] = $text;
+                    /*
                     $text = explode(PHP_EOL, $text);
                     foreach($text as $text_nr => $line) {
                         $data[] = $line;
                     }
+                    */
                 }
                 $variable_assign_next_tag = false; //Build::text is taking care of this
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
