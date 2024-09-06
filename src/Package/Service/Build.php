@@ -263,7 +263,12 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
-                    $document[] = str_repeat(' ', $indent * 4) . $list;
+                    if(substr($list, 0, 1) === '}'){
+                        $document[] = str_repeat(' ', ($indent - 1) * 4) . $list;
+                    } else {
+                        $document[] = str_repeat(' ', $indent * 4) . $list;
+                    }
+
                     $indent = $next_line_indent;
                     $list = '';
                     continue;
@@ -271,7 +276,11 @@ class Build
                 $list .= $char;
             }
             if($list){
-                $document[] = str_repeat(' ', $indent * 4) . $list;
+                if(substr($list, 0, 1) === '}'){
+                    $document[] = str_repeat(' ', ($indent - 1) * 4) . $list;
+                } else {
+                    $document[] = str_repeat(' ', $indent * 4) . $list;
+                }
                 $indent = $next_line_indent;
             }
         }
