@@ -255,6 +255,7 @@ class Build
             */
             $text = explode("\n", $record['text']);
             $result = [];
+            $indent = 2;
             foreach($text as $nr => $line) {
                 if(
                     !in_array(
@@ -266,7 +267,12 @@ class Build
                     true
                     )
                 ){
-                    $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                    if($nr > 0){
+                        $result[] = str_repeat(' ' , $indent * 4) . 'echo \'' . $line . '\';' . PHP_EOL;
+                    } else {
+                        $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                    }
+
                 }
                 elseif(
                     in_array(
