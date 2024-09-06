@@ -267,6 +267,7 @@ class Build
                 }
                 $list[$list_nr] .= $char;
             }
+            d($list);
             foreach($list as $nr => $line){
                 if(substr($line, -1, -1) === '{'){
                     $document[] = str_repeat(' ', ($indent - 1) * 4) . $line;
