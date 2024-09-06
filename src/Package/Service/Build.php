@@ -233,6 +233,7 @@ class Build
                         [
                             '{',
                             '[',
+                            '('
                         ],
                         true
                     )
@@ -246,7 +247,8 @@ class Build
                         $char,
                         [
                             '}',
-                            ']'
+                            ']',
+                            ')'
                         ],
                         true
                     )
