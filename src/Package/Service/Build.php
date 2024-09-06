@@ -87,7 +87,6 @@ class Build
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
                     $data[] = $variable_assign;
-                    /*
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $record, $next);
@@ -96,7 +95,6 @@ class Build
                     } else {
                         $variable_assign_next_tag = true;
                     }
-                    */
                 }
                 $variable_define = Build::variable_define($object, $flags, $options, $record);
                 if($variable_define){
@@ -244,7 +242,7 @@ class Build
             array_key_exists('text', $record) &&
             $record['text'] !== ''
         ){
-            /*
+            /* wrong
             if(
                 array_key_exists('is_multiline', $record) &&
                 $record['is_multiline'] === true
