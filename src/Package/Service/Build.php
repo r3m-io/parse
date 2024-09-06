@@ -241,8 +241,9 @@ class Build
                     )
                 ){
                     $next_line_indent++;
+                    d($nr);
                 }
-                if(
+                elseif(
                     $is_single_quote === false &&
                     $is_double_quote === false &&
                     in_array(
@@ -255,8 +256,9 @@ class Build
                     )
                 ){
                     $next_line_indent--;
+                    d($nr);
                 }
-                if(
+                elseif(
                     $is_single_quote === false &&
                     $is_double_quote === false &&
                     $char === "\n"
