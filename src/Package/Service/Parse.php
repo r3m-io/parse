@@ -139,8 +139,6 @@ class Parse
 
 //        d($object->config('package'));
 
-
-ddd($document);
         File::write($url, implode(PHP_EOL, $document));
         File::permission(
             $object,

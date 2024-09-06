@@ -178,7 +178,7 @@ class Build
         $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$options is not an object\');';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
-        $document[] = Build::format($object, $flags, $options, $document, $data, $indent);
+        $document = Build::format($object, $flags, $options, $document, $data, $indent);
         $document[] = str_repeat(' ', $indent * 4) . 'return ob_get_clean();';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
