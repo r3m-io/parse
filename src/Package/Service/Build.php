@@ -268,7 +268,14 @@ class Build
                 $list[$list_nr] .= $char;
             }
             foreach($list as $nr => $line){
-                $document[] = str_repeat(' ', $indent * 4) . $line;
+                if(substr($line, -1, -1) === '{'){
+                    $document[] = str_repeat(' ', ($indent - 1) * 4) . $line;
+                }
+                elseif(substr($line, 0, 1) === '}'){
+                    $document[] = str_repeat(' ', ($indent + 1) * 4) . $line;
+                } else {
+                    $document[] = str_repeat(' ', $indent * 4) . $line;
+                }
             }
         }
         return $document;
