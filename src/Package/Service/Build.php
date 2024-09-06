@@ -344,16 +344,13 @@ class Build
                     $is_double_quote === false
                 ){
                     $is_found = true;
-                    ddd($test);
+                    $test = trim($test);
+                    if($test === ''){
+                        $next['text'] = substr($next['text'], $nr + 1);
+                        break;
+                    }
                 }
                 $test .= $char;
-            }
-
-
-            $text = explode("\n", $next['text'], 2);
-            $test = trim($text[0]);
-            if($test === ''){
-                $next['text'] = $text[1];
             }
         }
         return $next;
