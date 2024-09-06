@@ -288,7 +288,7 @@ class Build
                 }
             }
             if(array_key_exists(1, $result)){
-                return implode('echo "\n";' . PHP_EOL, $result);
+                return implode(str_repeat(' ' , $indent * 4) . 'echo "\n";' . PHP_EOL, $result);
             }
             return $result[0] ?? false;
         }
