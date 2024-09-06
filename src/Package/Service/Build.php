@@ -526,7 +526,7 @@ class Build
             $data = [
                 $variable_uuid . ' = ' . $value . ';',
             ];
-            $indent = $object->config('package.r3m_io/parse.build.state.indent');
+            $indent = 0;
             if(
                 array_key_exists('is_multiline', $record) &&
                 $record['is_multiline'] === true
