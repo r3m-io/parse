@@ -599,6 +599,8 @@ class Variable
                         $set_depth_modifier === false
                     ){
                         $argument_nr++;
+                    } else {
+                        ddd($argument);
                     }
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
