@@ -70,11 +70,11 @@ class Build
     {
         $data = [];
         $variable_assign_next_tag = false;
-        ddd($tags);
         foreach($tags as $row_nr => $list){
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
                 if($text){
+                    d($text);
                     $text = explode(PHP_EOL, $text);
                     foreach($text as $text_nr => $line) {
                         $data[] = $line;
