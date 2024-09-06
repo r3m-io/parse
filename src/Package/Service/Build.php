@@ -261,8 +261,8 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
-                    $document[] = str_repeat(' ', $indent * 4) . $list;
                     $indent = $next_line_indent;
+                    $document[] = str_repeat(' ', $indent * 4) . $list;
                     $list = '';
                     continue;
                 }
