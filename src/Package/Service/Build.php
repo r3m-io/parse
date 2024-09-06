@@ -187,7 +187,6 @@ class Build
 
     public static function format(App $object, $flags, $options, $document=[], $data=[], $indent=2): array
     {
-        ddd($data);
         foreach($data as $line_nr => $line){
             $line_array = mb_str_split($line);
             $is_single_quote = false;
@@ -255,7 +254,7 @@ class Build
                     $indent--;
                 }
             }
-            if($line_nr === 44){
+            if($line_nr === 8){
                 ddd($indent);
             }
             $document[] = str_repeat(' ', $indent * 4) . $line;
