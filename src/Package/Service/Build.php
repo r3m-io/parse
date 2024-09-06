@@ -1062,6 +1062,17 @@ class Build
                         true
                     )
                 ){
+                    $right = Build::value_right(
+                        $object,
+                        $flags,
+                        $options,
+                        $input,
+                        $nr,
+                        $next,
+                        $skip
+                    );
+                    $right = Build::value($object, $flags, $options, $tag, $right);
+                    d($right);
                     d($nr);
                     d($record);
                     ddd($value);
