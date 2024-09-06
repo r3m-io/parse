@@ -87,6 +87,7 @@ class Build
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $record, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
+                        d($nr);
                     } else {
                         $variable_assign_next_tag = true;
                     }
