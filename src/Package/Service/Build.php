@@ -255,6 +255,9 @@ class Build
                     $indent--;
                 }
             }
+            if($line_nr === 44){
+                ddd($indent);
+            }
             $document[] = str_repeat(' ', $indent * 4) . $line;
         }
         ddd($document);
