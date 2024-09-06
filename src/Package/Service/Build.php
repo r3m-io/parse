@@ -557,7 +557,7 @@ class Build
             $object->config('package.r3m_io/parse.build.state.indent', $indent);
             return $data;
         } else {
-            $indent = $object->config('package.r3m_io/parse.build.state.indent');
+            $indent = 0;
             $data = [
                 $variable_uuid . ' = $data->get(\'' . $variable_name . '\');' ,
             ];
