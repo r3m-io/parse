@@ -191,9 +191,8 @@ class Build
             $line_array = mb_str_split($line);
             $is_single_quote = false;
             $is_double_quote = false;
-            $list = [];
+            $list = '';
             $list_nr = 0;
-            $list[$list_nr] = '';
             foreach($line_array as $column_nr => $char){
                 $previous = $line_array[$column_nr - 1] ?? null;
                 if(
@@ -261,22 +260,14 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
-                    $list_nr++;
-                    $list[$list_nr] = '';
+                    $document[] = str_repeat(' ', $indent * 4) . $list;
+                    $list = '';
                     continue;
                 }
-                $list[$list_nr] .= $char;
+                $list .= $char;
             }
-            d($list);
-            foreach($list as $nr => $line){
-                if(substr($line, -1, -1) === '{'){
-                    $document[] = str_repeat(' ', ($indent - 1) * 4) . $line;
-                }
-                elseif(substr($line, 0, 1) === '}'){
-                    $document[] = str_repeat(' ', ($indent + 1) * 4) . $line;
-                } else {
-                    $document[] = str_repeat(' ', $indent * 4) . $line;
-                }
+            if($list){
+                $document[] = str_repeat(' ', $indent * 4) . $list;
             }
         }
         return $document;
