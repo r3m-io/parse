@@ -178,6 +178,7 @@ class Build
         $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$options is not an object\');';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
+        d($indent);
         ddd($data);
         foreach($data as $nr => $line){
             $document[] = str_repeat(' ', $indent * 4) . $line;
