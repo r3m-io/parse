@@ -233,7 +233,6 @@ class Build
                         [
                             '{',
                             '[',
-                            '('
                         ],
                         true
                     )
@@ -247,8 +246,7 @@ class Build
                         $char,
                         [
                             '}',
-                            ']',
-                            ')'
+                            ']'
                         ],
                         true
                     )
@@ -258,6 +256,7 @@ class Build
             }
             $document[] = str_repeat(' ', $indent * 4) . $line;
         }
+        ddd($document);
         return $document;
     }
 
