@@ -193,6 +193,7 @@ class Build
             $is_double_quote = false;
             $list = '';
             $list_nr = 0;
+            $next_line_indent = $indent;
             foreach($line_array as $column_nr => $char){
                 $previous = $line_array[$column_nr - 1] ?? null;
                 if(
@@ -239,7 +240,7 @@ class Build
                         true
                     )
                 ){
-                    $indent++;
+                    $next_line_indent++;
                 }
                 if(
                     $is_single_quote === false &&
@@ -253,7 +254,7 @@ class Build
                         true
                     )
                 ){
-                    $indent--;
+                    $next_line_indent--;
                 }
                 if(
                     $is_single_quote === false &&
@@ -261,6 +262,7 @@ class Build
                     $char === "\n"
                 ){
                     $document[] = str_repeat(' ', $indent * 4) . $list;
+                    $indent = $next_line_indent;
                     $list = '';
                     continue;
                 }
