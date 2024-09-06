@@ -118,14 +118,20 @@ class Build
     {
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $document[] = str_repeat(' ', $indent * 4) . 'public function __construct(App $object, Parse $parse, Data $data, $flags, $options){';
-        $object->config('package.r3m_io/parse.build.state.indent', $object->config('package.r3m_io/parse.build.state.indent') + 1);
+        $object->config(
+            'package.r3m_io/parse.build.state.indent',
+            $object->config('package.r3m_io/parse.build.state.indent') + 1
+        );
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $document[] = str_repeat(' ', $indent * 4) . '$this->object($object);';
         $document[] = str_repeat(' ', $indent * 4) . '$this->parse($parse);';
         $document[] = str_repeat(' ', $indent * 4) . '$this->data($data);';
         $document[] = str_repeat(' ', $indent * 4) . '$this->flags($flags);';
         $document[] = str_repeat(' ', $indent * 4) . '$this->options($options);';
-        $object->config('package.r3m_io/parse.build.state.indent', $object->config('package.r3m_io/parse.build.state.indent') - 1);
+        $object->config(
+            'package.r3m_io/parse.build.state.indent',
+            $object->config('package.r3m_io/parse.build.state.indent') - 1
+        );
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $document[] = str_repeat(' ', $indent * 4) . '}';
         return $document;
@@ -538,19 +544,19 @@ class Build
                 $record['is_multiline'] === true
             ){
                 $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '. You can use modifier "default" to surpress it \');';
+                $data[] = 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '. You can use modifier "default" to surpress it \');';
                 $data[] = '}';
             } else {
                 $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . 'in source: '. $source . '. You can use modifier "default" to surpress it \');';
+                $data[] = 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . 'in source: '. $source . '. You can use modifier "default" to surpress it \');';
                 $data[] = '}';
             }
             $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
-            $data[] = '    //array or object';
-            $data[] = '    ob_get_clean();';
-            $data[] = '    return ' . $variable_uuid .';';
+            $data[] = '//array or object';
+            $data[] = 'ob_get_clean();';
+            $data[] = 'return ' . $variable_uuid .';';
             $data[] = '} else {';
-            $data[] = '    echo '. $variable_uuid .';';
+            $data[] = 'echo '. $variable_uuid .';';
             $data[] = '}';
             return $data;
         } else {
@@ -562,19 +568,19 @@ class Build
                 $record['is_multiline'] === true
             ){
                 $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '. You can use modifier "default" to surpress it \');';
+                $data[] = 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '. You can use modifier "default" to surpress it \');';
                 $data[] = '}';
             } else {
                 $data[] = 'if(' . $variable_uuid .' === null){';
-                $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '. You can use modifier "default" to surpress it \');';
+                $data[] = 'throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '. You can use modifier "default" to surpress it \');';
                 $data[] = '}';
             }
             $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
-            $data[] = '    //array or object';
-            $data[] = '    ob_get_clean();';
-            $data[] = '    return ' . $variable_uuid .';';
+            $data[] = '//array or object';
+            $data[] = 'ob_get_clean();';
+            $data[] = 'return ' . $variable_uuid .';';
             $data[] = '} else {';
-            $data[] = '    echo '. $variable_uuid .';';
+            $data[] = 'echo '. $variable_uuid .';';
             $data[] = '}';
             return $data;;
         }
@@ -591,7 +597,6 @@ class Build
             return false;
         }
         $source = $options->source ?? '';
-        $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $method_name = mb_strtolower($record['method']['name']);
 
         switch($method_name){
@@ -651,16 +656,17 @@ class Build
             break;
             default:
                 $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $method_name));
-                $method_value = '$this->' . $plugin . '(' . PHP_EOL;
+                $method_value = '$this->' . $plugin . '(';
                 $is_argument = false;
                 $argument_value = '';
                 foreach($record['method']['argument'] as $nr => $argument) {
-                    $argument_value .= Build::value($object, $flags, $options, $record, $argument)  . ',' . PHP_EOL;
+                    $argument_value .= Build::value($object, $flags, $options, $record, $argument)  . ', ';
                     $is_argument = true;
                 }
                 if($is_argument){
-                    $argument_value = mb_substr($argument_value, 0, -2) . PHP_EOL;
-                    $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent) . PHP_EOL;
+                    $argument_value = mb_substr($argument_value, 0, -2);
+                    $method_value .= $argument_value;
+//                    $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent) . PHP_EOL;
                 }
             break;
         }
@@ -683,7 +689,7 @@ class Build
                 }
             break;
             default:
-                $method_value .= str_repeat(' ', $indent * 4) . ');';
+                $method_value .= ');';
                 try {
                     Validator::validate($object, $flags, $options, $method_value);
                 }
@@ -699,7 +705,6 @@ class Build
                 }
             break;
         }
-        $object->config('package.r3m_io/parse.build.state.indent', $indent);
         return $method_value;
     }
 
@@ -722,25 +727,22 @@ class Build
         $variable_name = $record['variable']['name'];
         $operator = $record['variable']['operator'];
         $value = Build::value($object, $flags, $options, $record, $record['variable']['value']);
-//        $indent = $object->config('package.r3m_io/parse.build.state.indent');
-        //internal indent only
-        $indent = 1;
         if(array_key_exists('modifier', $record['variable'])){
             d($value);
             ddd('what happens with value');
             $previous_modifier = '$data->get(\'' . $record['variable']['name'] . '\')';
             foreach($record['variable']['modifier'] as $nr => $modifier){
                 $plugin = Build::plugin($object, $flags, $options, $record, str_replace('.', '_', $modifier['name']));
-                $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                $modifier_value .= str_repeat(' ', $indent * 4 ) . $previous_modifier .', ' . PHP_EOL;
+                $modifier_value = '$this->' . $plugin . '(';
+                $modifier_value .= $previous_modifier .', ';
                 if(array_key_exists('argument', $modifier)){
                     $is_argument = false;
                     foreach($modifier['argument'] as $argument_nr => $argument){
-                        $modifier_value .= str_repeat(' ', $indent * 4 ) . Build::value($object, $flags, $options, $record, $argument) . ',' . PHP_EOL;
+                        $modifier_value .= Build::value($object, $flags, $options, $record, $argument) . ', ';
                         $is_argument = true;
                     }
                     if($is_argument === true){
-                        $modifier_value = mb_substr($modifier_value, 0, -2) . PHP_EOL;
+                        $modifier_value = mb_substr($modifier_value, 0, -2);
                     } else {
                         $modifier_value = mb_substr($modifier_value, 0, -1);
                     }
@@ -904,14 +906,8 @@ class Build
         $value = '';
         $skip = 0;
         $input = Build::value_single_quote($object, $flags, $options, $input);
-//        $indent = $object->config('package.r3m_io/parse.build.state.indent');
-        // only internal indent
         $is_double_quote = false;
         $double_quote_previous = false;
-        $is_array = false;
-        $indent = 1;
-
-//        d($input['array']);
         $is_cast = false;
         $is_clone = false;
         $is_single_line = false;
@@ -1221,8 +1217,8 @@ class Build
                             $modifier_value = '$this->' . $plugin . '( ' ;
                             $modifier_value .= $previous_modifier . ', ';
                         } else {
-                            $modifier_value = '$this->' . $plugin . '(' . PHP_EOL;
-                            $modifier_value .= str_repeat(' ' , $indent * 4) . $previous_modifier . ', ' . PHP_EOL;
+                            $modifier_value = '$this->' . $plugin . '(';
+                            $modifier_value .= $previous_modifier . ', ';
                         }
                         $is_argument = false;
                         if(array_key_exists('argument', $modifier)){
