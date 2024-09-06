@@ -1049,6 +1049,22 @@ class Build
                         $value .= $record['value'];
                     }
                 }
+                elseif(
+                    in_array(
+                        $record['value'],
+                        [
+                            '+',
+                            '-',
+                            '*',
+                            '/',
+                            '%',
+                        ],
+                        true
+                    )
+                ){
+                    d($record);
+                    ddd($value);
+                }
                 else {
                     $value .= $record['value'];
                 }
