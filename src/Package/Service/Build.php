@@ -893,7 +893,7 @@ class Build
         $is_array = false;
         $indent = 1;
 
-        d($input['array']);
+//        d($input['array']);
         $is_cast = false;
         $is_clone = false;
         $is_single_line = false;
