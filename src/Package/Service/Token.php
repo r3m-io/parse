@@ -126,14 +126,14 @@ class Token
                 if(
                     array_key_exists('tag', $record)
                 ){
-                    $content = trim(substr($record['tag'], 2, -2));
+                    $content = trim(mb_substr($record['tag'], 2, -2));
                     $hash = hash('sha256', 'tag.' . $content);
-                    if(substr($content, 0, 1) === '$'){
+                    if(mb_substr($content, 0, 1) === '$'){
                         if($cache->has($hash)){
                             $variable = $cache->get($hash);
                         } else {
                             //we have a variable assign or define
-                            $length = strlen($content);
+                            $length = mb_strlen($content);
                             $data = mb_str_split($content, 1);
                             $operator = false;
                             $variable_name = '';
@@ -518,13 +518,13 @@ class Token
                                 if(array_key_exists(0, $modifier_list)){
                                     $variable = [
                                         'is_define' => true,
-                                        'name' => substr($variable_name, 1),
+                                        'name' => mb_substr($variable_name, 1),
                                         'modifier' => $modifier_list,
                                     ];
                                 } else {
                                     $variable = [
                                         'is_define' => true,
-                                        'name' => substr($variable_name, 1),
+                                        'name' => mb_substr($variable_name, 1),
                                     ];
                                 }
                             } else {
@@ -543,7 +543,7 @@ class Token
                                     $variable = [
                                         'is_assign' => true,
                                         'operator' => $operator,
-                                        'name' => substr($variable_name, 1),
+                                        'name' => mb_substr($variable_name, 1),
                                         'value' => $list,
                                     ];
                                 } else {
@@ -551,7 +551,7 @@ class Token
                                     array_unshift($after_array, [
                                         'type'=> 'variable',
                                         'tag' => $variable_name,
-                                        'name' => substr($variable_name, 1),
+                                        'name' => mb_substr($variable_name, 1),
                                         'is_reference' => false
                                     ]);
                                     $list = Token::value(
@@ -697,8 +697,8 @@ class Token
                     return $input;
                 }
                 elseif(
-                    substr($value, 0, 1) === '\'' &&
-                    substr($value, -1) === '\''
+                    mb_substr($value, 0, 1) === '\'' &&
+                    mb_substr($value, -1) === '\''
                 ){
                     $input['array'] = [[
                         'value' => $value,

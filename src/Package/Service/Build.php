@@ -344,7 +344,7 @@ class Build
                 ){
                     $test = trim($test);
                     if($test === ''){
-                        $next['text'] = substr($next['text'], $nr + 1);
+                        $next['text'] = mb_substr($next['text'], $nr + 1);
                     }
                     break;
                 }
@@ -476,7 +476,7 @@ class Build
             }
         }
         $object->config('package.r3m_io/parse.build.use.trait', $use);
-        return strtolower($plugin);
+        return mb_strtolower($plugin);
     }
 
     /**
@@ -514,9 +514,9 @@ class Build
                         $is_argument = true;
                     }
                     if($is_argument === true){
-                        $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                        $modifier_value = mb_substr($modifier_value, 0, -2) . PHP_EOL;
                     } else {
-                        $modifier_value = substr($modifier_value, 0, -1);
+                        $modifier_value = mb_substr($modifier_value, 0, -1);
                     }
                 }
                 $modifier_value .= ')';
@@ -605,7 +605,7 @@ class Build
         }
         $source = $options->source ?? '';
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
-        $method_name = strtolower($record['method']['name']);
+        $method_name = mb_strtolower($record['method']['name']);
 
         switch($method_name){
             case 'for.each':
@@ -678,7 +678,7 @@ class Build
                     $is_argument = true;
                 }
                 if($is_argument){
-                    $argument_value = substr($argument_value, 0, -2) . PHP_EOL;
+                    $argument_value = mb_substr($argument_value, 0, -2) . PHP_EOL;
                     $method_value .= Build::align_content($object, $flags, $options, $argument_value, $indent) . PHP_EOL;
                 }
                 $indent--;
@@ -760,9 +760,9 @@ class Build
                         $is_argument = true;
                     }
                     if($is_argument === true){
-                        $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                        $modifier_value = mb_substr($modifier_value, 0, -2) . PHP_EOL;
                     } else {
-                        $modifier_value = substr($modifier_value, 0, -1);
+                        $modifier_value = mb_substr($modifier_value, 0, -1);
                     }
                 }
                 $modifier_value .=  ')';
@@ -978,10 +978,10 @@ class Build
                 $record['type'] === 'cast'
             ){
                 if($record['cast'] === 'clone'){
-                    $value = substr($value, 0, -2) . ' ' . $record['cast'] . ' ';
+                    $value = mb_substr($value, 0, -2) . ' ' . $record['cast'] . ' ';
                     $is_clone = true;
                 } else {
-                    $value = substr($value, 0, -1) . ' ' . $record['cast'];
+                    $value = mb_substr($value, 0, -1) . ' ' . $record['cast'];
                 }
                 $is_cast = true;
             }
@@ -1091,7 +1091,7 @@ class Build
                         } else {
                             $is_single_line = false;
                         }
-                        $value .= substr($record['value'], 0, 1);
+                        $value .= mb_substr($record['value'], 0, 1);
                     } else {
                         $value .= $record['value'];
                     }
@@ -1235,10 +1235,10 @@ class Build
                         $is_argument = true;
                     }
                     if($is_argument === true){
-                        $method_value = substr($method_value, 0, -2) . PHP_EOL;
+                        $method_value = mb_substr($method_value, 0, -2) . PHP_EOL;
                         $method_value .= ')';
                     } else {
-                        $method_value = substr($method_value, 0, -1);
+                        $method_value = mb_substr($method_value, 0, -1);
                         $method_value .= ')';
                     }
                 }
@@ -1273,12 +1273,12 @@ class Build
                             }
                             if($is_argument === true){
                                 if($is_single_line){
-                                    $modifier_value = substr($modifier_value, 0, -2);
+                                    $modifier_value = mb_substr($modifier_value, 0, -2);
                                 } else {
-                                    $modifier_value = substr($modifier_value, 0, -2) . PHP_EOL;
+                                    $modifier_value = mb_substr($modifier_value, 0, -2) . PHP_EOL;
                                 }
                             } else {
-                                $modifier_value = substr($modifier_value, 0, -1);
+                                $modifier_value = mb_substr($modifier_value, 0, -1);
                             }
                         }
                         $modifier_value .= ')';

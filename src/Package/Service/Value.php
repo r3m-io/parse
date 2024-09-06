@@ -50,7 +50,7 @@ class Value
                     $value === '0' ||
                     $value
                 ){
-                    $length = strlen($value);
+                    $length = mb_strlen($value);
                     $value = Value::basic($object, $flags, $options, $value);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -91,7 +91,7 @@ class Value
                         $value === '0' ||
                         $value
                     ){
-                        $length = strlen($value);
+                        $length = mb_strlen($value);
                         $value = Value::basic($object, $flags, $options, $value);
                         $input['array'][$value_nr] = $value;
                         for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -120,7 +120,7 @@ class Value
                         $value === '0' ||
                         $value
                     ){
-                        $length = strlen($value);
+                        $length = mb_strlen($value);
                         $value = Value::basic($object, $flags, $options, $value);
                         $input['array'][$value_nr] = $value;
                         for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -136,7 +136,7 @@ class Value
                     $value === '0' ||
                     $value
                 ){
-                    $length = strlen($value);
+                    $length = mb_strlen($value);
                     $value = Value::basic($object, $flags, $options, $value);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -159,7 +159,7 @@ class Value
                     $value === '0' ||
                     $value
                 ){
-                    $length = strlen($value);
+                    $length = mb_strlen($value);
                     $value = Value::basic($object, $flags, $options, $value);
                     $input['array'][$value_nr] = $value;
                     for($i = $value_nr; $i < $value_nr + $length; $i++){
@@ -190,7 +190,7 @@ class Value
             }
         }
         if($value_nr !== false){
-            $length = strlen($value);
+            $length = mb_strlen($value);
             $input['array'][$value_nr] = Value::basic($object, $flags, $options, $value);
             for($i = $value_nr; $i < $value_nr + $length; $i++){
                 if($i === $value_nr){
@@ -249,7 +249,7 @@ class Value
                     is_numeric($input) ||
                     Core::is_hex($input)
                 ){
-                    $length = strlen($input);
+                    $length = mb_strlen($input);
                     $data = mb_str_split($input, 1);
                     $is_float = false;
                     $is_int = false;
@@ -279,8 +279,8 @@ class Value
                             $collect .= $data[$i];
                             $is_int = true;
                             if(
-                                strlen($collect) > 3 &&
-                                strtoupper(substr($collect, 0, 2)) === '0X' &&
+                                mb_strlen($collect) > 3 &&
+                                mb_strtoupper(mb_substr($collect, 0, 2)) === '0X' &&
                                 Core::is_hex($collect)
                             ){
                                 $is_hex = true;
@@ -289,7 +289,7 @@ class Value
                         elseif(
                             (
                             in_array(
-                                strtoupper($data[$i]),
+                                mb_strtoupper($data[$i]),
                                 [
                                     'X',
                                     'A',
@@ -304,8 +304,8 @@ class Value
                         ){
                             $collect .= $data[$i];
                             if(
-                                strlen($collect) > 3 &&
-                                strtoupper(substr($collect, 0, 2)) === '0X' &&
+                                mb_strlen($collect) > 3 &&
+                                mb_strtoupper(mb_substr($collect, 0, 2)) === '0X' &&
                                 Core::is_hex($collect)
                             ){
                                 $is_hex = true;
@@ -334,7 +334,7 @@ class Value
                             'type' => 'integer',
                             'value' => $input,
                             'is_hex' => true,
-                            'execute' => hexdec(substr($collect, 2)),
+                            'execute' => hexdec(mb_substr($collect, 2)),
                         ];
                     }
                     elseif($is_float){

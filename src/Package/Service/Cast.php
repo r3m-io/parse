@@ -32,9 +32,9 @@ class Cast
                 array_key_exists('value', $char) &&
                 $char['value'] === ')'
             ){
-                if(strlen($define) > 0){
+                if(mb_strlen($define) > 0){
                     $is_define = false;
-                    switch(strtolower($define)){
+                    switch(mb_strtolower($define)){
                         case 'int':
                         case 'integer':
                             $input['array'][$is_collect + 1] = [

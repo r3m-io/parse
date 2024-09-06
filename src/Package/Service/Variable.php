@@ -71,7 +71,7 @@ class Variable
                             $input['array'][$is_variable] = [
                                 'type' => 'variable',
                                 'tag' => $name,
-                                'name' => substr($name, 1),
+                                'name' => mb_substr($name, 1),
                                 'is_reference' => $is_reference
                             ];
                             $name = '';
@@ -105,7 +105,7 @@ class Variable
                     $input['array'][$is_variable] = [
                         'type' => 'variable',
                         'tag' => $name,
-                        'name' => substr($name, 1),
+                        'name' => mb_substr($name, 1),
                         'is_reference' => $is_reference
                     ];
                     for($j = $is_variable + 1; $j < $i; $j++){

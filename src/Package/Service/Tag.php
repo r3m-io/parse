@@ -200,8 +200,8 @@ class Tag
                 }
                 elseif($curly_count === 0){
                     if($tag){
-                        if(strlen($text) > 0){
-                            $text = substr($text, 0, -1);
+                        if(mb_strlen($text) > 0){
+                            $text = mb_substr($text, 0, -1);
                         }
                         $tag .= $char;
                         $column[$line]++;
@@ -210,7 +210,7 @@ class Tag
                             $count = count($explode);
                             $explode_tag = explode("\n", $tag);
                             if($count > 1){
-                                $length_start = strlen($explode[0]);
+                                $length_start = mb_strlen($explode[0]);
                                 $record = [
                                     'text' => $text,
                                     'is_multiline' => true,
@@ -220,7 +220,7 @@ class Tag
                                     ],
                                     'length' => [
                                         'start' => $length_start,
-                                        'end' => strlen($explode[$count - 1])
+                                        'end' => mb_strlen($explode[$count - 1])
                                     ],
                                     'column' => [
                                         ($line - $count + 1) => [
@@ -228,8 +228,8 @@ class Tag
                                             'end' => $column[$line - $count + 1]
                                         ],
                                         $line => [
-                                            'start' => $column[$line] - strlen($explode[$count - 1]) - strlen($explode_tag[0]),
-                                            'end' => $column[$line] - strlen($explode_tag[0])
+                                            'start' => $column[$line] - mb_strlen($explode[$count - 1]) - mb_strlen($explode_tag[0]),
+                                            'end' => $column[$line] - mb_strlen($explode_tag[0])
                                         ]
                                     ]
                                 ];
@@ -238,14 +238,14 @@ class Tag
                                 }
                                 $tag_list[$line - $count + 1][] = $record;
                             } else {
-                                $length_start = strlen($explode[0]);
+                                $length_start = mb_strlen($explode[0]);
                                 $record = [
                                     'text' => $text,
                                     'line' => $line,
                                     'length' => $length_start,
                                     'column' => [
-                                        'start' => $column[$line] - $length_start - strlen($explode_tag[0]),
-                                        'end' => $column[$line] - strlen($explode_tag[0])
+                                        'start' => $column[$line] - $length_start - mb_strlen($explode_tag[0]),
+                                        'end' => $column[$line] - mb_strlen($explode_tag[0])
                                     ]
                                 ];
                                 if(empty($tag_list[$line])){
@@ -258,8 +258,8 @@ class Tag
                         $explode = explode("\n", $tag);
                         $count = count($explode);
                         if($count > 1){
-                            $content = trim(substr($tag, 2, -2));
-                            $length_start = strlen($explode[0]);
+                            $content = trim(mb_substr($tag, 2, -2));
+                            $length_start = mb_strlen($explode[0]);
                             $record = [
                                 'tag' => $tag,
                                 'is_multiline' => true,
@@ -269,7 +269,7 @@ class Tag
                                 ],
                                 'length' => [
                                     'start' => $length_start,
-                                    'end' => strlen($explode[$count - 1])
+                                    'end' => mb_strlen($explode[$count - 1])
                                 ],
                                 'column' => [
                                     ($line - $count + 1) => [
@@ -277,7 +277,7 @@ class Tag
                                         'end' => $column[$line - $count + 1]
                                     ],
                                     $line => [
-                                        'start' => $column[$line] - strlen($explode[$count - 1]),
+                                        'start' => $column[$line] - mb_strlen($explode[$count - 1]),
                                         'end' => $column[$line]
                                     ]
                                 ]
@@ -287,7 +287,7 @@ class Tag
                             }
                             $tag_list[$line - $count + 1][] = $record;
                         } else {
-                            $length_start = strlen($explode[0]);
+                            $length_start = mb_strlen($explode[0]);
                             $record = [
                                 'tag' => $tag,
                                 'line' => $line,
@@ -297,13 +297,13 @@ class Tag
                                     'end' => $column[$line]
                                 ]
                             ];
-                            $content = trim(substr($tag, 2, -2));
-                            if(strtoupper(substr($content, 0, 3)) === 'R3M'){
+                            $content = trim(mb_substr($tag, 2, -2));
+                            if(mb_strtoupper(mb_substr($content, 0, 3)) === 'R3M'){
                                 $record['is_header'] = true;
                                 $record['content'] = $content;
                             }
                             elseif(
-                                strtoupper($content) === 'LITERAL' ||
+                                mb_strtoupper($content) === 'LITERAL' ||
                                 $is_literal === true
                             ){
                                 $is_literal = true;
@@ -311,7 +311,7 @@ class Tag
                                 $record['is_literal_start'] = true;
                             }
                             elseif(
-                                strtoupper($content) === '/LITERAL' ||
+                                mb_strtoupper($content) === '/LITERAL' ||
                                 $is_literal === true
                             ){
                                 $is_literal = false;
@@ -343,7 +343,7 @@ class Tag
             $count = count($explode);
             $explode_tag = explode("\n", $tag);
             if($count > 1){
-                $length_start = strlen($explode[0]);
+                $length_start = mb_strlen($explode[0]);
                 $record = [
                     'text' => $text,
                     'is_multiline' => true,
@@ -353,7 +353,7 @@ class Tag
                     ],
                     'length' => [
                         'start' => $length_start,
-                        'end' => strlen($explode[$count - 1])
+                        'end' => mb_strlen($explode[$count - 1])
                     ],
                     'column' => [
                         ($line - $count + 1) => [
@@ -361,8 +361,8 @@ class Tag
                             'end' => $column[$line - $count + 1]
                         ],
                         $line => [
-                            'start' => $column[$line] - strlen($explode[$count - 1]) - strlen($explode_tag[0]),
-                            'end' => $column[$line] - strlen($explode_tag[0])
+                            'start' => $column[$line] - mb_strlen($explode[$count - 1]) - mb_strlen($explode_tag[0]),
+                            'end' => $column[$line] - mb_strlen($explode_tag[0])
                         ]
                     ]
                 ];
@@ -371,14 +371,14 @@ class Tag
                 }
                 $tag_list[$line - $count + 1][] = $record;
             } else {
-                $length_start = strlen($explode[0]);
+                $length_start = mb_strlen($explode[0]);
                 $record = [
                     'text' => $text,
                     'line' => $line,
                     'length' => $length_start,
                     'column' => [
-                        'start' => $column[$line] - $length_start - strlen($explode_tag[0]),
-                        'end' => $column[$line] - strlen($explode_tag[0])
+                        'start' => $column[$line] - $length_start - mb_strlen($explode_tag[0]),
+                        'end' => $column[$line] - mb_strlen($explode_tag[0])
                     ]
                 ];
                 if(empty($tag_list[$line])){
@@ -450,7 +450,7 @@ class Tag
                     $method_name = $method['name'];
                     foreach($block_functions as $block_function){
                         $block_length = mb_strlen($block_function);
-                        if(substr($method_name, 0, $block_length) === $block_function){
+                        if(mb_substr($method_name, 0, $block_length) === $block_function){
                             if($is_block === false){
                                 $is_block = [
                                     $line => $nr

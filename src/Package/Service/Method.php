@@ -102,7 +102,7 @@ class Method
                     $is_method = false;
                 }
                 if($name && $has_name === false){
-                    if(substr($name, 0, 1) === ':'){
+                    if(mb_substr($name, 0, 1) === ':'){
                         //modifier with argument set
                         $name = '';
                         $is_method = false;
