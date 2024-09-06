@@ -101,6 +101,7 @@ class Build
                 if($method){
                     $data[] = $method;
                 }
+                d($record);
             }
         }
         return $data;
