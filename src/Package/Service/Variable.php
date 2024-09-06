@@ -600,7 +600,12 @@ class Variable
                     ){
                         $argument_nr++;
                     } else {
-                        ddd($argument);
+                        if(!array_key_exists($argument_nr, $argument_array)){
+                            $argument_array[$argument_nr] = [];
+                            $argument[$argument_nr] = '';
+                        }
+                        $argument[$argument_nr] .= $current;
+                        $argument_array[$argument_nr][] = $char;
                     }
                 } else {
                     if(!array_key_exists($argument_nr, $argument_array)){
