@@ -241,7 +241,7 @@ class Build
                     )
                 ){
                     $next_line_indent++;
-                    d($nr);
+                    d($line_nr);
                 }
                 elseif(
                     $is_single_quote === false &&
@@ -256,7 +256,7 @@ class Build
                     )
                 ){
                     $next_line_indent--;
-                    d($nr);
+                    d($line_nr);
                 }
                 elseif(
                     $is_single_quote === false &&
