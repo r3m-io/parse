@@ -566,9 +566,7 @@ class Build
                 $data[] = '}';
             } else {
                 $data[] = 'if(' . $variable_uuid .' === null){';
-                $indent++;
                 $data[] = '    throw new Exception(\'Null-pointer exception: "$' . $variable_name . '" on line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '. You can use modifier "default" to surpress it \');';
-                $indent--;
                 $data[] = '}';
             }
             $data[] = 'if(!is_scalar('. $variable_uuid. ')){';
