@@ -244,6 +244,7 @@ class Build
             array_key_exists('text', $record) &&
             $record['text'] !== ''
         ){
+            /*
             if(
                 array_key_exists('is_multiline', $record) &&
                 $record['is_multiline'] === true
@@ -254,6 +255,7 @@ class Build
                     $record['text'] = $text[1];
                 }
             }
+            */
             $text = explode("\n", $record['text']);
             $result = [];
             foreach($text as $nr => $line) {
