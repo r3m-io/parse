@@ -91,7 +91,6 @@ class Build
                     if($next !== false){
                         $tags[$row_nr][$nr + 1] = Build::variable_assign_next($object, $flags, $options, $record, $next);
                         $list[$nr + 1] = $tags[$row_nr][$nr + 1];
-                        d($nr);
                     } else {
                         $variable_assign_next_tag = true;
                     }
@@ -305,6 +304,52 @@ class Build
             array_key_exists('is_multiline', $next) &&
             $next['is_multiline'] === true
         ){
+            $data = mb_str_split($next['text']);
+            $is_single_quote = false;
+            $is_double_quote = false;
+            $is_found = false;
+            $test = '';
+            foreach($data as $nr => $char){
+                if(
+                    $char === '\'' &&
+                    $is_double_quote === false &&
+                    $is_single_quote === false
+                ){
+                    $is_single_quote = true;
+                }
+                elseif(
+                    $char === '\'' &&
+                    $is_double_quote === false &&
+                    $is_single_quote === true
+                ){
+                    $is_single_quote = false;
+                }
+                elseif(
+                    $char === '"' &&
+                    $is_double_quote === false &&
+                    $is_single_quote === false
+                ){
+                    $is_double_quote = true;
+                }
+                elseif(
+                    $char === '"' &&
+                    $is_double_quote === true &&
+                    $is_single_quote === false
+                ){
+                    $is_double_quote = false;
+                }
+                if(
+                    $char === "\n" &&
+                    $is_single_quote === false &&
+                    $is_double_quote === false
+                ){
+                    $is_found = true;
+                    ddd($test);
+                }
+                $test .= $char;
+            }
+
+
             $text = explode("\n", $next['text'], 2);
             $test = trim($text[0]);
             if($test === ''){
