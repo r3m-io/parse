@@ -188,11 +188,11 @@ class Build
     public static function format(App $object, $flags, $options, $document=[], $data=[], $indent=2): array
     {
         foreach($data as $line_nr => $line){
-            $line = mb_str_split($line);
+            $line_array = mb_str_split($line);
             $is_single_quote = false;
             $is_double_quote = false;
-            foreach($line as $column_nr => $char){
-                $previous = $line[$column_nr - 1] ?? null;
+            foreach($line_array as $column_nr => $char){
+                $previous = $line_array[$column_nr - 1] ?? null;
                 if(
                     $previous !== '\\' &&
                     $char === '\'' &&
