@@ -307,7 +307,6 @@ class Build
             $data = mb_str_split($next['text']);
             $is_single_quote = false;
             $is_double_quote = false;
-            $is_found = false;
             $test = '';
             foreach($data as $nr => $char){
                 if(
@@ -343,12 +342,11 @@ class Build
                     $is_single_quote === false &&
                     $is_double_quote === false
                 ){
-                    $is_found = true;
                     $test = trim($test);
                     if($test === ''){
                         $next['text'] = substr($next['text'], $nr + 1);
-                        break;
                     }
+                    break;
                 }
                 $test .= $char;
             }
