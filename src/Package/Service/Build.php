@@ -272,6 +272,7 @@ class Build
             }
             if($list){
                 $document[] = str_repeat(' ', $indent * 4) . $list;
+                $indent = $next_line_indent;
             }
         }
         return $document;
