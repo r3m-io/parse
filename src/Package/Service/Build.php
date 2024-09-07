@@ -115,7 +115,10 @@ class Build
                 if($method){
                     $data[] = $method;
                 }
-                d($record);
+                if($record['is_close']){
+                    //need to count them by name
+                    $data[] = '}';
+                }
             }
         }
         return $data;
