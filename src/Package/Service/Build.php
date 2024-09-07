@@ -205,7 +205,7 @@ class Build
                     ']',
                     ')'
                 ]
-            ]
+            ],
         ];
 
         $code = $build->format_code($data, $format_options);

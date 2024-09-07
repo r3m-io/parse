@@ -15,6 +15,7 @@ trait Format_code {
     protected function format_code(array $data, object $options): array
     {
         $options->indent_minimum = $options->indent;
+        $options->parentheses = $options->parentheses ?? true;
         $document = [];
         foreach($data as $line_nr => $line){
             $line_array = mb_str_split($line);
@@ -66,6 +67,31 @@ trait Format_code {
                         $char,
                         $options->tag->open,
                         true
+                    )
+                ){
+                    $next_line_indent++;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        $options->tag->close,
+                        true
+                    )
+                ){
+                    $next_line_indent--;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $options->parentheses === true &&
+                    in_array(
+                        $char,
+                        [
+                            '('
+                        ],
+                        true
                     ) &&
                     in_array(
                         $next,
@@ -81,17 +107,18 @@ trait Format_code {
                     )
                 ){
                     $next_line_indent++;
-                    if($char === '(') {
-                        $parentheses_open++;
-                    }
+                    $parentheses_open++;
                 }
                 elseif(
                     $is_single_quote === false &&
                     $is_double_quote === false &&
+                    $options->parentheses === true &&
                     $parentheses_open > 0 &&
                     in_array(
                         $char,
-                        $options->tag->close,
+                        [
+                            ')'
+                        ],
                         true
                     ) &&
                     in_array(
@@ -109,40 +136,7 @@ trait Format_code {
                     )
                 ){
                     $next_line_indent--;
-                    if($char === ')'){
-                        $parentheses_open--;
-                    }
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        $options->tag->open,
-                        true
-                    ) &&
-                    !in_array(
-                        $next,
-                        [
-                            '\'',
-                            '"',
-                            '$'
-                        ],
-                        true
-                    )
-                ){
-                    $next_line_indent++;
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        $options->tag->close,
-                        true
-                    )
-                ){
-                    $next_line_indent--;
+                    $parentheses_open--;
                 }
                 elseif(
                     $is_single_quote === false &&
