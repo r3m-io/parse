@@ -1194,7 +1194,6 @@ class Build
             ){
                 $array_value = Build::value($object, $flags, $options, $tag, $record);
                 $data = Build::string_array($array_value);
-                d($data);
                 foreach($data as $nr => $line){
                     $char = trim($line);
                     if($char === '['){
