@@ -285,22 +285,11 @@ class Build
             array_key_exists('text', $record) &&
             $record['text'] !== ''
         ){
-            /* wrong
-            if(
-                array_key_exists('is_multiline', $record) &&
-                $record['is_multiline'] === true
-            ){
-                $text = explode("\n", $record['text'], 2);
-                $test = trim($text[0]);
-                if($test === ''){
-                    $record['text'] = $text[1];
-                }
-            }
-            */
             $is_single_quote = false;
             $is_double_quote = false;
             $data = mb_str_split($record['text']);
             $line = '';
+            $result = [];
             foreach($data as $nr => $char){
                 $previous = $data[$nr] ?? null;
                 if(
@@ -351,18 +340,6 @@ class Build
                         )
                     ){
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                    }
-                    elseif(
-                        in_array(
-                            $line,
-                            [
-                                '',
-                                "\r",
-                            ],
-                            true
-                        )
-                    ){
-                        $result[] = '';
                     }
                     $line = '';
                 }
