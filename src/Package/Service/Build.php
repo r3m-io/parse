@@ -355,7 +355,9 @@ class Build
                     }
                     $line = '';
                 }
-                $line .= $char;
+                if($variable_assign_next_tag === false){
+                    $line .= $char;
+                }
             }
             if($line !== ''){
                 if(
