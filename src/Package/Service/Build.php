@@ -210,7 +210,7 @@ class Build
                     ']',
                 ]
             ],
-            'parentheses' => false
+            'parentheses' => true
         ];
         $code = $build->format_code($data, $format_options);
         foreach($code as $nr => $line){
