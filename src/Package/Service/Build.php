@@ -389,6 +389,7 @@ class Build
                     )
                 ){
                     d($line);
+                    d($variable_assign_next_tag);
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
             }
