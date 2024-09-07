@@ -206,10 +206,10 @@ class Build
             ]
         ];
 
-        $array = $build->format_code($data, $format_options);
-        d($document);
-        ddd($array);
-
+        $code = $build->format_code($data, $format_options);
+        foreach($code as $nr => $line){
+            $document[] = $line;
+        }
         return $document;
     }
 
