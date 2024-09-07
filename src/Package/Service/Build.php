@@ -297,7 +297,8 @@ class Build
                 }
             }
             */
-            d($record['text']);
+            d($variable_assign_next_tag);
+            d($record);
             $text = explode("\n", $record['text']);
             $result = [];
             $indent = 2;
