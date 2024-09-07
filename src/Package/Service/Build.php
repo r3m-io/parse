@@ -116,7 +116,7 @@ class Build
                     $data[] = $method;
                 }
                 if(
-                    array_key_exist('is_close', $record) &&
+                    array_key_exists('is_close', $record) &&
                     $record['is_close'] === true
                 ){
                     //need to count them by name
