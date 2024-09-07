@@ -340,18 +340,40 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
-                    ddd($line);
+                    if(
+                        !in_array(
+                            $line,
+                            [
+                                '',
+                                "\r",
+                            ],
+                            true
+                        )
+                    ){
+                        if($nr > 0){
+                            $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                        } else {
+                            $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                        }
+
+                    }
+                    elseif(
+                        in_array(
+                            $line,
+                            [
+                                '',
+                                "\r",
+                            ],
+                            true
+                        )
+                    ){
+                        $result[] = '';
+                    }
+                    $line = '';
                 }
                 $line .= $char;
             }
-
-
-            d($variable_assign_next_tag);
-            d($record);
-            $text = explode("\n", $record['text']);
-            $result = [];
-            $indent = 2;
-            foreach($text as $nr => $line) {
+            if($line !== ''){
                 if(
                     !in_array(
                         $line,
@@ -359,7 +381,7 @@ class Build
                             '',
                             "\r",
                         ],
-                    true
+                        true
                     )
                 ){
                     if($nr > 0){
