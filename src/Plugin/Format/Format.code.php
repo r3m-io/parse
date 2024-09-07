@@ -16,7 +16,6 @@ trait Format_code {
     {
         $options->indent_minimum = $options->indent;
         $document = [];
-        ddd($options);
         foreach($data as $line_nr => $line){
             $line_array = mb_str_split($line);
             $is_single_quote = false;
