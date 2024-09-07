@@ -329,6 +329,7 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
+                    d($variable_assign_next_tag);
                     if(
                         !in_array(
                             $line,
