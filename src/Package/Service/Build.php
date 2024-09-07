@@ -285,6 +285,7 @@ class Build
             array_key_exists('text', $record) &&
             $record['text'] !== ''
         ){
+            d($record);
             $is_single_quote = false;
             $is_double_quote = false;
             $data = mb_str_split($record['text']);
@@ -329,7 +330,6 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
-                    d($variable_assign_next_tag);
                     if(
                         !in_array(
                             $line,
@@ -338,8 +338,7 @@ class Build
                                 "\r",
                             ],
                             true
-                        ) &&
-                        $variable_assign_next_tag === false
+                        )
                     ){
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                     }
@@ -357,8 +356,7 @@ class Build
                             "\r",
                         ],
                         true
-                    ) &&
-                    $variable_assign_next_tag === false
+                    )
                 ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
