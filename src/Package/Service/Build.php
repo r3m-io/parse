@@ -344,6 +344,7 @@ class Build
                         )
                     ){
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                        d('yes');
                     }
                     $line = '';
                     continue;
