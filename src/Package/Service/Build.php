@@ -115,6 +115,7 @@ class Build
                 if($method){
                     $data[] = $method;
                 }
+                d($record);
                 if(
                     array_key_exists('is_close', $record) &&
                     $record['is_close'] === true
