@@ -121,6 +121,8 @@ class Build
                     if($next !== false){
                         $variable_assign_next_tag = true;
                         d($method);
+                    } else {
+                        d($method);
                     }
                 }
                 if(
