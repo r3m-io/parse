@@ -207,6 +207,7 @@ class Build
         ];
 
         $array = $build->format_code($data, $format_options);
+        d($document);
         ddd($array);
 
         return $document;
