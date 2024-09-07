@@ -307,7 +307,7 @@ class Build
             $line = '';
             $result = [];
             foreach($data as $nr => $char){
-                $previous = $data[$nr] ?? null;
+                $previous = $data[$nr - 1] ?? null;
                 if(
                     $is_single_quote === false &&
                     $is_double_quote === false &&
