@@ -117,8 +117,9 @@ class Build
                 }
                 d($record);
                 if(
-                    array_key_exists('is_close', $record) &&
-                    $record['is_close'] === true
+                    array_key_exists('marker', $record) &&
+                    array_key_exists('is_close', $record['marker']) &&
+                    $record['marker']['is_close'] === true
                 ){
                     d($data);
                     ddd('yes');
