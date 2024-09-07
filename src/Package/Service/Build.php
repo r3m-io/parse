@@ -358,18 +358,6 @@ class Build
                 ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
-                elseif(
-                    in_array(
-                        $line,
-                        [
-                            '',
-                            "\r",
-                        ],
-                        true
-                    )
-                ){
-                    $result[] = '';
-                }
             }
             if(array_key_exists(1, $result)){
                 return implode('echo "\n";' . PHP_EOL, $result);
