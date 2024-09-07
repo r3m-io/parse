@@ -331,6 +331,8 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
+                    d($line);
+                    d($variable_assign_next_tag);
                     if(
                         !in_array(
                             $line,
@@ -348,19 +350,17 @@ class Build
                 }
                 $line .= $char;
             }
-            if($line !== ''){
-                if(
-                    !in_array(
-                        $line,
-                        [
-                            '',
-                            "\r",
-                        ],
-                        true
-                    )
-                ){
-                    $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                }
+            if(
+                !in_array(
+                    $line,
+                    [
+                        '',
+                        "\r",
+                    ],
+                    true
+                )
+            ){
+                $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
             }
             if(array_key_exists(1, $result)){
                 return implode('echo "\n";' . PHP_EOL, $result);
