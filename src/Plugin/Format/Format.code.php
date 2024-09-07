@@ -59,30 +59,6 @@ trait Format_code {
                 ){
                     $is_double_quote = false;
                 }
-                /*
-                if(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        $options->tag->open,
-                        true
-                    )
-                ){
-                    $next_line_indent++;
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        $options->tag->close,
-                        true
-                    )
-                ){
-                    $next_line_indent--;
-                }
-                */
                 if(
                     $is_single_quote === false &&
                     $is_double_quote === false &&
@@ -132,6 +108,28 @@ trait Format_code {
                 ){
                     $next_line_indent--;
                     $parentheses_open--;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        $options->tag->open,
+                        true
+                    )
+                ){
+                    $next_line_indent++;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        $options->tag->close,
+                        true
+                    )
+                ){
+                    $next_line_indent--;
                 }
                 elseif(
                     $is_single_quote === false &&
