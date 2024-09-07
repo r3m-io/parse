@@ -383,7 +383,6 @@ class Value
         $array = [];
         $array_nr = false;
         $array_string = '';
-        d($input);
         foreach($input['array'] as $nr => $char){
             if(!is_numeric($nr)){
                 // ',' in modifier causes this
