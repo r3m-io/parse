@@ -358,6 +358,15 @@ class Build
                 if($variable_assign_next_tag === false){
                     $line .= $char;
                 }
+                elseif(
+                    $variable_assign_next_tag === true &&
+                    $char === "\n"
+                ){
+                    $variable_assign_next_tag = false;
+                }
+                elseif($variable_assign_next_tag === true){
+                    $line .= $char;
+                }
             }
             if($line !== ''){
                 if(
