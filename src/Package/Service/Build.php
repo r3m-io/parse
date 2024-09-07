@@ -297,6 +297,7 @@ class Build
                 }
             }
             */
+            d($record['text']);
             $text = explode("\n", $record['text']);
             $result = [];
             $indent = 2;
