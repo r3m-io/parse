@@ -343,12 +343,10 @@ class Build
                             )
                         ){
                             $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                            d('yes');
                         }
                     } else {
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                     }
-
                     $line = '';
                     continue;
                 }
