@@ -126,6 +126,10 @@ class Build
                 ){
                     //need to count them by name
                     $data[] = '}';
+                    $next = $list[$nr + 1] ?? false;
+                    if($next !== false){
+                        $variable_assign_next_tag = true;
+                    }
                 }
             }
         }
