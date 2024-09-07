@@ -14,8 +14,7 @@ trait Plugin_echo {
 
     protected function plugin_echo($value): void
     {
-        d($value);
-        echo $value;
+        echo (string) $value;
     }
 
 }
