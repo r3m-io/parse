@@ -84,6 +84,7 @@ class Build
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
                 if($text){
+                    d($text);
                     //cannot explode on PHP_EOL, it can exist in ""
                     $data[] = $text;
                     /*
