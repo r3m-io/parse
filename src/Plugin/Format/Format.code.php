@@ -81,7 +81,9 @@ trait Format_code {
                     )
                 ){
                     $next_line_indent++;
-                    $parentheses_open++;
+                    if($char === '(') {
+                        $parentheses_open++;
+                    }
                 }
                 elseif(
                     $is_single_quote === false &&
@@ -107,7 +109,9 @@ trait Format_code {
                     )
                 ){
                     $next_line_indent--;
-                    $parentheses_open--;
+                    if($char === ')'){
+                        $parentheses_open--;
+                    }
                 }
                 elseif(
                     $is_single_quote === false &&
