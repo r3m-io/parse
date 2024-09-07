@@ -7,12 +7,15 @@ use R3m\Io\Module\Autoload;
 use R3m\Io\Module\Core;
 use R3m\Io\Module\File;
 
+use Plugin;
 use Exception;
 
 use R3m\Io\Exception\LocateException;
 
 class Build
 {
+    use Plugin\Format_code;
+
     /**
      * @throws Exception
      * @throws LocateException
@@ -187,163 +190,25 @@ class Build
 
     public static function format(App $object, $flags, $options, $document=[], $data=[], $indent=2): array
     {
-        foreach($data as $line_nr => $line){
-            $line_array = mb_str_split($line);
-            $is_single_quote = false;
-            $is_double_quote = false;
-            $list = '';
-            $list_nr = 0;
-            $next_line_indent = $indent;
-            $parentheses_open = 0;
-            foreach($line_array as $column_nr => $char){
-                $previous = $line_array[$column_nr - 1] ?? null;
-                $next = $line_array[$column_nr + 1] ?? null;
-                if(
-                    $previous !== '\\' &&
-                    $char === '\'' &&
-                    $is_double_quote === false &&
-                    $is_single_quote === false
-                ){
-                    $is_single_quote = true;
-                }
-                elseif(
-                    $previous !== '\\' &&
-                    $char === '\'' &&
-                    $is_double_quote === false &&
-                    $is_single_quote === true
-                ){
-                    $is_single_quote = false;
-                }
-                elseif(
-                    $previous !== '\\' &&
-                    $char === '"' &&
-                    $is_double_quote === false &&
-                    $is_single_quote === false
-                ){
-                    $is_double_quote = true;
-                }
-                elseif(
-                    $previous !== '\\' &&
-                    $char === '"' &&
-                    $is_double_quote === true &&
-                    $is_single_quote === false
-                ){
-                    $is_double_quote = false;
-                }
-                if(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        [
-                            '{',
-                            '[',
-                        ],
-                        true
-                    )
-                ){
-                    $next_line_indent++;
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        [
-                            '}',
-                            ']'
-                        ],
-                        true
-                    )
-                ){
-                    $next_line_indent--;
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        [
-                            '(',
-                        ],
-                        true
-                    ) &&
-                    in_array(
-                        $next,
-                        [
-                            "\n",
-                            '(',
-                            ' ',
-//                            '\'',     //same line
-//                            '"',      //same line
-//                            '$'       //same line
-                        ],
-                        true
-                    )
-                ){
-                    $next_line_indent++;
-                    $parentheses_open++;
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    $parentheses_open > 0 &&
-                    in_array(
-                        $char,
-                        [
-                            ')',
-                        ],
-                        true
-                    ) &&
-                    in_array(
-                        $next,
-                        [
-                            "\n",
-                            ';',
-                            ')',
-                            ' ',
-                            '\'',
-                            '"',
-                            '$'
-                        ],
-                        true
-                    )
-                ){
-                    $next_line_indent--;
-                    $parentheses_open--;
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
-                    $char === "\n"
-                ){
-                    if($indent < 0){
-                        $indent = 0;
-                    }
-                    if(substr($list, 0, 1) === '}'){
-                        $document[] = str_repeat(' ', ($indent - 1) * 4) . $list;
-                    } else {
-                        $document[] = str_repeat(' ', $indent * 4) . $list;
-                    }
+        $build = new Build();
 
-                    $indent = $next_line_indent;
-                    $list = '';
-                    continue;
-                }
-                $list .= $char;
-            }
-            if($list){
-                if($indent < 0){
-                    $indent = 0;
-                }
-                if(substr($list, 0, 1) === '}'){
-                    $document[] = str_repeat(' ', ($indent - 1) * 4) . $list;
-                } else {
-                    $document[] = str_repeat(' ', $indent * 4) . $list;
-                }
-                $indent = $next_line_indent;
-            }
-        }
+        $format_options = (object) [
+            'indent' => $indent,
+            'tag' => (object) [
+                'open' => [
+                    '{',
+                    '['
+                ],
+                'close' => [
+                    '}',
+                    ']'
+                ]
+            ]
+        ];
+
+        $array = $build->format_code($data, $format_options);
+        ddd($aray);
+
         return $document;
     }
 
