@@ -115,7 +115,6 @@ class Build
                 if($method){
                     $data[] = $method;
                 }
-                d($record);
                 if(
                     array_key_exists('marker', $record) &&
                     array_key_exists('is_close', $record['marker']) &&
