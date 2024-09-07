@@ -84,7 +84,6 @@ class Build
             foreach($list as $nr => &$record){
                 $text = Build::text($object, $flags, $options, $record, $variable_assign_next_tag);
                 if($text){
-                    d($text);
                     //cannot explode on PHP_EOL, it can exist in ""
                     $data[] = $text;
                     /*
@@ -97,7 +96,6 @@ class Build
                 $variable_assign_next_tag = false; //Build::text is taking care of this
                 $variable_assign = Build::variable_assign($object, $flags, $options, $record);
                 if($variable_assign){
-                    d($variable_assign);
                     $data[] = $variable_assign;
                     $next = $list[$nr + 1] ?? false;
                     if($next !== false){
@@ -109,7 +107,6 @@ class Build
                 }
                 $variable_define = Build::variable_define($object, $flags, $options, $record);
                 if($variable_define){
-                    d($variable_define);
                     foreach($variable_define as $variable_define_nr => $line){
                         $data[] = $line;
                     }
@@ -117,16 +114,7 @@ class Build
                 $method = Build::method($object, $flags, $options, $record);
                 if($method){
                     $data[] = $method;
-//                    $next = $list[$nr + 1] ?? false;
                     $variable_assign_next_tag = true;
-                    /*
-                    if($next !== false){
-
-                        d($method);
-                    } else {
-                        d($method);
-                    }
-                    */
                 }
                 if(
                     array_key_exists('marker', $record) &&
@@ -135,10 +123,7 @@ class Build
                 ){
                     //need to count them by name
                     $data[] = '}';
-                    $next = $list[$nr + 1] ?? false;
-                    if($next !== false){
-                        $variable_assign_next_tag = true;
-                    }
+                    $variable_assign_next_tag = true;
                 }
             }
         }
