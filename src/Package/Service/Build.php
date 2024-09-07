@@ -242,7 +242,6 @@ class Build
                     )
                 ){
                     $next_line_indent++;
-                    d($line_nr);
                 }
                 elseif(
                     $is_single_quote === false &&
@@ -257,7 +256,6 @@ class Build
                     )
                 ){
                     $next_line_indent--;
-                    d($line_nr);
                 }
                 elseif(
                     $is_single_quote === false &&
@@ -287,6 +285,28 @@ class Build
                     in_array(
                         $char,
                         [
+                            '(',
+                        ],
+                        true
+                    ) &&
+                    !in_array(
+                        $next,
+                        [
+                            "\n",
+                            '(',
+                            ' '
+                        ],
+                        true
+                    )
+                ){
+                    d($list);
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        [
                             ')',
                         ],
                         true
@@ -309,6 +329,9 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
+                    if($indent < 0){
+                        $indent = 0;
+                    }
                     if(substr($list, 0, 1) === '}'){
                         $document[] = str_repeat(' ', ($indent - 1) * 4) . $list;
                     } else {
@@ -322,6 +345,9 @@ class Build
                 $list .= $char;
             }
             if($list){
+                if($indent < 0){
+                    $indent = 0;
+                }
                 if(substr($list, 0, 1) === '}'){
                     $document[] = str_repeat(' ', ($indent - 1) * 4) . $list;
                 } else {
