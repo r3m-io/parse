@@ -114,6 +114,10 @@ class Build
                 $method = Build::method($object, $flags, $options, $record);
                 if($method){
                     $data[] = $method;
+                    $next = $list[$nr + 1] ?? false;
+                    if($next !== false){
+                        $variable_assign_next_tag = true;
+                    }
                 }
                 if(
                     array_key_exists('marker', $record) &&
