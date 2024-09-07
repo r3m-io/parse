@@ -388,7 +388,7 @@ class Build
                         true
                     )
                 ){
-                    d($line);
+                    d(ord($line));
                     d($variable_assign_next_tag);
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
