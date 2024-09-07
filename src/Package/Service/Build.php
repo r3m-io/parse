@@ -342,6 +342,7 @@ class Build
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                     }
                     $line = '';
+                    continue;
                 }
                 $line .= $char;
             }
