@@ -117,13 +117,16 @@ class Build
                 $method = Build::method($object, $flags, $options, $record);
                 if($method){
                     $data[] = $method;
-                    $next = $list[$nr + 1] ?? false;
+//                    $next = $list[$nr + 1] ?? false;
+                    $variable_assign_next_tag = true;
+                    /*
                     if($next !== false){
-                        $variable_assign_next_tag = true;
+
                         d($method);
                     } else {
                         d($method);
                     }
+                    */
                 }
                 if(
                     array_key_exists('marker', $record) &&
