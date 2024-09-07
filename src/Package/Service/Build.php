@@ -297,6 +297,55 @@ class Build
                 }
             }
             */
+            $is_single_quote = false;
+            $is_double_quote = false;
+            $data = mb_str_split($record['text']);
+            $line = '';
+            foreach($data as $nr => $char){
+                $previous = $data[$nr] ?? null;
+                if(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $char === '\'' &&
+                    $previous !== '\\'
+                ){
+                    $is_single_quote = true;
+                }
+                elseif(
+                    $is_single_quote === true &&
+                    $is_double_quote === false &&
+                    $char === '\'' &&
+                    $previous !== '\\'
+                ){
+                    $is_single_quote = false;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $char === '"' &&
+                    $previous !== '\\'
+                ){
+                    $is_double_quote = true;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === true &&
+                    $char === '"' &&
+                    $previous !== '\\'
+                ){
+                    $is_double_quote = false;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $char === "\n"
+                ){
+                    ddd($line);
+                }
+                $line .= $char;
+            }
+
+
             d($variable_assign_next_tag);
             d($record);
             $text = explode("\n", $record['text']);
