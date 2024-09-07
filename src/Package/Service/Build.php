@@ -332,7 +332,7 @@ class Build
                     $char === "\n"
                 ){
                     if($variable_assign_next_tag === true){
-                        ddd($line);
+                        ddd(ord($line));
                     }
 
 
