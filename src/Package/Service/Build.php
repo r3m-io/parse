@@ -285,6 +285,7 @@ class Build
             array_key_exists('text', $record) &&
             $record['text'] !== ''
         ){
+            d($variable_assign_next_tag);
             d($record);
             $is_single_quote = false;
             $is_double_quote = false;
