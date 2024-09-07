@@ -116,6 +116,15 @@ trait Format_code {
                         $char,
                         $options->tag->open,
                         true
+                    ) &&
+                    !in_array(
+                        $next,
+                        [
+                            '\'',
+                            '"',
+                            '$'
+                        ],
+                        true
                     )
                 ){
                     $next_line_indent++;
