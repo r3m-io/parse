@@ -15,6 +15,13 @@ use R3m\Io\Exception\LocateException;
 class Build
 {
     use Plugin\Format_code;
+    use Plugin\Basic;
+
+    public function __construct(App $object, $flags, $options){
+        $this->object($object);
+        $this->flags($flags);
+        $this->options($options);
+    }
 
     /**
      * @throws Exception
@@ -142,6 +149,7 @@ class Build
 
     public static function document_run(App $object, $flags, $options, $document = [], $data = []): array
     {
+        $build = new Build($object, $flags, $options);
         $indent = $object->config('package.r3m_io/parse.build.state.indent');
         $document[] = str_repeat(' ', $indent * 4) . '/**';
         $document[] = str_repeat(' ', $indent * 4) . ' * @throws Exception';
@@ -181,17 +189,15 @@ class Build
         $document[] = str_repeat(' ', $indent * 4) . 'throw new Exception(\'$options is not an object\');';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
-        $document = Build::format($object, $flags, $options, $document, $data, $indent);
+        $document = Build::format($build, $document, $data, $indent);
         $document[] = str_repeat(' ', $indent * 4) . 'return ob_get_clean();';
         $indent--;
         $document[] = str_repeat(' ', $indent * 4) . '}';
         return $document;
     }
 
-    public static function format(App $object, $flags, $options, $document=[], $data=[], $indent=2): array
+    public static function format(Build $build, $document=[], $data=[], $indent=2): array
     {
-        $build = new Build();
-
         $format_options = (object) [
             'indent' => $indent,
             'tag' => (object) [
@@ -205,14 +211,12 @@ class Build
                 ]
             ],
         ];
-
         $code = $build->format_code($data, $format_options);
         foreach($code as $nr => $line){
             $document[] = $line;
         }
         return $document;
     }
-
 
     /**
      * @throws Exception
