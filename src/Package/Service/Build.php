@@ -119,6 +119,8 @@ class Build
                     array_key_exists('is_close', $record) &&
                     $record['is_close'] === true
                 ){
+                    d($data);
+                    ddd('yes');
                     //need to count them by name
                     $data[] = '}';
                 }
