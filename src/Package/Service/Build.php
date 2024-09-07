@@ -384,12 +384,7 @@ class Build
                         true
                     )
                 ){
-                    if($nr > 0){
-                        $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                    } else {
-                        $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                    }
-
+                    $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
                 elseif(
                     in_array(
