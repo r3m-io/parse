@@ -196,6 +196,7 @@ class Build
             $next_line_indent = $indent;
             foreach($line_array as $column_nr => $char){
                 $previous = $line_array[$column_nr - 1] ?? null;
+                $next = $line_array[$column_nr + 1] ?? null;
                 if(
                     $previous !== '\\' &&
                     $char === '\'' &&
@@ -257,6 +258,34 @@ class Build
                 ){
                     $next_line_indent--;
                     d($line_nr);
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        [
+                            '(',
+                        ],
+                        true
+                    ) &&
+                    $next === "\n"
+                ){
+                    $next_line_indent++;
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    in_array(
+                        $char,
+                        [
+                            ')',
+                        ],
+                        true
+                    ) &&
+                    $next === "\n"
+                ){
+                    $next_line_indent--;
                 }
                 elseif(
                     $is_single_quote === false &&
