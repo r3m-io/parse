@@ -274,9 +274,9 @@ class Build
                             "\n",
                             '(',
                             ' ',
-//                            '\'',
-//                            '"',
-//                            '$'
+//                            '\'',     //same line
+//                            '"',      //same line
+//                            '$'       //same line
                         ],
                         true
                     )
