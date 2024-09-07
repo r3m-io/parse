@@ -269,7 +269,15 @@ class Build
                         ],
                         true
                     ) &&
-                    $next === "\n"
+                    in_array(
+                        $next,
+                        [
+                            "\n",
+                            '(',
+                            ' '
+                        ],
+                        true
+                    )
                 ){
                     $next_line_indent++;
                 }
@@ -283,7 +291,16 @@ class Build
                         ],
                         true
                     ) &&
-                    $next === "\n"
+                    in_array(
+                        $next,
+                        [
+                            "\n",
+                            ';',
+                            ')',
+                            ' '
+                        ],
+                        true
+                    )
                 ){
                     $next_line_indent--;
                 }
