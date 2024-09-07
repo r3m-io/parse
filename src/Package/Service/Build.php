@@ -285,8 +285,18 @@ class Build
             array_key_exists('text', $record) &&
             $record['text'] !== ''
         ){
-//            d($variable_assign_next_tag);
-//            d($record);
+            /* wrong
+            if(
+                array_key_exists('is_multiline', $record) &&
+                $record['is_multiline'] === true
+            ){
+                $text = explode("\n", $record['text'], 2);
+                $test = trim($text[0]);
+                if($test === ''){
+                    $record['text'] = $text[1];
+                }
+            }
+            */
             $is_single_quote = false;
             $is_double_quote = false;
             $data = mb_str_split($record['text']);
@@ -331,38 +341,35 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
-                    if($variable_assign_next_tag === true){
-                        if(
-                            !in_array(
-                                $line,
-                                [
-                                    '',
-                                    "\r",
-                                ],
-                                true
-                            )
-                        ){
-                            $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                        }
-                    } else {
+                    if(
+                        !in_array(
+                            $line,
+                            [
+                                '',
+                                "\r",
+                            ],
+                            true
+                        )
+                    ){
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                     }
                     $line = '';
-                    continue;
                 }
                 $line .= $char;
             }
-            if(
-                !in_array(
-                    $line,
-                    [
-                        '',
-                        "\r",
-                    ],
-                    true
-                )
-            ){
-                $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+            if($line !== ''){
+                if(
+                    !in_array(
+                        $line,
+                        [
+                            '',
+                            "\r",
+                        ],
+                        true
+                    )
+                ){
+                    $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                }
             }
             if(array_key_exists(1, $result)){
                 return implode('echo "\n";' . PHP_EOL, $result);

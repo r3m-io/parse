@@ -14,7 +14,6 @@ trait Dd {
 
     public function dd($value): void
     {
-        echo ob_get_clean();
         dd($value);
     }
 
