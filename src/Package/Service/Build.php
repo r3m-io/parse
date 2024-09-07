@@ -332,23 +332,23 @@ class Build
                     $char === "\n"
                 ){
                     if($variable_assign_next_tag === true){
-                        ddd(ord($line));
-                    }
-
-
-                    if(
-                        !in_array(
-                            $line,
-                            [
-                                '',
-                                "\r",
-                            ],
-                            true
-                        )
-                    ){
+                        if(
+                            !in_array(
+                                $line,
+                                [
+                                    '',
+                                    "\r",
+                                ],
+                                true
+                            )
+                        ){
+                            $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                            d('yes');
+                        }
+                    } else {
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                        d('yes');
                     }
+
                     $line = '';
                     continue;
                 }
