@@ -331,8 +331,11 @@ class Build
                     $is_double_quote === false &&
                     $char === "\n"
                 ){
-                    d($line);
-                    d($variable_assign_next_tag);
+                    if($variable_assign_next_tag === true){
+                        ddd($line);
+                    }
+
+
                     if(
                         !in_array(
                             $line,
