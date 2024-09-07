@@ -338,7 +338,8 @@ class Build
                                 "\r",
                             ],
                             true
-                        )
+                        ) &&
+                        $variable_assign_next_tag === false
                     ){
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                     }
@@ -356,7 +357,8 @@ class Build
                             "\r",
                         ],
                         true
-                    )
+                    ) &&
+                    $variable_assign_next_tag === false
                 ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
