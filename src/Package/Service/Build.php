@@ -359,6 +359,7 @@ class Build
                             true
                         )
                     ){
+                        d($line);
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                     }
                     $line = '';
@@ -387,6 +388,7 @@ class Build
                         true
                     )
                 ){
+                    d($line);
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
             }
