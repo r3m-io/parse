@@ -194,6 +194,7 @@ class Build
             $list = '';
             $list_nr = 0;
             $next_line_indent = $indent;
+            $parenthese_open = 0;
             foreach($line_array as $column_nr => $char){
                 $previous = $line_array[$column_nr - 1] ?? null;
                 $next = $line_array[$column_nr + 1] ?? null;
@@ -272,38 +273,20 @@ class Build
                         [
                             "\n",
                             '(',
-                            ' '
+                            ' ',
+                            '\'',
+                            '"',
                         ],
                         true
                     )
                 ){
                     $next_line_indent++;
+                    $parenthese_open++;
                 }
                 elseif(
                     $is_single_quote === false &&
                     $is_double_quote === false &&
-                    in_array(
-                        $char,
-                        [
-                            '(',
-                        ],
-                        true
-                    ) &&
-                    !in_array(
-                        $next,
-                        [
-                            "\n",
-                            '(',
-                            ' '
-                        ],
-                        true
-                    )
-                ){
-                    d($list);
-                }
-                elseif(
-                    $is_single_quote === false &&
-                    $is_double_quote === false &&
+                    $parenthese_open > 0 &&
                     in_array(
                         $char,
                         [
@@ -323,6 +306,7 @@ class Build
                     )
                 ){
                     $next_line_indent--;
+                    $parenthese_open--;
                 }
                 elseif(
                     $is_single_quote === false &&
