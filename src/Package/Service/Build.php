@@ -834,9 +834,9 @@ class Build
                     array_key_exists('is_multiline', $record) &&
                     $record['is_multiline'] === true
                 ){
-                    $data[] = 'throw new Exception(\'' . $record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '.' . '\', 0, $exception);';
+                    $data[] = 'throw new Exception(\'' . str_replace('\'', '\\\'', $record['tag']) . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '.' . '\', 0, $exception);';
                 } else {
-                    $data[] = 'throw new Exception(\'' . $record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.' . '\', 0, $exception);';
+                    $data[] = 'throw new Exception(\'' . str_replace('\'', '\\\'', $record['tag']) . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.' . '\', 0, $exception);';
                 }
                 $data[] = '}';
                 return implode(PHP_EOL, $data);
