@@ -370,6 +370,7 @@ class Build
                     $is_double_quote === false &&
                     $char === ' ' && $skip_space > 0
                 ){
+                    d($line);
                     d($skip_space);
                 }
                 elseif(
