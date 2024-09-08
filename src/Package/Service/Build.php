@@ -781,6 +781,8 @@ class Build
                         throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
                     }
                 }
+                $config = $object->config('package.r3m_io/parse');
+                ddd($config);
             break;
             default:
                 $method_value .= ');';
