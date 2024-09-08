@@ -380,6 +380,9 @@ class Build
                 ){
                     d($line);
                     $skip_space = 0;
+                    if($line !== ''){
+                        ddd($data);
+                    }
                 }
                 if($variable_assign_next_tag === false){
                     $line .= $char;
