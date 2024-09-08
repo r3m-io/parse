@@ -13,6 +13,10 @@ namespace Plugin;
 trait Plugin_constant {
 
     protected function plugin_constant($constant, $value=null){
-        define($constant, $value);
+        if($value === null){
+            return constant($constant);
+        } else {
+            define($constant, $value);
+        }
     }
 }
