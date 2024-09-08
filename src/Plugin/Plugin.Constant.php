@@ -12,7 +12,8 @@ namespace Plugin;
 
 trait Plugin_constant {
 
-    protected function plugin_constant($constant, $value=null){
+    protected function plugin_constant(string $constant, mixed $value=null){
+        $constant = strtoupper($constant);
         if($value === null){
             return constant($constant);
         } else {
