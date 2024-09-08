@@ -825,7 +825,21 @@ class Build
                         throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
                     }
                 }
-                ddd($method_value);
+                $data = [];
+                $data[] = 'try {';
+                $data[] = $method_value;
+                $data[] = '}';
+                $data[] = 'catch(Exception $exception){';
+                if(
+                    array_key_exists('is_multiline', $record) &&
+                    $record['is_multiline'] === true
+                ){
+                    $data[] = 'throw new Exception(' . $record['tag'] . PHP_EOL . 'On line: ' . $record['line']['start']  . ', column: ' . $record['column'][$record['line']['start']]['start'] . ' in source: '. $source . '.' . ', 0, $exception);';
+                } else {
+                    $data[] = 'throw new Exception(' . $record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.' . ', 0, $exception);';
+                }
+                $data[] = '}';
+                return implode(PHP_EOL, $data);
             break;
         }
         return $method_value;
