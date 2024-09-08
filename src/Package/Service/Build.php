@@ -378,6 +378,7 @@ class Build
                     $is_double_quote === false &&
                     $char !== ' '
                 ){
+                    d($line);
                     $skip_space = 0;
                 }
                 if($variable_assign_next_tag === false){
