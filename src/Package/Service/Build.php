@@ -360,8 +360,8 @@ class Build
                             true
                         )
                     ){
-                        d($line);
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                        $skip_space = $ltrim * 4;
                     }
                     $line = '';
                 }
@@ -404,6 +404,7 @@ class Build
                     )
                 ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
+                    $skip_space = $ltrim * 4;
                 }
             }
             if(array_key_exists(1, $result)){
