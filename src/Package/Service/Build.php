@@ -368,9 +368,16 @@ class Build
                 elseif(
                     $is_single_quote === false &&
                     $is_double_quote === false &&
-                    $char === ' '
+                    $char === ' ' && $skip_space > 0
                 ){
                     d($skip_space);
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $char !== ' '
+                ){
+                    $skip_space = 0;
                 }
                 if($variable_assign_next_tag === false){
                     $line .= $char;
