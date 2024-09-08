@@ -121,6 +121,11 @@ class Build
                     array_key_exists('is_close', $record['marker']) &&
                     $record['marker']['is_close'] === true
                 ){
+                    $ltrim = $object->config('package.r3m_io/parse.build.state.ltrim');
+                    if($ltrim > 0){
+                        $ltrim--;
+                        $object->config('package.r3m_io/parse.build.state.ltrim', $ltrim);
+                    }
                     //need to count them by name
                     $data[] = '}';
                     $variable_assign_next_tag = true;
@@ -280,6 +285,7 @@ class Build
     public static function text(App $object, $flags, $options, $record = [], $variable_assign_next_tag = false): bool | string
     {
         $is_echo = $object->config('package.r3m_io/parse.build.state.echo');
+        $ltrim = $object->config('package.r3m_io/parse.build.state.ltrim');
         if($is_echo !== true){
             return false;
         }
@@ -357,6 +363,14 @@ class Build
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                     }
                     $line = '';
+                }
+                elseif(
+                    $is_single_quote === false &&
+                    $is_double_quote === false &&
+                    $char === ' '
+                ){
+                    d($ltrim);
+                    $line .= $char;
                 }
                 if($variable_assign_next_tag === false){
                     $line .= $char;
@@ -781,8 +795,14 @@ class Build
                         throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
                     }
                 }
-                $config = $object->config('package.r3m_io/parse');
-                ddd($config);
+                //will remove whitespace at the beginning of the line type text with block functions
+                $ltrim = $object->config('package.r3m_io/parse.build.state.ltrim');
+                if(!$ltrim){
+                    $ltrim = 1;
+                } else {
+                    $ltrim++;
+                }
+                $object->config('package.r3m_io/parse.build.state.ltrim', $ltrim);
             break;
             default:
                 $method_value .= ');';
