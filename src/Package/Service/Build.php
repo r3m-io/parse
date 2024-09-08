@@ -361,9 +361,9 @@ class Build
                         )
                     ){
                         $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                        $skip_space = $ltrim * 4;
                     }
                     $line = '';
+                    $skip_space = $ltrim * 4;
                 }
                 elseif(
                     $is_single_quote === false &&
@@ -409,7 +409,6 @@ class Build
                     )
                 ){
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
-                    $skip_space = $ltrim * 4;
                 }
             }
             if(array_key_exists(1, $result)){
