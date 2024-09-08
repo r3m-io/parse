@@ -286,6 +286,7 @@ class Build
     {
         $is_echo = $object->config('package.r3m_io/parse.build.state.echo');
         $ltrim = $object->config('package.r3m_io/parse.build.state.ltrim');
+        $skip_space = $ltrim * 4;
         if($is_echo !== true){
             return false;
         }
@@ -369,8 +370,7 @@ class Build
                     $is_double_quote === false &&
                     $char === ' '
                 ){
-                    d($ltrim);
-                    $line .= $char;
+                    d($skip_space);
                 }
                 if($variable_assign_next_tag === false){
                     $line .= $char;
@@ -396,8 +396,6 @@ class Build
                         true
                     )
                 ){
-                    d(ord($line));
-                    d($variable_assign_next_tag);
                     $result[] = 'echo \'' . $line . '\';' . PHP_EOL;
                 }
             }
