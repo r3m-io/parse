@@ -825,6 +825,7 @@ class Build
                         throw new Exception($record['tag'] . PHP_EOL . 'On line: ' . $record['line']  . ', column: ' . $record['column']['start'] . ' in source: ' . $source . '.', 0, $exception);
                     }
                 }
+                ddd($method_value);
             break;
         }
         return $method_value;
